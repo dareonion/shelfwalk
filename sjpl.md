@@ -2,13 +2,13 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-08-23T07:34:09**. Don't hand-edit; run `uv run report.py --write`._
 
 
-**101** of **165** titles are in the catalog; **95** have at least one copy on a shelf right now. Titles link to the record in this catalog; unlabeled lines are the plain edition, labels mark the other versions we track (board book / audiobook / eBook / eAudiobook / translations).
+**101** of **165** titles are in the catalog; **94** have at least one copy on a shelf right now. Titles link to the record in this catalog; unlabeled lines are the plain edition, labels mark the other versions we track (board book / audiobook / eBook / eAudiobook / translations).
 
 
-## West Valley — 43 on the shelf
+## West Valley — 50 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -17,9 +17,12 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J CHI-ENG PICTURE BOOK Gomi` | [鱷魚怕怕．牙醫怕怕](https://sjpl.bibliocommons.com/v2/record/S156C5892977) |  |  |
 | `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C4632780) |  |  |
 | `J EASY READER Carle` | [The very quiet cricket](https://sjpl.bibliocommons.com/v2/record/S156C6148665) |  |  |
+| `J EASY READER Diesen` | [You can do it, Pout-Pout Fish!](https://sjpl.bibliocommons.com/v2/record/S156C5871163) |  | 210L |
+| `J EASY READER Eastman` | [Are you my mother?](https://sjpl.bibliocommons.com/v2/record/S156C2154030) |  | 80L |
 | `J EASY READER Eastman` | [Go, dog. Go!](https://sjpl.bibliocommons.com/v2/record/S156C2154053) |  |  |
 | `J EASY READER Regan` | [Mike delivers : the duck is stuck!](https://sjpl.bibliocommons.com/v2/record/S156C6273637) |  | Ages 4-6 |
 | `J EASY READER Seuss` | [Mr. Brown can moo! Can you?](https://sjpl.bibliocommons.com/v2/record/S156C5588686) |  |  |
+| `J HARDPAGE` | [Don't let the pigeon drive the bus](https://sjpl.bibliocommons.com/v2/record/S156C6762592) |  | 120L |
 | `J HARDPAGE` | [Grumpy monkey yuck!](https://sjpl.bibliocommons.com/v2/record/S156C6768248) |  | Ages 0-3 |
 | `J HARDPAGE` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C6768249) |  | 360L |
 | `J HARDPAGE` | [Knuffle Bunny : a cautionary tale](https://sjpl.bibliocommons.com/v2/record/S156C6688246) |  | Ages 2-5 |
@@ -29,16 +32,20 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J JPN HARDPAGE Rinker` | [Mighty, mighty construction site](https://sjpl.bibliocommons.com/v2/record/S156C6763894) | Japanese: “Ohayō hataraku kurumatachi : bōdo bukku” — translation of “Mighty, mighty construction site” | AD710L |
 | `J JPN PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C3093371) | Japanese: “Kaijūtachi no iru tokoro : Where the wild things are” — translation of “Where the wild things are” | Ages 4-8 |
 | `J PB EASY READER` | [Duck stays in the truck](https://sjpl.bibliocommons.com/v2/record/S156C6020915) |  | Ages 5-7 |
+| `J PB PICTURE BOOK` | [Bluey : the creek.](https://sjpl.bibliocommons.com/v2/record/S156C6274428) |  | AD500L |
 | `J PB PICTURE BOOK` | [Where's Spot?](https://sjpl.bibliocommons.com/v2/record/S156C3248913) |  | Ages 2-6 |
+| `J PICTURE BOOK Carle` | [The very hungry caterpillar](https://sjpl.bibliocommons.com/v2/record/S156C2945517) |  | Ages 2-5 |
 | `J PICTURE BOOK Cousins` | [Hooray for fish!](https://sjpl.bibliocommons.com/v2/record/S156C6632361) |  |  |
 | `J PICTURE BOOK Gravett` | [Orange pear apple bear](https://sjpl.bibliocommons.com/v2/record/S156C3251830) |  | Ages 2-4 |
 | `J PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C2595426) |  | 360L |
 | `J PICTURE BOOK Hills` | [Duck & Goose go to the beach](https://sjpl.bibliocommons.com/v2/record/S156C4701335) |  | Ages 3-7 |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | AD510L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
 | `J PICTURE BOOK Keats` | [The snowy day](https://sjpl.bibliocommons.com/v2/record/S156C1523415) |  | AD500L |
 | `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
+| `J PICTURE BOOK Lang` | [Grumpy monkey](https://sjpl.bibliocommons.com/v2/record/S156C5810325) |  | AD460L |
+| `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
 | `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
 | `J PICTURE BOOK Martin` | [Polar bear, polar bear, what do you hear?](https://sjpl.bibliocommons.com/v2/record/S156C1681071) |  | AD670L |
 | `J PICTURE BOOK McMullan` | [I stink!](https://sjpl.bibliocommons.com/v2/record/S156C1958490) |  |  |
@@ -82,7 +89,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Degen` | [Jamberry](https://sjpl.bibliocommons.com/v2/record/S156C1123306) |  | PreK |
 | `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | AD510L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | Ages 3-8 |
 | `J PICTURE BOOK Keats` | [The snowy day](https://sjpl.bibliocommons.com/v2/record/S156C4208827) |  | AD500L |
 | `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
 | `J PICTURE BOOK Lewis` | [Chugga-chugga choo-choo](https://sjpl.bibliocommons.com/v2/record/S156C6009668) |  | AD130L |
@@ -98,7 +105,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Wilson` | [Bear snores on](https://sjpl.bibliocommons.com/v2/record/S156C2401797) |  | AD280L |
 | `J SPA PICTURE BOOK McCloske` | [Blueberries for Sal](https://sjpl.bibliocommons.com/v2/record/S156C4399064) | Spanish: “Arándanos para Sal” — translation of “Blueberries for Sal” | AD890L |
 
-## Berryessa — 55 on the shelf
+## Berryessa — 56 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -107,7 +114,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J CHI-ENG PICTURE BOOK Gomi` | [鱷魚怕怕．牙醫怕怕](https://sjpl.bibliocommons.com/v2/record/S156C5892977) |  |  |
 | `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C4632780) |  |  |
 | `J EASY READER Carle` | [The very quiet cricket](https://sjpl.bibliocommons.com/v2/record/S156C6148665) |  |  |
-| `J EASY READER Diesen` | [You can do it, Pout-Pout Fish!](https://sjpl.bibliocommons.com/v2/record/S156C5871163) |  | 210L |
 | `J EASY READER Seuss` | [Mr. Brown can moo! Can you?](https://sjpl.bibliocommons.com/v2/record/S156C1711944) |  |  |
 | `J EASY READER Seuss` | [Ten apples up on top!](https://sjpl.bibliocommons.com/v2/record/S156C5581421) |  | 200L |
 | `J HARDPAGE` | [Barnyard dance!](https://sjpl.bibliocommons.com/v2/record/S156C6604025) |  | Ages 2-5 |
@@ -117,7 +123,9 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J HARDPAGE` | [Knuffle Bunny too : a case of mistaken identity](https://sjpl.bibliocommons.com/v2/record/S156C6769300) |  | Ages 3-6 |
 | `J HARDPAGE` | [Little Excavator](https://sjpl.bibliocommons.com/v2/record/S156C6754442) |  | AD480L |
 | `J HARDPAGE` | [Moo, baa, la la la!](https://sjpl.bibliocommons.com/v2/record/S156C6129892) |  | AD230L |
+| `J HARDPAGE` | [Twinkle, twinkle, little sheepy : a sleepy sheepy story](https://sjpl.bibliocommons.com/v2/record/S156C6801747) |  |  |
 | `J PB PICTURE BOOK` | [Where's Spot?](https://sjpl.bibliocommons.com/v2/record/S156C3248913) |  | Ages 2-6 |
+| `J PICTURE BOOK Brown` | [Goodnight moon](https://sjpl.bibliocommons.com/v2/record/S156C6020675) |  | AD360L |
 | `J PICTURE BOOK Campbell` | [Dear zoo](https://sjpl.bibliocommons.com/v2/record/S156C2132911) |  | 150L |
 | `J PICTURE BOOK Carle` | [From head to toe](https://sjpl.bibliocommons.com/v2/record/S156C2133914) |  |  |
 | `J PICTURE BOOK Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C1158305) |  |  |
@@ -130,7 +138,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Fox` | [Time for bed](https://sjpl.bibliocommons.com/v2/record/S156C2161106) |  |  |
 | `J PICTURE BOOK Gravett` | [Orange pear apple bear](https://sjpl.bibliocommons.com/v2/record/S156C3251830) |  | Ages 2-4 |
 | `J PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C2595426) |  | 360L |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | AD510L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
 | `J PICTURE BOOK Keats` | [The snowy day](https://sjpl.bibliocommons.com/v2/record/S156C4208827) |  | AD500L |
 | `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
@@ -158,59 +166,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Willems` | [The pigeon needs a bath!](https://sjpl.bibliocommons.com/v2/record/S156C4701385) |  | AD350L |
 | `J READ ALONG Shannon` | [Duck on a bike](https://sjpl.bibliocommons.com/v2/record/S156C6010039) | audiobook | AD240L |
 
-## Cambrian — 47 on the shelf
-
-| Call # | Title | Version | Ages |
-|---|---|---|---|
-| `J CHI PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4885016) | Chinese: “Bu yao ba, Xiaoguai !” — translation of “Oh no, George!” | Ages 2-5 |
-| `J CHI-ENG PICTURE BOOK Gomi` | [鱷魚怕怕．牙醫怕怕](https://sjpl.bibliocommons.com/v2/record/S156C5892977) |  |  |
-| `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C4632780) |  |  |
-| `J EASY READER Carle` | [The very quiet cricket](https://sjpl.bibliocommons.com/v2/record/S156C4772180) |  |  |
-| `J EASY READER Diesen` | [You can do it, Pout-Pout Fish!](https://sjpl.bibliocommons.com/v2/record/S156C5871163) |  | 210L |
-| `J EASY READER Eastman` | [Are you my mother?](https://sjpl.bibliocommons.com/v2/record/S156C2154030) |  | 80L |
-| `J EASY READER Regan` | [Mike delivers : the duck is stuck!](https://sjpl.bibliocommons.com/v2/record/S156C6273637) |  | Ages 4-6 |
-| `J EASY READER Seuss` | [Ten apples up on top!](https://sjpl.bibliocommons.com/v2/record/S156C5581421) |  | 200L |
-| `J HARDPAGE` | [Don't let the pigeon drive the bus](https://sjpl.bibliocommons.com/v2/record/S156C6762592) |  | 120L |
-| `J HARDPAGE` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C6768249) |  | 360L |
-| `J HARDPAGE` | [The going to bed book](https://sjpl.bibliocommons.com/v2/record/S156C5848135) |  | AD460L |
-| `J HARDPAGE` | [Twinkle, twinkle, little sheepy : a sleepy sheepy story](https://sjpl.bibliocommons.com/v2/record/S156C6801747) |  |  |
-| `J PB PICTURE BOOK` | [Where's Spot?](https://sjpl.bibliocommons.com/v2/record/S156C3248913) |  | Ages 2-6 |
-| `J PICTURE BOOK Brown` | [Goodnight moon](https://sjpl.bibliocommons.com/v2/record/S156C6020675) |  | AD360L |
-| `J PICTURE BOOK Campbell` | [Dear zoo](https://sjpl.bibliocommons.com/v2/record/S156C2132911) |  | 150L |
-| `J PICTURE BOOK Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C1158305) |  |  |
-| `J PICTURE BOOK Carle` | [The very hungry caterpillar](https://sjpl.bibliocommons.com/v2/record/S156C2945517) |  | Ages 2-5 |
-| `J PICTURE BOOK Cousins` | [Hooray for fish!](https://sjpl.bibliocommons.com/v2/record/S156C6632361) |  |  |
-| `J PICTURE BOOK Crews` | [Freight train = Tren de carga](https://sjpl.bibliocommons.com/v2/record/S156C1049398) |  | PreK |
-| `J PICTURE BOOK Degen` | [Jamberry](https://sjpl.bibliocommons.com/v2/record/S156C1123306) |  | PreK |
-| `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
-| `J PICTURE BOOK Fox` | [Ten little fingers and ten little toes](https://sjpl.bibliocommons.com/v2/record/S156C3694772) |  | Ages 5-8 |
-| `J PICTURE BOOK Gravett` | [Monkey and me](https://sjpl.bibliocommons.com/v2/record/S156C3370402) |  |  |
-| `J PICTURE BOOK Hills` | [Duck & Goose go to the beach](https://sjpl.bibliocommons.com/v2/record/S156C4701335) |  | Ages 3-7 |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | AD510L |
-| `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
-| `J PICTURE BOOK Keats` | [The snowy day](https://sjpl.bibliocommons.com/v2/record/S156C1523415) |  | AD500L |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
-| `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
-| `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
-| `J PICTURE BOOK Martin` | [Polar bear, polar bear, what do you hear?](https://sjpl.bibliocommons.com/v2/record/S156C1681071) |  | AD670L |
-| `J PICTURE BOOK Pizzoli` | [The watermelon seed](https://sjpl.bibliocommons.com/v2/record/S156C6631965) |  | 350L |
-| `J PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C4151651) |  |  |
-| `J PICTURE BOOK Rosen` | [We're going on a bear hunt](https://sjpl.bibliocommons.com/v2/record/S156C6196123) |  |  |
-| `J PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C4321176) |  | AD520L |
-| `J PICTURE BOOK Schertle` | [Little blue truck](https://sjpl.bibliocommons.com/v2/record/S156C3431980) |  | AD580L |
-| `J PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C2375876) |  | Ages 4-8 |
-| `J PICTURE BOOK Walsh` | [Mouse paint](https://sjpl.bibliocommons.com/v2/record/S156C1648898) |  | PreK |
-| `J PICTURE BOOK Willems` | [Don't let the pigeon drive the bus](https://sjpl.bibliocommons.com/v2/record/S156C2530651) |  | 120L |
-| `J PICTURE BOOK Willems` | [Knuffle Bunny : a cautionary tale](https://sjpl.bibliocommons.com/v2/record/S156C2597957) |  | Ages 2-5 |
-| `J PICTURE BOOK Willems` | [The pigeon needs a bath!](https://sjpl.bibliocommons.com/v2/record/S156C4701385) |  | AD350L |
-| `J PICTURE BOOK Wilson` | [Bear snores on](https://sjpl.bibliocommons.com/v2/record/S156C2401797) |  | AD280L |
-| `J PICTURE BOOK Wood` | [The napping house](https://sjpl.bibliocommons.com/v2/record/S156C3823930) |  |  |
-| `J SPA HARDPAGE Boynton` | [Barnyard dance!](https://sjpl.bibliocommons.com/v2/record/S156C6657414) | Spanish: “¡danza del corral!” — translation of “Barnyard dance!” | Ages 2-5 |
-| `J SPA HARDPAGE Brown` | [Big red barn](https://sjpl.bibliocommons.com/v2/record/S156C5808863) | Spanish: “El gran granero rojo” — translation of “Big red barn” | AD490L |
-| `J SPA PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C3111593) | Spanish: “La primera luna llena de gatita” — translation of “Kitten's first full moon” | 360L |
-| `J SPA-ENG PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C5696570) | Spanish: “Pete el gato : I love my white shoes” — translation of “Pete the cat : I love my white shoes” | Ages 3-7 |
-
-## Edenvale — 47 on the shelf
+## Edenvale — 46 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -235,11 +191,10 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Degen` | [Jamberry](https://sjpl.bibliocommons.com/v2/record/S156C1123306) |  | PreK |
 | `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
 | `J PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C2595426) |  | 360L |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | AD510L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
 | `J PICTURE BOOK Keats` | [The snowy day](https://sjpl.bibliocommons.com/v2/record/S156C1523415) |  | AD500L |
 | `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
-| `J PICTURE BOOK Lang` | [Grumpy monkey](https://sjpl.bibliocommons.com/v2/record/S156C5810325) |  | AD460L |
 | `J PICTURE BOOK Lang` | [Grumpy monkey party time!](https://sjpl.bibliocommons.com/v2/record/S156C5898961) |  | Ages 0-3 |
 | `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
 | `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
@@ -262,7 +217,57 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J SPA PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C4456603) | Spanish: “Donde viven los monstruos” — translation of “Where the wild things are” | Ages 4-8 |
 | `J SPA-ENG PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C5696570) | Spanish: “Pete el gato : I love my white shoes” — translation of “Pete the cat : I love my white shoes” | Ages 3-7 |
 
-## King — 49 on the shelf
+## Cambrian — 45 on the shelf
+
+| Call # | Title | Version | Ages |
+|---|---|---|---|
+| `J CHI PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4885016) | Chinese: “Bu yao ba, Xiaoguai !” — translation of “Oh no, George!” | Ages 2-5 |
+| `J CHI-ENG PICTURE BOOK Gomi` | [鱷魚怕怕．牙醫怕怕](https://sjpl.bibliocommons.com/v2/record/S156C5892977) |  |  |
+| `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C4632780) |  |  |
+| `J EASY READER Carle` | [The very quiet cricket](https://sjpl.bibliocommons.com/v2/record/S156C4772180) |  |  |
+| `J EASY READER Diesen` | [You can do it, Pout-Pout Fish!](https://sjpl.bibliocommons.com/v2/record/S156C5871163) |  | 210L |
+| `J EASY READER Eastman` | [Are you my mother?](https://sjpl.bibliocommons.com/v2/record/S156C2154030) |  | 80L |
+| `J EASY READER Regan` | [Mike delivers : the duck is stuck!](https://sjpl.bibliocommons.com/v2/record/S156C6273637) |  | Ages 4-6 |
+| `J HARDPAGE` | [Don't let the pigeon drive the bus](https://sjpl.bibliocommons.com/v2/record/S156C6762592) |  | 120L |
+| `J HARDPAGE` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C6768249) |  | 360L |
+| `J HARDPAGE` | [The going to bed book](https://sjpl.bibliocommons.com/v2/record/S156C5848135) |  | AD460L |
+| `J HARDPAGE` | [Twinkle, twinkle, little sheepy : a sleepy sheepy story](https://sjpl.bibliocommons.com/v2/record/S156C6801747) |  |  |
+| `J PB PICTURE BOOK` | [Where's Spot?](https://sjpl.bibliocommons.com/v2/record/S156C3248913) |  | Ages 2-6 |
+| `J PICTURE BOOK Brown` | [Goodnight moon](https://sjpl.bibliocommons.com/v2/record/S156C6020675) |  | AD360L |
+| `J PICTURE BOOK Campbell` | [Dear zoo](https://sjpl.bibliocommons.com/v2/record/S156C2132911) |  | 150L |
+| `J PICTURE BOOK Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C1158305) |  |  |
+| `J PICTURE BOOK Carle` | [The very hungry caterpillar](https://sjpl.bibliocommons.com/v2/record/S156C2945517) |  | Ages 2-5 |
+| `J PICTURE BOOK Cousins` | [Hooray for fish!](https://sjpl.bibliocommons.com/v2/record/S156C6632361) |  |  |
+| `J PICTURE BOOK Crews` | [Freight train = Tren de carga](https://sjpl.bibliocommons.com/v2/record/S156C1049398) |  | PreK |
+| `J PICTURE BOOK Degen` | [Jamberry](https://sjpl.bibliocommons.com/v2/record/S156C1123306) |  | PreK |
+| `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
+| `J PICTURE BOOK Fox` | [Ten little fingers and ten little toes](https://sjpl.bibliocommons.com/v2/record/S156C3694772) |  | Ages 5-8 |
+| `J PICTURE BOOK Gravett` | [Monkey and me](https://sjpl.bibliocommons.com/v2/record/S156C3370402) |  |  |
+| `J PICTURE BOOK Hills` | [Duck & Goose go to the beach](https://sjpl.bibliocommons.com/v2/record/S156C4701335) |  | Ages 3-7 |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
+| `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
+| `J PICTURE BOOK Keats` | [The snowy day](https://sjpl.bibliocommons.com/v2/record/S156C1523415) |  | AD500L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
+| `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
+| `J PICTURE BOOK Martin` | [Polar bear, polar bear, what do you hear?](https://sjpl.bibliocommons.com/v2/record/S156C1681071) |  | AD670L |
+| `J PICTURE BOOK Pizzoli` | [The watermelon seed](https://sjpl.bibliocommons.com/v2/record/S156C6631965) |  | 350L |
+| `J PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C4151651) |  |  |
+| `J PICTURE BOOK Rosen` | [We're going on a bear hunt](https://sjpl.bibliocommons.com/v2/record/S156C6196123) |  |  |
+| `J PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C4321176) |  | AD520L |
+| `J PICTURE BOOK Schertle` | [Little blue truck](https://sjpl.bibliocommons.com/v2/record/S156C3431980) |  | AD580L |
+| `J PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C2375876) |  | Ages 4-8 |
+| `J PICTURE BOOK Walsh` | [Mouse paint](https://sjpl.bibliocommons.com/v2/record/S156C1648898) |  | PreK |
+| `J PICTURE BOOK Willems` | [Don't let the pigeon drive the bus](https://sjpl.bibliocommons.com/v2/record/S156C2530651) |  | 120L |
+| `J PICTURE BOOK Willems` | [Knuffle Bunny : a cautionary tale](https://sjpl.bibliocommons.com/v2/record/S156C2597957) |  | Ages 2-5 |
+| `J PICTURE BOOK Wilson` | [Bear snores on](https://sjpl.bibliocommons.com/v2/record/S156C2401797) |  | AD280L |
+| `J PICTURE BOOK Wood` | [The napping house](https://sjpl.bibliocommons.com/v2/record/S156C3823930) |  |  |
+| `J SPA HARDPAGE Boynton` | [Barnyard dance!](https://sjpl.bibliocommons.com/v2/record/S156C6657414) | Spanish: “¡danza del corral!” — translation of “Barnyard dance!” | Ages 2-5 |
+| `J SPA HARDPAGE Brown` | [Big red barn](https://sjpl.bibliocommons.com/v2/record/S156C5808863) | Spanish: “El gran granero rojo” — translation of “Big red barn” | AD490L |
+| `J SPA PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C3111593) | Spanish: “La primera luna llena de gatita” — translation of “Kitten's first full moon” | 360L |
+| `J SPA-ENG PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C5696570) | Spanish: “Pete el gato : I love my white shoes” — translation of “Pete the cat : I love my white shoes” | Ages 3-7 |
+
+## King — 47 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -276,7 +281,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J CHI-ENG PICTURE BOOK Gomi` | [鱷魚怕怕．牙醫怕怕](https://sjpl.bibliocommons.com/v2/record/S156C5892977) |  |  |
 | `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C4632780) |  |  |
 | `J EASY READER Regan` | [Mike delivers : the duck is stuck!](https://sjpl.bibliocommons.com/v2/record/S156C6273637) |  | Ages 4-6 |
-| `J FRE PICTURE BOOK Boujon` | [Bon appétit ! Monsieur Lapin](https://sjpl.bibliocommons.com/v2/record/S156C2607003) |  |  |
 | `J FRE PICTURE BOOK Brown` | [Bonsoir Lune](https://sjpl.bibliocommons.com/v2/record/S156C2128244) |  |  |
 | `J FRE PICTURE BOOK Brown` | [Bonsoir Lune](https://sjpl.bibliocommons.com/v2/record/S156C3367618) | translation of “Goodnight moon” |  |
 | `J FRE PICTURE BOOK Caputo` | [Roule galette](https://sjpl.bibliocommons.com/v2/record/S156C2133457) |  |  |
@@ -308,7 +312,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C4151651) |  |  |
 | `J PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C4321176) |  | AD520L |
 | `J PICTURE BOOK Scarry` | [Cars and trucks and things that go](https://sjpl.bibliocommons.com/v2/record/S156C6652228) |  | Ages 3-7 |
-| `J PICTURE BOOK Willems` | [Knuffle Bunny : a cautionary tale](https://sjpl.bibliocommons.com/v2/record/S156C2597957) |  | Ages 2-5 |
 | `J PICTURE BOOK Willems` | [Knuffle Bunny too : a case of mistaken identity](https://sjpl.bibliocommons.com/v2/record/S156C3251823) |  | Ages 3-6 |
 | `J PICTURE BOOK Willems` | [The pigeon needs a bath!](https://sjpl.bibliocommons.com/v2/record/S156C4701385) |  | AD350L |
 | `J SPA PICTURE BOOK Brown` | [Goodnight moon](https://sjpl.bibliocommons.com/v2/record/S156C2128250) | Spanish: “Buenas noches, Luna” — translation of “Goodnight moon” | AD360L |
@@ -316,7 +319,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J SPA PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C5167570) | Spanish: “Dragones y tacos” — translation of “Dragons love tacos” | AD520L |
 | `J SPA PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C4456603) | Spanish: “Donde viven los monstruos” — translation of “Where the wild things are” | Ages 4-8 |
 
-## Vineland — 46 on the shelf
+## Vineland — 44 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -331,9 +334,9 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J EASY READER Regan` | [Mike delivers : the duck is stuck!](https://sjpl.bibliocommons.com/v2/record/S156C6273637) |  | Ages 4-6 |
 | `J EASY READER Seuss` | [Mr. Brown can moo! Can you?](https://sjpl.bibliocommons.com/v2/record/S156C5588686) |  |  |
 | `J HARDPAGE` | [Don't let the pigeon drive the bus](https://sjpl.bibliocommons.com/v2/record/S156C6762592) |  | 120L |
+| `J HARDPAGE` | [From head to toe](https://sjpl.bibliocommons.com/v2/record/S156C5804959) |  |  |
 | `J HARDPAGE` | [Knuffle Bunny too : a case of mistaken identity](https://sjpl.bibliocommons.com/v2/record/S156C6769300) |  | Ages 3-6 |
-| `J HARDPAGE` | [The going to bed book](https://sjpl.bibliocommons.com/v2/record/S156C5848135) |  | AD460L |
-| `J Halloween PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | AD510L |
+| `J Halloween PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PB EASY READER` | [Duck stays in the truck](https://sjpl.bibliocommons.com/v2/record/S156C6020915) |  | Ages 5-7 |
 | `J PICTURE BOOK Brown` | [Goodnight moon](https://sjpl.bibliocommons.com/v2/record/S156C6020675) |  | AD360L |
 | `J PICTURE BOOK Campbell` | [Dear zoo](https://sjpl.bibliocommons.com/v2/record/S156C2132911) |  | 150L |
@@ -346,12 +349,10 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Fox` | [Ten little fingers and ten little toes](https://sjpl.bibliocommons.com/v2/record/S156C3694772) |  | Ages 5-8 |
 | `J PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C2595426) |  | 360L |
 | `J PICTURE BOOK Hills` | [Duck & Goose go to the beach](https://sjpl.bibliocommons.com/v2/record/S156C4701335) |  | Ages 3-7 |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | AD510L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
 | `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
-| `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
 | `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
-| `J PICTURE BOOK McCloske` | [Blueberries for Sal](https://sjpl.bibliocommons.com/v2/record/S156C2212224) |  | AD890L |
 | `J PICTURE BOOK Numeroff` | [If you give a mouse a cookie](https://sjpl.bibliocommons.com/v2/record/S156C1165469) |  | AD660L |
 | `J PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C4151651) |  |  |
 | `J PICTURE BOOK Rinker` | [Steam train, dream train](https://sjpl.bibliocommons.com/v2/record/S156C4487673) |  | AD610L |
@@ -367,54 +368,54 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J READ ALONG Martin` | [Polar bear, polar bear, what do you hear?](https://sjpl.bibliocommons.com/v2/record/S156C6065187) | audiobook | AD670L |
 | `J SPA PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C5353980) | Spanish: “Felices sueños, camiones grandes y pequeños” — translation of “Goodnight, goodnight, construction site” |  |
 
-## Alum Rock — 44 on the shelf
+## Santa Teresa — 44 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
-| `J CHI PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4885016) | Chinese: “Bu yao ba, Xiaoguai !” — translation of “Oh no, George!” | Ages 2-5 |
-| `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C4632780) |  |  |
+| `J CHI PICTURE BOOK Gomi` | [小金魚逃走了](https://sjpl.bibliocommons.com/v2/record/S156C6370352) |  |  |
+| `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C6148671) |  |  |
 | `J EASY READER Carle` | [The very quiet cricket](https://sjpl.bibliocommons.com/v2/record/S156C6148665) |  |  |
+| `J EASY READER Eastman` | [Are you my mother?](https://sjpl.bibliocommons.com/v2/record/S156C2154030) |  | 80L |
 | `J EASY READER Regan` | [Mike delivers : the duck is stuck!](https://sjpl.bibliocommons.com/v2/record/S156C6273637) |  | Ages 4-6 |
-| `J ENG-SPA HARDPAGE Fox` | [Ten little fingers and ten little toes](https://sjpl.bibliocommons.com/v2/record/S156C4459863) | Spanish: “Diez deditos de las manos y diez deditos de los pies : Ten little fingers and ten little toes” | Ages 5-8 |
-| `J HARDPAGE` | [Are you my mother?](https://sjpl.bibliocommons.com/v2/record/S156C4996371) |  | 80L |
-| `J HARDPAGE` | [Barnyard dance!](https://sjpl.bibliocommons.com/v2/record/S156C6604025) |  | Ages 2-5 |
+| `J EASY READER Seuss` | [Mr. Brown can moo! Can you?](https://sjpl.bibliocommons.com/v2/record/S156C1711944) |  |  |
+| `J EASY READER Seuss` | [Ten apples up on top!](https://sjpl.bibliocommons.com/v2/record/S156C5581421) |  | 200L |
+| `J HARDPAGE` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C4673272) |  | AD440L |
 | `J HARDPAGE` | [Knuffle Bunny : a cautionary tale](https://sjpl.bibliocommons.com/v2/record/S156C6688246) |  | Ages 2-5 |
-| `J HARDPAGE` | [The going to bed book](https://sjpl.bibliocommons.com/v2/record/S156C5848135) |  | AD460L |
-| `J HARDPAGE` | [Where's Spot?](https://sjpl.bibliocommons.com/v2/record/S156C6763683) |  | Ages 2-6 |
+| `J HARDPAGE` | [Press here](https://sjpl.bibliocommons.com/v2/record/S156C5922114) |  | AD480L |
+| `J HARDPAGE` | [The pigeon needs a bath!](https://sjpl.bibliocommons.com/v2/record/S156C6800947) |  | AD350L |
+| `J JPN HARDPAGE Rinker` | [Mighty, mighty construction site](https://sjpl.bibliocommons.com/v2/record/S156C6763894) | Japanese: “Ohayō hataraku kurumatachi : bōdo bukku” — translation of “Mighty, mighty construction site” | AD710L |
 | `J PB EASY READER` | [Duck stays in the truck](https://sjpl.bibliocommons.com/v2/record/S156C6020915) |  | Ages 5-7 |
-| `J PB PICTURE BOOK` | [Bluey : the creek.](https://sjpl.bibliocommons.com/v2/record/S156C6274428) |  | AD500L |
-| `J PB PICTURE BOOK` | [Where's Spot?](https://sjpl.bibliocommons.com/v2/record/S156C3248913) |  | Ages 2-6 |
-| `J PICTURE BOOK Brown` | [Goodnight moon](https://sjpl.bibliocommons.com/v2/record/S156C6020675) |  | AD360L |
+| `J PICTURE BOOK Carle` | [From head to toe](https://sjpl.bibliocommons.com/v2/record/S156C2133914) |  |  |
+| `J PICTURE BOOK Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C1158305) |  |  |
 | `J PICTURE BOOK Carle` | [The very hungry caterpillar](https://sjpl.bibliocommons.com/v2/record/S156C2945517) |  | Ages 2-5 |
+| `J PICTURE BOOK Carle` | [The very quiet cricket](https://sjpl.bibliocommons.com/v2/record/S156C1773026) |  |  |
+| `J PICTURE BOOK Cousins` | [Hooray for fish!](https://sjpl.bibliocommons.com/v2/record/S156C6632361) |  |  |
 | `J PICTURE BOOK Crews` | [Freight train = Tren de carga](https://sjpl.bibliocommons.com/v2/record/S156C1049398) |  | PreK |
+| `J PICTURE BOOK Degen` | [Jamberry](https://sjpl.bibliocommons.com/v2/record/S156C1123306) |  | PreK |
 | `J PICTURE BOOK Dewdney` | [Llama Llama misses Mama](https://sjpl.bibliocommons.com/v2/record/S156C3800297) |  |  |
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
-| `J PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C2595426) |  | 360L |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | AD510L |
+| `J PICTURE BOOK Fox` | [Ten little fingers and ten little toes](https://sjpl.bibliocommons.com/v2/record/S156C3694772) |  | Ages 5-8 |
+| `J PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4321178) |  | Ages 2-5 |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
-| `J PICTURE BOOK Lewis` | [Chugga-chugga choo-choo](https://sjpl.bibliocommons.com/v2/record/S156C6009668) |  | AD130L |
-| `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
 | `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
-| `J PICTURE BOOK Numeroff` | [If you give a mouse a cookie](https://sjpl.bibliocommons.com/v2/record/S156C1165469) |  | AD660L |
+| `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
+| `J PICTURE BOOK Portis` | [Not a box](https://sjpl.bibliocommons.com/v2/record/S156C3054198) |  |  |
 | `J PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C4151651) |  |  |
-| `J PICTURE BOOK Rosen` | [We're going on a bear hunt](https://sjpl.bibliocommons.com/v2/record/S156C6196123) |  |  |
+| `J PICTURE BOOK Rinker` | [Steam train, dream train](https://sjpl.bibliocommons.com/v2/record/S156C4487673) |  | AD610L |
+| `J PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C4321176) |  | AD520L |
 | `J PICTURE BOOK Scarry` | [Cars and trucks and things that go](https://sjpl.bibliocommons.com/v2/record/S156C6652228) |  | Ages 3-7 |
+| `J PICTURE BOOK Schertle` | [Little blue truck](https://sjpl.bibliocommons.com/v2/record/S156C3431980) |  | AD580L |
 | `J PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C2375876) |  | Ages 4-8 |
-| `J READ ALONG Brown` | [Goodnight moon](https://sjpl.bibliocommons.com/v2/record/S156C4427690) | audiobook | AD360L |
-| `J SPA HARDPAGE Boynton` | [Barnyard dance!](https://sjpl.bibliocommons.com/v2/record/S156C6657414) | Spanish: “¡danza del corral!” — translation of “Barnyard dance!” | Ages 2-5 |
+| `J PICTURE BOOK Slobodki` | [Caps for sale : a tale of a peddler, some monkeys, and their monkey business](https://sjpl.bibliocommons.com/v2/record/S156C3659138) |  | Ages 3-7 |
+| `J PICTURE BOOK Willems` | [Knuffle Bunny : a cautionary tale](https://sjpl.bibliocommons.com/v2/record/S156C2597957) |  | Ages 2-5 |
+| `J PICTURE BOOK Willems` | [Knuffle Bunny too : a case of mistaken identity](https://sjpl.bibliocommons.com/v2/record/S156C3251823) |  | Ages 3-6 |
+| `J PICTURE BOOK Willems` | [The pigeon needs a bath!](https://sjpl.bibliocommons.com/v2/record/S156C4701385) |  | AD350L |
+| `J PICTURE BOOK Wilson` | [Bear snores on](https://sjpl.bibliocommons.com/v2/record/S156C2401797) |  | AD280L |
+| `J SPA HARDPAGE Brown` | [Big red barn](https://sjpl.bibliocommons.com/v2/record/S156C5808863) | Spanish: “El gran granero rojo” — translation of “Big red barn” | AD490L |
 | `J SPA PICTURE BOOK Brown` | [Goodnight moon](https://sjpl.bibliocommons.com/v2/record/S156C2128250) | Spanish: “Buenas noches, Luna” — translation of “Goodnight moon” | AD360L |
-| `J SPA PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C6065091) | Spanish: “Llama Llama rojo pijama” — translation of “Llama Llama red pajama” |  |
-| `J SPA PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C3111593) | Spanish: “La primera luna llena de gatita” — translation of “Kitten's first full moon” | 360L |
-| `J SPA PICTURE BOOK Lang` | [Grumpy monkey](https://sjpl.bibliocommons.com/v2/record/S156C6659281) | Spanish: “Grumpy monkey : ¡está gruñón!” — translation of “Grumpy monkey” | AD460L |
-| `J SPA PICTURE BOOK McCloske` | [Blueberries for Sal](https://sjpl.bibliocommons.com/v2/record/S156C4399064) | Spanish: “Arándanos para Sal” — translation of “Blueberries for Sal” | AD890L |
-| `J SPA PICTURE BOOK Numeroff` | [If you give a mouse a cookie](https://sjpl.bibliocommons.com/v2/record/S156C2225761) | Spanish: “Si le das una galletita a un ratón” — translation of “If you give a mouse a cookie” | AD660L |
 | `J SPA PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C5353980) | Spanish: “Felices sueños, camiones grandes y pequeños” — translation of “Goodnight, goodnight, construction site” |  |
-| `J SPA PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C5167570) | Spanish: “Dragones y tacos” — translation of “Dragons love tacos” | AD520L |
-| `J SPA PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C4456603) | Spanish: “Donde viven los monstruos” — translation of “Where the wild things are” | Ages 4-8 |
-| `J SPA PICTURE BOOK Shannon` | [Duck on a bike](https://sjpl.bibliocommons.com/v2/record/S156C4546720) | Spanish: “Pato va en bici” — translation of “Duck on a bike” | AD240L |
-| `J SPA PICTURE BOOK Willems` | [Don't let the pigeon drive the bus](https://sjpl.bibliocommons.com/v2/record/S156C4473901) | Spanish: “¡No dejes que la paloma conduzca el autobús!” — translation of “Don't let the pigeon drive the bus!” | 120L |
-| `J SPA-ENG HARDPAGE Carle` | [From head to toe](https://sjpl.bibliocommons.com/v2/record/S156C6129901) | Spanish: “From head to toe : De la cabeza a los pies” |  |
-| `J SPA-ENG PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C5696570) | Spanish: “Pete el gato : I love my white shoes” — translation of “Pete the cat : I love my white shoes” | Ages 3-7 |
 
 ## Tully — 42 on the shelf
 
@@ -447,7 +448,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Dewdney` | [Llama Llama misses Mama](https://sjpl.bibliocommons.com/v2/record/S156C3800297) |  |  |
 | `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | AD510L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
 | `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
 | `J PICTURE BOOK McMullan` | [I stink!](https://sjpl.bibliocommons.com/v2/record/S156C1958490) |  |  |
@@ -463,54 +464,54 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J SPA-ENG HARDPAGE Walsh` | [Mouse paint](https://sjpl.bibliocommons.com/v2/record/S156C4400886) | Spanish: “Mouse paint : Pintura de raton” — translation of “Mouse paint” | PreK |
 | `J SPA-ENG PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C5696570) | Spanish: “Pete el gato : I love my white shoes” — translation of “Pete the cat : I love my white shoes” | Ages 3-7 |
 
-## Santa Teresa — 42 on the shelf
+## Alum Rock — 42 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
-| `J CHI PICTURE BOOK Gomi` | [小金魚逃走了](https://sjpl.bibliocommons.com/v2/record/S156C6370352) |  |  |
-| `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C6148671) |  |  |
+| `J CHI PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4885016) | Chinese: “Bu yao ba, Xiaoguai !” — translation of “Oh no, George!” | Ages 2-5 |
+| `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C4632780) |  |  |
 | `J EASY READER Carle` | [The very quiet cricket](https://sjpl.bibliocommons.com/v2/record/S156C6148665) |  |  |
-| `J EASY READER Eastman` | [Are you my mother?](https://sjpl.bibliocommons.com/v2/record/S156C2154030) |  | 80L |
 | `J EASY READER Regan` | [Mike delivers : the duck is stuck!](https://sjpl.bibliocommons.com/v2/record/S156C6273637) |  | Ages 4-6 |
-| `J EASY READER Seuss` | [Mr. Brown can moo! Can you?](https://sjpl.bibliocommons.com/v2/record/S156C1711944) |  |  |
-| `J EASY READER Seuss` | [Ten apples up on top!](https://sjpl.bibliocommons.com/v2/record/S156C5581421) |  | 200L |
-| `J HARDPAGE` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C4673272) |  | AD440L |
-| `J HARDPAGE` | [Press here](https://sjpl.bibliocommons.com/v2/record/S156C5922114) |  | AD480L |
-| `J HARDPAGE` | [The pigeon needs a bath!](https://sjpl.bibliocommons.com/v2/record/S156C6800947) |  | AD350L |
-| `J JPN HARDPAGE Rinker` | [Mighty, mighty construction site](https://sjpl.bibliocommons.com/v2/record/S156C6763894) | Japanese: “Ohayō hataraku kurumatachi : bōdo bukku” — translation of “Mighty, mighty construction site” | AD710L |
+| `J ENG-SPA HARDPAGE Fox` | [Ten little fingers and ten little toes](https://sjpl.bibliocommons.com/v2/record/S156C4459863) | Spanish: “Diez deditos de las manos y diez deditos de los pies : Ten little fingers and ten little toes” | Ages 5-8 |
+| `J HARDPAGE` | [Are you my mother?](https://sjpl.bibliocommons.com/v2/record/S156C4996371) |  | 80L |
+| `J HARDPAGE` | [Barnyard dance!](https://sjpl.bibliocommons.com/v2/record/S156C6604025) |  | Ages 2-5 |
+| `J HARDPAGE` | [Knuffle Bunny : a cautionary tale](https://sjpl.bibliocommons.com/v2/record/S156C6688246) |  | Ages 2-5 |
+| `J HARDPAGE` | [The going to bed book](https://sjpl.bibliocommons.com/v2/record/S156C5848135) |  | AD460L |
 | `J PB EASY READER` | [Duck stays in the truck](https://sjpl.bibliocommons.com/v2/record/S156C6020915) |  | Ages 5-7 |
-| `J PICTURE BOOK Carle` | [From head to toe](https://sjpl.bibliocommons.com/v2/record/S156C2133914) |  |  |
-| `J PICTURE BOOK Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C1158305) |  |  |
+| `J PB PICTURE BOOK` | [Bluey : the creek.](https://sjpl.bibliocommons.com/v2/record/S156C6274428) |  | AD500L |
+| `J PB PICTURE BOOK` | [Where's Spot?](https://sjpl.bibliocommons.com/v2/record/S156C3248913) |  | Ages 2-6 |
+| `J PICTURE BOOK Brown` | [Goodnight moon](https://sjpl.bibliocommons.com/v2/record/S156C6020675) |  | AD360L |
 | `J PICTURE BOOK Carle` | [The very hungry caterpillar](https://sjpl.bibliocommons.com/v2/record/S156C2945517) |  | Ages 2-5 |
-| `J PICTURE BOOK Carle` | [The very quiet cricket](https://sjpl.bibliocommons.com/v2/record/S156C1773026) |  |  |
-| `J PICTURE BOOK Cousins` | [Hooray for fish!](https://sjpl.bibliocommons.com/v2/record/S156C6632361) |  |  |
 | `J PICTURE BOOK Crews` | [Freight train = Tren de carga](https://sjpl.bibliocommons.com/v2/record/S156C1049398) |  | PreK |
-| `J PICTURE BOOK Degen` | [Jamberry](https://sjpl.bibliocommons.com/v2/record/S156C1123306) |  | PreK |
+| `J PICTURE BOOK Dewdney` | [Llama Llama misses Mama](https://sjpl.bibliocommons.com/v2/record/S156C3800297) |  |  |
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
-| `J PICTURE BOOK Fox` | [Ten little fingers and ten little toes](https://sjpl.bibliocommons.com/v2/record/S156C3694772) |  | Ages 5-8 |
-| `J PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4321178) |  | Ages 2-5 |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | AD510L |
+| `J PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C2595426) |  | 360L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Lewis` | [Chugga-chugga choo-choo](https://sjpl.bibliocommons.com/v2/record/S156C6009668) |  | AD130L |
+| `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
 | `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
-| `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
-| `J PICTURE BOOK Portis` | [Not a box](https://sjpl.bibliocommons.com/v2/record/S156C3054198) |  |  |
+| `J PICTURE BOOK Numeroff` | [If you give a mouse a cookie](https://sjpl.bibliocommons.com/v2/record/S156C1165469) |  | AD660L |
 | `J PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C4151651) |  |  |
-| `J PICTURE BOOK Rinker` | [Steam train, dream train](https://sjpl.bibliocommons.com/v2/record/S156C4487673) |  | AD610L |
-| `J PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C4321176) |  | AD520L |
+| `J PICTURE BOOK Rosen` | [We're going on a bear hunt](https://sjpl.bibliocommons.com/v2/record/S156C6196123) |  |  |
 | `J PICTURE BOOK Scarry` | [Cars and trucks and things that go](https://sjpl.bibliocommons.com/v2/record/S156C6652228) |  | Ages 3-7 |
-| `J PICTURE BOOK Schertle` | [Little blue truck](https://sjpl.bibliocommons.com/v2/record/S156C3431980) |  | AD580L |
 | `J PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C2375876) |  | Ages 4-8 |
-| `J PICTURE BOOK Slobodki` | [Caps for sale : a tale of a peddler, some monkeys, and their monkey business](https://sjpl.bibliocommons.com/v2/record/S156C3659138) |  | Ages 3-7 |
-| `J PICTURE BOOK Willems` | [Knuffle Bunny : a cautionary tale](https://sjpl.bibliocommons.com/v2/record/S156C2597957) |  | Ages 2-5 |
-| `J PICTURE BOOK Willems` | [Knuffle Bunny too : a case of mistaken identity](https://sjpl.bibliocommons.com/v2/record/S156C3251823) |  | Ages 3-6 |
-| `J PICTURE BOOK Willems` | [The pigeon needs a bath!](https://sjpl.bibliocommons.com/v2/record/S156C4701385) |  | AD350L |
-| `J PICTURE BOOK Wilson` | [Bear snores on](https://sjpl.bibliocommons.com/v2/record/S156C2401797) |  | AD280L |
-| `J SPA HARDPAGE Brown` | [Big red barn](https://sjpl.bibliocommons.com/v2/record/S156C5808863) | Spanish: “El gran granero rojo” — translation of “Big red barn” | AD490L |
+| `J READ ALONG Brown` | [Goodnight moon](https://sjpl.bibliocommons.com/v2/record/S156C4427690) | audiobook | AD360L |
+| `J SPA HARDPAGE Boynton` | [Barnyard dance!](https://sjpl.bibliocommons.com/v2/record/S156C6657414) | Spanish: “¡danza del corral!” — translation of “Barnyard dance!” | Ages 2-5 |
 | `J SPA PICTURE BOOK Brown` | [Goodnight moon](https://sjpl.bibliocommons.com/v2/record/S156C2128250) | Spanish: “Buenas noches, Luna” — translation of “Goodnight moon” | AD360L |
+| `J SPA PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C6065091) | Spanish: “Llama Llama rojo pijama” — translation of “Llama Llama red pajama” |  |
+| `J SPA PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C3111593) | Spanish: “La primera luna llena de gatita” — translation of “Kitten's first full moon” | 360L |
+| `J SPA PICTURE BOOK Lang` | [Grumpy monkey](https://sjpl.bibliocommons.com/v2/record/S156C6659281) | Spanish: “Grumpy monkey : ¡está gruñón!” — translation of “Grumpy monkey” | AD460L |
+| `J SPA PICTURE BOOK McCloske` | [Blueberries for Sal](https://sjpl.bibliocommons.com/v2/record/S156C4399064) | Spanish: “Arándanos para Sal” — translation of “Blueberries for Sal” | AD890L |
+| `J SPA PICTURE BOOK Numeroff` | [If you give a mouse a cookie](https://sjpl.bibliocommons.com/v2/record/S156C2225761) | Spanish: “Si le das una galletita a un ratón” — translation of “If you give a mouse a cookie” | AD660L |
 | `J SPA PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C5353980) | Spanish: “Felices sueños, camiones grandes y pequeños” — translation of “Goodnight, goodnight, construction site” |  |
+| `J SPA PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C5167570) | Spanish: “Dragones y tacos” — translation of “Dragons love tacos” | AD520L |
+| `J SPA PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C4456603) | Spanish: “Donde viven los monstruos” — translation of “Where the wild things are” | Ages 4-8 |
+| `J SPA PICTURE BOOK Shannon` | [Duck on a bike](https://sjpl.bibliocommons.com/v2/record/S156C4546720) | Spanish: “Pato va en bici” — translation of “Duck on a bike” | AD240L |
+| `J SPA PICTURE BOOK Willems` | [Don't let the pigeon drive the bus](https://sjpl.bibliocommons.com/v2/record/S156C4473901) | Spanish: “¡No dejes que la paloma conduzca el autobús!” — translation of “Don't let the pigeon drive the bus!” | 120L |
+| `J SPA-ENG PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C5696570) | Spanish: “Pete el gato : I love my white shoes” — translation of “Pete the cat : I love my white shoes” | Ages 3-7 |
 
-## Village Square — 41 on the shelf
+## Village Square — 42 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -533,12 +534,13 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
 | `J PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C2595426) |  | 360L |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | AD510L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
 | `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
 | `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
 | `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
+| `J PICTURE BOOK Numeroff` | [If you give a mouse a cookie](https://sjpl.bibliocommons.com/v2/record/S156C1165469) |  | AD660L |
 | `J PICTURE BOOK Pizzoli` | [The watermelon seed](https://sjpl.bibliocommons.com/v2/record/S156C6631965) |  | 350L |
 | `J PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C4151651) |  |  |
 | `J PICTURE BOOK Rosen` | [We're going on a bear hunt](https://sjpl.bibliocommons.com/v2/record/S156C6196123) |  |  |
@@ -556,7 +558,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J SPA PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C5167570) | Spanish: “Dragones y tacos” — translation of “Dragons love tacos” | AD520L |
 | `J SPA-ENG EASY READER Beaton` | [Go, dog. Go!](https://sjpl.bibliocommons.com/v2/record/S156C1893482) | Spanish: “Corre, perro, corre!” — translation of “Go, dog, go!” |  |
 
-## Educational Park — 38 on the shelf
+## Educational Park — 39 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -575,6 +577,8 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J HARDPAGE` | [Knuffle Bunny : a cautionary tale](https://sjpl.bibliocommons.com/v2/record/S156C6688246) |  | Ages 2-5 |
 | `J HARDPAGE` | [Mr. Brown can moo! Can you?](https://sjpl.bibliocommons.com/v2/record/S156C5809879) |  |  |
 | `J HARDPAGE` | [Press here](https://sjpl.bibliocommons.com/v2/record/S156C5922114) |  | AD480L |
+| `J HARDPAGE` | [Twinkle, twinkle, little sheepy : a sleepy sheepy story](https://sjpl.bibliocommons.com/v2/record/S156C6801747) |  |  |
+| `J HARDPAGE` | [Where's Spot?](https://sjpl.bibliocommons.com/v2/record/S156C6763683) |  | Ages 2-6 |
 | `J PB EASY READER` | [Duck stays in the truck](https://sjpl.bibliocommons.com/v2/record/S156C6020915) |  | Ages 5-7 |
 | `J PB PICTURE BOOK` | [Bluey : the creek.](https://sjpl.bibliocommons.com/v2/record/S156C6274428) |  | AD500L |
 | `J PICTURE BOOK Brown` | [Goodnight moon](https://sjpl.bibliocommons.com/v2/record/S156C6020675) |  | AD360L |
@@ -582,7 +586,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Cousins` | [Hooray for fish!](https://sjpl.bibliocommons.com/v2/record/S156C6632361) |  |  |
 | `J PICTURE BOOK Dewdney` | [Llama Llama misses Mama](https://sjpl.bibliocommons.com/v2/record/S156C3800297) |  |  |
 | `J PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C2595426) |  | 360L |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | AD510L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
 | `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
@@ -591,12 +595,50 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Willems` | [Don't let the pigeon drive the bus](https://sjpl.bibliocommons.com/v2/record/S156C2530651) |  | 120L |
 | `J PICTURE BOOK Willems` | [Knuffle Bunny too : a case of mistaken identity](https://sjpl.bibliocommons.com/v2/record/S156C3251823) |  | Ages 3-6 |
 | `J PICTURE BOOK Willems` | [The pigeon needs a bath!](https://sjpl.bibliocommons.com/v2/record/S156C4701385) |  | AD350L |
-| `J READ ALONG Brown` | [Goodnight moon](https://sjpl.bibliocommons.com/v2/record/S156C5907290) | audiobook | AD360L |
 | `J SPA EASY READER Eastman` | [Go, dog. Go!](https://sjpl.bibliocommons.com/v2/record/S156C1893482) | Spanish: “Corre, perro, corre!” — translation of “Go, dog, go!” |  |
 | `J SPA PICTURE BOOK McCloske` | [Blueberries for Sal](https://sjpl.bibliocommons.com/v2/record/S156C4399064) | Spanish: “Arándanos para Sal” — translation of “Blueberries for Sal” | AD890L |
 | `J SPA PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C5353980) | Spanish: “Felices sueños, camiones grandes y pequeños” — translation of “Goodnight, goodnight, construction site” |  |
 | `J SPA PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C4456603) | Spanish: “Donde viven los monstruos” — translation of “Where the wild things are” | Ages 4-8 |
 | `J SPA PICTURE BOOK Willems` | [Don't let the pigeon drive the bus](https://sjpl.bibliocommons.com/v2/record/S156C4473901) | Spanish: “¡No dejes que la paloma conduzca el autobús!” — translation of “Don't let the pigeon drive the bus!” | 120L |
+| `J SPA-ENG PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C5696570) | Spanish: “Pete el gato : I love my white shoes” — translation of “Pete the cat : I love my white shoes” | Ages 3-7 |
+
+## Bascom — 34 on the shelf
+
+| Call # | Title | Version | Ages |
+|---|---|---|---|
+| `J CHI PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4885016) | Chinese: “Bu yao ba, Xiaoguai !” — translation of “Oh no, George!” | Ages 2-5 |
+| `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C4632780) |  |  |
+| `J EASY READER Cronin` | [Duck stays in the truck](https://sjpl.bibliocommons.com/v2/record/S156C6020915) |  | Ages 5-7 |
+| `J EASY READER Regan` | [Mike delivers : the duck is stuck!](https://sjpl.bibliocommons.com/v2/record/S156C6273637) |  | Ages 4-6 |
+| `J ENG-SPA HARDPAGE Fox` | [Ten little fingers and ten little toes](https://sjpl.bibliocommons.com/v2/record/S156C4459863) | Spanish: “Diez deditos de las manos y diez deditos de los pies : Ten little fingers and ten little toes” | Ages 5-8 |
+| `J HARDPAGE` | [Blueberries for Sal](https://sjpl.bibliocommons.com/v2/record/S156C6816164) |  | AD890L |
+| `J HARDPAGE` | [Don't let the pigeon drive the bus](https://sjpl.bibliocommons.com/v2/record/S156C6762592) |  | 120L |
+| `J HARDPAGE` | [Grumpy monkey yuck!](https://sjpl.bibliocommons.com/v2/record/S156C6768248) |  | Ages 0-3 |
+| `J HARDPAGE` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C6768249) |  | 360L |
+| `J HARDPAGE` | [Little Excavator](https://sjpl.bibliocommons.com/v2/record/S156C6754442) |  | AD480L |
+| `J HARDPAGE` | [Press here](https://sjpl.bibliocommons.com/v2/record/S156C5922114) |  | AD480L |
+| `J HARDPAGE` | [The going to bed book](https://sjpl.bibliocommons.com/v2/record/S156C5848135) |  | AD460L |
+| `J HARDPAGE` | [The pigeon needs a bath!](https://sjpl.bibliocommons.com/v2/record/S156C6800947) |  | AD350L |
+| `J HARDPAGE` | [The snowy day](https://sjpl.bibliocommons.com/v2/record/S156C2404195) |  | AD500L |
+| `J JPN HARDPAGE Rinker` | [Mighty, mighty construction site](https://sjpl.bibliocommons.com/v2/record/S156C6763894) | Japanese: “Ohayō hataraku kurumatachi : bōdo bukku” — translation of “Mighty, mighty construction site” | AD710L |
+| `J PB PICTURE BOOK` | [Bluey : the creek.](https://sjpl.bibliocommons.com/v2/record/S156C6274428) |  | AD500L |
+| `J PICTURE BOOK Degen` | [Jamberry](https://sjpl.bibliocommons.com/v2/record/S156C1123306) |  | PreK |
+| `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
+| `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
+| `J PICTURE BOOK Gravett` | [Monkey and me](https://sjpl.bibliocommons.com/v2/record/S156C3370402) |  |  |
+| `J PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4321178) |  | Ages 2-5 |
+| `J PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C2595426) |  | 360L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
+| `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
+| `J PICTURE BOOK Keats` | [The snowy day](https://sjpl.bibliocommons.com/v2/record/S156C1523415) |  | AD500L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Lang` | [Grumpy monkey party time!](https://sjpl.bibliocommons.com/v2/record/S156C5898961) |  | Ages 0-3 |
+| `J PICTURE BOOK Pizzoli` | [The watermelon seed](https://sjpl.bibliocommons.com/v2/record/S156C6631965) |  | 350L |
+| `J PICTURE BOOK Portis` | [Not a box](https://sjpl.bibliocommons.com/v2/record/S156C3054198) |  |  |
+| `J PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C4321176) |  | AD520L |
+| `J PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C2375876) |  | Ages 4-8 |
+| `J PICTURE BOOK Willems` | [Knuffle Bunny : a cautionary tale](https://sjpl.bibliocommons.com/v2/record/S156C2597957) |  | Ages 2-5 |
+| `J SPA PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C4456603) | Spanish: “Donde viven los monstruos” — translation of “Where the wild things are” | Ages 4-8 |
 | `J SPA-ENG PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C5696570) | Spanish: “Pete el gato : I love my white shoes” — translation of “Pete the cat : I love my white shoes” | Ages 3-7 |
 
 ## Evergreen — 35 on the shelf
@@ -617,7 +659,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J HARDPAGE` | [Grumpy monkey yuck!](https://sjpl.bibliocommons.com/v2/record/S156C6768248) |  | Ages 0-3 |
 | `J HARDPAGE` | [Little Excavator](https://sjpl.bibliocommons.com/v2/record/S156C6754442) |  | AD480L |
 | `J HARDPAGE` | [Twinkle, twinkle, little sheepy : a sleepy sheepy story](https://sjpl.bibliocommons.com/v2/record/S156C6801747) |  |  |
-| `J PAN-ENG PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C3009374) |  | AD440L |
 | `J PB PICTURE BOOK` | [Bluey : the creek.](https://sjpl.bibliocommons.com/v2/record/S156C6274428) |  | AD500L |
 | `J PB PICTURE BOOK` | [Where's Spot?](https://sjpl.bibliocommons.com/v2/record/S156C3248913) |  | Ages 2-6 |
 | `J PICTURE BOOK Brown` | [Goodnight moon](https://sjpl.bibliocommons.com/v2/record/S156C6020675) |  | AD360L |
@@ -625,10 +666,11 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Degen` | [Jamberry](https://sjpl.bibliocommons.com/v2/record/S156C1123306) |  | PreK |
 | `J PICTURE BOOK Dewdney` | [Llama Llama misses Mama](https://sjpl.bibliocommons.com/v2/record/S156C3800297) |  |  |
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | AD510L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
 | `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
+| `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
 | `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
 | `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
 | `J PICTURE BOOK Portis` | [Not a box](https://sjpl.bibliocommons.com/v2/record/S156C3054198) |  |  |
@@ -639,45 +681,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Willems` | [Knuffle Bunny too : a case of mistaken identity](https://sjpl.bibliocommons.com/v2/record/S156C3251823) |  | Ages 3-6 |
 | `J PICTURE BOOK Wilson` | [Bear snores on](https://sjpl.bibliocommons.com/v2/record/S156C2401797) |  | AD280L |
 
-## Bascom — 33 on the shelf
-
-| Call # | Title | Version | Ages |
-|---|---|---|---|
-| `J CHI PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4885016) | Chinese: “Bu yao ba, Xiaoguai !” — translation of “Oh no, George!” | Ages 2-5 |
-| `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C4632780) |  |  |
-| `J EASY READER Cronin` | [Duck stays in the truck](https://sjpl.bibliocommons.com/v2/record/S156C6020915) |  | Ages 5-7 |
-| `J EASY READER Regan` | [Mike delivers : the duck is stuck!](https://sjpl.bibliocommons.com/v2/record/S156C6273637) |  | Ages 4-6 |
-| `J ENG-SPA HARDPAGE Fox` | [Ten little fingers and ten little toes](https://sjpl.bibliocommons.com/v2/record/S156C4459863) | Spanish: “Diez deditos de las manos y diez deditos de los pies : Ten little fingers and ten little toes” | Ages 5-8 |
-| `J HARDPAGE` | [Blueberries for Sal](https://sjpl.bibliocommons.com/v2/record/S156C6816164) |  | AD890L |
-| `J HARDPAGE` | [Don't let the pigeon drive the bus](https://sjpl.bibliocommons.com/v2/record/S156C6762592) |  | 120L |
-| `J HARDPAGE` | [Grumpy monkey yuck!](https://sjpl.bibliocommons.com/v2/record/S156C6768248) |  | Ages 0-3 |
-| `J HARDPAGE` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C6768249) |  | 360L |
-| `J HARDPAGE` | [Press here](https://sjpl.bibliocommons.com/v2/record/S156C5922114) |  | AD480L |
-| `J HARDPAGE` | [The going to bed book](https://sjpl.bibliocommons.com/v2/record/S156C5848135) |  | AD460L |
-| `J HARDPAGE` | [The pigeon needs a bath!](https://sjpl.bibliocommons.com/v2/record/S156C6800947) |  | AD350L |
-| `J HARDPAGE` | [The snowy day](https://sjpl.bibliocommons.com/v2/record/S156C2404195) |  | AD500L |
-| `J JPN HARDPAGE Rinker` | [Mighty, mighty construction site](https://sjpl.bibliocommons.com/v2/record/S156C6763894) | Japanese: “Ohayō hataraku kurumatachi : bōdo bukku” — translation of “Mighty, mighty construction site” | AD710L |
-| `J PB PICTURE BOOK` | [Bluey : the creek.](https://sjpl.bibliocommons.com/v2/record/S156C6274428) |  | AD500L |
-| `J PICTURE BOOK Degen` | [Jamberry](https://sjpl.bibliocommons.com/v2/record/S156C1123306) |  | PreK |
-| `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
-| `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
-| `J PICTURE BOOK Gravett` | [Monkey and me](https://sjpl.bibliocommons.com/v2/record/S156C3370402) |  |  |
-| `J PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4321178) |  | Ages 2-5 |
-| `J PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C2595426) |  | 360L |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | AD510L |
-| `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
-| `J PICTURE BOOK Keats` | [The snowy day](https://sjpl.bibliocommons.com/v2/record/S156C1523415) |  | AD500L |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
-| `J PICTURE BOOK Lang` | [Grumpy monkey party time!](https://sjpl.bibliocommons.com/v2/record/S156C5898961) |  | Ages 0-3 |
-| `J PICTURE BOOK Pizzoli` | [The watermelon seed](https://sjpl.bibliocommons.com/v2/record/S156C6631965) |  | 350L |
-| `J PICTURE BOOK Portis` | [Not a box](https://sjpl.bibliocommons.com/v2/record/S156C3054198) |  |  |
-| `J PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C4321176) |  | AD520L |
-| `J PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C2375876) |  | Ages 4-8 |
-| `J PICTURE BOOK Willems` | [Knuffle Bunny : a cautionary tale](https://sjpl.bibliocommons.com/v2/record/S156C2597957) |  | Ages 2-5 |
-| `J SPA PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C4456603) | Spanish: “Donde viven los monstruos” — translation of “Where the wild things are” | Ages 4-8 |
-| `J SPA-ENG PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C5696570) | Spanish: “Pete el gato : I love my white shoes” — translation of “Pete the cat : I love my white shoes” | Ages 3-7 |
-
-## Hillview — 35 on the shelf
+## Hillview — 34 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -709,13 +713,50 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J SPA HARDPAGE Boynton` | [Barnyard dance!](https://sjpl.bibliocommons.com/v2/record/S156C6657414) | Spanish: “¡danza del corral!” — translation of “Barnyard dance!” | Ages 2-5 |
 | `J SPA PICTURE BOOK Brown` | [Goodnight moon](https://sjpl.bibliocommons.com/v2/record/S156C2128250) | Spanish: “Buenas noches, Luna” — translation of “Goodnight moon” | AD360L |
 | `J SPA PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C6065091) | Spanish: “Llama Llama rojo pijama” — translation of “Llama Llama red pajama” |  |
-| `J SPA PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C3111593) | Spanish: “La primera luna llena de gatita” — translation of “Kitten's first full moon” | 360L |
 | `J SPA PICTURE BOOK Lang` | [Grumpy monkey](https://sjpl.bibliocommons.com/v2/record/S156C6659281) | Spanish: “Grumpy monkey : ¡está gruñón!” — translation of “Grumpy monkey” | AD460L |
 | `J SPA PICTURE BOOK Numeroff` | [If you give a mouse a cookie](https://sjpl.bibliocommons.com/v2/record/S156C2225761) | Spanish: “Si le das una galletita a un ratón” — translation of “If you give a mouse a cookie” | AD660L |
 | `J SPA PICTURE BOOK Shannon` | [Duck on a bike](https://sjpl.bibliocommons.com/v2/record/S156C4546720) | Spanish: “Pato va en bici” — translation of “Duck on a bike” | AD240L |
 | `J SPA PICTURE BOOK Waddell` | [Owl babies](https://sjpl.bibliocommons.com/v2/record/S156C6146205) | Spanish: “Las lechucitas” — translation of “Owl babies” | AD500L |
 | `J SPA-ENG HARDPAGE Crews` | [Freight train = Tren de carga](https://sjpl.bibliocommons.com/v2/record/S156C5812563) | Spanish: “Freight train : Tren de carga” — translation of “Freight train” | PreK |
 | `J SPA-ENG HARDPAGE Walsh` | [Mouse paint](https://sjpl.bibliocommons.com/v2/record/S156C4400886) | Spanish: “Mouse paint : Pintura de raton” — translation of “Mouse paint” | PreK |
+
+## Rose Garden — 33 on the shelf
+
+| Call # | Title | Version | Ages |
+|---|---|---|---|
+| `J CHI PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C5130281) | Chinese: “Zhao hui wo de mao zi” — translation of “I want my hat back” | 90L |
+| `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C6148671) |  |  |
+| `J EASY READER Carle` | [The very quiet cricket](https://sjpl.bibliocommons.com/v2/record/S156C6148665) |  |  |
+| `J EASY READER Cronin` | [Duck stays in the truck](https://sjpl.bibliocommons.com/v2/record/S156C6020915) |  | Ages 5-7 |
+| `J EASY READER Eastman` | [Go, dog. Go!](https://sjpl.bibliocommons.com/v2/record/S156C2154053) |  |  |
+| `J EASY READER Seuss` | [Mr. Brown can moo! Can you?](https://sjpl.bibliocommons.com/v2/record/S156C5588686) |  |  |
+| `J HARDPAGE` | [Moo, baa, la la la!](https://sjpl.bibliocommons.com/v2/record/S156C6129892) |  | AD230L |
+| `J HARDPAGE` | [The pigeon needs a bath!](https://sjpl.bibliocommons.com/v2/record/S156C6800947) |  | AD350L |
+| `J HARDPAGE` | [Twinkle, twinkle, little sheepy : a sleepy sheepy story](https://sjpl.bibliocommons.com/v2/record/S156C6801747) |  |  |
+| `J HARDPAGE` | [Where's Spot?](https://sjpl.bibliocommons.com/v2/record/S156C6763683) |  | Ages 2-6 |
+| `J PICTURE BOOK Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C1158305) |  |  |
+| `J PICTURE BOOK Carle` | [The very hungry caterpillar](https://sjpl.bibliocommons.com/v2/record/S156C2945517) |  | Ages 2-5 |
+| `J PICTURE BOOK Crews` | [Freight train = Tren de carga](https://sjpl.bibliocommons.com/v2/record/S156C1049398) |  | PreK |
+| `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
+| `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
+| `J PICTURE BOOK Gravett` | [Monkey and me](https://sjpl.bibliocommons.com/v2/record/S156C3370402) |  |  |
+| `J PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C2595426) |  | 360L |
+| `J PICTURE BOOK Hills` | [Duck & Goose go to the beach](https://sjpl.bibliocommons.com/v2/record/S156C4701335) |  | Ages 3-7 |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
+| `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
+| `J PICTURE BOOK McCloske` | [Blueberries for Sal](https://sjpl.bibliocommons.com/v2/record/S156C2212224) |  | AD890L |
+| `J PICTURE BOOK Numeroff` | [If you give a mouse a cookie](https://sjpl.bibliocommons.com/v2/record/S156C1165469) |  | AD660L |
+| `J PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C4151651) |  |  |
+| `J PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C4321176) |  | AD520L |
+| `J PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C2375876) |  | Ages 4-8 |
+| `J PICTURE BOOK Wilson` | [Bear snores on](https://sjpl.bibliocommons.com/v2/record/S156C2401797) |  | AD280L |
+| `J SPA PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C3111593) | Spanish: “La primera luna llena de gatita” — translation of “Kitten's first full moon” | 360L |
+| `J SPA PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C5167570) | Spanish: “Dragones y tacos” — translation of “Dragons love tacos” | AD520L |
+| `J SPA PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C4456603) | Spanish: “Donde viven los monstruos” — translation of “Where the wild things are” | Ages 4-8 |
+| `J SPA PICTURE BOOK Shannon` | [Duck on a bike](https://sjpl.bibliocommons.com/v2/record/S156C4546720) | Spanish: “Pato va en bici” — translation of “Duck on a bike” | AD240L |
+| `J SPA-ENG PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C5696570) | Spanish: “Pete el gato : I love my white shoes” — translation of “Pete the cat : I love my white shoes” | Ages 3-7 |
 
 ## Willow Glen — 34 on the shelf
 
@@ -738,7 +779,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Degen` | [Jamberry](https://sjpl.bibliocommons.com/v2/record/S156C1123306) |  | PreK |
 | `J PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4321178) |  | Ages 2-5 |
 | `J PICTURE BOOK Hills` | [Duck & Goose go to the beach](https://sjpl.bibliocommons.com/v2/record/S156C4701335) |  | Ages 3-7 |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | AD510L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
 | `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
 | `J PICTURE BOOK Lewis` | [Chugga-chugga choo-choo](https://sjpl.bibliocommons.com/v2/record/S156C6009668) |  | AD130L |
@@ -756,78 +797,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Wood` | [The napping house](https://sjpl.bibliocommons.com/v2/record/S156C1139479) |  |  |
 | `J SPA PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C4456603) | Spanish: “Donde viven los monstruos” — translation of “Where the wild things are” | Ages 4-8 |
 
-## Pearl Avenue — 32 on the shelf
-
-| Call # | Title | Version | Ages |
-|---|---|---|---|
-| `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C4632780) |  |  |
-| `J EASY READER Carle` | [The very quiet cricket](https://sjpl.bibliocommons.com/v2/record/S156C6148665) |  |  |
-| `J EASY READER Cronin` | [Duck stays in the truck](https://sjpl.bibliocommons.com/v2/record/S156C6020915) |  | Ages 5-7 |
-| `J EASY READER Diesen` | [You can do it, Pout-Pout Fish!](https://sjpl.bibliocommons.com/v2/record/S156C5871163) |  | 210L |
-| `J EASY READER Regan` | [Mike delivers : the duck is stuck!](https://sjpl.bibliocommons.com/v2/record/S156C6273637) |  | Ages 4-6 |
-| `J HARDPAGE` | [But not the hippopotamus](https://sjpl.bibliocommons.com/v2/record/S156C4938048) |  | AD390L |
-| `J HARDPAGE` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C6768249) |  | 360L |
-| `J JPN PICTURE BOOK Cotter` | [Don't push the button!](https://sjpl.bibliocommons.com/v2/record/S156C5883790) | Japanese: “Zettaini oshicha dame” — translation of “Don't push the button!” | Ages 4-8 |
-| `J JPN PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C3093371) | Japanese: “Kaijūtachi no iru tokoro : Where the wild things are” — translation of “Where the wild things are” | Ages 4-8 |
-| `J PICTURE BOOK Campbell` | [Dear zoo](https://sjpl.bibliocommons.com/v2/record/S156C2132911) |  | 150L |
-| `J PICTURE BOOK Crews` | [Freight train = Tren de carga](https://sjpl.bibliocommons.com/v2/record/S156C1049398) |  | PreK |
-| `J PICTURE BOOK Dewdney` | [Llama Llama misses Mama](https://sjpl.bibliocommons.com/v2/record/S156C3800297) |  |  |
-| `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
-| `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
-| `J PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4321178) |  | Ages 2-5 |
-| `J PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C2595426) |  | 360L |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | AD510L |
-| `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
-| `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
-| `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
-| `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
-| `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
-| `J PICTURE BOOK Numeroff` | [If you give a mouse a cookie](https://sjpl.bibliocommons.com/v2/record/S156C1165469) |  | AD660L |
-| `J PICTURE BOOK Pizzoli` | [The watermelon seed](https://sjpl.bibliocommons.com/v2/record/S156C6631965) |  | 350L |
-| `J PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C4151651) |  |  |
-| `J PICTURE BOOK Rosen` | [We're going on a bear hunt](https://sjpl.bibliocommons.com/v2/record/S156C6196123) |  |  |
-| `J PICTURE BOOK Schertle` | [Little blue truck](https://sjpl.bibliocommons.com/v2/record/S156C3431980) |  | AD580L |
-| `J PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C2375876) |  | Ages 4-8 |
-| `J PICTURE BOOK Slobodki` | [Caps for sale : a tale of a peddler, some monkeys, and their monkey business](https://sjpl.bibliocommons.com/v2/record/S156C3659138) |  | Ages 3-7 |
-| `J PICTURE BOOK Tullet` | [Press here](https://sjpl.bibliocommons.com/v2/record/S156C4940812) |  | AD480L |
-| `J PICTURE BOOK Willems` | [Knuffle Bunny too : a case of mistaken identity](https://sjpl.bibliocommons.com/v2/record/S156C3251823) |  | Ages 3-6 |
-| `J SPA PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C5353980) | Spanish: “Felices sueños, camiones grandes y pequeños” — translation of “Goodnight, goodnight, construction site” |  |
-
-## Rose Garden — 30 on the shelf
-
-| Call # | Title | Version | Ages |
-|---|---|---|---|
-| `J CHI PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C5130281) | Chinese: “Zhao hui wo de mao zi” — translation of “I want my hat back” | 90L |
-| `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C4632780) |  |  |
-| `J EASY READER Carle` | [The very quiet cricket](https://sjpl.bibliocommons.com/v2/record/S156C6148665) |  |  |
-| `J EASY READER Cronin` | [Duck stays in the truck](https://sjpl.bibliocommons.com/v2/record/S156C6020915) |  | Ages 5-7 |
-| `J EASY READER Seuss` | [Mr. Brown can moo! Can you?](https://sjpl.bibliocommons.com/v2/record/S156C5588686) |  |  |
-| `J HARDPAGE` | [Moo, baa, la la la!](https://sjpl.bibliocommons.com/v2/record/S156C6129892) |  | AD230L |
-| `J HARDPAGE` | [The pigeon needs a bath!](https://sjpl.bibliocommons.com/v2/record/S156C6800947) |  | AD350L |
-| `J HARDPAGE` | [Twinkle, twinkle, little sheepy : a sleepy sheepy story](https://sjpl.bibliocommons.com/v2/record/S156C6801747) |  |  |
-| `J HARDPAGE` | [Where's Spot?](https://sjpl.bibliocommons.com/v2/record/S156C6763683) |  | Ages 2-6 |
-| `J PICTURE BOOK Carle` | [The very hungry caterpillar](https://sjpl.bibliocommons.com/v2/record/S156C2945517) |  | Ages 2-5 |
-| `J PICTURE BOOK Crews` | [Freight train = Tren de carga](https://sjpl.bibliocommons.com/v2/record/S156C1049398) |  | PreK |
-| `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
-| `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
-| `J PICTURE BOOK Gravett` | [Monkey and me](https://sjpl.bibliocommons.com/v2/record/S156C3370402) |  |  |
-| `J PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C2595426) |  | 360L |
-| `J PICTURE BOOK Hills` | [Duck & Goose go to the beach](https://sjpl.bibliocommons.com/v2/record/S156C4701335) |  | Ages 3-7 |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | AD510L |
-| `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
-| `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
-| `J PICTURE BOOK McCloske` | [Blueberries for Sal](https://sjpl.bibliocommons.com/v2/record/S156C2212224) |  | AD890L |
-| `J PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C4151651) |  |  |
-| `J PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C4321176) |  | AD520L |
-| `J PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C2375876) |  | Ages 4-8 |
-| `J PICTURE BOOK Wilson` | [Bear snores on](https://sjpl.bibliocommons.com/v2/record/S156C2401797) |  | AD280L |
-| `J SPA PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C3111593) | Spanish: “La primera luna llena de gatita” — translation of “Kitten's first full moon” | 360L |
-| `J SPA PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C5167570) | Spanish: “Dragones y tacos” — translation of “Dragons love tacos” | AD520L |
-| `J SPA PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C4456603) | Spanish: “Donde viven los monstruos” — translation of “Where the wild things are” | Ages 4-8 |
-| `J SPA PICTURE BOOK Shannon` | [Duck on a bike](https://sjpl.bibliocommons.com/v2/record/S156C4546720) | Spanish: “Pato va en bici” — translation of “Duck on a bike” | AD240L |
-| `J SPA-ENG PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C5696570) | Spanish: “Pete el gato : I love my white shoes” — translation of “Pete the cat : I love my white shoes” | Ages 3-7 |
-
 ## Almaden — 28 on the shelf
 
 | Call # | Title | Version | Ages |
@@ -838,7 +807,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C6148671) |  |  |
 | `J EASY READER Cronin` | [Duck stays in the truck](https://sjpl.bibliocommons.com/v2/record/S156C6020915) |  | Ages 5-7 |
 | `J EASY READER Diesen` | [You can do it, Pout-Pout Fish!](https://sjpl.bibliocommons.com/v2/record/S156C5871163) |  | 210L |
-| `J EASY READER Eastman` | [Are you my mother?](https://sjpl.bibliocommons.com/v2/record/S156C2154030) |  | 80L |
 | `J HARDPAGE` | [Knuffle Bunny too : a case of mistaken identity](https://sjpl.bibliocommons.com/v2/record/S156C6769300) |  | Ages 3-6 |
 | `J HARDPAGE` | [The going to bed book](https://sjpl.bibliocommons.com/v2/record/S156C5848135) |  | AD460L |
 | `J JPN HARDPAGE Rinker` | [Mighty, mighty construction site](https://sjpl.bibliocommons.com/v2/record/S156C6763894) | Japanese: “Ohayō hataraku kurumatachi : bōdo bukku” — translation of “Mighty, mighty construction site” | AD710L |
@@ -847,7 +815,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Degen` | [Jamberry](https://sjpl.bibliocommons.com/v2/record/S156C1123306) |  | PreK |
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
 | `J PICTURE BOOK Fox` | [Time for bed](https://sjpl.bibliocommons.com/v2/record/S156C2161106) |  |  |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | AD510L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
 | `J PICTURE BOOK Keats` | [The snowy day](https://sjpl.bibliocommons.com/v2/record/S156C1523415) |  | AD500L |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
@@ -856,6 +824,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
 | `J PICTURE BOOK Pizzoli` | [The watermelon seed](https://sjpl.bibliocommons.com/v2/record/S156C6631965) |  | 350L |
 | `J PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C4151651) |  |  |
+| `J PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C4321176) |  | AD520L |
 | `J PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C2375876) |  | Ages 4-8 |
 | `J PICTURE BOOK Slobodki` | [Caps for sale : a tale of a peddler, some monkeys, and their monkey business](https://sjpl.bibliocommons.com/v2/record/S156C3659138) |  | Ages 3-7 |
 | `J PICTURE BOOK Willems` | [Don't let the pigeon drive the bus](https://sjpl.bibliocommons.com/v2/record/S156C2530651) |  | 120L |
@@ -879,7 +848,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Cousins` | [Hooray for fish!](https://sjpl.bibliocommons.com/v2/record/S156C6632361) |  |  |
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
 | `J PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4321178) |  | Ages 2-5 |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | AD510L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
 | `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
@@ -917,7 +886,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
 | `J PICTURE BOOK Hills` | [Duck & Goose go to the beach](https://sjpl.bibliocommons.com/v2/record/S156C4701335) |  | Ages 3-7 |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | AD510L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | Ages 3-8 |
 | `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
 | `J PICTURE BOOK Lewis` | [Chugga-chugga choo-choo](https://sjpl.bibliocommons.com/v2/record/S156C6009668) |  | AD130L |
 | `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
@@ -949,7 +918,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Crews` | [Freight train = Tren de carga](https://sjpl.bibliocommons.com/v2/record/S156C1049398) |  | PreK |
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
 | `J PICTURE BOOK Gravett` | [Monkey and me](https://sjpl.bibliocommons.com/v2/record/S156C3370402) |  |  |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | AD510L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
 | `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
@@ -965,6 +934,40 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J SPA PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C4456603) | Spanish: “Donde viven los monstruos” — translation of “Where the wild things are” | Ages 4-8 |
 | `J SPA PICTURE BOOK Shannon` | [Duck on a bike](https://sjpl.bibliocommons.com/v2/record/S156C4546720) | Spanish: “Pato va en bici” — translation of “Duck on a bike” | AD240L |
 | `J SPA-ENG PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C5696570) | Spanish: “Pete el gato : I love my white shoes” — translation of “Pete the cat : I love my white shoes” | Ages 3-7 |
+
+## Pearl Avenue — 29 on the shelf
+
+| Call # | Title | Version | Ages |
+|---|---|---|---|
+| `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C4632780) |  |  |
+| `J EASY READER Carle` | [The very quiet cricket](https://sjpl.bibliocommons.com/v2/record/S156C6148665) |  |  |
+| `J EASY READER Cronin` | [Duck stays in the truck](https://sjpl.bibliocommons.com/v2/record/S156C6020915) |  | Ages 5-7 |
+| `J EASY READER Diesen` | [You can do it, Pout-Pout Fish!](https://sjpl.bibliocommons.com/v2/record/S156C5871163) |  | 210L |
+| `J EASY READER Regan` | [Mike delivers : the duck is stuck!](https://sjpl.bibliocommons.com/v2/record/S156C6273637) |  | Ages 4-6 |
+| `J HARDPAGE` | [But not the hippopotamus](https://sjpl.bibliocommons.com/v2/record/S156C4938048) |  | AD390L |
+| `J HARDPAGE` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C6768249) |  | 360L |
+| `J JPN PICTURE BOOK Cotter` | [Don't push the button!](https://sjpl.bibliocommons.com/v2/record/S156C5883790) | Japanese: “Zettaini oshicha dame” — translation of “Don't push the button!” | Ages 4-8 |
+| `J JPN PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C3093371) | Japanese: “Kaijūtachi no iru tokoro : Where the wild things are” — translation of “Where the wild things are” | Ages 4-8 |
+| `J PICTURE BOOK Crews` | [Freight train = Tren de carga](https://sjpl.bibliocommons.com/v2/record/S156C1049398) |  | PreK |
+| `J PICTURE BOOK Dewdney` | [Llama Llama misses Mama](https://sjpl.bibliocommons.com/v2/record/S156C3800297) |  |  |
+| `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
+| `J PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4321178) |  | Ages 2-5 |
+| `J PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C2595426) |  | 360L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
+| `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
+| `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
+| `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
+| `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
+| `J PICTURE BOOK Numeroff` | [If you give a mouse a cookie](https://sjpl.bibliocommons.com/v2/record/S156C1165469) |  | AD660L |
+| `J PICTURE BOOK Pizzoli` | [The watermelon seed](https://sjpl.bibliocommons.com/v2/record/S156C6631965) |  | 350L |
+| `J PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C4151651) |  |  |
+| `J PICTURE BOOK Rosen` | [We're going on a bear hunt](https://sjpl.bibliocommons.com/v2/record/S156C6196123) |  |  |
+| `J PICTURE BOOK Schertle` | [Little blue truck](https://sjpl.bibliocommons.com/v2/record/S156C3431980) |  | AD580L |
+| `J PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C2375876) |  | Ages 4-8 |
+| `J PICTURE BOOK Slobodki` | [Caps for sale : a tale of a peddler, some monkeys, and their monkey business](https://sjpl.bibliocommons.com/v2/record/S156C3659138) |  | Ages 3-7 |
+| `J PICTURE BOOK Tullet` | [Press here](https://sjpl.bibliocommons.com/v2/record/S156C4940812) |  | AD480L |
+| `J PICTURE BOOK Willems` | [Knuffle Bunny too : a case of mistaken identity](https://sjpl.bibliocommons.com/v2/record/S156C3251823) |  | Ages 3-6 |
+| `J SPA PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C5353980) | Spanish: “Felices sueños, camiones grandes y pequeños” — translation of “Goodnight, goodnight, construction site” |  |
 
 ## Seven Trees — 28 on the shelf
 
@@ -983,7 +986,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Campbell` | [Dear zoo](https://sjpl.bibliocommons.com/v2/record/S156C2132911) |  | 150L |
 | `J PICTURE BOOK Carle` | [From head to toe](https://sjpl.bibliocommons.com/v2/record/S156C2133914) |  |  |
 | `J PICTURE BOOK Carle` | [The very hungry caterpillar](https://sjpl.bibliocommons.com/v2/record/S156C2945517) |  | Ages 2-5 |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | AD510L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
 | `J PICTURE BOOK Numeroff` | [If you give a mouse a cookie](https://sjpl.bibliocommons.com/v2/record/S156C1165469) |  | AD660L |
 | `J PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C4151651) |  |  |
@@ -999,7 +1002,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J SPA PICTURE BOOK Sendak` | [Where the wild things are](https://sjpl.bibliocommons.com/v2/record/S156C4456603) | Spanish: “Donde viven los monstruos” — translation of “Where the wild things are” | Ages 4-8 |
 | `J SPA PICTURE BOOK Shannon` | [Duck on a bike](https://sjpl.bibliocommons.com/v2/record/S156C4546720) | Spanish: “Pato va en bici” — translation of “Duck on a bike” | AD240L |
 
-## Alviso — 22 on the shelf
+## Alviso — 23 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -1015,8 +1018,9 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | `J PICTURE BOOK Carle` | [The very hungry caterpillar](https://sjpl.bibliocommons.com/v2/record/S156C2945517) |  | Ages 2-5 |
 | `J PICTURE BOOK Dewdney` | [Llama Llama misses Mama](https://sjpl.bibliocommons.com/v2/record/S156C3800297) |  |  |
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
-| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | AD510L |
+| `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
 | `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
 | `J PICTURE BOOK Numeroff` | [If you give a mouse a cookie](https://sjpl.bibliocommons.com/v2/record/S156C1165469) |  | AD660L |
@@ -1092,7 +1096,8 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | Title | Version |
 |---|---|
 | [Big red barn](https://sjpl.bibliocommons.com/v2/record/S156C2409890) |  |
-| [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C4004430) |  |
+| [Bon appétit ! Monsieur Lapin](https://sjpl.bibliocommons.com/v2/record/S156C2607003) |  |
+| [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C3009374) |  |
 | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C5317426) | audiobook |
 | [Caps for sale : a tale of a peddler, some monkeys, and their monkey business](https://sjpl.bibliocommons.com/v2/record/S156C2261164) |  |
 | [Don't let the pigeon drive the bus](https://sjpl.bibliocommons.com/v2/record/S156C6063851) | audiobook |
@@ -1100,6 +1105,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-22T07:31:29**. Don'
 | [Duck & Goose go to the beach](https://sjpl.bibliocommons.com/v2/record/S156C6519431) | audiobook |
 | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6519430) | audiobook |
 | [Each peach pear plum](https://sjpl.bibliocommons.com/v2/record/S156C1054613) |  |
+| [From head to toe](https://sjpl.bibliocommons.com/v2/record/S156C6129901) | Spanish: “From head to toe : De la cabeza a los pies” |
 | [Giraffes can't dance](https://sjpl.bibliocommons.com/v2/record/S156C2408497) |  |
 | [Giraffes can't dance](https://sjpl.bibliocommons.com/v2/record/S156C4450483) | Chinese: “Chang jing Lu bu hui tiao wu” — translation of “Giraffes can't dance” |
 | [Goodnight moon](https://sjpl.bibliocommons.com/v2/record/S156C2753967) | audiobook |
