@@ -2,7 +2,7 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-08-23T07:34:09**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-08-24T07:32:09**. Don't hand-edit; run `uv run report.py --write`._
 
 
 Bibliographic detail for the **163** tracked titles (137 with catalog details fetched), merged across systems by the `--enrich` pass. Ages come from the catalogs' audience notes, so a Lexile (`AD420L`) or grade band appears where no age range was recorded, and blanks mean the record says nothing.
@@ -64,7 +64,7 @@ Bibliographic detail for the **163** tracked titles (137 with catalog details fe
 | I know an old lady who swallowed a pie | Jackson, Alison, 1953- |  | 0525456457 |  | Based on the classic song about the old woman who swallowed a fly, this retelling with a twist features an old lady attending a Thanksgiving dinner who swallows a pie, then a whole squash, all of the salad, and then a… |
 | I love you to the moon and back | Hepworth, Amelia | AD460L | 9781589255517 |  | A joyful celebration of the love between a parent and the special little person in his or her life. On board pages |
 | I stink! | McMullan, Kate |  | 9780756967277 | Boston Globe/Horn Book Picture Book Honor, 2002 | A big city garbage truck makes its rounds, consuming everything from apple cores and banana peels to leftover ziti with zucchini |
-| I want my hat back | Klassen, Jon | 90L | 9780763655983 | Theodor Seuss Geisel Beginning Reader Honor, 2012 | A bear almost gives up his search for his missing hat until he remembers something important |
+| I want my hat back | Klassen, Jon | 90L | 9780763655983 | Theodor Seuss Geisel Beginning Reader Honor, 2012 | A bear almost gives up his search for his missing hat until he remembers something important. Listen as you read along with this book and CD set |
 | If you give a mouse a cookie | Numeroff, Laura Joffe author | AD660L | 0060245867 | Georgia Children's Book Award, 1988 | Relating the cycle of requests a mouse is likely to make after you give him a cookie takes the reader through a young child's day |
 | In my heart : a book of feelings | Witek, Jo, 1968- | AD450L | 9781419713101 |  | A young girl explores what different emotions feel like, such as happiness which makes her want to twirl, or sadness which feels as heavy as an elephant |
 | Jamberry | Degen, Bruce | PreK | 0060214171 |  | A little boy walking in the forest meets a big lovable bear that takes him on a delicious berry-picking adventure in the magical world of Berryland |
@@ -127,7 +127,7 @@ Bibliographic detail for the **163** tracked titles (137 with catalog details fe
 | The snowy day | Keats, Ezra Jack illustrator author | AD500L | 0606049231 | Caldecott Medal, 1963 | The adventures of a little boy in the city on a very snowy day |
 | The very busy spider | Carle, Eric author illustrator |  | 9780399211669 |  | The farm animals try to divert a busy little spider from spinning her web, but she persists and produces a thing of both beauty and usefulness. The pictures may be felt as well as seen |
 | The very hungry caterpillar | Carle, Eric author | Ages 2-5 | 0399208534 |  | Follows the progress of a hungry little caterpillar as he eats his way through a varied and very large quantity of food until, full at last, he forms a cocoon around himself and goes to sleep. Die-cut pages illustrate… |
-| The very quiet cricket | Carle, Eric |  | 9780448481395 |  | "One day a tiny cricket is born. He meets a big cricket who chirps his welcome. The tiny cricket tries to respond, but he cannot make a sound. And so the cricket makes his way in the world, meeting one insect after an… |
+| The very quiet cricket | Carle, Eric |  | 9780399218859 |  | A very quiet cricket who wants to rub his wings together and make a sound as do so many other animals finally achieves his wish. The cricket's sound is reproduced at the end of the book |
 | The watermelon seed | Pizzoli, Greg author | 350L | 9781423171010 | Theodor Seuss Geisel Award | After swallowing a watermelon seed, a crocodile imagines a scary outcome |
 | Time for bed | Fox, Mem, 1946- |  | 0152010149 |  | As darkness falls parents everywhere try to get their children ready for sleep |
 | Twinkle, twinkle, little sheepy : a sleepy sheepy story | Cummins, Lucy Ruth author |  | 9798217041008 |  | Twinkle, twinkle, little sheep, now it's time to go to sleep . . . Crafted from the original bedtime song "Twinkle, Twinkle, Little Star," and with sturdy board book pages, this is the perfect bedtime read for little … |
