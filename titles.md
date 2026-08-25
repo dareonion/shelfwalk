@@ -2,7 +2,7 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-08-24T07:32:09**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-08-25T07:32:09**. Don't hand-edit; run `uv run report.py --write`._
 
 
 Bibliographic detail for the **163** tracked titles (137 with catalog details fetched), merged across systems by the `--enrich` pass. Ages come from the catalogs' audience notes, so a Lexile (`AD420L`) or grade band appears where no age range was recorded, and blanks mean the record says nothing.
@@ -127,7 +127,7 @@ Bibliographic detail for the **163** tracked titles (137 with catalog details fe
 | The snowy day | Keats, Ezra Jack illustrator author | AD500L | 0606049231 | Caldecott Medal, 1963 | The adventures of a little boy in the city on a very snowy day |
 | The very busy spider | Carle, Eric author illustrator |  | 9780399211669 |  | The farm animals try to divert a busy little spider from spinning her web, but she persists and produces a thing of both beauty and usefulness. The pictures may be felt as well as seen |
 | The very hungry caterpillar | Carle, Eric author | Ages 2-5 | 0399208534 |  | Follows the progress of a hungry little caterpillar as he eats his way through a varied and very large quantity of food until, full at last, he forms a cocoon around himself and goes to sleep. Die-cut pages illustrate… |
-| The very quiet cricket | Carle, Eric |  | 9780399218859 |  | A very quiet cricket who wants to rub his wings together and make a sound as do so many other animals finally achieves his wish. The cricket's sound is reproduced at the end of the book |
+| The very quiet cricket | Carle, Eric |  | 9780448481395 |  | "One day a tiny cricket is born. He meets a big cricket who chirps his welcome. The tiny cricket tries to respond, but he cannot make a sound. And so the cricket makes his way in the world, meeting one insect after an… |
 | The watermelon seed | Pizzoli, Greg author | 350L | 9781423171010 | Theodor Seuss Geisel Award | After swallowing a watermelon seed, a crocodile imagines a scary outcome |
 | Time for bed | Fox, Mem, 1946- |  | 0152010149 |  | As darkness falls parents everywhere try to get their children ready for sleep |
 | Twinkle, twinkle, little sheepy : a sleepy sheepy story | Cummins, Lucy Ruth author |  | 9798217041008 |  | Twinkle, twinkle, little sheep, now it's time to go to sleep . . . Crafted from the original bedtime song "Twinkle, Twinkle, Little Star," and with sturdy board book pages, this is the perfect bedtime read for little … |
