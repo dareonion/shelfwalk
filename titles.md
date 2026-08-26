@@ -2,7 +2,7 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-08-25T07:32:09**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-08-26T07:31:49**. Don't hand-edit; run `uv run report.py --write`._
 
 
 Bibliographic detail for the **163** tracked titles (137 with catalog details fetched), merged across systems by the `--enrich` pass. Ages come from the catalogs' audience notes, so a Lexile (`AD420L`) or grade band appears where no age range was recorded, and blanks mean the record says nothing.
@@ -64,11 +64,11 @@ Bibliographic detail for the **163** tracked titles (137 with catalog details fe
 | I know an old lady who swallowed a pie | Jackson, Alison, 1953- |  | 0525456457 |  | Based on the classic song about the old woman who swallowed a fly, this retelling with a twist features an old lady attending a Thanksgiving dinner who swallows a pie, then a whole squash, all of the salad, and then a… |
 | I love you to the moon and back | Hepworth, Amelia | AD460L | 9781589255517 |  | A joyful celebration of the love between a parent and the special little person in his or her life. On board pages |
 | I stink! | McMullan, Kate |  | 9780756967277 | Boston Globe/Horn Book Picture Book Honor, 2002 | A big city garbage truck makes its rounds, consuming everything from apple cores and banana peels to leftover ziti with zucchini |
-| I want my hat back | Klassen, Jon | 90L | 9780763655983 | Theodor Seuss Geisel Beginning Reader Honor, 2012 | A bear almost gives up his search for his missing hat until he remembers something important. Listen as you read along with this book and CD set |
+| I want my hat back | Klassen, Jon | 90L | 9780763655983 | Theodor Seuss Geisel Beginning Reader Honor, 2012 | A bear almost gives up his search for his missing hat until he remembers something important |
 | If you give a mouse a cookie | Numeroff, Laura Joffe author | AD660L | 0060245867 | Georgia Children's Book Award, 1988 | Relating the cycle of requests a mouse is likely to make after you give him a cookie takes the reader through a young child's day |
 | In my heart : a book of feelings | Witek, Jo, 1968- | AD450L | 9781419713101 |  | A young girl explores what different emotions feel like, such as happiness which makes her want to twirl, or sadness which feels as heavy as an elephant |
 | Jamberry | Degen, Bruce | PreK | 0060214171 |  | A little boy walking in the forest meets a big lovable bear that takes him on a delicious berry-picking adventure in the magical world of Berryland |
-| Kitten's first full moon | Henkes, Kevin | 360L | 9780060588281 | Caldecott Medal, 2005 | When Kitten mistakes the full moon for a bowl of milk, she ends up tired, wet, and hungry trying to reach it |
+| Kitten's first full moon | Henkes, Kevin | 360L | 9780060588281 | School Library Journal Best Books | When Kitten mistakes the full moon for a bowl of milk, she ends up tired, wet, and hungry trying to reach it |
 | Knuffle Bunny : a cautionary tale | Willems, Mo author | Ages 2-5 | 0786818700 | Caldecott Honor Book, 2005 | A trip to the laundromat leads to a momentous occasion when Trixie, too young to speak words, realizes that something important is missing and struggles to explain the problem to her father. Trixie, Daddy, and Knuffle… |
 | Knuffle Bunny too : a case of mistaken identity | Willems, Mo author | Ages 3-6 | 9781423102991 | A Junior Library Guild selection | Her daddy in tow, Trixie hurries to school to show off her one-of-a-kind Knuffle Bunny. But an awful surprise awaits her: someone else has the exact same bunny! |
 | L'âne Trotro | Guettier, Bénédicte |  |  |  |  |
