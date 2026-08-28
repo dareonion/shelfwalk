@@ -2,16 +2,17 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-08-27T07:33:49**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-08-28T07:31:49**. Don't hand-edit; run `uv run report.py --write`._
 
 
-**103** of **165** titles are in the catalog; **59** have at least one copy on a shelf right now. Titles link to the record in this catalog; unlabeled lines are the plain edition, labels mark the other versions we track (board book / audiobook / eBook / eAudiobook / translations).
+**103** of **165** titles are in the catalog; **62** have at least one copy on a shelf right now. Titles link to the record in this catalog; unlabeled lines are the plain edition, labels mark the other versions we track (board book / audiobook / eBook / eAudiobook / translations).
 
 
-## Children's Picture Books - 1st Floor — 28 on the shelf
+## Children's Picture Books - 1st Floor — 29 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
+| `J P AHLBERG` | [Each peach pear plum](https://classiccatalog.mountainview.gov/record=b1034817) |  |  |
 | `J P ANDREAE` | [Giraffes can't dance](https://classiccatalog.mountainview.gov/record=b1273464) |  | AD450L |
 | `J P BROWN` | [Goodnight moon](https://classiccatalog.mountainview.gov/record=b1430061) |  | AD360L |
 | `J P BURNINGHAM` | [Mr. Gumpy's outing](https://classiccatalog.mountainview.gov/record=b1031769) |  | 490L |
@@ -41,7 +42,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-27T07:33:49**. Don'
 | `J P WILSON` | [Bear snores on](https://classiccatalog.mountainview.gov/record=b1248124) |  | AD280L |
 | `J P YOLEN` | [How do dinosaurs say good night?](https://classiccatalog.mountainview.gov/record=b1227952) |  | AD210L |
 
-## Children's World Languages - 1st Floor — 24 on the shelf
+## Children's World Languages - 1st Floor — 25 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -64,13 +65,14 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-27T07:33:49**. Don'
 | `J SPANISH J P MARTIN` | [Brown bear, brown bear, what do you see?](https://classiccatalog.mountainview.gov/record=b1227606) | Spanish: “Oso pardo, oso pardo, qué ves ahí?” — translation of “Brown bear, brown bear, what do you see?” | AD440L |
 | `J SPANISH J P MARTIN` | [Polar bear, polar bear, what do you hear?](https://classiccatalog.mountainview.gov/record=b1238329) | Spanish: “Oso polar, oso polar, qué es ese ruido?” — translation of “Polar bear, polar bear, what do you hear?” | AD670L |
 | `J SPANISH J P PETE` | [Pete the cat : I love my white shoes](https://classiccatalog.mountainview.gov/record=b2161792) | Spanish: “Pete el gato : I love my white shoes” | Ages 3-7 |
+| `J SPANISH J P RINKER` | [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b1480336) | Spanish: “Felices sueños, camiones grandes y pequeños” — translation of “Goodnight, goodnight, construction site” |  |
 | `J SPANISH J P RINKER` | [Steam train, dream train](https://classiccatalog.mountainview.gov/record=b1480337) | Spanish: “Que duermas bien, pequeño tren” — translation of “Steam train, dream train” | AD610L |
 | `J SPANISH J P SCARRY VEH` | [Cars and trucks and things that go](https://classiccatalog.mountainview.gov/record=b3455292) | Spanish: “Todo sobre ruedas” — translation of “Cars and trucks and things that go” | Ages 3-7 |
 | `J SPANISH J P SHANNON` | [Duck on a bike](https://classiccatalog.mountainview.gov/record=b1278640) | Spanish: “Pato va en bici” — translation of “Duck on a bike” | AD240L |
 | `J SPANISH J P WADDELL` | [Owl babies](https://classiccatalog.mountainview.gov/record=b1167851) | Spanish: “Las lechucitas” — translation of “Owl babies” | AD500L |
 | `J SPANISH J P WILLEMS` | [Don't let the pigeon drive the bus](https://classiccatalog.mountainview.gov/record=b3466038) | Spanish: “¡No dejes que la paloma conduzca el autobus!” — translation of “Don't let the pigeon drive the bus!” | 120L |
 
-## Children's Board Books - 1st Floor — 11 on the shelf
+## Children's Board Books - 1st Floor — 12 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -83,6 +85,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-27T07:33:49**. Don'
 | `J BOARD D` | [Llama Llama red pajama](https://classiccatalog.mountainview.gov/record=b1509494) | board book |  |
 | `J BOARD H` | [Kitten's first full moon](https://classiccatalog.mountainview.gov/record=b1578866) | board book | 360L |
 | `J BOARD T` | [Press here](https://classiccatalog.mountainview.gov/record=b3485909) | board book | AD480L |
+| `J BOARD VEHICLE` | [My truck is stuck!](https://classiccatalog.mountainview.gov/record=b1424079) | board book | AD200L |
 | `J BOARD VEHICLE` | [Where do diggers sleep at night?](https://classiccatalog.mountainview.gov/record=b3062776) | board book | AD510L |
 | `J BOARD W` | [Owl babies](https://classiccatalog.mountainview.gov/record=b2418463) | board book | AD500L |
 
@@ -118,8 +121,8 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-27T07:33:49**. Don'
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
-| `J P COTTER Read-Along` | [Don't push the button!](https://classiccatalog.mountainview.gov/record=b3483096) |  | Ages 4-8 |
 | `J P GOETZ VEH` | [Old MacDonald had a truck](https://classiccatalog.mountainview.gov/record=b1566301) |  | AD910L |
+| `J P SAYRES VEH` | [Where do diggers sleep at night?](https://classiccatalog.mountainview.gov/record=b1437829) |  | AD510L |
 | `J P SHANNON VEH` | [Duck on a bike](https://classiccatalog.mountainview.gov/record=b1248676) |  | AD240L |
 
 ## Bookmobile — 1 on the shelf
@@ -156,22 +159,20 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-27T07:33:49**. Don'
 | [Duck on a bike](https://classiccatalog.mountainview.gov/record=b2380964) | Chinese: “Ya zi qi che ji” — translation of “Duck on a bike” |
 | [Duck on a bike](https://classiccatalog.mountainview.gov/record=b2821456) |  |
 | [Duck stays in the truck](https://classiccatalog.mountainview.gov/record=b2546685) |  |
-| [Each peach pear plum](https://classiccatalog.mountainview.gov/record=b1034817) |  |
 | [Freight train = Tren de carga](https://classiccatalog.mountainview.gov/record=b1035344) |  |
 | [From head to toe](https://classiccatalog.mountainview.gov/record=b2163238) | board book |
 | [Giraffes can't dance](https://classiccatalog.mountainview.gov/record=b2821451) |  |
 | [Go, dog. Go!](https://classiccatalog.mountainview.gov/record=b3455296) | Spanish board book: “Ve, perro. ¡Ve! : libro de cosas que van” |
 | [Goodnight moon](https://classiccatalog.mountainview.gov/record=b3418110) | Chinese: “Wan an, yue liang” — translation of “Goodnight moon” |
 | [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b1421852) |  |
-| [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b1480336) | Spanish: “Felices sueños, camiones grandes y pequeños” — translation of “Goodnight, goodnight, construction site” |
 | [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b1600044) | board book |
 | [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b3361558) | Japanese: “Oyasumi, hataraku kurumatachi” — translation of “Goodnight, goodnight, construction site” |
 | [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b3460798) | Chinese: “Wan an, gong di shang de che” — translation of “Goodnight, goodnight, construction site” |
-| [Grumpy monkey : mom for a day](https://classiccatalog.mountainview.gov/record=b2821345) | Chinese: “Xin fan de hou zi” |
 | [Grumpy monkey party time!](https://classiccatalog.mountainview.gov/record=b2786758) | Spanish: “Gruñón, ¡esto es una fiesta!” — translation of “Grumpy monkey party time!” |
 | [Grumpy monkey yuck!](https://classiccatalog.mountainview.gov/record=b3455767) | board book |
 | [Grumpy monkey](https://classiccatalog.mountainview.gov/record=b2361523) |  |
 | [Grumpy monkey](https://classiccatalog.mountainview.gov/record=b2774133) | French: “Gaston grognon” — translation of “Grumpy monkey” |
+| [Grumpy monkey](https://classiccatalog.mountainview.gov/record=b2821345) | Chinese: “Xin fan de hou zi” |
 | [Grumpy monkey](https://classiccatalog.mountainview.gov/record=b3455236) | Spanish: “Grumpy monkey : ¡está gruñón!” |
 | [Hooray for fish!](https://classiccatalog.mountainview.gov/record=b1301058) |  |
 | [I love you to the moon and back](https://classiccatalog.mountainview.gov/record=b2822815) | board book |
@@ -198,7 +199,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-27T07:33:49**. Don'
 | [Mouse paint](https://classiccatalog.mountainview.gov/record=b1110201) |  |
 | [Mr. Brown can moo! Can you?](https://classiccatalog.mountainview.gov/record=b1430829) |  |
 | [My truck is stuck!](https://classiccatalog.mountainview.gov/record=b1259887) |  |
-| [My truck is stuck!](https://classiccatalog.mountainview.gov/record=b1424079) | board book |
 | [Not a box](https://classiccatalog.mountainview.gov/record=b1327221) |  |
 | [Not a box](https://classiccatalog.mountainview.gov/record=b3460797) | Chinese: “Bu shi xiang zi” — translation of “Not a box” |
 | [Oh no, George!](https://classiccatalog.mountainview.gov/record=b1435450) |  |
@@ -237,7 +237,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-08-27T07:33:49**. Don'
 | [Time for bed](https://classiccatalog.mountainview.gov/record=b1154249) |  |
 | [Twinkle, twinkle, little sheepy : a sleepy sheepy story](https://classiccatalog.mountainview.gov/record=b3481817) | board book |
 | [We're going on a bear hunt](https://classiccatalog.mountainview.gov/record=b1113068) |  |
-| [Where do diggers sleep at night?](https://classiccatalog.mountainview.gov/record=b1437829) |  |
 | [Where the wild things are](https://classiccatalog.mountainview.gov/record=b1008048) |  |
 | [Where the wild things are](https://classiccatalog.mountainview.gov/record=b3361555) | Japanese: “Kaijtachi no iru tokoro = Where the wild things are” — translation of “Where the wild things are” |
 | [Where the wild things are](https://classiccatalog.mountainview.gov/record=b3418115) | Chinese: “Ye shou guo” — translation of “Where the wild things are” |
