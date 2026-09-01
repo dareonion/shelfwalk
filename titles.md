@@ -2,10 +2,10 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-08-31T07:34:49**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-09-01T07:30:24**. Don't hand-edit; run `uv run report.py --write`._
 
 
-Bibliographic detail for the **163** tracked titles (137 with catalog details fetched), merged across systems by the `--enrich` pass. Ages come from the catalogs' audience notes, so a Lexile (`AD420L`) or grade band appears where no age range was recorded, and blanks mean the record says nothing.
+Bibliographic detail for the **163** tracked titles (138 with catalog details fetched), merged across systems by the `--enrich` pass. Ages come from the catalogs' audience notes, so a Lexile (`AD420L`) or grade band appears where no age range was recorded, and blanks mean the record says nothing.
 
 | Title | Author | Ages | ISBN | Awards | Summary |
 |---|---|---|---|---|---|
@@ -28,7 +28,7 @@ Bibliographic detail for the **163** tracked titles (137 with catalog details fe
 | Bébés chouettes | Waddell, Martin |  | 9782877670883 |  | "Toutes les chouettes réfléchissent beaucoup, même les bébés chouettes comme Sarah, Rémy et Lou. Et c'est la nuit qu'ils réfléchissent le plus, quand il fait noir, qu'ils sont seuls, et que leur maman chouette n'est p… |
 | Caca boudin | Blake, Stephanie |  |  |  |  |
 | Caps for sale : a tale of a peddler, some monkeys, and their monkey business | Slobodkina, Esphyr, 1908-2002 author illustrator | Ages 3-7 | 9780201091472 |  | A band of mischievous monkeys steals every one of a peddler's caps while he takes a nap under a tree |
-| Cars and trucks and things that go | Scarry, Richard | Ages 3-7 | 9780307157850 |  | On their way to the beach the Pig family encounters almost every kind of transportation vehicle imaginable-- and imaginary |
+| Cars and trucks and things that go | Scarry, Richard | AD490L | 9780307157850 |  | On their way to the beach the Pig family encounters almost every kind of transportation vehicle imaginable-- and imaginary |
 | Cher zoo | Campbell, Rod |  | 1844441733 : $11.50 |  | Each animal arriving from the zoo as a possible pet fails to suit its prospective owner, until just the right one is found. Movable flaps reveal the contents of each package. |
 | Chicka chicka boom boom | Martin, Bill, 1916-2004 | PreK | 1442450703 |  | When all the letters of the alphabet race on another up the coconut tree, will there be enough room? |
 | Chicka Chicka I love you | Martin, Bill, 1916-2004 |  | 9781665980876 |  | "I love you, and you love me. The way we it is...L,O,V,E! Because Chicka Chicka is the best way to say I love you |
@@ -68,7 +68,7 @@ Bibliographic detail for the **163** tracked titles (137 with catalog details fe
 | If you give a mouse a cookie | Numeroff, Laura Joffe author | AD660L | 0060245867 | Georgia Children's Book Award, 1988 | Relating the cycle of requests a mouse is likely to make after you give him a cookie takes the reader through a young child's day |
 | In my heart : a book of feelings | Witek, Jo, 1968- | AD450L | 9781419713101 |  | A young girl explores what different emotions feel like, such as happiness which makes her want to twirl, or sadness which feels as heavy as an elephant |
 | Jamberry | Degen, Bruce | PreK | 0060214171 |  | A little boy walking in the forest meets a big lovable bear that takes him on a delicious berry-picking adventure in the magical world of Berryland |
-| Kitten's first full moon | Henkes, Kevin | 360L | 9780060588281 | School Library Journal Best Books | When Kitten mistakes the full moon for a bowl of milk, she ends up tired, wet, and hungry trying to reach it |
+| Kitten's first full moon | Henkes, Kevin | 360L | 9780060588281 | Caldecott Medal, 2005 | When Kitten mistakes the full moon for a bowl of milk, she ends up tired, wet, and hungry trying to reach it |
 | Knuffle Bunny : a cautionary tale | Willems, Mo author | Ages 2-5 | 0786818700 | Caldecott Honor | A trip to the laundromat leads to a momentous occasion when Trixie, too young to speak words, realizes that something important is missing and struggles to explain the problem to her father. Trixie, Daddy, and Knuffle… |
 | Knuffle Bunny too : a case of mistaken identity | Willems, Mo author | Ages 3-6 | 9781423102991 | A Junior Library Guild selection | Her daddy in tow, Trixie hurries to school to show off her one-of-a-kind Knuffle Bunny. But an awful surprise awaits her: someone else has the exact same bunny! |
 | L'âne Trotro | Guettier, Bénédicte |  |  |  |  |
@@ -160,7 +160,7 @@ Bibliographic detail for the **163** tracked titles (137 with catalog details fe
 | 晚安，猩猩 | Rathmann, Peggy |  | 9787513342728 board book |  |  |
 | 棕色的熊、棕色的熊，你在看什麼？ | Martin, Bill |  | 9577621902 |  | Illustrations and rhyming text portray a young bear searching for its mother and meeting many North American animals along the way |
 | 母雞蘿絲去散步 | Hutchins, Pat |  | 7533296427 |  |  |
-| 爸爸跟我玩 |  |  | 9789866167466 |  |  |
+| 爸爸跟我玩 |  |  | 9789861617466 |  |  |
 | 米米坐馬桶 | 周逸芬 |  | 9789869883160 |  |  |
 | 親愛的動物園 | Campbell, Rod |  | 9787539174365 |  | In this delightful tale about a youngster looking for the perfect pet, readers can lift the flaps to see the animals the zoo has sent |
 | 說不要的書！ |  |  | 9789577627629 |  |  |
