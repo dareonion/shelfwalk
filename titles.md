@@ -2,7 +2,7 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-09-02T07:33:49**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-09-03T07:31:48**. Don't hand-edit; run `uv run report.py --write`._
 
 
 Bibliographic detail for the **163** tracked titles (138 with catalog details fetched), merged across systems by the `--enrich` pass. Ages come from the catalogs' audience notes, so a Lexile (`AD420L`) or grade band appears where no age range was recorded, and blanks mean the record says nothing.
@@ -127,7 +127,7 @@ Bibliographic detail for the **163** tracked titles (138 with catalog details fe
 | The snowy day | Keats, Ezra Jack illustrator author | AD500L | 0606049231 | Caldecott Medal, 1963 | The adventures of a little boy in the city on a very snowy day |
 | The very busy spider | Carle, Eric author illustrator |  | 9780399211669 |  | The farm animals try to divert a busy little spider from spinning her web, but she persists and produces a thing of both beauty and usefulness. The pictures may be felt as well as seen |
 | The very hungry caterpillar | Carle, Eric author | Ages 2-5 | 0399208534 |  | Follows the progress of a hungry little caterpillar as he eats his way through a varied and very large quantity of food until, full at last, he forms a cocoon around himself and goes to sleep. Die-cut pages illustrate… |
-| The very quiet cricket | Carle, Eric |  | 9780399218859 |  | A very quiet cricket who wants to rub his wings together and make a sound as do so many other animals finally achieves his wish. The cricket's sound is reproduced at the end of the book |
+| The very quiet cricket | Carle, Eric | AD490L | 9780399218859 |  | A very quiet cricket who wants to rub his wings together and make a sound as do so many other animals finally achieves his wish. The cricket's sound is reproduced at the end of the book |
 | The watermelon seed | Pizzoli, Greg author | 350L | 9781423171010 | Theodor Seuss Geisel Award | After swallowing a watermelon seed, a crocodile imagines a scary outcome |
 | Time for bed | Fox, Mem, 1946- |  | 0152010149 |  | As darkness falls parents everywhere try to get their children ready for sleep |
 | Twinkle, twinkle, little sheepy : a sleepy sheepy story | Cummins, Lucy Ruth author |  | 9798217041008 |  | Twinkle, twinkle, little sheep, now it's time to go to sleep . . . Crafted from the original bedtime song "Twinkle, Twinkle, Little Star," and with sturdy board book pages, this is the perfect bedtime read for little … |
@@ -143,7 +143,7 @@ Bibliographic detail for the **163** tracked titles (138 with catalog details fe
 | 什麼唱歌：給0-3歲的傳統兒歌 |  |  |  |  |  |
 | 企鵝體操 | 齋藤槙 |  | 9789866215704 |  | Two penguins carry out a fun exercise routine |
 | 好大的紅蘋果 | 垂石眞子 |  | 9787572808081 |  |  |
-| 好餓的毛毛蟲 | Carle, Eric |  | 9789577626547 |  | Follows the progress of a hungry little caterpillar as he eats his way through a varied and very large quantity of food until, full at last, he forms a cocoon around himselfand goes to sleep. Die-cut pages illustrate … |
+| 好餓的毛毛蟲 | Carle, Eric |  | 9789577620989 |  | Follows the progress of a hungry little caterpillar as he eats his way through a varied and very large quantity of food until, full at last, he forms a cocoon around himselfand goes to sleep. Die-cut pages illustrate … |
 | 媽媽買綠豆 | 曾陽晴 |  | 9789861612607 |  | Abao goes to buy mung bean with mom. After they get home, mom makes mung bean soup. Abao likes it very much |
 | 子兒，吐吐 | 李瑾倫 |  | 9787533274221 |  | Buried in soil, a seed will sprout and gradually grow into a tree. What would happen if you swallowed a seed? Chubby Cheeks, the little pig who loves to eat, swallowed some seeds by accident. Will a tree grow out of h… |
 | 寶寶喜歡吃 |  |  | 9789861616063 |  |  |
@@ -168,7 +168,7 @@ Bibliographic detail for the **163** tracked titles (138 with catalog details fe
 | 誰吃掉了？ | 五味太郎 |  | 9577622968 |  | Illustrates shapes and colors as we see in foods |
 | 誰的家到了？ | 劉旭恭 |  | 9789861614601 |  | A snake, a rabbit and a little bear are all riding on the red bus. The bus is taking them home |
 | 貝蒂好想好想吃香蕉 | Antony, Steve | Ages 1-6 | 9786264063005 |  | Betty the gorilla gets very upset when she is unable to peel her banana, and every effort Mr. Toucan makes to help her only seems to make things worse |
-| 跑跑鎮 |  |  | 9787533282103 |  |  |
+| 跑跑鎮 |  |  | 9787533282103 : $11.10 |  |  |
 | 這是我的！ | 三浦太郎 |  | 9787556271283 set ; paperback |  | 兩歲左右的幼兒已經逐漸意識到自己是獨立的個體了，會開始用語言表達自己，「這是我的！」就是一個很常從幼兒口中出現的句子・這類表達自我的語言其實能夠直接促進幼兒自我概念的發展，從根本不認識自己，到開始知道自己的名字及能用詞句標誌自己的物品. 這種幼兒逐漸發展自我概念的過程，將有助其建立正面的自我觀及自尊感. |
-| 鱷魚怕怕．牙醫怕怕 | 五味太郎 |  | 9787572804977 hardback |  | A crocodile and a dentist have an encounter in which each is afraid of the other |
+| 鱷魚怕怕．牙醫怕怕 | 五味太郎 |  | 9789577621382 |  | A crocodile and a dentist have an encounter in which each is afraid of the other |
 | 點點玩聲音 | Tullet, Hervé |  | 9789577626110 |  |  |
