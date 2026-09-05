@@ -20,8 +20,10 @@ to the live catalog record.
 - `catalog_db.py` — SQLite store: every scrape's per-branch status over time
 - `ingest.py` — load browser-captured scrape JSON into the store
 - `report.py` — **generates the markdown** from the store (`--write`) + `--matrix`
+- `hotlist.py` — **the hot-release watcher**: a few adult new releases, polled
+  four-hourly for queue position, with opt-in automatic holds
 - `test_library_lookup.py` / `test_catalog_db.py` / `test_report.py` /
-  `test_bayarea_lookup.py` — tests
+  `test_bayarea_lookup.py` / `test_hotlist.py` — tests
 
 **Generated markdown** — do NOT hand-edit; regenerate with `uv run report.py --write`.
 Every scrape (via `library_lookup.py`/`ingest.py`) regenerates them automatically, so
@@ -251,3 +253,42 @@ Branches: `north`, `lakeview`, `lincoln`, `main`, `mcclure`, `outreach`.
   "very likely on the shelf," not a reservation.
 - The search scope excludes eBooks/eAudio and the federated article index, matching
   the branch shelf-lookup workflow. Adjust `SEARCH_PROFILE` in the script to change it.
+
+## Hot list — getting into the queue before publication
+
+The want-list side asks whether a book is on a shelf this morning. For a new
+release by an author you follow that question has no useful answer: every copy
+is on order, and the only thing that decides when you read it is your place in
+the hold queue, which is fixed weeks before publication.
+
+```bash
+uv run hotlist.py add "Taipei Story" --author Kuang --isbn 9780063473744
+uv run hotlist.py check      # poll every watched title at every system
+uv run hotlist.py status     # current standing, shortest joinable queue
+uv run hotlist.py holds      # what auto-hold would do (dry run)
+```
+
+`hotlist.json` is the watchlist; `shelfwalk.db` keeps the sighting history and
+the hold ledger. `hotwatch.sh` + `systemd/shelfwalk-hotwatch.*` run the check
+four-hourly, which is the timescale a release queue actually moves on.
+
+What it looks like three days before publication:
+
+```
+Taipei Story  (pub 2026-09-08)
+  sjpl  BK           copies   28  holds    1   0.04/copy  avail   0 (no holds — walk-in only)
+  sjpl  BK           copies   50  holds   18   0.36/copy  avail   0
+  sccl  LPRINT       copies    7  holds   10   1.43/copy  avail   0
+  sccl  BK           copies   38  holds   60   1.58/copy  avail   0
+  mvpl  Book         copies    3  holds   12   4.00/copy  avail   0
+  → shortest joinable queue: sjpl (0.36 holds/copy)
+```
+
+Same book, same hour, an eleven-fold spread in queue depth across three
+systems — which is the whole reason the thing exists.
+
+**Holds are watched by default and placed only if you switch it on.** The
+detection half needs no card and no credentials at all. The placing half needs
+both a credential in the login keyring and `SHELFWALK_PLACE_HOLDS=1` in the
+systemd unit, and the endpoints it needs have not been captured yet — see
+`docs/hold-recon.md`.

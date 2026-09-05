@@ -9,8 +9,10 @@ SQLite → `report.py`.
 
 - `uv` for everything: `uv run bayarea_lookup.py`, `uv run pytest -q`,
   `uv add <pkg>`. Never `pip`.
-- **The `.md` files are generated artifacts.** Never hand-edit them; change
-  `report.py` and run `uv run report.py --write`.
+- **The report `.md` files are generated artifacts** (`bayarea.md`, `titles.md`,
+  `sccl.md`, `sjpl.md`, `mountainview.md`, `linkplus.md`, and the frozen Peoria
+  set). Never hand-edit them; change `report.py` and run `uv run report.py
+  --write`. `README.md`, this file and `docs/` are hand-written.
 - `shelfwalk.db` is the source of truth and is gitignored. The schema in
   `catalog_db.py` recreates it; `open_db()` migrates missing columns.
 - Commit/push only when asked.
@@ -24,6 +26,8 @@ SQLite → `report.py`.
 | Every markdown renderer | `report.py` |
 | Want-list data | `wantlist_{en,zh,fr}.json`, `wantlist_exclude.json` |
 | Favorite branches | `report.py:FAVORITES` |
+| Hot new releases: watch + auto-hold | `hotlist.py`, `hotlist.json` |
+| What the hold leg still needs | `docs/hold-recon.md` |
 
 ## Matching invariants (each one is a bug that already bit)
 
@@ -58,3 +62,32 @@ fail, the rule is probably right and the change is wrong.
 - Systems run in parallel threads, one connection each (WAL); `_pace()` spaces
   requests per host — SCCL and SJPL share the BiblioCommons gateway and it
   403s uncoordinated threads.
+
+## Hot list — a different problem from the want-list
+
+`hotlist.py` watches a few adult new releases (`hotlist.json`) and queues for
+them. It is deliberately *not* wired into the want-list path, because the two
+answer different questions: the want-list asks "is it on a shelf this morning",
+the hot list asks "where in the queue will I be on publication day".
+
+Three rules, each one learned from the Taipei Story lookup on 2026-09-05:
+
+- **Match on ISBN, never on the title.** San José catalogued it as `Taipei
+  Story (Deluxe Limited Edition)`, which scores 0.667 against the want-list
+  matcher and is discarded as a miss — losing the one system whose queue was
+  worth joining. `_entry_matches` is deliberately looser than
+  `bayarea_lookup.pick_all`; here a false negative (no hold) costs far more
+  than a false positive (a stray edition in a report).
+- **"Holdable" is not the trigger, and holds-per-copy is not a boolean.** The
+  record was holdable with 30 of 38 copies still on order. The event worth
+  catching is the bib *appearing*; the number worth ranking on is holds/copy,
+  which read 0.36 / 1.58 / 4.00 across three systems on the same day.
+- **Rank only what you can actually join.** San José's Lucky Day shelf reads 1
+  hold on 28 copies — a 0.04/copy queue that accepts no holds at all. Both
+  `status` and `plan_holds` check `holdable` before ranking; a test pins it.
+
+Placing holds is opt-in twice over: credentials must be in the login keyring
+(never the repo, never a log), and `SHELFWALK_PLACE_HOLDS=1` must be set in the
+systemd unit. The `UNIQUE(slug, system, bib_id)` constraint on `hot_holds` is
+what stops a bug re-queueing a title; the batch cap refuses the whole run
+rather than placing part of it.
