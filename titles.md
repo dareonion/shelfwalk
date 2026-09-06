@@ -2,7 +2,7 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-09-05T07:31:49**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-09-06T07:31:49**. Don't hand-edit; run `uv run report.py --write`._
 
 
 Bibliographic detail for the **163** tracked titles (138 with catalog details fetched), merged across systems by the `--enrich` pass. Ages come from the catalogs' audience notes, so a Lexile (`AD420L`) or grade band appears where no age range was recorded, and blanks mean the record says nothing.
@@ -68,7 +68,7 @@ Bibliographic detail for the **163** tracked titles (138 with catalog details fe
 | If you give a mouse a cookie | Numeroff, Laura Joffe author | AD660L | 0060245867 | Georgia Children's Book Award, 1988 | Relating the cycle of requests a mouse is likely to make after you give him a cookie takes the reader through a young child's day |
 | In my heart : a book of feelings | Witek, Jo, 1968- | AD450L | 9781419713101 |  | A young girl explores what different emotions feel like, such as happiness which makes her want to twirl, or sadness which feels as heavy as an elephant |
 | Jamberry | Degen, Bruce | PreK | 0060214171 |  | A little boy walking in the forest meets a big lovable bear that takes him on a delicious berry-picking adventure in the magical world of Berryland |
-| Kitten's first full moon | Henkes, Kevin | 360L | 9780060588281 | School Library Journal Best Books | When Kitten mistakes the full moon for a bowl of milk, she ends up tired, wet, and hungry trying to reach it |
+| Kitten's first full moon | Henkes, Kevin | 360L | 9780060588281 | Caldecott Medal, 2005 | When Kitten mistakes the full moon for a bowl of milk, she ends up tired, wet, and hungry trying to reach it |
 | Knuffle Bunny : a cautionary tale | Willems, Mo author | Ages 2-5 | 0786818700 | Caldecott Honor Book, 2005 | A trip to the laundromat leads to a momentous occasion when Trixie, too young to speak words, realizes that something important is missing and struggles to explain the problem to her father. Trixie, Daddy, and Knuffle… |
 | Knuffle Bunny too : a case of mistaken identity | Willems, Mo author | Ages 3-6 | 9781423102991 | A Junior Library Guild selection | Her daddy in tow, Trixie hurries to school to show off her one-of-a-kind Knuffle Bunny. But an awful surprise awaits her: someone else has the exact same bunny! |
 | L'âne Trotro | Guettier, Bénédicte |  |  |  |  |
@@ -170,5 +170,5 @@ Bibliographic detail for the **163** tracked titles (138 with catalog details fe
 | 貝蒂好想好想吃香蕉 | Antony, Steve | Ages 1-6 | 9786264063005 |  | Betty the gorilla gets very upset when she is unable to peel her banana, and every effort Mr. Toucan makes to help her only seems to make things worse |
 | 跑跑鎮 |  |  | 9787533282103 : $11.10 |  |  |
 | 這是我的！ | 三浦太郎 |  | 9787556271283 set ; paperback |  | 兩歲左右的幼兒已經逐漸意識到自己是獨立的個體了，會開始用語言表達自己，「這是我的！」就是一個很常從幼兒口中出現的句子・這類表達自我的語言其實能夠直接促進幼兒自我概念的發展，從根本不認識自己，到開始知道自己的名字及能用詞句標誌自己的物品. 這種幼兒逐漸發展自我概念的過程，將有助其建立正面的自我觀及自尊感. |
-| 鱷魚怕怕．牙醫怕怕 | 五味太郎 |  | 9789577621382 |  | A crocodile and a dentist have an encounter in which each is afraid of the other |
+| 鱷魚怕怕．牙醫怕怕 | 五味太郎 |  | 9787572804977 hardback |  | A crocodile and a dentist have an encounter in which each is afraid of the other |
 | 點點玩聲音 | Tullet, Hervé |  | 9789577626110 |  |  |

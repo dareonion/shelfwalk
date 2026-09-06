@@ -2,7 +2,7 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-09-05T07:31:49**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-09-06T07:31:49**. Don't hand-edit; run `uv run report.py --write`._
 
 
 Anything below can be **requested for pickup at a member library** (Mountain View is one). ✓ counts are library systems with a copy on the shelf right now, across every edition we track; titles link to the LINK+ record.
@@ -12,9 +12,9 @@ Anything below can be **requested for pickup at a member library** (Mountain Vie
 
 | Title | On a shelf | Member systems |
 |---|---|---|
-| [Are you my mother?](https://csul.iii.com/record=b39392248) | ✓ 20 | Alameda County Public, Amador County Library, Belvedere-Tiburon Public, Berkeley Public Lib, Chula Vista Public Library, El Dorado County Library, +14 more |
+| [Are you my mother?](https://csul.iii.com/record=b39392248) | ✓ 21 | Alameda County Public, Amador County Library, Belvedere-Tiburon Public, Berkeley Public Lib, Chula Vista Public Library, Contra Costa County Library, +15 more |
 | [Barnyard dance!](https://csul.iii.com/record=b51638111) | ✓ 8 | Alameda County Public, Contra Costa County Library, El Centro Library, Oakland Public, Palos Verdes Library District, Pleasanton Public Library, +2 more |
-| [Bear snores on](https://csul.iii.com/record=b35222854) | ✓ 5 | Imperial Public Library, Sacramento Public, San Diego Public Library, San Francisco Public, St. Helena Public Library |
+| [Bear snores on](https://csul.iii.com/record=b35222854) | ✓ 4 | Imperial Public Library, Sacramento Public, San Diego Public Library, St. Helena Public Library |
 | [Big red barn](https://csul.iii.com/record=b47526206) | ✓ 5 | Imperial Public Library, Livermore Public, Pleasanton Public Library, San Diego Public Library, San Francisco Public |
 | [Blueberries for Sal](https://csul.iii.com/record=b52740598) | ✓ 1 | Imperial Public Library |
 | [Bluey : the creek.](https://csul.iii.com/record=b48480408) | ✓ 6 | Amador County Library, Calaveras County Library, Larkspur Public, San Francisco Public, Santa Clara City Public, Stanislaus County Library |
@@ -22,7 +22,7 @@ Anything below can be **requested for pickup at a member library** (Mountain Vie
 | [Bon appétit ! Monsieur Lapin](https://csul.iii.com/record=b20236045) | ✓ 2 | San Diego Public Library, San Francisco Public |
 | [Bonne nuit tout le monde](https://csul.iii.com/record=b47386175) | ✓ 1 | Mountain View Public |
 | [Bonsoir Lune](https://csul.iii.com/record=b23503505) | ✓ 8 | Coronado Public Library, Marin County Free, Palos Verdes Library District, Pleasanton Public Library, San Anselmo Public, San Diego Public Library, +2 more |
-| [Brown bear, brown bear, what do you see?](https://csul.iii.com/record=b40965992) | ✓ 9 | Alameda County Public, Coronado Public Library, El Centro Library, Marin County Free, Mill Valley Public, Pleasanton Public Library, +3 more |
+| [Brown bear, brown bear, what do you see?](https://csul.iii.com/record=b40965992) | ✓ 8 | Alameda County Public, El Centro Library, Marin County Free, Mill Valley Public, Pleasanton Public Library, San Diego Public Library, +2 more |
 | [But not the hippopotamus](https://csul.iii.com/record=b35061871) | ✓ 9 | Alameda County Public, Calaveras County Library, Livermore Public, Pleasanton Public Library, Santa Clara City Public, Santa Cruz Public Libraries, +3 more |
 | [Bébés chouettes](https://csul.iii.com/record=b52128577) | ✓ 1 | San Diego Public Library |
 | [Cher zoo](https://csul.iii.com/record=b51517608) | ✓ 1 | San Diego Public Library |
@@ -30,27 +30,27 @@ Anything below can be **requested for pickup at a member library** (Mountain Vie
 | [Chicka Chicka I love you](https://csul.iii.com/record=b52120212) | ✓ 13 | Alameda County Public, Amador County Library, Contra Costa County Library, Escondido Public Library, Napa County Library, Palos Verdes Library District, +7 more |
 | [Chugga-chugga choo-choo](https://csul.iii.com/record=b15703850) | ✓ 9 | Alameda Free Library, Amador County Library, Berkeley Public Lib, Chula Vista Public Library, Hayward Public, Palo Alto Public Library, +3 more |
 | [Dear zoo](https://csul.iii.com/record=b45943116) | ✓ 12 | Benicia Public Library, Chula Vista Public Library, Hayward Public, Imperial Public Library, Livermore Public, Marin County Free, +6 more |
-| [Don't let the pigeon drive the bus](https://csul.iii.com/record=b52284697) | ✓ 8 | Alameda County Public, Glendale Library, Arts & Culture, Livermore Public, Nevada County Library, San Diego Public Library, San Francisco Public, +2 more |
-| [Don't let the pigeon drive the bus](https://csul.iii.com/record=b52284697) | ✓ 8 | Alameda County Public, Glendale Library, Arts & Culture, Livermore Public, Nevada County Library, San Diego Public Library, San Francisco Public, +2 more |
-| [Dragons love tacos](https://csul.iii.com/record=b45396817) | ✓ 32 | Alameda County Public, Alameda Free Library, Amador County Library, Calaveras County Library, Carlsbad City Library, Chula Vista Public Library, +26 more |
-| [Duck & Goose go to the beach](https://csul.iii.com/record=b37108851) | ✓ 26 | Alameda County Public, Alameda Free Library, Amador County Library, Belvedere-Tiburon Public, Benicia Public Library, Berkeley Public Lib, +20 more |
+| [Don't let the pigeon drive the bus](https://csul.iii.com/record=b52284697) | ✓ 10 | Alameda County Public, Contra Costa County Library, Glendale Library, Arts & Culture, Livermore Public, Nevada County Library, San Diego Public Library, +4 more |
+| [Don't let the pigeon drive the bus](https://csul.iii.com/record=b52284697) | ✓ 10 | Alameda County Public, Contra Costa County Library, Glendale Library, Arts & Culture, Livermore Public, Nevada County Library, San Diego Public Library, +4 more |
+| [Dragons love tacos](https://csul.iii.com/record=b45396817) | ✓ 31 | Alameda County Public, Alameda Free Library, Amador County Library, Calaveras County Library, Carlsbad City Library, Chula Vista Public Library, +25 more |
+| [Duck & Goose go to the beach](https://csul.iii.com/record=b37108851) | ✓ 27 | Alameda County Public, Alameda Free Library, Amador County Library, Belvedere-Tiburon Public, Benicia Public Library, Berkeley Public Lib, +21 more |
 | [Duck & Goose, honk! quack! boo!](https://csul.iii.com/record=b52708991) | ✓ 23 | Berkeley Public Lib, Contra Costa County Library, Coronado Public Library, El Dorado County Library, Glendale Library, Arts & Culture, Menlo Park Library, +17 more |
 | [Duck on a bike](https://csul.iii.com/record=b51453407) | ✓ 37 | Alameda Free Library, Amador County Library, Benicia Public Library, Calaveras County Library, Chula Vista Public Library, Contra Costa County Library, +31 more |
 | [Each peach pear plum](https://csul.iii.com/record=b50534930) | ✓ 5 | Benicia Public Library, Chula Vista Public Library, Contra Costa County Library, Richmond Public, San Diego Public Library |
 | [Freight train = Tren de carga](https://csul.iii.com/record=b52076023) | ✓ 33 | Alameda County Public, Alameda Free Library, Carlsbad City Library, Chula Vista Public Library, Contra Costa County Library, El Dorado County Library, +27 more |
-| [From head to toe](https://csul.iii.com/record=b43253654) | ✓ 8 | El Centro Library, Hayward Public, Livermore Public, Marin County Free, Oakland Public, Oceanside Public Library, +2 more |
+| [From head to toe](https://csul.iii.com/record=b43253654) | ✓ 6 | El Centro Library, Marin County Free, Oakland Public, Oceanside Public Library, San Francisco Public, Santa Clara City Public |
 | [Giraffes can't dance](https://csul.iii.com/record=b51652384) | ✓ 13 | El Centro Library, Glendale Library, Arts & Culture, Napa County Library, Oceanside Public Library, Pleasanton Public Library, Sacramento Public, +7 more |
 | [Go, dog. Go!](https://csul.iii.com/record=b13826510) | ✓ 16 | Alameda County Public, Berkeley Public Lib, Calaveras County Library, Contra Costa County Library, El Centro Library, Glendale Library, Arts & Culture, +10 more |
 | [Goodnight moon](https://csul.iii.com/record=b51375751) | ✓ 3 | Coronado Public Library, Menlo Park Library, Nevada County Library |
 | [Goodnight, goodnight, construction site](https://csul.iii.com/record=b51751972) | ✓ 1 | Santa Clara City Public |
 | [Grumpy monkey](https://csul.iii.com/record=b52697340) | ✓ 5 | Amador County Library, Glendale Library, Arts & Culture, Mill Valley Public, Palo Alto Public Library, Santa Cruz Public Libraries |
 | [Grumpy monkey : mom for a day](https://csul.iii.com/record=b51908531) | ✓ 18 | Alameda County Public, Amador County Library, Imperial Public Library, Lodi Public Library, Napa County Library, Palm Desert Library, +12 more |
-| [Grumpy monkey party time!](https://csul.iii.com/record=b52638376) | ✓ 13 | Amador County Library, Benicia Public Library, Glendale Library, Arts & Culture, Lodi Public Library, Mountain View Public, Palo Alto Public Library, +7 more |
-| [Grumpy monkey yuck!](https://csul.iii.com/record=b51095090) | ✓ 5 | Amador County Library, Rancho Cucamonga Library, San Diego Public Library, Santa Clara City Public, St. Helena Public Library |
+| [Grumpy monkey party time!](https://csul.iii.com/record=b52638376) | ✓ 15 | Amador County Library, Benicia Public Library, Glendale Library, Arts & Culture, Lodi Public Library, Mountain View Public, Napa County Library, +9 more |
+| [Grumpy monkey yuck!](https://csul.iii.com/record=b51095090) | ✓ 6 | Amador County Library, Rancho Cucamonga Library, San Diego County Library, San Diego Public Library, Santa Clara City Public, St. Helena Public Library |
 | [Higher! Higher!](https://csul.iii.com/record=b50850455) | ✓ 14 | Calaveras County Library, Chula Vista Public Library, Contra Costa County Library, El Dorado County Library, Hayward Public, Mill Valley Public, +8 more |
 | [Hooray for fish!](https://csul.iii.com/record=b41508511) | ✓ 19 | Alameda Free Library, Benicia Public Library, Calaveras County Library, Contra Costa County Library, El Dorado County Library, Imperial Public Library, +13 more |
-| [How do dinosaurs say good night?](https://csul.iii.com/record=b52676957) | ✓ 7 | Alameda County Public, Amador County Library, Contra Costa County Library, Rancho Cucamonga Library, San Diego Public Library, San Francisco Public, +1 more |
-| [Hug](https://csul.iii.com/record=b36634509) | ✓ 18 | Alameda Free Library, Berkeley Public Lib, Hayward Public, Marin County Free, Menlo Park Library, Mountain View Public, +12 more |
+| [How do dinosaurs say good night?](https://csul.iii.com/record=b52676957) | ✓ 6 | Alameda County Public, Amador County Library, Contra Costa County Library, Rancho Cucamonga Library, San Diego Public Library, Santa Cruz Public Libraries |
+| [Hug](https://csul.iii.com/record=b36634509) | ✓ 17 | Alameda Free Library, Berkeley Public Lib, Hayward Public, Marin County Free, Menlo Park Library, Palo Alto Public Library, +11 more |
 | [I know an old lady who swallowed a pie](https://csul.iii.com/record=b42233531) | ✓ 29 | Alameda Free Library, Benicia Public Library, Berkeley Public Lib, Calaveras County Library, Chula Vista Public Library, Contra Costa County Library, +23 more |
 | [I love you to the moon and back](https://csul.iii.com/record=b52595906) | ✓ 4 | Sacramento Public, San Diego County Library, Solano County Library, St. Helena Public Library |
 | [I stink!](https://csul.iii.com/record=b28713253) | ✓ 1 | Imperial Public Library |
@@ -59,45 +59,45 @@ Anything below can be **requested for pickup at a member library** (Mountain Vie
 | [In my heart : a book of feelings](https://csul.iii.com/record=b51552550) | ✓ 15 | Belvedere-Tiburon Public, Calaveras County Library, El Dorado County Library, Glendale Library, Arts & Culture, Imperial Public Library, Napa County Library, +9 more |
 | [Jamberry](https://csul.iii.com/record=b41764524) | ✓ 8 | Alameda County Public, Chula Vista Public Library, Hayward Public, Mill Valley Public, Palo Alto Public Library, Sacramento Public, +2 more |
 | [Kitten's first full moon](https://csul.iii.com/record=b51850915) | ✓ 7 | Hayward Public, Larkspur Public, Nevada County Library, Rancho Cucamonga Library, Sacramento Public, San Leandro Public Library, +1 more |
-| [Knuffle Bunny : a cautionary tale](https://csul.iii.com/record=b51611095) | ✓ 30 | Alameda County Public, Amador County Library, Calaveras County Library, Coronado Public Library, El Dorado County Library, Glendale Library, Arts & Culture, +24 more |
-| [Knuffle Bunny too : a case of mistaken identity](https://csul.iii.com/record=b52117656) | ✓ 35 | 49-99 Cooperative Library System, Alameda County Public, Alameda Free Library, Belvedere-Tiburon Public, Benicia Public Library, Berkeley Public Lib, +29 more |
+| [Knuffle Bunny : a cautionary tale](https://csul.iii.com/record=b51611095) | ✓ 32 | Alameda County Public, Alameda Free Library, Amador County Library, Calaveras County Library, Contra Costa County Library, Coronado Public Library, +26 more |
+| [Knuffle Bunny too : a case of mistaken identity](https://csul.iii.com/record=b52117656) | ✓ 34 | 49-99 Cooperative Library System, Alameda County Public, Alameda Free Library, Belvedere-Tiburon Public, Benicia Public Library, Berkeley Public Lib, +28 more |
 | [La chenille qui fait des trous](https://csul.iii.com/record=b41810083) | ✓ 5 | Contra Costa County Library, Livermore Public, Palo Alto Public Library, San Diego Public Library, San Jose Public |
 | [La couleur des émotions](https://csul.iii.com/record=b45980872) | ✓ 2 | Berkeley Public Lib, San Francisco Public |
 | [Le loup qui voulait changer de couleur](https://csul.iii.com/record=b41510198) | ✓ 3 | Belvedere-Tiburon Public, San Diego Public Library, San Francisco Public |
 | [Little blue truck](https://csul.iii.com/record=b50224210) | ✓ 4 | Calaveras County Library, Hayward Public, Livermore Public, Nevada County Library |
-| [Little Excavator](https://csul.iii.com/record=b51801518) | ✓ 25 | Alameda County Public, Amador County Library, Berkeley Public Lib, Contra Costa County Library, El Dorado County Library, Glendale Library, Arts & Culture, +19 more |
+| [Little Excavator](https://csul.iii.com/record=b51801518) | ✓ 26 | Alameda County Public, Amador County Library, Berkeley Public Lib, Contra Costa County Library, El Dorado County Library, Glendale Library, Arts & Culture, +20 more |
 | [Llama Llama misses Mama](https://csul.iii.com/record=b46941381) | ✓ 26 | Alameda County Public, Amador County Library, Berkeley Public Lib, Calaveras County Library, Carlsbad City Library, Chula Vista Public Library, +20 more |
-| [Llama Llama red pajama](https://csul.iii.com/record=b52676958) | ✓ 4 | Alameda County Public, Amador County Library, Santa Clara City Public, Santa Cruz Public Libraries |
+| [Llama Llama red pajama](https://csul.iii.com/record=b52676958) | ✓ 5 | Alameda County Public, Amador County Library, Oakland Public, Santa Clara City Public, Santa Cruz Public Libraries |
 | [Maman !](https://csul.iii.com/record=b31994659) | ✓ 1 | Napa County Library |
-| [Mighty, mighty construction site](https://csul.iii.com/record=b49649830) | ✓ 27 | Alameda County Public, Amador County Library, Berkeley Public Lib, Calaveras County Library, Chula Vista Public Library, El Dorado County Library, +21 more |
-| [Mike delivers : the duck is stuck!](https://csul.iii.com/record=b48804417) | ✓ 12 | Alameda County Public, Alameda Free Library, Coronado Public Library, Marin County Free, Nevada County Library, Oakland Public, +6 more |
+| [Mighty, mighty construction site](https://csul.iii.com/record=b49649830) | ✓ 26 | Alameda County Public, Amador County Library, Berkeley Public Lib, Calaveras County Library, Chula Vista Public Library, El Dorado County Library, +20 more |
+| [Mike delivers : the duck is stuck!](https://csul.iii.com/record=b48804417) | ✓ 11 | Alameda County Public, Alameda Free Library, Coronado Public Library, Marin County Free, Nevada County Library, Oakland Public, +5 more |
 | [Monkey and me](https://csul.iii.com/record=b25805616) | ✓ 30 | Alameda County Public, Alameda Free Library, Amador County Library, Benicia Public Library, Berkeley Public Lib, Chula Vista Public Library, +24 more |
 | [Moo, baa, la la la!](https://csul.iii.com/record=b51667266) | ✓ 3 | Alameda County Public, Calaveras County Library, Livermore Public |
 | [Mouse paint](https://csul.iii.com/record=b51548590) | ✓ 13 | Alameda County Public, Chula Vista Public Library, Contra Costa County Library, Hayward Public, Lodi Public Library, Mill Valley Public, +7 more |
 | [Mr. Brown can moo! Can you?](https://csul.iii.com/record=b20341302) | ✓ 8 | Alameda County Public, El Centro Library, El Dorado County Library, Imperial Public Library, Livermore Public, Palo Alto Public Library, +2 more |
 | [Mr. Gumpy's outing](https://csul.iii.com/record=b40112477) | ✓ 1 | Palo Alto Public Library |
-| [My truck is stuck!](https://csul.iii.com/record=b42055954) | ✓ 10 | Berkeley Public Lib, Calaveras County Library, El Dorado County Library, Glendale Library, Arts & Culture, Mill Valley Public, Mountain View Public, +4 more |
-| [Not a box](https://csul.iii.com/record=b33194550) | ✓ 36 | 49-99 Cooperative Library System, Amador County Library, Benicia Public Library, Berkeley Public Lib, Calaveras County Library, Carlsbad City Library, +30 more |
-| [Oh no, George!](https://csul.iii.com/record=b51767097) | ✓ 19 | Amador County Library, Berkeley Public Lib, Calaveras County Library, Coronado Public Library, Livermore Public, Menlo Park Library, +13 more |
+| [My truck is stuck!](https://csul.iii.com/record=b42055954) | ✓ 9 | Berkeley Public Lib, Calaveras County Library, El Dorado County Library, Glendale Library, Arts & Culture, Mill Valley Public, Rancho Cucamonga Library, +3 more |
+| [Not a box](https://csul.iii.com/record=b33194550) | ✓ 37 | 49-99 Cooperative Library System, Amador County Library, Benicia Public Library, Berkeley Public Lib, Calaveras County Library, Carlsbad City Library, +31 more |
+| [Oh no, George!](https://csul.iii.com/record=b51767097) | ✓ 20 | Amador County Library, Berkeley Public Lib, Calaveras County Library, Coronado Public Library, Escondido Public Library, Livermore Public, +14 more |
 | [Old MacDonald had a truck](https://csul.iii.com/record=b45931604) | ✓ 17 | Alameda County Public, Berkeley Public Lib, Chula Vista Public Library, Contra Costa County Library, Coronado Public Library, El Dorado County Library, +11 more |
 | [Orange pear apple bear](https://csul.iii.com/record=b49830404) | ✓ 32 | Alameda County Public, Alameda Free Library, Benicia Public Library, Berkeley Public Lib, Calaveras County Library, Chula Vista Public Library, +26 more |
 | [Ours brun, dis-moi ce que tu vois ?](https://csul.iii.com/record=b41510197) | ✓ 6 | El Dorado County Library, Livermore Public, Marin County Free, San Diego Public Library, San Francisco Public, San Jose Public |
 | [Owl babies](https://csul.iii.com/record=b45983943) | ✓ 9 | Alameda County Public, Contra Costa County Library, Mountain View Public, Rancho Cucamonga Library, San Diego County Library, San Diego Public Library, +3 more |
-| [Pete the cat : I love my white shoes](https://csul.iii.com/record=b30366943) | ✓ 18 | Alameda County Public, Alameda Free Library, Amador County Library, Berkeley Public Lib, Calaveras County Library, Chula Vista Public Library, +12 more |
+| [Pete the cat : I love my white shoes](https://csul.iii.com/record=b30366943) | ✓ 17 | Alameda County Public, Alameda Free Library, Amador County Library, Berkeley Public Lib, Calaveras County Library, Chula Vista Public Library, +11 more |
 | [Petit Ours Brun aime sa maman](https://csul.iii.com/record=b48911464) | ✓ 1 | San Francisco Public |
 | [Petit-Bleu et Petit-Jaune](https://csul.iii.com/record=b52253462) | ✓ 2 | San Diego Public Library, San Francisco Public |
-| [Polar bear, polar bear, what do you hear?](https://csul.iii.com/record=b35179406) | ✓ 14 | Amador County Library, Contra Costa County Library, Coronado Public Library, El Centro Library, Escondido Public Library, Hayward Public, +8 more |
+| [Polar bear, polar bear, what do you hear?](https://csul.iii.com/record=b35179406) | ✓ 15 | Alameda County Public, Amador County Library, Contra Costa County Library, Coronado Public Library, El Centro Library, Escondido Public Library, +9 more |
 | [Press here](https://csul.iii.com/record=b51340159) | ✓ 27 | 49-99 Cooperative Library System, Alameda County Public, Alameda Free Library, Amador County Library, Berkeley Public Lib, Calaveras County Library, +21 more |
 | [Regarde dans la nuit](https://csul.iii.com/record=b45258282) | ✓ 1 | San Anselmo Public |
 | [Roule galette](https://csul.iii.com/record=b52086063) | ✓ 1 | San Jose Public |
 | [Sheep in a jeep](https://csul.iii.com/record=b44351704) | ✓ 5 | Contra Costa County Library, Marin County Free, Oceanside Public Library, San Francisco Public, Tuolumne County Library |
 | [Shh! We have a plan](https://csul.iii.com/record=b39677910) | ✓ 32 | Alameda County Public, Alameda Free Library, Benicia Public Library, Berkeley Public Lib, Calaveras County Library, Carlsbad City Library, +26 more |
-| [Steam train, dream train](https://csul.iii.com/record=b52156179) | ✓ 6 | Alameda Free Library, Mountain View Public, Pleasanton Public Library, Sacramento Public, San Francisco Public, Santa Clara City Public |
+| [Steam train, dream train](https://csul.iii.com/record=b52156179) | ✓ 5 | Alameda Free Library, Pleasanton Public Library, Sacramento Public, San Francisco Public, Santa Clara City Public |
 | [Tap the magic tree](https://csul.iii.com/record=b40347658) | ✓ 25 | Alameda Free Library, Berkeley Public Lib, Chula Vista Public Library, El Centro Library, El Dorado County Library, Glendale Library, Arts & Culture, +19 more |
 | [Ten apples up on top!](https://csul.iii.com/record=b16370157) | ✓ 4 | Alameda County Public, Contra Costa County Library, San Diego Public Library, Stanislaus County Library |
-| [Ten little fingers and ten little toes](https://csul.iii.com/record=b51803403) | ✓ 5 | Sacramento Public, San Diego Public Library, St. Helena Public Library, Stanislaus County Library, Stockton-San Joaquin Public Library |
+| [Ten little fingers and ten little toes](https://csul.iii.com/record=b51803403) | ✓ 4 | San Diego Public Library, St. Helena Public Library, Stanislaus County Library, Stockton-San Joaquin Public Library |
 | [The carrot seed](https://csul.iii.com/record=b51459550) | ✓ 11 | Benicia Public Library, Calaveras County Library, Chula Vista Public Library, Coronado Public Library, Rancho Cucamonga Library, Sacramento Public, +5 more |
-| [The color monster : a story about emotions](https://csul.iii.com/record=b48123984) | ✓ 14 | Alameda Free Library, Amador County Library, Belvedere-Tiburon Public, Calaveras County Library, El Dorado County Library, Marin County Free, +8 more |
+| [The color monster : a story about emotions](https://csul.iii.com/record=b48123984) | ✓ 15 | Alameda Free Library, Amador County Library, Belvedere-Tiburon Public, Calaveras County Library, El Dorado County Library, Marin County Free, +9 more |
 | [The going to bed book](https://csul.iii.com/record=b51597166) | ✓ 4 | Alameda County Public, Amador County Library, San Diego County Library, Santa Cruz Public Libraries |
 | [The Gruffalo](https://csul.iii.com/record=b51861556) | ✓ 20 | Alameda Free Library, Amador County Library, Belvedere-Tiburon Public, Calaveras County Library, El Dorado County Library, Livermore Public, +14 more |
 | [The napping house](https://csul.iii.com/record=b39707154) | ✓ 27 | Alameda County Public, Alameda Free Library, Amador County Library, Benicia Public Library, Berkeley Public Lib, Calaveras County Library, +21 more |
