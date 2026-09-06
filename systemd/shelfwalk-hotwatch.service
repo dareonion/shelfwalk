@@ -1,0 +1,14 @@
+[Unit]
+Description=shelfwalk — poll the hot-release watchlist
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/gitrepo/shelfwalk/hotwatch.sh
+# a handful of titles across three systems; nothing like the 30min want-list pass
+TimeoutStartSec=15min
+# Placing holds acts on a real library account, so it stays off until you turn
+# it on here deliberately. Uncomment once credentials are in the keyring and
+# `hotlist.py holds` has dry-run the way you expect:
+# Environment="SHELFWALK_PLACE_HOLDS=1"

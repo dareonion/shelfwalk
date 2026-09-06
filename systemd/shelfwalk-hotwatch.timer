@@ -1,0 +1,13 @@
+[Unit]
+Description=shelfwalk — four-hourly hot-release check
+
+[Timer]
+# Every four hours. A new release's queue moves by the hour around publication
+# day, and the poll is cheap — a few titles across three catalogs.
+OnCalendar=*-*-* 00/4:15:00
+# if the machine was asleep, run once it comes back
+Persistent=true
+RandomizedDelaySec=10min
+
+[Install]
+WantedBy=timers.target

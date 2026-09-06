@@ -1,0 +1,11 @@
+[Unit]
+Description=shelfwalk — refresh the awards/best-of corpus
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/gitrepo/shelfwalk/acclaim.sh
+# a full re-check of every scriptable source; incremental runs are much
+# shorter, but a first backfill of the Booker library alone is ~15 min
+TimeoutStartSec=120min

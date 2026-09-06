@@ -28,6 +28,8 @@ SQLite → `report.py`.
 | Favorite branches | `report.py:FAVORITES` |
 | Hot new releases: watch + auto-hold | `hotlist.py`, `hotlist.json` |
 | What the hold leg still needs | `docs/hold-recon.md` |
+| Awards / best-of corpus | `acclaim.py` (sources registered in `SOURCES`) |
+| Sources that need a Chrome pass | `docs/harvesting.md`, `tools/collector.py` |
 
 ## Matching invariants (each one is a bug that already bit)
 
@@ -91,3 +93,50 @@ Placing holds is opt-in twice over: credentials must be in the login keyring
 systemd unit. The `UNIQUE(slug, system, bib_id)` constraint on `hot_holds` is
 what stops a bug re-queueing a title; the batch cap refuses the whole run
 rather than placing part of it.
+
+## Acclaim corpus — sourcing rules
+
+`acclaim.py` builds the "what is worth reading" half that `hotlist.py` and the
+want-list then locate on a shelf. Three rules it is built around:
+
+- **Original sources; Wikipedia/Wikidata is a fallback and a cross-check, never
+  the primary.** Measured 2026-09-06: Wikidata holds 818 Booker nominees but
+  21 Pulitzer finalists (there are ~200), 6 Women's Prize, 1 NBCC. It is fine
+  for winners and useless for shortlists, which is most of the value.
+- **Raw first, always.** Scripted fetches mirror into `raw_pages` via
+  `bayarea_lookup._get`; browser harvests land in `harvest/*.json`. Re-parsing
+  must never mean re-crawling — and for the browser tier, re-crawling means
+  driving Chrome by hand.
+- **One writer at a time.** Every source writes the same SQLite file, and a
+  concurrent backfill produces `database is locked` mid-scrape. `acclaim.sh`
+  takes a `flock`; don't run two pulls in parallel.
+
+Adding a source should be one parser plus one `Source(...)` line. If it needs
+more, the framework is wrong rather than the source.
+
+Two modelling decisions that are easy to get wrong:
+
+- **Career awards are not work awards.** The Nobel in Literature is given to a
+  person for a body of work, as are the SFWA Grand Master and most lifetime
+  honours. Those go to `author_accolades`, never `works` — inventing a book
+  called "Han Kang" would fabricate a work *and* inflate every score that
+  counts distinct awards per work.
+- ⭐ **`work_key` is Unicode-aware, and must stay that way.** Stripping to
+  `[a-z0-9]` folds every CJK title to the empty string — 540 Douban books
+  became 26 keys, silently. Fold accents first, then keep `\w` with the
+  UNICODE flag.
+- **Scores count distinct sources, never rows.** Locus alone contributes 5,214
+  accolades because its nominee lists run ten deep in every category; ranking
+  on row count puts a mid-list Locus nominee above a Pulitzer winner. Breadth
+  across independent juries is the signal. `compute_scores` is a full
+  recompute, never incremental, so a rerun after a parser fix reproduces the
+  numbers instead of stacking on them.
+
+**The browser tier cannot run on a timer.** `pulitzer.org` 403s `urllib` *and*
+`curl` with identical headers — that is TLS fingerprinting, and no header
+spoofing gets past it — while NYT/WSJ need Darren's login. `fetch()` from
+inside a real tab works, POSTing to `tools/collector.py`. Two traps, both of
+which cost time: Chrome's Private Network Access silently drops a POST to
+127.0.0.1 unless the response carries `Access-Control-Allow-Private-Network`,
+and six sequential in-page fetches blow the 45s CDP timeout where a
+`Promise.all` over the same six does not.

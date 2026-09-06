@@ -11,3 +11,4 @@ out.json
 *.db-shm
 scrapes/
 logs/
+harvest/

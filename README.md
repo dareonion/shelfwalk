@@ -22,8 +22,11 @@ to the live catalog record.
 - `report.py` — **generates the markdown** from the store (`--write`) + `--matrix`
 - `hotlist.py` — **the hot-release watcher**: a few adult new releases, polled
   four-hourly for queue position, with opt-in automatic holds
+- `acclaim.py` — **the awards/best-of corpus**: Pulitzer, Booker, National Book
+  Awards, Hugo/Nebula/Locus (incl. short fiction), Obama's lists
+- `tools/collector.py` — localhost sink for browser-side harvests
 - `test_library_lookup.py` / `test_catalog_db.py` / `test_report.py` /
-  `test_bayarea_lookup.py` / `test_hotlist.py` — tests
+  `test_bayarea_lookup.py` / `test_hotlist.py` / `test_acclaim.py` — tests
 
 **Generated markdown** — do NOT hand-edit; regenerate with `uv run report.py --write`.
 Every scrape (via `library_lookup.py`/`ingest.py`) regenerates them automatically, so
@@ -292,3 +295,38 @@ detection half needs no card and no credentials at all. The placing half needs
 both a credential in the login keyring and `SHELFWALK_PLACE_HOLDS=1` in the
 systemd unit, and the endpoints it needs have not been captured yet — see
 `docs/hold-recon.md`.
+
+## Acclaim — what's worth reading, joined to what you can borrow
+
+The want-list and the hot list both answer *where do I get this*. `acclaim.py`
+answers the question before it — *what is worth reading* — from the bodies that
+decide it, and stores the result next to the catalog data so the two can be
+joined.
+
+```bash
+uv run acclaim.py pull --all        # every source that runs unattended
+uv run acclaim.py browser-plan      # what needs a Chrome pass, and why
+uv run acclaim.py stats             # coverage and provenance
+uv run acclaim.py score             # rank by breadth across juries
+uv run acclaim.py shelf             # acclaimed AND on a shelf near you now
+uv run acclaim.py find "<story>"    # which anthology carries a short work
+```
+
+Sources are **the awarding bodies themselves**, not an encyclopedia. That is a
+deliberate and load-bearing choice: Wikidata carries 818 Booker nominees but
+only 21 Pulitzer finalists out of roughly 200, 6 Women's Prize nominees and a
+single NBCC record. It is fine for winners and useless for shortlists, which
+is most of what makes a corpus worth having, so it is kept only as a fallback
+and a cross-check.
+
+Short fiction is tracked as well as books — Hugo/Nebula/Locus novellas,
+novelettes and short stories — because the awards cover it. Since you cannot
+borrow a novelette, `work_containers` records which collections and anthologies
+reprint each one.
+
+A weekly timer (`systemd/shelfwalk-acclaim.*`) keeps the scriptable sources
+current. A few sites cannot be scripted at all: `pulitzer.org` returns 403 to
+both `urllib` and `curl` with browser-identical headers — TLS fingerprinting,
+not something header spoofing can beat — and NYT/WSJ need a login. Those are
+harvested by JavaScript running inside a real Chrome tab, which POSTs to
+`tools/collector.py`; see `docs/harvesting.md`.

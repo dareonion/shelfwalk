@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Taipei Story",
+    "author": "Kuang",
+    "isbns": ["9780063473744", "9780063572898", "9780063571976"],
+    "pub_date": "2026-09-08",
+    "auto_hold": true,
+    "pickup": {
+      "sccl": "Cupertino Library",
+      "sjpl": "Calabazas",
+      "mvpl": null
+    }
+  }
+]

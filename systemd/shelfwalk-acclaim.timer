@@ -1,0 +1,13 @@
+[Unit]
+Description=shelfwalk — weekly awards refresh
+
+[Timer]
+# Sunday 04:00. These are annual awards; weekly is already generous, and it
+# keeps the announcement-season checks frequent enough to catch a prize the
+# week it lands.
+OnCalendar=Sun *-*-* 04:00:00
+Persistent=true
+RandomizedDelaySec=30min
+
+[Install]
+WantedBy=timers.target
