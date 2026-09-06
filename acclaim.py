@@ -34,6 +34,7 @@ import json
 import os
 import re
 import sys
+import urllib.parse
 from dataclasses import dataclass, field
 from html import unescape as htmlunescape
 from typing import Callable
@@ -639,6 +640,466 @@ def load_obama(conn) -> int:
     return n
 
 
+# --- Grammy: Best Audio Book / Spoken Word --------------------------------------
+
+# ⚠ Wikipedia fallback, like ft-business. grammy.com refuses scripted clients
+# and would need a page per ceremony (60+); the Wikipedia article carries the
+# whole category history in one place. Every row is stamped 'via Wikipedia'.
+#
+# Table shape: Year | Work | Performing Artist, with the winner row carrying a
+# yellow background and nominees following it under a rowspan year cell. For an
+# audiobook the "performing artist" IS the narrator, so it lands there.
+GRAMMY_WIKI_PAGE = ("Grammy Award for Best Audio Book, "
+                    "Narration & Storytelling Recording")
+_GY_YEAR_RE = re.compile(r"Annual Grammy Awards\|(\d{4})\]\]")
+_GY_WINNER_RE = re.compile(r"background:\s*#FAEB86", re.I)
+
+
+def parse_grammy_wikitext(wikitext: str) -> list[dict]:
+    out, year, status = [], None, None
+    for row in re.split(r"\n\|-", wikitext):
+        ym = _GY_YEAR_RE.search(row)
+        if ym:
+            year = int(ym.group(1))
+        if year is None:
+            continue
+        # a yellow row opens a new award year's winner; the rows after it are
+        # that year's nominees until the next yellow row
+        if _GY_WINNER_RE.search(row):
+            status = "winner"
+        elif ym:
+            status = "winner"
+        else:
+            status = "nominee" if status else None
+        cells = [c.strip() for c in re.split(r"\n\|(?!-)", row)[1:]]
+        cells = [c for c in cells if c and not c.startswith("!")]
+        if len(cells) < 2:
+            continue
+        title = _wiki_plain(cells[0])
+        artist = _wiki_plain(cells[1])
+        if not title or len(title) > 160:
+            continue
+        # the article's infobox is pipe-delimited too and parses as a row;
+        # its cells are 'name = ...' / 'awarded_for = ...' parameter syntax
+        if "=" in title.split(" ")[0] or re.match(r"^\w+\s*=\s", title):
+            continue
+        if artist and re.match(r"^\w+\s*=\s", artist):
+            continue
+        out.append({"year": year, "title": title,
+                    "narrator": artist or None,
+                    "status": status or "nominee"})
+        status = "nominee"
+    return out
+
+
+def load_grammy(conn) -> int:
+    fails: list = []
+    url = ("https://en.wikipedia.org/w/api.php?action=parse&page="
+           + urllib.parse.quote(GRAMMY_WIKI_PAGE)
+           + "&prop=wikitext&format=json")
+    raw = _fetch(conn, url, fails, accept="application/json", timeout=45)
+    if raw is None:
+        _warn_if_mostly_failing("grammy", 0, fails)
+        db.log_fetch(conn, "grammy", False, url=url,
+                     note=_fetch_note(0, fails, "pages"))
+        return 0
+    entries = parse_grammy_wikitext(json.loads(raw)["parse"]["wikitext"]["*"])
+    n = 0
+    for e in entries:
+        # the performing artist is the best author guess we have; for spoken
+        # word they are usually the same person
+        key = db.upsert_work(conn, e["title"], e["narrator"])
+        conn.execute("UPDATE works SET form = COALESCE(form, 'audio') "
+                     "WHERE work_key = ?", (key,))
+        if db.add_accolade(conn, key, "grammy", "award", e["status"],
+                           category="Best Audio Book / Spoken Word",
+                           year=e["year"], narrator=e["narrator"],
+                           detail="via Wikipedia (grammy.com blocks scripts)",
+                           url="https://www.grammy.com/awards"):
+            n += 1
+    conn.commit()
+    db.log_fetch(conn, "grammy", bool(entries), url=url, n_records=n,
+                 note=_fetch_note(len(entries), fails,
+                                  "entries — WIKIPEDIA FALLBACK"))
+    return n
+
+
+# --- Audie Awards ---------------------------------------------------------------
+
+# The Audio Publishers Association's prize, 1996 onward — the dedicated
+# audiobook award. NOTE theaudies.com is a parked domain serving Kirkus
+# content; audiopub.org is the real site.
+#
+# Slugs are inconsistent and the winners hub does not link every year: 2013,
+# 2021 and 2022 are absent from it and were recovered from sitemap.xml. Hence
+# an explicit map rather than a pattern.
+#
+# Page shape (Squarespace), flattened to text:
+#   <CATEGORY> WINNER / <CATEGORY> FINALISTS
+#   <title> ( Audio ) <credit> Published by <publisher>
+# The credit is what makes this source worth having a narrator column for:
+# "Written and narrated by Barbra Streisand" vs "Narrated by Sophie Amoss"
+# with no author named at all.
+AUDIE_BASE = "https://www.audiopub.org/"
+AUDIE_YEARS = {
+    **{y: f"{y}-audies-1" for y in range(1996, 2013) if y != 2000},
+    2000: "2000-audies-award-1",
+    2013: "2013-audies-2",
+    **{y: f"{y}-audies-1" for y in range(2014, 2021)},
+    2021: "2021-audie-awards-1",
+    2022: "2022audieawards-1",
+    2023: "2023audieawards-winners-1",
+    2024: "2024audieawards-winners",
+    2025: "2025audies-1",
+    2026: "2026audieawards-winners",
+}
+_AU_HDR_RE = re.compile(r"^(.{3,60}?)\s+(WINNER|FINALISTS?)$")
+_AU_NOISE = {"(", ")", "Audio", "AudioFile Review", "|", "Ebook", "Print", "-"}
+_AU_NARRATED_RE = re.compile(
+    r"(?:^|,\s*)(?:written\s+and\s+)?narrated by\s+(.+)$", re.I)
+_AU_CREDIT_RE = re.compile(r"narrated by|^by\s|^written by", re.I)
+
+
+def _audie_lines(page: str) -> list[str]:
+    body = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", page, flags=re.S | re.I)
+    out = []
+    for chunk in re.sub(r"<[^>]+>", "\n", body).split("\n"):
+        chunk = re.sub(r"\s+", " ", htmlunescape(chunk)).strip()
+        if chunk:
+            out.append(chunk)
+    return out
+
+
+def parse_audie_year(page: str) -> list[dict]:
+    """-> [{category, status, title, author, narrator}] for one Audie year."""
+    out, category, status, pend = [], None, None, []
+    for line in _audie_lines(page):
+        m = _AU_HDR_RE.match(line)
+        if m and m.group(1) == m.group(1).upper():
+            category = _kp_title_case(m.group(1))
+            status = "winner" if m.group(2).upper() == "WINNER" else "finalist"
+            pend = []
+            continue
+        if category is None:
+            continue
+        if not line.startswith("Published by"):
+            pend.append(line)
+            continue
+        credit = next((x for x in reversed(pend) if _AU_CREDIT_RE.search(x)), None)
+        title = next((x for x in pend
+                      if x not in _AU_NOISE and x is not credit and len(x) > 1), None)
+        pend = []
+        if not title or not credit:
+            continue
+        nm = _AU_NARRATED_RE.search(credit)
+        narrator = nm.group(1).strip() if nm else None
+        author = re.sub(r",?\s*(?:and\s+)?narrated by.*$", "", credit, flags=re.I)
+        author = re.sub(r"^(?:written\s+)?by\s+", "", author, flags=re.I).strip(" ,")
+        if re.match(r"^written and narrated by", credit, re.I):
+            author = narrator          # the author read their own book
+        out.append({"category": category, "status": status, "title": title,
+                    "author": author or None, "narrator": narrator})
+    return out
+
+
+# Pages up to ~2016 use a different shape with NO "Published by" line — the
+# publisher is a parenthetical on the narrator line — so the modern parser
+# terminates no entries at all and silently yields nothing for those years:
+#   winner    <title> / by <Author> / Narrated by <Narrator> (<Publisher>)
+#   finalist  <Title> by <Author>; narrated by <Narrator> (<Publisher>)
+_AU_ONELINE_RE = re.compile(
+    r"^(.{2,120}?)\s+by\s+(.{2,80}?)\s*;\s*narrated by\s+(.{2,120}?)\s*\(", re.I)
+_AU_NARRLINE_RE = re.compile(r"^Narrated by\s+(.{2,140}?)\s*(?:\(|$)", re.I)
+_AU_BYLINE_RE = re.compile(r"^by\s+(.{2,90})$", re.I)
+
+
+def parse_audie_year_legacy(page: str) -> list[dict]:
+    lines = _audie_lines(page)
+    out, category, status = [], None, None
+    for i, line in enumerate(lines):
+        m = _AU_HDR_RE.match(line)
+        if m and m.group(1) == m.group(1).upper():
+            category = _kp_title_case(m.group(1))
+            status = "winner" if m.group(2).upper() == "WINNER" else "finalist"
+            continue
+        if category is None:
+            continue
+        one = _AU_ONELINE_RE.match(line)
+        if one:
+            out.append({"category": category, "status": status,
+                        "title": _strip(one.group(1)),
+                        "author": _strip(one.group(2)) or None,
+                        "narrator": _strip(one.group(3)) or None})
+            continue
+        nm = _AU_NARRLINE_RE.match(line)
+        if nm and i >= 2:
+            bm = _AU_BYLINE_RE.match(lines[i - 1])
+            if bm:
+                title = _strip(lines[i - 2])
+                if title and title not in _AU_NOISE and len(title) > 1:
+                    out.append({"category": category, "status": status,
+                                "title": title,
+                                "author": _strip(bm.group(1)) or None,
+                                "narrator": _strip(nm.group(1)) or None})
+    return out
+
+
+def parse_audie_any(page: str) -> list[dict]:
+    """Modern layout first, legacy as the fallback — a year yielding nothing
+    from one shape is a layout difference, not an empty year."""
+    modern = parse_audie_year(page)
+    return modern if modern else parse_audie_year_legacy(page)
+
+
+def load_audies(conn) -> int:
+    fails: list = []
+    n = years_ok = 0
+    for year, slug in sorted(AUDIE_YEARS.items()):
+        raw = _fetch(conn, AUDIE_BASE + slug, fails, timeout=90)
+        if raw is None:
+            continue
+        entries = parse_audie_any(raw.decode("utf-8", "replace"))
+        if entries:
+            years_ok += 1
+        for e in entries:
+            key = db.upsert_work(conn, e["title"], e["author"])
+            conn.execute("UPDATE works SET form = COALESCE(form, 'audio') "
+                         "WHERE work_key = ?", (key,))
+            if db.add_accolade(conn, key, "audies", "award", e["status"],
+                               category=e["category"], year=year,
+                               narrator=e["narrator"], url=AUDIE_BASE + slug):
+                n += 1
+        conn.commit()
+    _warn_if_mostly_failing("audies", years_ok, fails)
+    db.log_fetch(conn, "audies", years_ok > 0, url=AUDIE_BASE, n_records=n,
+                 note=_fetch_note(years_ok, fails, "years"))
+    return n
+
+
+# --- Kirkus Prize ---------------------------------------------------------------
+
+# kirkusreviews.com/prize/<year>/ — one page per year since 2014, and the two
+# halves are marked up differently:
+#   winners   <div class="prize-winner">  <p class="prize-label">FICTION</p>
+#                                         <h2><a>JAMES</a></h2>
+#                                         <p class="prize-label">BY …</p>
+#   finalists <section class="prize-finalists"> <h2 class="prize-category">…</h2>
+#                                         <li><p class="book-title"><a>…</a></p>
+#                                             <p>By …</p></li>
+KIRKUS_YEAR = "https://www.kirkusreviews.com/prize/{}/"
+KIRKUS_FIRST_YEAR = 2014
+_KP_WINNER_RE = re.compile(
+    r'<div class="prize-winner[^"]*">(.*?)</div>', re.S | re.I)
+_KP_LABEL_RE = re.compile(r'<p class="prize-label">(.*?)</p>', re.S | re.I)
+_KP_H2A_RE = re.compile(r"<h2>\s*<a[^>]*>(.*?)</a>\s*</h2>", re.S | re.I)
+_KP_CATEGORY_RE = re.compile(r'<h2 class="prize-category">(.*?)</h2>', re.S | re.I)
+_KP_LI_RE = re.compile(r"<li\b[^>]*>(.*?)</li>", re.S | re.I)
+_KP_TITLE_RE = re.compile(
+    r'<p class="book-title">\s*<a[^>]*>(.*?)</a>\s*</p>', re.S | re.I)
+_KP_BY_RE = re.compile(r"<p>\s*By\s+(.*?)</p>", re.S | re.I)
+_KIRKUS_FORMS = {"fiction": "novel", "nonfiction": "nonfiction",
+                 "non-fiction": "nonfiction", "young readers": "novel",
+                 "young readers' literature": "novel"}
+
+
+def _kp_title_case(s: str) -> str:
+    """Kirkus shouts its titles and bylines; only fold the all-caps ones."""
+    s = _strip(htmlunescape(s))
+    if not s or s != s.upper():
+        return s
+    # str.title() capitalises after an apostrophe — "Margo'S Got Money Troubles"
+    return re.sub(r"[A-Za-z']+", lambda m: m.group(0).capitalize()
+                  if "'" not in m.group(0)
+                  else m.group(0)[0].upper() + m.group(0)[1:].lower(), s.lower())
+
+
+def parse_kirkus_year(page: str) -> list[dict]:
+    out = []
+    for block in _KP_WINNER_RE.findall(page):
+        labels = _KP_LABEL_RE.findall(block)
+        tm = _KP_H2A_RE.search(block)
+        if not tm or not labels:
+            continue
+        author = next((_strip(x) for x in labels[1:]
+                       if re.match(r"\s*by\s+", _strip(x), re.I)), "")
+        out.append({"category": _kp_title_case(labels[0]),
+                    "title": _kp_title_case(tm.group(1)),
+                    "author": _kp_title_case(re.sub(r"^\s*by\s+", "", author,
+                                                    flags=re.I)) or None,
+                    "status": "winner"})
+
+    i = page.find('class="reviews-section prize-finalists"')
+    if i != -1:
+        section = page[i:]
+        parts = _KP_CATEGORY_RE.split(section)
+        for k in range(1, len(parts) - 1, 2):
+            category = _kp_title_case(parts[k])
+            for li in _KP_LI_RE.findall(parts[k + 1]):
+                tm = _KP_TITLE_RE.search(li)
+                if not tm:
+                    continue
+                bm = _KP_BY_RE.search(li)
+                out.append({"category": category,
+                            "title": _kp_title_case(tm.group(1)),
+                            "author": _kp_title_case(bm.group(1)) if bm else None,
+                            "status": "finalist"})
+    return out
+
+
+def _kirkus_form(category: str) -> str:
+    c = re.sub(r"\s+", " ", (category or "")).strip().lower()
+    for key, form in _KIRKUS_FORMS.items():
+        if key in c:
+            return form
+    return "novel"
+
+
+def load_kirkus(conn) -> int:
+    import datetime
+    fails: list = []
+    n = years_ok = 0
+    for year in range(KIRKUS_FIRST_YEAR, datetime.date.today().year + 1):
+        raw = _fetch(conn, KIRKUS_YEAR.format(year), fails, timeout=60)
+        if raw is None:
+            continue
+        entries = parse_kirkus_year(raw.decode("utf-8", "replace"))
+        if entries:
+            years_ok += 1
+        for e in entries:
+            if not e["title"]:
+                continue
+            key = db.upsert_work(conn, e["title"], e["author"])
+            conn.execute(
+                "UPDATE works SET form = COALESCE(form, ?) WHERE work_key = ?",
+                (_kirkus_form(e["category"]), key))
+            if db.add_accolade(conn, key, "kirkus", "award", e["status"],
+                               category=e["category"], year=year,
+                               url=KIRKUS_YEAR.format(year)):
+                n += 1
+        conn.commit()
+    _warn_if_mostly_failing("kirkus", years_ok, fails)
+    db.log_fetch(conn, "kirkus", years_ok > 0,
+                 url="https://www.kirkusreviews.com/prize/", n_records=n,
+                 note=_fetch_note(years_ok, fails, "years"))
+    return n
+
+
+# --- Women's Prize --------------------------------------------------------------
+
+# womensprize.com renders its library client-side, which is what defeated the
+# first attempt — but it is WordPress, and /wp-json/wp/v2/book is wide open:
+# 1,423 books with book_author / prize_year / prize_type taxonomies. Compare
+# Wikidata's 6 nominees for this award.
+#
+# The API does not distinguish shortlist from longlist, but each book's own
+# page carries the exact sentence — "Shortlisted for the 2026 Women's Prize for
+# Fiction" — so the spine comes from the API and the status from the page. Both
+# go through the raw mirror, so a re-run costs nothing.
+WP_API = "https://womensprize.com/wp-json/wp/v2"
+# The category group is an explicit alternation, not [A-Za-z -]+: a greedy
+# class swallows the blurb that follows and yields 'Fiction Piranesi Lives'.
+_WP_STATUS_RE = re.compile(
+    r"\b(Winner of|Shortlisted for|Longlisted for)\s+the\s+(\d{4})\s+"
+    r"Women'?s Prize(?:\s+for\s+(Non[- ]?Fiction|Fiction|Poetry))?", re.I)
+_WP_STATUS_MAP = {"winner of": "winner", "shortlisted for": "shortlist",
+                  "longlisted for": "longlist"}
+
+
+def parse_womens_prize_status(page_text: str) -> dict | None:
+    """The one sentence on a book page that says what it actually won."""
+    m = _WP_STATUS_RE.search(re.sub(r"\s+", " ", page_text))
+    if not m:
+        return None
+    return {"status": _WP_STATUS_MAP[m.group(1).lower()],
+            "year": int(m.group(2)),
+            "category": (m.group(3) or "Fiction").strip().title()}
+
+
+def _wp_terms(conn, tax: str, fails: list) -> dict:
+    """taxonomy term id -> name, one request per 100 terms."""
+    out, page = {}, 1
+    while True:
+        raw = _fetch(conn, f"{WP_API}/{tax}?per_page=100&page={page}", fails,
+                     accept="application/json", timeout=45)
+        if raw is None:
+            break
+        terms = json.loads(raw)
+        if not terms:
+            break
+        for t in terms:
+            out[t["id"]] = t.get("name") or t.get("slug")
+        if len(terms) < 100:
+            break
+        page += 1
+    return out
+
+
+def load_womens_prize(conn) -> int:
+    fails: list = []
+    authors = _wp_terms(conn, "book_author", fails)
+    years = _wp_terms(conn, "prize_year", fails)
+    types = _wp_terms(conn, "prize_type", fails)
+
+    books, page = [], 1
+    while True:
+        raw = _fetch(conn, f"{WP_API}/book?per_page=100&page={page}"
+                            "&_fields=id,title,slug,link,book_author,"
+                            "prize_year,prize_type", fails,
+                     accept="application/json", timeout=60)
+        if raw is None:
+            break
+        chunk = json.loads(raw)
+        if not chunk:
+            break
+        books += chunk
+        if len(chunk) < 100:
+            break
+        page += 1
+
+    n = with_status = 0
+    for b in books:
+        title = demojibake(htmlunescape(
+            _strip((b.get("title") or {}).get("rendered", ""))))
+        if not title:
+            continue
+        author = next((authors[t] for t in (b.get("book_author") or [])
+                       if t in authors), None)
+        # exact status from the book's own page; the API only knows "listed"
+        rec = None
+        raw = _fetch(conn, b.get("link") or "", fails, timeout=45) \
+            if b.get("link") else None
+        if raw is not None:
+            rec = parse_womens_prize_status(
+                re.sub(r"<[^>]+>", " ", raw.decode("utf-8", "replace")))
+        if rec:
+            with_status += 1
+            year, status, category = rec["year"], rec["status"], rec["category"]
+        else:
+            year = next((int(years[t]) for t in (b.get("prize_year") or [])
+                         if t in years and str(years[t]).isdigit()), None)
+            if year is None:
+                continue                   # library extra, never on a list
+            status = "listed"
+            category = next((types[t] for t in (b.get("prize_type") or [])
+                             if t in types), "Fiction")
+        key = db.upsert_work(conn, title, author)
+        conn.execute(
+            "UPDATE works SET form = COALESCE(form, ?) WHERE work_key = ?",
+            ("nonfiction" if "non" in category.lower() else "novel", key))
+        if db.add_accolade(conn, key, "womens-prize", "award", status,
+                           category=f"Women's Prize for {category}",
+                           year=year, url=b.get("link")):
+            n += 1
+        conn.commit()
+    _warn_if_mostly_failing("womens-prize", len(books), fails)
+    db.log_fetch(conn, "womens-prize", bool(books), url=f"{WP_API}/book",
+                 n_records=n,
+                 note=_fetch_note(len(books), fails,
+                                  f"books via WP REST; {with_status} with an "
+                                  f"exact status line"))
+    return n
+
+
 # --- New York Times lists -------------------------------------------------------
 
 # Harvested in a Chrome tab against Darren's own subscription. The interactive
@@ -913,8 +1374,96 @@ def _lat_form(category: str) -> str:
     return "novel"
 
 
+# The history page carries the whole run since 1980 on one 636KB page. Year
+# markers and category headers alternate as flat text, so each category block
+# binds to the most recent preceding year:
+#   >2010<  ──────<br><b>FICTION</b><br>──────
+#           <b>Winner: Ibis: A Novel</b>, Justin Haynes, Harry N. Abrams
+#           <b>Finalists:</b><ul><li><b>Plum</b>, Andy Anderegg, Hub City</li>…
+LATIMES_HISTORY = ("https://www.latimes.com/events/festival-of-books/"
+                   "book-prizes/history")
+_LATH_YEAR_RE = re.compile(r">\s*((?:19[89]|20[0-2])\d)\s*<")
+_LATH_CAT_RE = re.compile(r"──+<br>\s*<b>(.*?)</b>\s*<br>──+", re.S)
+# 'Winner:' sits inside the bold on most rows and outside it on a few
+_LATH_WINNER_RE = re.compile(
+    r"<b>\s*Winner\s*:?\s*(.*?)</b>\s*:?\s*,?\s*([^<]*)", re.S | re.I)
+_LATH_FINALIST_RE = re.compile(r"<li>\s*<b>(.*?)</b>\s*,?\s*([^<]*)", re.S)
+
+
+def _lath_credit(tail: str) -> str | None:
+    """'Justin Haynes, Harry N. Abrams' -> the author (publisher dropped).
+
+    The audiobook category credits narrators and producers rather than authors,
+    so its 'author' is a production credit; that is the source's shape, not a
+    parse error, and it is left as-is rather than guessed at.
+    """
+    tail = _strip(htmlunescape(tail)).strip(" ,:;")
+    if not tail:
+        return None
+    return tail.split(",")[0].strip(" ,:;") or None
+
+
+def parse_latimes_history(page: str) -> list[dict]:
+    marks = [("year", m.start(), m.group(1), m.end())
+             for m in _LATH_YEAR_RE.finditer(page)]
+    marks += [("cat", m.start(), _kp_title_case(m.group(1)), m.end())
+              for m in _LATH_CAT_RE.finditer(page)]
+    marks.sort(key=lambda x: x[1])
+
+    out, year = [], None
+    for i, (kind, _start, value, end) in enumerate(marks):
+        if kind == "year":
+            year = int(value)
+            continue
+        if year is None or not value:
+            continue
+        block = page[end:marks[i + 1][1]] if i + 1 < len(marks) else page[end:]
+        wm = _LATH_WINNER_RE.search(block)
+        if wm:
+            title = _strip(htmlunescape(re.sub(r"^\s*Winner\s*:?\s*", "",
+                                               wm.group(1), flags=re.I)))
+            if title:
+                out.append({"year": year, "category": value, "title": title,
+                            "author": _lath_credit(wm.group(2)),
+                            "status": "winner"})
+        # finalists only inside the <ul> that follows the Finalists label
+        fi = re.search(r"Finalists?\s*:?\s*</b>?(.*?)</ul>", block, re.S | re.I)
+        if fi:
+            for t, tail in _LATH_FINALIST_RE.findall(fi.group(1)):
+                title = _strip(htmlunescape(t))
+                if title:
+                    out.append({"year": year, "category": value,
+                                "title": title, "author": _lath_credit(tail),
+                                "status": "finalist"})
+    return out
+
+
 def load_latimes(conn) -> int:
+    """History page first: it carries 1980 onward, where the prizes landing
+    page carries only the current cycle."""
     fails: list = []
+    hist = _fetch(conn, LATIMES_HISTORY, fails, timeout=90)
+    if hist is not None:
+        entries = parse_latimes_history(hist.decode("utf-8", "replace"))
+        n = 0
+        for e in entries:
+            if not e["title"]:
+                continue
+            key = db.upsert_work(conn, e["title"], e["author"])
+            conn.execute("UPDATE works SET form = COALESCE(form, ?) "
+                         "WHERE work_key = ?", (_lat_form(e["category"]), key))
+            if db.add_accolade(conn, key, "latimes", "award", e["status"],
+                               category=e["category"], year=e["year"],
+                               url=LATIMES_HISTORY):
+                n += 1
+        conn.commit()
+        yrs = {e["year"] for e in entries}
+        db.log_fetch(conn, "latimes", True, url=LATIMES_HISTORY, n_records=n,
+                     note=_fetch_note(len(entries), fails,
+                                      f"entries across {len(yrs)} years "
+                                      f"({min(yrs)}-{max(yrs)})" if yrs else "entries"))
+        return n
+
     raw = _fetch(conn, LATIMES_URL, fails, timeout=60)
     if raw is None:
         _warn_if_mostly_failing("latimes", 0, fails)
@@ -1319,6 +1868,25 @@ SOURCES: dict[str, Source] = {
                lambda c: _load_sfadb(c, "nebula"), cadence="annual-may",
                note="via sfadb", forms=("novel", "novella", "novelette",
                                         "short-story")),
+        Source("grammy", "Grammy Best Audio Book", "award", WIKIDATA,
+               load_grammy, cadence="annual-feb",
+               note="WIKIPEDIA FALLBACK: grammy.com blocks scripts and would "
+                    "need a page per ceremony",
+               forms=("audio",)),
+        Source("audies", "Audie Awards (audiobooks)", "award", HTTP,
+               load_audies, cadence="annual-mar",
+               note="audiopub.org 1996-2026; records a narrator, not just an "
+                    "author (theaudies.com is a parked domain)",
+               forms=("audio",)),
+        Source("kirkus", "Kirkus Prize", "award", HTTP, load_kirkus,
+               cadence="annual-oct",
+               note="one page per year since 2014; winners and finalists "
+                    "are marked up differently",
+               forms=("novel", "nonfiction")),
+        Source("womens-prize", "Women's Prize", "award", HTTP,
+               load_womens_prize, cadence="annual-jun",
+               note="WP REST for the spine, book page for exact status",
+               forms=("novel", "nonfiction")),
         Source("nyt", "New York Times book lists", "list", BROWSER, load_nyt,
                cadence="annual-nov",
                note="subscriber harvest; 100 Best of the 21st C. loaded",
@@ -1605,6 +2173,85 @@ def cmd_score(args) -> int:
 
 
 # --- the shelf join -------------------------------------------------------------
+
+# The branches actually worth walking into. System-wide "8 of 37 available"
+# says nothing about whether a copy is on the shelf you can reach, so the shelf
+# join filters to these and reports per branch.
+#
+# Palo Alto (Mitchell Park) is a fourth BiblioCommons instance — subdomain
+# 'paloalto' — and is not part of the want-list side of this repo.
+# Mountain View is a single library on a classic WebPAC, so any copy counts.
+FAVORITE_BRANCHES: dict[str, set | None] = {
+    "sccl": {"Los Altos Library", "Cupertino Library"},
+    "sjpl": {"Calabazas", "West Valley"},
+    "paloalto": {"Mitchell Park"},
+    "mvpl": None,
+}
+BC_SHELF_SYSTEMS = ("sccl", "sjpl", "paloalto")
+
+
+def branch_availability(conn, title: str, author: str = None) -> list[dict]:
+    """Per-branch copies of one work, restricted to FAVORITE_BRANCHES.
+
+    Returns one row per (system, branch) with how many copies are on the shelf
+    there right now, plus the system-wide hold queue for context.
+    """
+    import bayarea_lookup as B
+    import hotlist
+    surname = (author or "").split()[-1] if author else ""
+    entry = {"title": shelf_stem(title), "author": surname, "isbns": [],
+             "formats": ("book",)}
+    out = []
+    for system in BC_SHELF_SYSTEMS:
+        wanted = FAVORITE_BRANCHES.get(system)
+        try:
+            cands = [c for c in hotlist.bc_bibs(system, entry)
+                     if c["format_class"] == "book"]
+        except Exception:                                # noqa: BLE001
+            continue
+        for c in cands:
+            try:
+                items = B.bc_parse_availability(json.loads(
+                    B._get(f"{B.GATEWAY}/{system}/bibs/{c['bib_id']}/availability")))
+            except Exception:                            # noqa: BLE001
+                continue
+            for branch in (wanted or {i["branch"] for i in items}):
+                here = [i for i in items if i["branch"] == branch]
+                if not here:
+                    continue
+                on_shelf = sum(1 for i in here if i["state"] == "available")
+                out.append({"system": system, "branch": branch,
+                            "on_shelf": on_shelf, "copies_here": len(here),
+                            "holds": c.get("holds"), "sys_copies": c.get("copies"),
+                            "url": c.get("url")})
+    # Mountain View is one library on a WebPAC; its items carry shelf
+    # locations rather than branches, so any available copy counts.
+    try:
+        for c in hotlist.mvpl_bibs(entry):
+            if c["format_class"] != "book":
+                continue
+            out.append({"system": "mvpl", "branch": "Mountain View Public",
+                        "on_shelf": c.get("available") or 0,
+                        "copies_here": c.get("copies") or 0,
+                        "holds": c.get("holds"), "sys_copies": c.get("copies"),
+                        "url": c.get("url")})
+    except Exception:                                    # noqa: BLE001
+        pass
+    return out
+
+
+def shelf_stem(title: str) -> str:
+    """Search with the title stem, not the full catalogued title.
+
+    The corpus stores 'There Is No Place for Us: Working and Homeless in
+    America' while a catalog may carry a different subtitle, and the matcher
+    requires containment — passing the full string reported every one of these
+    books as 'not held' when all of them were on the shelf.
+    """
+    t = re.split(r":\s*(?:Shortlisted|Longlisted|Winner|Nominated)\b", title or "")[0]
+    return re.split(r"\s*[:;]\s*", t)[0].strip()
+
+
 
 def cmd_shelf(args) -> int:
     """Acclaimed *and* borrowable: the point of keeping this next to the catalog.

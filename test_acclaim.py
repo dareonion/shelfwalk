@@ -670,3 +670,193 @@ def test_distinct_chinese_titles_do_not_collide():
               "\u8981\u6709\u5149", "\u767d\u8c61"]
     keys = {db.work_key(t, "\u4f5c\u8005") for t in titles}
     assert len(keys) == len(titles)
+
+
+# --- Women's Prize --------------------------------------------------------------
+
+def test_womens_prize_reads_the_exact_status_sentence():
+    """The WP REST API knows only that a book was listed; the book's own page
+    is the only place shortlist and longlist are distinguished."""
+    got = A.parse_womens_prize_status(
+        "Shortlisted for the 2026 Women's Prize for Fiction A scorching drama")
+    assert got == {"status": "shortlist", "year": 2026, "category": "Fiction"}
+
+
+def test_womens_prize_category_does_not_swallow_the_blurb():
+    """A greedy [A-Za-z -]+ yields 'Fiction Piranesi Lives In The House'."""
+    got = A.parse_womens_prize_status(
+        "Winner of the 2021 Women's Prize for Fiction Piranesi lives in the House")
+    assert got["category"] == "Fiction" and got["status"] == "winner"
+
+
+def test_womens_prize_handles_non_fiction_and_missing_status():
+    assert A.parse_womens_prize_status(
+        "Longlisted for the 2024 Women's Prize for Non-Fiction x"
+    )["category"] == "Non-Fiction"
+    assert A.parse_womens_prize_status("just a blurb, no prize sentence") is None
+
+
+# --- Kirkus Prize ---------------------------------------------------------------
+
+KIRKUS = """<div class="prize-hero"><h1>2024 Winners</h1></div>
+<section class="prize-winners">
+  <div class="prize-winner starred">
+    <p class="prize-label">FICTION</p>
+    <h2><a href="/x">JAMES</a></h2>
+    <p class="prize-label">BY PERCIVAL EVERETT</p>
+  </div>
+</section>
+<section class="reviews-section prize-finalists"><h1>2024 Finalists</h1>
+  <h2 class="prize-category">FICTION</h2>
+  <ul class="two-rows">
+    <li class="starred"><p class="book-title"><a href="/y">THE MIGHTY RED</a></p>
+      <p>By Louise Erdrich</p></li>
+    <li><p class="book-title"><a href="/z">MARGO&#8217;S GOT MONEY TROUBLES</a></p>
+      <p>By Rufi Thorpe</p></li>
+  </ul>
+</section>"""
+
+
+def test_kirkus_reads_winners_and_finalists_from_different_markup():
+    got = A.parse_kirkus_year(KIRKUS)
+    assert ("James", "winner") in [(e["title"], e["status"]) for e in got]
+    assert ("The Mighty Red", "finalist") in [(e["title"], e["status"]) for e in got]
+
+
+def test_kirkus_strips_the_by_prefix_from_a_winner_label():
+    got = A.parse_kirkus_year(KIRKUS)
+    winner = [e for e in got if e["status"] == "winner"][0]
+    assert winner["author"] == "Percival Everett"
+    assert winner["category"] == "Fiction"
+
+
+def test_kirkus_title_case_respects_apostrophes():
+    """str.title() gives \"Margo'S Got Money Troubles\"."""
+    assert A._kp_title_case("MARGO\u2019S GOT MONEY TROUBLES").startswith("Margo")
+    assert "'S " not in A._kp_title_case("MARGO'S GOT MONEY TROUBLES")
+
+
+def test_kirkus_leaves_mixed_case_titles_alone():
+    assert A._kp_title_case("The Mighty Red") == "The Mighty Red"
+
+
+# --- LA Times history -----------------------------------------------------------
+
+LATH = """>2024<
+──────<br><b>FICTION</b><br>──────
+<b>Winner: Ibis: A Novel</b>, Justin Haynes, Harry N. Abrams<br>
+<b>Finalists:</b><ul><li><b>Plum</b>, Andy Anderegg, Hub City Press</li>
+<li><b>Idle Grounds</b>, Krystelle Bamford, Scribner</li></ul>
+>2023<
+──────<br><b>POETRY</b><br>──────
+<b>Winner: Some Poems</b>, A Poet, A Press<br>
+<b>Finalists:</b><ul><li><b>Other Poems</b>, B Poet, B Press</li></ul>"""
+
+
+def test_latimes_history_binds_blocks_to_the_preceding_year():
+    got = A.parse_latimes_history(LATH)
+    by_year = {(e["year"], e["title"]) for e in got}
+    assert (2024, "Ibis: A Novel") in by_year
+    assert (2023, "Some Poems") in by_year
+
+
+def test_latimes_history_separates_winner_from_finalists():
+    got = A.parse_latimes_history(LATH)
+    w = [e for e in got if e["year"] == 2024 and e["status"] == "winner"]
+    f = [e for e in got if e["year"] == 2024 and e["status"] == "finalist"]
+    assert len(w) == 1 and w[0]["title"] == "Ibis: A Novel"
+    assert {x["title"] for x in f} == {"Plum", "Idle Grounds"}
+
+
+def test_latimes_history_drops_the_publisher_from_the_credit():
+    got = A.parse_latimes_history(LATH)
+    w = [e for e in got if e["status"] == "winner" and e["year"] == 2024][0]
+    assert w["author"] == "Justin Haynes"
+
+
+def test_latimes_history_title_cases_the_shouted_category():
+    assert {e["category"] for e in A.parse_latimes_history(LATH)} == {
+        "Fiction", "Poetry"}
+
+
+# --- Audie Awards ---------------------------------------------------------------
+
+AUDIE_MODERN = """<p>AUDIOBOOK OF THE YEAR WINNER</p><p>My Name Is Barbra</p>
+<p>(</p><p>Audio</p><p>)</p><p>Written and narrated by Barbra Streisand</p>
+<p>Published by Penguin Random House Audio</p>
+<p>FANTASY WINNER</p><p>Bookshops &amp; Bonedust</p><p>By Travis Baldree, narrated by Travis Baldree</p>
+<p>Published by Macmillan Audio</p>"""
+
+AUDIE_LEGACY = """<p>AUDIOBOOK OF THE YEAR WINNER</p><p>The Girl on the Train: A Novel</p>
+<p>by Paula Hawkins</p><p>Narrated by Clare Corbett, Louise Brealey (Penguin Audio)</p>
+<p>AUDIOBOOK OF THE YEAR FINALIST</p>
+<p>Go Set a Watchman by Harper Lee; narrated by Reese Witherspoon (HarperAudio)</p>"""
+
+
+def test_audie_modern_separates_narrator_from_author():
+    got = A.parse_audie_year(AUDIE_MODERN)
+    barbra = [e for e in got if e["title"].startswith("My Name")][0]
+    assert barbra["author"] == "Barbra Streisand"
+    assert barbra["narrator"] == "Barbra Streisand"
+
+
+def test_audie_modern_reads_a_separate_author_and_narrator():
+    got = A.parse_audie_year(AUDIE_MODERN)
+    b = [e for e in got if "Bonedust" in e["title"]][0]
+    assert b["author"] == "Travis Baldree" and b["narrator"] == "Travis Baldree"
+
+
+def test_audie_legacy_layout_has_no_published_by_line():
+    """Pages up to ~2016 put the publisher in parentheses on the narrator
+    line, so the modern parser terminates no entries and yields nothing."""
+    assert A.parse_audie_year(AUDIE_LEGACY) == []
+    got = A.parse_audie_year_legacy(AUDIE_LEGACY)
+    assert any(e["title"].startswith("The Girl on the Train") for e in got)
+
+
+def test_audie_legacy_reads_the_one_line_finalist_shape():
+    got = A.parse_audie_year_legacy(AUDIE_LEGACY)
+    f = [e for e in got if e["status"] == "finalist"]
+    assert f and f[0]["title"] == "Go Set a Watchman"
+    assert f[0]["author"] == "Harper Lee"
+    assert f[0]["narrator"] == "Reese Witherspoon"
+
+
+def test_audie_dispatch_falls_back_to_legacy():
+    assert A.parse_audie_any(AUDIE_LEGACY)
+    assert A.parse_audie_any(AUDIE_MODERN)
+
+
+# --- Grammy ---------------------------------------------------------------------
+
+GRAMMY = """{| class="wikitable"
+|-
+! Year !! Work !! Performing Artist
+|-style="background:#FAEB86;"
+! rowspan=2 |[[66th Annual Grammy Awards|2024]]
+| \'\'The Light We Carry\'\'
+| [[Michelle Obama]]
+|-
+| \'\'Some Other Book\'\'
+| Another Reader
+|}"""
+
+
+def test_grammy_marks_the_highlighted_row_as_winner():
+    got = A.parse_grammy_wikitext(GRAMMY)
+    win = [e for e in got if e["status"] == "winner"]
+    assert win and win[0]["title"] == "The Light We Carry"
+    assert win[0]["narrator"] == "Michelle Obama"
+    assert win[0]["year"] == 2024
+
+
+def test_grammy_rows_after_the_winner_are_nominees():
+    got = A.parse_grammy_wikitext(GRAMMY)
+    assert any(e["status"] == "nominee" and e["title"] == "Some Other Book"
+               for e in got)
+
+
+def test_grammy_skips_the_infobox_parameter_rows():
+    """The article infobox is pipe-delimited too and parses as a table row."""
+    box = "|-\n| name = Grammy Award for Best Audio Book\n| awarded_for = quality"
+    assert A.parse_grammy_wikitext(box) == []

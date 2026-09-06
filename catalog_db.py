@@ -269,6 +269,12 @@ CREATE TABLE IF NOT EXISTS accolades (
     status      TEXT NOT NULL,           -- winner|finalist|shortlist|longlist|listed
     detail      TEXT,
     url         TEXT,
+    -- Audiobook awards credit a *recording*, not a work: the Audies, the
+    -- Grammy and the LA Times audiobook category all honour a narrator and
+    -- producer as much as an author, and one book can have several recordings
+    -- with different narrators. So the narrator hangs off the accolade rather
+    -- than off works, where it would be a lie about the book.
+    narrator    TEXT,
     fetched_at  TEXT NOT NULL,
     UNIQUE(work_key, source, category, year, status)
 );
@@ -348,6 +354,9 @@ def open_db(path: str) -> sqlite3.Connection:
     for col in ("contents", "orig_title", "details"):
         if col not in cols:
             conn.execute(f"ALTER TABLE remote_editions ADD COLUMN {col} TEXT")
+    acols = {r[1] for r in conn.execute("PRAGMA table_info(accolades)")}
+    if acols and "narrator" not in acols:
+        conn.execute("ALTER TABLE accolades ADD COLUMN narrator TEXT")
     wcols = {r[1] for r in conn.execute("PRAGMA table_info(works)")}
     if "form" not in wcols:
         # novel|novella|novelette|short-story|poetry|drama|nonfiction|collection
@@ -755,12 +764,14 @@ def upsert_work(conn, title: str, author: str = None, *, subtitle: str = None,
 
 def add_accolade(conn, work_key_: str, source: str, source_kind: str,
                  status: str, *, category: str = None, year: int = None,
-                 detail: str = None, url: str = None) -> bool:
+                 detail: str = None, url: str = None,
+                 narrator: str = None) -> bool:
     cur = conn.execute(
         "INSERT OR IGNORE INTO accolades (work_key, source, source_kind, "
-        "category, year, status, detail, url, fetched_at) VALUES (?,?,?,?,?,?,?,?,?)",
+        "category, year, status, detail, url, narrator, fetched_at) "
+        "VALUES (?,?,?,?,?,?,?,?,?,?)",
         (work_key_, source, source_kind, category, year, status, detail, url,
-         _now()))
+         narrator, _now()))
     return cur.rowcount > 0
 
 
