@@ -28,7 +28,9 @@ SQLite → `report.py`.
 | Favorite branches | `report.py:FAVORITES` |
 | Hot new releases: watch + auto-hold | `hotlist.py`, `hotlist.json` |
 | What the hold leg still needs | `docs/hold-recon.md` |
-| Awards / best-of corpus | `acclaim.py` (sources registered in `SOURCES`) |
+| Awards / best-of corpus | `acclaim.py` (CLI + `SOURCES` registry) |
+| One adapter per awarding body | `sources/<name>.py` |
+| Transports, mirror, text repair, yield guard | `acclaim_core.py` |
 | Sources that need a Chrome pass | `docs/harvesting.md`, `tools/collector.py` |
 
 ## Matching invariants (each one is a bug that already bit)
@@ -111,8 +113,21 @@ want-list then locate on a shelf. Three rules it is built around:
   concurrent backfill produces `database is locked` mid-scrape. `acclaim.sh`
   takes a `flock`; don't run two pulls in parallel.
 
-Adding a source should be one parser plus one `Source(...)` line. If it needs
-more, the framework is wrong rather than the source.
+Adding a source is one module in `sources/` plus one `Source(...)` line in
+`acclaim.py`. If it needs more, the framework is wrong rather than the source.
+
+⭐ **A source that returns less than it used to has broken, not shrunk.**
+Five bugs here reported success while returning less — the Booker deadlock
+(5 pages of 733), the FT ribbon case (7 winners of 21), sfadb's quoted
+titles (two-thirds of the short fiction), the ISFDB author window (0
+containers, 0 errors) and the Douban CJK key (39 accolades from 540 books).
+`check_yield` compares each run's `n_parsed` against the BEST previous run
+and `pull` exits 3 on a collapse. Use `n_parsed`, never `n_records`:
+accolades are idempotent, so `n_records` is 0 on every re-run.
+
+**Parser tests belong in `test_mirror.py`, against `raw_pages`.** Hand-written
+fixtures encode what you *believed* the markup was, and that belief was wrong
+five times. ~5,900 real responses are mirrored locally; use them.
 
 Two modelling decisions that are easy to get wrong:
 

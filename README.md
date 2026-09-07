@@ -22,8 +22,9 @@ to the live catalog record.
 - `report.py` — **generates the markdown** from the store (`--write`) + `--matrix`
 - `hotlist.py` — **the hot-release watcher**: a few adult new releases, polled
   four-hourly for queue position, with opt-in automatic holds
-- `acclaim.py` — **the awards/best-of corpus**: Pulitzer, Booker, National Book
-  Awards, Hugo/Nebula/Locus (incl. short fiction), Obama's lists
+- `acclaim.py` — **the awards/best-of corpus**: CLI and source registry
+- `sources/` — one adapter per awarding body (20 of them)
+- `acclaim_core.py` — transports, the raw mirror, text repair, the yield guard
 - `tools/collector.py` — localhost sink for browser-side harvests
 - `test_library_lookup.py` / `test_catalog_db.py` / `test_report.py` /
   `test_bayarea_lookup.py` / `test_hotlist.py` / `test_acclaim.py` — tests
