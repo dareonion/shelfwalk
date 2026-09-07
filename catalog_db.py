@@ -313,6 +313,27 @@ CREATE TABLE IF NOT EXISTS author_accolades (
     UNIQUE(author_key, source, year, status)
 );
 
+-- Which catalog record each acclaimed work matches, per system. The MATCH is
+-- stable and expensive (two searches per system per title); AVAILABILITY is
+-- volatile and cheap (one call per known bib). Separating them is what makes
+-- the shelf join fast enough to run: before this it re-searched every catalog
+-- on every query and timed out on 26 titles.
+--
+-- A row with bib_id NULL is a recorded MISS: searched, not held. Without it a
+-- work absent from a system is re-searched forever.
+CREATE TABLE IF NOT EXISTS work_bibs (
+    work_key     TEXT NOT NULL,
+    system       TEXT NOT NULL,
+    bib_id       TEXT,
+    title        TEXT,
+    format_class TEXT,
+    url          TEXT,
+    matched_at   TEXT NOT NULL,
+    PRIMARY KEY (work_key, system, bib_id)
+);
+
+CREATE INDEX IF NOT EXISTS ix_work_bibs ON work_bibs(work_key);
+
 -- Recomputed, never accumulated: rerunning the scorer must not drift.
 CREATE TABLE IF NOT EXISTS work_scores (
     work_key    TEXT PRIMARY KEY,
@@ -328,7 +349,11 @@ CREATE TABLE IF NOT EXISTS acclaim_fetches (
     source      TEXT NOT NULL,
     url         TEXT,
     ok          INTEGER NOT NULL,
-    n_records   INTEGER,
+    n_records   INTEGER,               -- rows newly inserted (0 on a re-run)
+    -- Entries the PARSER produced, before dedup. This is the number that
+    -- should hold steady run to run, and the only one a regression check can
+    -- use: n_records is 0 every second time because accolades are idempotent.
+    n_parsed    INTEGER,
     note        TEXT,
     fetched_at  TEXT NOT NULL
 );
@@ -354,6 +379,9 @@ def open_db(path: str) -> sqlite3.Connection:
     for col in ("contents", "orig_title", "details"):
         if col not in cols:
             conn.execute(f"ALTER TABLE remote_editions ADD COLUMN {col} TEXT")
+    fcols = {r[1] for r in conn.execute("PRAGMA table_info(acclaim_fetches)")}
+    if fcols and "n_parsed" not in fcols:
+        conn.execute("ALTER TABLE acclaim_fetches ADD COLUMN n_parsed INTEGER")
     acols = {r[1] for r in conn.execute("PRAGMA table_info(accolades)")}
     if acols and "narrator" not in acols:
         conn.execute("ALTER TABLE accolades ADD COLUMN narrator TEXT")
@@ -776,12 +804,21 @@ def add_accolade(conn, work_key_: str, source: str, source_kind: str,
 
 
 def log_fetch(conn, source: str, ok: bool, *, url: str = None,
-              n_records: int = None, note: str = None) -> None:
+              n_records: int = None, n_parsed: int = None,
+              note: str = None) -> None:
     conn.execute(
-        "INSERT INTO acclaim_fetches (source, url, ok, n_records, note, "
-        "fetched_at) VALUES (?,?,?,?,?,?)",
-        (source, url, int(bool(ok)), n_records, note, _now()))
+        "INSERT INTO acclaim_fetches (source, url, ok, n_records, n_parsed, "
+        "note, fetched_at) VALUES (?,?,?,?,?,?,?)",
+        (source, url, int(bool(ok)), n_records, n_parsed, note, _now()))
     conn.commit()
+
+
+def past_yields(conn, source: str, limit: int = 10) -> list[int]:
+    """Entries parsed by this source's previous successful runs, newest first."""
+    return [r[0] for r in conn.execute(
+        "SELECT n_parsed FROM acclaim_fetches WHERE source = ? AND ok = 1 "
+        "AND n_parsed IS NOT NULL ORDER BY id DESC LIMIT ?",
+        (source, limit))]
 
 
 def acclaim_stats(conn):
@@ -808,3 +845,26 @@ def add_author_accolade(conn, author: str, source: str, status: str, *,
         "year, status, detail, url, fetched_at) VALUES (?,?,?,?,?,?,?,?)",
         (author, author_key(author), source, year, status, detail, url, _now()))
     return cur.rowcount > 0
+
+
+def record_work_bib(conn, work_key_: str, system: str, bib: dict = None) -> None:
+    """Remember that this work matches this catalog record — or, with bib=None,
+    that the system was searched and holds nothing."""
+    conn.execute(
+        "INSERT OR REPLACE INTO work_bibs (work_key, system, bib_id, title, "
+        "format_class, url, matched_at) VALUES (?,?,?,?,?,?,?)",
+        (work_key_, system, (bib or {}).get("bib_id"), (bib or {}).get("title"),
+         (bib or {}).get("format_class"), (bib or {}).get("url"), _now()))
+
+
+def work_bibs(conn, work_key_: str, system: str = None):
+    where = "WHERE work_key = ?" + (" AND system = ?" if system else "")
+    args = (work_key_, system) if system else (work_key_,)
+    return conn.execute(f"SELECT * FROM work_bibs {where}", args).fetchall()
+
+
+def systems_searched(conn, work_key_: str) -> set:
+    """Systems already looked in — including those that came back empty."""
+    return {r[0] for r in conn.execute(
+        "SELECT DISTINCT system FROM work_bibs WHERE work_key = ?",
+        (work_key_,))}

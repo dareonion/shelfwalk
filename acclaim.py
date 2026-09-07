@@ -116,6 +116,43 @@ def _fetch_note(ok_count: int, fails: list, what: str) -> str:
     return note
 
 
+# A source that suddenly parses far less than it used to has almost certainly
+# broken, not shrunk. Five separate bugs this repo has already hit looked
+# identical from the outside — the pull reported success and simply returned
+# less:
+#   Booker deadlock          5 pages of 733
+#   FT {{blue ribbon}} case  7 winners of 21
+#   sfadb quoted titles      a third of the short fiction it should have
+#   ISFDB author window      0 containers, 0 errors
+#   Douban CJK work_key      39 accolades from 540 harvested books
+# Only the last was caught, and only because a human read the number. This
+# makes that comparison the machine's job.
+YIELD_DROP_THRESHOLD = 0.6      # of the best previous run
+YIELD_MIN_HISTORY = 1           # runs needed before the check has an opinion
+
+
+def check_yield(conn, source: str, n_parsed: int | None) -> str | None:
+    """Compare this run's parsed count against the source's own history.
+
+    Returns a warning line, or None when the yield looks sane. Compares
+    against the BEST previous run, not the last: two bad runs in a row must
+    not quietly become the new normal.
+    """
+    if n_parsed is None:
+        return None
+    history = db.past_yields(conn, source)
+    if len(history) < YIELD_MIN_HISTORY:
+        return None
+    best = max(history)
+    if best <= 0:
+        return None
+    if n_parsed >= best * YIELD_DROP_THRESHOLD:
+        return None
+    return (f"{source}: parsed {n_parsed}, but a previous run parsed {best} "
+            f"({n_parsed / best:.0%} of it). Treat this as a parser break "
+            f"until shown otherwise.")
+
+
 def _warn_if_mostly_failing(source: str, ok_count: int, fails: list) -> None:
     if fails and ok_count == 0:
         print(f"  ! {source}: every fetch failed ({len(fails)}). "
@@ -249,7 +286,7 @@ def load_pulitzer(conn) -> int:
             n += 1
     conn.commit()
     db.log_fetch(conn, "pulitzer", True, url="https://www.pulitzer.org/",
-                 n_records=n, note=f"{len(rows)} raw rows from harvest")
+                 n_records=n, n_parsed=len(rows), note=f"{len(rows)} raw rows from harvest")
     return n
 
 
@@ -356,7 +393,7 @@ def _load_sfadb(conn, award_key: str) -> int:
     _label, slug, first_year = SFADB_AWARDS[award_key]
     import datetime
     this_year = datetime.date.today().year
-    n = years_ok = 0
+    n = years_ok = parsed = 0
     fails: list = []
     for year in range(first_year, this_year + 1):
         url = f"https://www.sfadb.com/{slug}_{year}"
@@ -365,6 +402,7 @@ def _load_sfadb(conn, award_key: str) -> int:
             continue                                    # award not held / no page
         page = _decode_page(raw)
         entries = parse_sfadb_year(page)
+        parsed += len(entries)
         if entries:
             years_ok += 1
         for e in entries:
@@ -379,7 +417,7 @@ def _load_sfadb(conn, award_key: str) -> int:
         conn.commit()
     _warn_if_mostly_failing(award_key, years_ok, fails)
     db.log_fetch(conn, award_key, years_ok > 0, url=f"https://www.sfadb.com/{slug}",
-                 n_records=n, note=_fetch_note(years_ok, fails, "years from sfadb"))
+                 n_records=n, n_parsed=parsed, note=_fetch_note(years_ok, fails, "years from sfadb"))
     return n
 
 
@@ -482,7 +520,7 @@ def load_booker(conn) -> int:
     _warn_if_mostly_failing("booker", pages, fails)
     db.log_fetch(conn, "booker", pages > 0,
                  url="https://thebookerprizes.com/the-booker-library",
-                 n_records=n,
+                 n_records=n, n_parsed=pages,
                  note=_fetch_note(pages, fails, f"book pages of {len(books)}"))
     return n
 
@@ -530,7 +568,7 @@ def load_nba(conn) -> int:
     import datetime
     B.set_archive(conn.execute("PRAGMA database_list").fetchone()[2])
     base = "https://www.nationalbook.org/awards-prizes/national-book-awards-"
-    n = years_ok = 0
+    n = years_ok = parsed = 0
     fails: list = []
     for year in range(1950, datetime.date.today().year + 1):
         root = f"{base}{year}/"
@@ -545,7 +583,9 @@ def load_nba(conn) -> int:
             craw = _fetch(conn, url, fails)
             if craw is None:
                 continue
-            for e in parse_nba_page(craw.decode("utf-8", "replace")):
+            _nba_entries = parse_nba_page(craw.decode("utf-8", "replace"))
+            parsed += len(_nba_entries)
+            for e in _nba_entries:
                 got = True
                 key = db.upsert_work(conn, e["title"], e["author"])
                 conn.execute(
@@ -559,7 +599,7 @@ def load_nba(conn) -> int:
         conn.commit()
     _warn_if_mostly_failing("nba", years_ok, fails)
     db.log_fetch(conn, "nba", years_ok > 0,
-                 url="https://www.nationalbook.org/", n_records=n,
+                 url="https://www.nationalbook.org/", n_records=n, n_parsed=parsed,
                  note=_fetch_note(years_ok, fails, "years parsed"))
     return n
 
@@ -754,6 +794,7 @@ def load_grammy(conn) -> int:
             n += 1
     conn.commit()
     db.log_fetch(conn, "grammy", bool(entries), url=url, n_records=n,
+                 n_parsed=len(entries),
                  note=_fetch_note(len(entries), fails,
                                   "entries — WIKIPEDIA FALLBACK"))
     return n
@@ -888,12 +929,13 @@ def parse_audie_any(page: str) -> list[dict]:
 
 def load_audies(conn) -> int:
     fails: list = []
-    n = years_ok = 0
+    n = years_ok = parsed = 0
     for year, slug in sorted(AUDIE_YEARS.items()):
         raw = _fetch(conn, AUDIE_BASE + slug, fails, timeout=90)
         if raw is None:
             continue
         entries = parse_audie_any(raw.decode("utf-8", "replace"))
+        parsed += len(entries)
         if entries:
             years_ok += 1
         for e in entries:
@@ -907,6 +949,7 @@ def load_audies(conn) -> int:
         conn.commit()
     _warn_if_mostly_failing("audies", years_ok, fails)
     db.log_fetch(conn, "audies", years_ok > 0, url=AUDIE_BASE, n_records=n,
+                 n_parsed=parsed,
                  note=_fetch_note(years_ok, fails, "years"))
     return n
 
@@ -992,12 +1035,13 @@ def _kirkus_form(category: str) -> str:
 def load_kirkus(conn) -> int:
     import datetime
     fails: list = []
-    n = years_ok = 0
+    n = years_ok = parsed = 0
     for year in range(KIRKUS_FIRST_YEAR, datetime.date.today().year + 1):
         raw = _fetch(conn, KIRKUS_YEAR.format(year), fails, timeout=60)
         if raw is None:
             continue
         entries = parse_kirkus_year(raw.decode("utf-8", "replace"))
+        parsed += len(entries)
         if entries:
             years_ok += 1
         for e in entries:
@@ -1015,6 +1059,7 @@ def load_kirkus(conn) -> int:
     _warn_if_mostly_failing("kirkus", years_ok, fails)
     db.log_fetch(conn, "kirkus", years_ok > 0,
                  url="https://www.kirkusreviews.com/prize/", n_records=n,
+                 n_parsed=parsed,
                  note=_fetch_note(years_ok, fails, "years"))
     return n
 
@@ -1128,7 +1173,7 @@ def load_womens_prize(conn) -> int:
         conn.commit()
     _warn_if_mostly_failing("womens-prize", len(books), fails)
     db.log_fetch(conn, "womens-prize", bool(books), url=f"{WP_API}/book",
-                 n_records=n,
+                 n_records=n, n_parsed=len(books),
                  note=_fetch_note(len(books), fails,
                                   f"books via WP REST; {with_status} with an "
                                   f"exact status line"))
@@ -1167,7 +1212,7 @@ def load_nyt(conn) -> int:
                      note=f"{NYT_DIR}/ missing — Chrome pass needed")
         raise FileNotFoundError(f"{NYT_DIR}/<slug>.json not found. "
                                 "See docs/harvesting.md.")
-    n = files = 0
+    n = files = parsed = 0
     for fn in sorted(os.listdir(NYT_DIR)):
         if not fn.endswith(".json"):
             continue
@@ -1178,6 +1223,7 @@ def load_nyt(conn) -> int:
         listed_year = payload.get("year")
         listed_year = int(listed_year) if str(listed_year).isdigit() else None
         files += 1
+        parsed += len(payload.get("books", []))
         for b in payload.get("books", []):
             title = demojibake((b.get("title") or "").strip())
             if not title:
@@ -1192,7 +1238,7 @@ def load_nyt(conn) -> int:
                 n += 1
         conn.commit()
     db.log_fetch(conn, "nyt", files > 0, url="https://www.nytimes.com/books/",
-                 n_records=n, note=f"{files} list file(s) from browser harvest")
+                 n_records=n, n_parsed=parsed, note=f"{files} list file(s) from browser harvest")
     return n
 
 
@@ -1212,7 +1258,7 @@ def load_wsj(conn) -> int:
                      note=f"{WSJ_DIR}/ missing — Chrome pass needed")
         raise FileNotFoundError(f"{WSJ_DIR}/<slug>.json not found. "
                                 "See docs/harvesting.md.")
-    n = files = 0
+    n = files = parsed = 0
     for fn in sorted(os.listdir(WSJ_DIR)):
         if not fn.endswith(".json"):
             continue
@@ -1223,6 +1269,7 @@ def load_wsj(conn) -> int:
         year = payload.get("year")
         year = int(year) if str(year).isdigit() else None
         files += 1
+        parsed += len(payload.get("books", []))
         for b in payload.get("books", []):
             title = demojibake((b.get("title") or "").strip())
             if not title:
@@ -1237,7 +1284,7 @@ def load_wsj(conn) -> int:
                 n += 1
         conn.commit()
     db.log_fetch(conn, "wsj", files > 0, url="https://www.wsj.com/arts-culture/books",
-                 n_records=n, note=f"{files} list file(s) from browser harvest")
+                 n_records=n, n_parsed=parsed, note=f"{files} list file(s) from browser harvest")
     return n
 
 
@@ -1321,6 +1368,7 @@ def load_ft_business(conn) -> int:
             n += 1
     conn.commit()
     db.log_fetch(conn, "ft-business", bool(entries), url=url, n_records=n,
+                 n_parsed=len(entries),
                  note=_fetch_note(len(entries), fails,
                                   "entries — WIKIPEDIA FALLBACK, FT paywalled"))
     return n
@@ -1494,6 +1542,7 @@ def load_latimes(conn) -> int:
         conn.commit()
         yrs = {e["year"] for e in entries}
         db.log_fetch(conn, "latimes", True, url=LATIMES_HISTORY, n_records=n,
+                     n_parsed=len(entries),
                      note=_fetch_note(len(entries), fails,
                                       f"entries across {len(yrs)} years "
                                       f"({min(yrs)}-{max(yrs)})" if yrs else "entries"))
@@ -1520,6 +1569,7 @@ def load_latimes(conn) -> int:
             n += 1
     conn.commit()
     db.log_fetch(conn, "latimes", bool(entries), url=LATIMES_URL, n_records=n,
+                 n_parsed=len(entries),
                  note=_fetch_note(len(entries), fails,
                                   f"entries for {year} (current cycle only)"))
     return n
@@ -1555,7 +1605,7 @@ def load_douban(conn) -> int:
                      note=f"{DOUBAN_DIR}/ missing — manual Chrome harvest needed")
         raise FileNotFoundError(
             f"{DOUBAN_DIR}/<year>.json not found. See docs/harvesting.md.")
-    n = files = 0
+    n = files = parsed = 0
     for fn in sorted(os.listdir(DOUBAN_DIR)):
         if not fn.endswith(".json"):
             continue
@@ -1564,6 +1614,7 @@ def load_douban(conn) -> int:
         year = payload.get("year")
         year = int(year) if str(year).isdigit() else None
         files += 1
+        parsed += len(payload.get("books", []))
         for b in payload.get("books", []):
             title = demojibake((b.get("title") or "").strip())
             if not title:
@@ -1579,6 +1630,7 @@ def load_douban(conn) -> int:
         conn.commit()
     db.log_fetch(conn, "douban", files > 0,
                  url="https://book.douban.com/annual/", n_records=n,
+                 n_parsed=parsed,
                  note=f"{files} year file(s) from manual harvest")
     return n
 
@@ -1716,7 +1768,7 @@ def _gr_form(category: str) -> str:
 def load_goodreads(conn) -> int:
     import datetime
     fails: list = []
-    n = years_ok = 0
+    n = years_ok = parsed = 0
     for year in range(GOODREADS_FIRST_YEAR, datetime.date.today().year + 1):
         raw = _fetch(conn, GOODREADS_YEAR.format(year), fails, timeout=60)
         if raw is None:
@@ -1731,7 +1783,9 @@ def load_goodreads(conn) -> int:
             if craw is None:
                 continue
             form = _gr_form(name)
-            for e in parse_goodreads_category(craw.decode("utf-8", "replace")):
+            _gr = parse_goodreads_category(craw.decode("utf-8", "replace"))
+            parsed += len(_gr)
+            for e in _gr:
                 got = True
                 key = db.upsert_work(conn, e["title"], e["author"])
                 conn.execute(
@@ -1745,6 +1799,7 @@ def load_goodreads(conn) -> int:
     _warn_if_mostly_failing("goodreads", years_ok, fails)
     db.log_fetch(conn, "goodreads", years_ok > 0,
                  url=GOODREADS_YEAR.format("<year>"), n_records=n,
+                 n_parsed=parsed,
                  note=_fetch_note(years_ok, fails, "years (popular vote)"))
     return n
 
@@ -1816,6 +1871,7 @@ def load_nbcc(conn) -> int:
             n += 1
     conn.commit()
     db.log_fetch(conn, "nbcc", bool(entries), url=NBCC_URL, n_records=n,
+                 n_parsed=len(entries),
                  note=_fetch_note(len(entries), fails,
                                   "entries (current cycle only)"))
     return n
@@ -1857,6 +1913,7 @@ def load_nobel(conn) -> int:
                 n += 1
     conn.commit()
     db.log_fetch(conn, "nobel", True, url=NOBEL_API, n_records=n,
+                 n_parsed=len(payload.get("nobelPrizes", [])),
                  note=_fetch_note(len(payload.get("nobelPrizes", [])), fails,
                                   "prize years (author-level)"))
     return n
@@ -1987,6 +2044,7 @@ def cmd_pull(args) -> int:
             else [k for k, s in SOURCES.items()
                   if args.include_browser or s.transport != BROWSER])
     total = 0
+    regressions: list = []
     for k in keys:
         src = SOURCES.get(k)
         if src is None:
@@ -1997,6 +2055,14 @@ def cmd_pull(args) -> int:
             n = src.load(conn)
             total += n
             print(f"{src.key:<14} +{n} accolades")
+            # the yield check reads the row this load just wrote, so it sees
+            # this run's parsed count against every previous one
+            hist = db.past_yields(conn, src.key, limit=20)
+            warn = check_yield(conn, src.key, hist[0] if hist else None) \
+                if len(hist) > 1 else None
+            if warn:
+                print(f"  ! YIELD DROP  {warn}", file=sys.stderr)
+                regressions.append(warn)
         except FileNotFoundError as exc:
             print(f"{src.key:<14} SKIPPED — {exc}", file=sys.stderr)
         except Exception as exc:                        # noqa: BLE001
@@ -2004,6 +2070,15 @@ def cmd_pull(args) -> int:
             print(f"{src.key:<14} FAILED — {type(exc).__name__}: {exc}",
                   file=sys.stderr)
     print(f"total +{total}")
+    if regressions:
+        # exit non-zero so the timer's log shows a failed run rather than a
+        # quiet one: a source returning less than it used to is the single
+        # most common failure this corpus has had.
+        print(f"\n{len(regressions)} source(s) parsed far less than before:",
+              file=sys.stderr)
+        for w in regressions:
+            print(f"  - {w}", file=sys.stderr)
+        return 3
     return 0
 
 
@@ -2277,25 +2352,69 @@ FAVORITE_BRANCHES: dict[str, set | None] = {
 BC_SHELF_SYSTEMS = ("sccl", "sjpl", "paloalto")
 
 
-def branch_availability(conn, title: str, author: str = None) -> list[dict]:
+def resolve_work_bibs(conn, work_key: str, title: str, author: str = None,
+                      systems=BC_SHELF_SYSTEMS, refresh: bool = False) -> None:
+    """Search each system ONCE and remember which record this work matches.
+
+    The search is the expensive half — two queries per system per title — and
+    it is also the stable half. Caching it turns the shelf join from minutes
+    into one availability call per known bib. A system that holds nothing is
+    recorded as a miss so it is not searched again.
+    """
+    import hotlist
+    already = set() if refresh else db.systems_searched(conn, work_key)
+    surname = (author or "").split()[-1] if author else ""
+    entry = {"title": shelf_stem(title), "author": surname, "isbns": [],
+             "formats": ("book",)}
+    for system in systems:
+        if system in already:
+            continue
+        try:
+            cands = [c for c in hotlist.bc_bibs(system, entry)
+                     if c["format_class"] == "book"]
+        except Exception:                                # noqa: BLE001
+            continue                                     # leave unresolved
+        if cands:
+            for c in cands:
+                db.record_work_bib(conn, work_key, system, c)
+        else:
+            db.record_work_bib(conn, work_key, system, None)   # recorded miss
+    conn.commit()
+
+
+def branch_availability(conn, title: str, author: str = None,
+                        work_key: str = None) -> list[dict]:
     """Per-branch copies of one work, restricted to FAVORITE_BRANCHES.
 
     Returns one row per (system, branch) with how many copies are on the shelf
-    there right now, plus the system-wide hold queue for context.
+    there right now, plus the system-wide hold queue for context. When a
+    work_key is given the catalog match comes from work_bibs and only
+    availability is fetched.
     """
     import bayarea_lookup as B
     import hotlist
     surname = (author or "").split()[-1] if author else ""
     entry = {"title": shelf_stem(title), "author": surname, "isbns": [],
              "formats": ("book",)}
+    cached = {}
+    if work_key:
+        resolve_work_bibs(conn, work_key, title, author)
+        for r in db.work_bibs(conn, work_key):
+            if r["bib_id"]:
+                cached.setdefault(r["system"], []).append(
+                    {"bib_id": r["bib_id"], "title": r["title"],
+                     "format_class": r["format_class"], "url": r["url"]})
     out = []
     for system in BC_SHELF_SYSTEMS:
         wanted = FAVORITE_BRANCHES.get(system)
-        try:
-            cands = [c for c in hotlist.bc_bibs(system, entry)
-                     if c["format_class"] == "book"]
-        except Exception:                                # noqa: BLE001
-            continue
+        if work_key:
+            cands = cached.get(system, [])
+        else:
+            try:
+                cands = [c for c in hotlist.bc_bibs(system, entry)
+                         if c["format_class"] == "book"]
+            except Exception:                            # noqa: BLE001
+                continue
         for c in cands:
             try:
                 items = B.bc_parse_availability(json.loads(

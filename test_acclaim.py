@@ -943,3 +943,110 @@ def test_isfdb_author_guard_must_search_the_whole_page():
     page = "x" * 6000 + "Author: Ray Nayler" + "y" * 2000
     assert A._flat_name("Ray Nayler") in A._flat_name(page)
     assert A._flat_name("Ray Nayler") not in A._flat_name(page[:4000])
+
+
+# --- yield regression detection --------------------------------------------------
+
+def test_check_yield_flags_a_collapse_against_the_best_previous_run():
+    """Five bugs in this repo reported success while returning less. This is
+    the check that would have caught four of them."""
+    with tempfile.TemporaryDirectory() as d:
+        conn = db.open_db(os.path.join(d, "t.db"))
+        db.log_fetch(conn, "sfadb", True, n_parsed=1500)
+        db.log_fetch(conn, "sfadb", True, n_parsed=1480)
+        assert A.check_yield(conn, "sfadb", 500) is not None
+
+
+def test_check_yield_is_quiet_on_a_normal_run():
+    with tempfile.TemporaryDirectory() as d:
+        conn = db.open_db(os.path.join(d, "t.db"))
+        db.log_fetch(conn, "sfadb", True, n_parsed=1500)
+        assert A.check_yield(conn, "sfadb", 1490) is None
+        assert A.check_yield(conn, "sfadb", 1600) is None
+
+
+def test_check_yield_compares_against_the_best_not_the_last():
+    """Two bad runs in a row must not become the new normal."""
+    with tempfile.TemporaryDirectory() as d:
+        conn = db.open_db(os.path.join(d, "t.db"))
+        db.log_fetch(conn, "x", True, n_parsed=1000)
+        db.log_fetch(conn, "x", True, n_parsed=100)     # already broken
+        assert A.check_yield(conn, "x", 100) is not None
+
+
+def test_check_yield_needs_history_before_it_has_an_opinion():
+    with tempfile.TemporaryDirectory() as d:
+        conn = db.open_db(os.path.join(d, "t.db"))
+        assert A.check_yield(conn, "brand-new", 5) is None
+
+
+def test_check_yield_ignores_a_missing_count():
+    with tempfile.TemporaryDirectory() as d:
+        conn = db.open_db(os.path.join(d, "t.db"))
+        db.log_fetch(conn, "x", True, n_parsed=1000)
+        assert A.check_yield(conn, "x", None) is None
+
+
+def test_past_yields_only_counts_successful_runs():
+    with tempfile.TemporaryDirectory() as d:
+        conn = db.open_db(os.path.join(d, "t.db"))
+        db.log_fetch(conn, "x", True, n_parsed=900)
+        db.log_fetch(conn, "x", False, n_parsed=3)
+        assert db.past_yields(conn, "x") == [900]
+
+
+# --- work_bibs: caching the catalog match ---------------------------------------
+
+def test_work_bibs_records_a_miss_so_it_is_not_researched():
+    """A system that holds nothing must be remembered, or every future query
+    searches it again forever."""
+    with tempfile.TemporaryDirectory() as d:
+        conn = db.open_db(os.path.join(d, "t.db"))
+        db.record_work_bib(conn, "audition|kitamura", "sccl",
+                           {"bib_id": "S1", "title": "Audition"})
+        db.record_work_bib(conn, "audition|kitamura", "paloalto", None)
+        conn.commit()
+        assert db.systems_searched(conn, "audition|kitamura") == {"sccl", "paloalto"}
+        rows = db.work_bibs(conn, "audition|kitamura", "paloalto")
+        assert len(rows) == 1 and rows[0]["bib_id"] is None
+
+
+def test_work_bibs_keeps_several_editions_per_system():
+    with tempfile.TemporaryDirectory() as d:
+        conn = db.open_db(os.path.join(d, "t.db"))
+        for bib in ("S1", "S2"):
+            db.record_work_bib(conn, "w|a", "sccl", {"bib_id": bib})
+        conn.commit()
+        assert len(db.work_bibs(conn, "w|a", "sccl")) == 2
+
+
+def test_resolve_work_bibs_skips_systems_already_searched(monkeypatch):
+    """The point of the cache: the expensive search runs once."""
+    import hotlist
+    calls = []
+
+    def fake(system, entry):
+        calls.append(system)
+        return [{"bib_id": "S1", "title": "x", "format_class": "book",
+                 "url": "u"}]
+
+    with tempfile.TemporaryDirectory() as d:
+        conn = db.open_db(os.path.join(d, "t.db"))
+        monkeypatch.setattr(hotlist, "bc_bibs", fake)
+        A.resolve_work_bibs(conn, "w|a", "Title", "Author")
+        first = len(calls)
+        A.resolve_work_bibs(conn, "w|a", "Title", "Author")
+        assert first > 0 and len(calls) == first      # no second search
+
+
+def test_resolve_work_bibs_refresh_forces_a_research(monkeypatch):
+    import hotlist
+    calls = []
+    monkeypatch.setattr(hotlist, "bc_bibs",
+                        lambda s, e: calls.append(s) or [])
+    with tempfile.TemporaryDirectory() as d:
+        conn = db.open_db(os.path.join(d, "t.db"))
+        A.resolve_work_bibs(conn, "w|a", "T", "A")
+        n = len(calls)
+        A.resolve_work_bibs(conn, "w|a", "T", "A", refresh=True)
+        assert len(calls) == 2 * n
