@@ -151,6 +151,18 @@ def demojibake(s: str) -> str:
     return fixed
 
 
+def _decode_page(raw: bytes) -> str:
+    """UTF-8 where possible, Latin-1 where not.
+
+    sfadb serves Latin-1: decoding it as UTF-8 turned 'P. Djèlí Clark' into
+    'P. Dj\ufffdl\ufffd Clark', which then became the author's name in the corpus.
+    """
+    try:
+        return raw.decode("utf-8")
+    except UnicodeDecodeError:
+        return raw.decode("latin-1", "replace")
+
+
 # --- credit parsing -------------------------------------------------------------
 
 # 'Angel Down, by Daniel Kraus (Atria Books)' and its many near-misses. The
@@ -269,6 +281,8 @@ _SFADB_FORMS = {
 }
 
 _LI_RE = re.compile(r"<li\b[^>]*>(.*?)</li>", re.S | re.I)
+# Short fiction titles are quoted, novels are bolded — see parse_sfadb_year.
+_SFADB_QUOTED_RE = re.compile("[\u201c\"](.+?)[\u201d\"]", re.S)
 _CATBLOCK_SPLIT = '<div class="categoryblock">'
 _CAT_RE = re.compile(r'<div class="category">(.*?)</div>', re.S | re.I)
 
@@ -300,17 +314,38 @@ def parse_sfadb_year(page: str) -> list[dict]:
         body = chunk[m.end():]
         for li in _LI_RE.findall(body):
             is_winner = 'class="winner"' in li
+            # ⚠ Short fiction is QUOTED, novels are BOLDED:
+            #   <b>The Tusks of Extinction</b>, <a>Ray Nayler</a> (Tordotcom)
+            #   "Better Living Through Algorithms", <a>Naomi Kritzer</a> (Clarkesworld)
+            # Looking only for <b> dropped every quoted story, and where the
+            # containing anthology happened to be bolded it captured THAT as
+            # the title — so "Galaxy's Edge Vol. 13" was filed as a Hugo
+            # short-story nominee while Kritzer's winner was absent entirely.
+            # Strip tags BEFORE hunting for quotes: unescaping first leaves
+            # the straight quotes of class="winner" in play, and the title
+            # regex happily matched the word 'winner'.
+            plain = _strip(htmlunescape(re.sub(r"<[^>]+>", " ", li)))
+            plain = re.sub(r"^\s*Winner\s*:\s*", "", plain, flags=re.I)
             tm = re.search(r"<b>(.*?)</b>", li, re.S)
-            if not tm:
+            qm = _SFADB_QUOTED_RE.search(plain)
+            if qm:
+                title = _strip(qm.group(1))
+                after = plain[qm.end():]
+            elif tm:
+                title = _strip(htmlunescape(re.sub(r"<[^>]+>", " ", tm.group(1))))
+                idx = plain.find(title)
+                after = plain[idx + len(title):] if idx >= 0 else plain
+            else:
                 continue
-            title = re.sub(r"<[^>]+>", "", tm.group(1)).strip()
+            if not title:
+                continue
             am = re.search(r"<a\b[^>]*>(.*?)</a>", li, re.S)
-            author = re.sub(r"<[^>]+>", "", am.group(1)).strip() if am else None
-            tail = re.sub(r"<[^>]+>", "", li[tm.end():])
-            pm = re.search(r"\(([^()]*)\)\s*$", tail.strip())
+            author = _strip(htmlunescape(am.group(1))) if am else None
+            tail = _strip(after)
+            pm = re.search(r"\(([^()]*)\)\s*$", tail)
             out.append({"category": category, "form": form, "title": title,
                         "author": author,
-                        "publisher": pm.group(1).strip() if pm else None,
+                        "publisher": _strip(pm.group(1)) if pm else None,
                         "status": "winner" if is_winner else "nominee"})
     return out
 
@@ -328,7 +363,7 @@ def _load_sfadb(conn, award_key: str) -> int:
         raw = _fetch(conn, url, fails)
         if raw is None:
             continue                                    # award not held / no page
-        page = raw.decode("utf-8", "replace")
+        page = _decode_page(raw)
         entries = parse_sfadb_year(page)
         if entries:
             years_ok += 1
@@ -1983,6 +2018,55 @@ def cmd_browser_plan(args) -> int:
     print(f"\nHarvest files land in {HARVEST_DIR}/ via tools/collector.py.")
     print("See docs/harvesting.md for the per-source Chrome recipe.")
     return 0
+
+
+# --- where a short work can actually be read -------------------------------------
+
+# Half of recent award short fiction was published in magazines that put their
+# whole archive online for nothing, so "which anthology contains it" is the
+# wrong first question — the right one is "is it a click away". The venue
+# sfadb records is enough to tell them apart.
+FREE_ONLINE_VENUES = {
+    "clarkesworld": "https://clarkesworldmagazine.com/",
+    "uncanny": "https://www.uncannymagazine.com/",
+    "lightspeed": "https://www.lightspeedmagazine.com/",
+    "strange horizons": "http://strangehorizons.com/",
+    "nightmare": "https://www.nightmare-magazine.com/",
+    "apex": "https://apex-magazine.com/",
+    "beneath ceaseless skies": "https://www.beneath-ceaseless-skies.com/",
+    "tor.com": "https://reactormag.com/",
+    "reactor": "https://reactormag.com/",
+    "escape pod": "https://escapepod.org/",
+    "diabolical plots": "https://www.diabolicalplots.com/",
+    "khoreo": "https://www.khoreomag.com/",
+    "khōréō": "https://www.khoreomag.com/",
+    "fusion fragment": "https://www.fusionfragment.com/",
+    "giganotosaurus": "https://giganotosaurus.org/",
+    "fireside": "https://firesidefiction.com/",
+    "podcastle": "https://podcastle.org/",
+    "pseudopod": "https://pseudopod.org/",
+    "translunar travelers lounge": "https://translunartravelerslounge.com/",
+}
+# Paid or print-only: a library copy or a subscription, not a click.
+PRINT_MAGAZINES = ("asimov", "analog", "f&sf", "fantasy & science fiction",
+                   "interzone", "black static", "weird tales")
+
+
+def read_route(venue: str | None) -> dict:
+    """-> {route, where} for a short work's original venue.
+
+    route is 'free-online' | 'print-magazine' | 'book' | 'unknown'.
+    """
+    v = re.sub(r"\s+", " ", (venue or "")).strip()
+    if not v:
+        return {"route": "unknown", "where": None}
+    low = v.lower()
+    for name, url in FREE_ONLINE_VENUES.items():
+        if low.startswith(name):
+            return {"route": "free-online", "where": url}
+    if any(low.startswith(p) for p in PRINT_MAGAZINES):
+        return {"route": "print-magazine", "where": v}
+    return {"route": "book", "where": v}
 
 
 # --- ISFDB: which book contains a short work ------------------------------------

@@ -860,3 +860,75 @@ def test_grammy_skips_the_infobox_parameter_rows():
     """The article infobox is pipe-delimited too and parses as a table row."""
     box = "|-\n| name = Grammy Award for Best Audio Book\n| awarded_for = quality"
     assert A.parse_grammy_wikitext(box) == []
+
+
+# --- sfadb short fiction (three bugs that hid two-thirds of it) -----------------
+
+SFADB_SHORT = (
+    '<div class="categoryblock">\n<div class="category">Short Story</div>\n<ul>\n'
+    '<li> <span class="winner">Winner:</span> &#8220;Better Living Through '
+    'Algorithms&#8221;, <a href="Naomi_Kritzer">Naomi Kritzer</a> '
+    '(Clarkesworld May 2023)</li>\n'
+    '<li> &#8220;Answerless Journey&#8221;, <a href="Han_Song">Han Song</a> '
+    '(<b>Adventures in Space</b>)</li>\n'
+    '</ul>\n</div>'
+)
+
+
+def test_sfadb_reads_a_quoted_short_fiction_title():
+    """Short fiction is quoted, novels are bolded. Looking only for <b> lost
+    the winner entirely and stored the anthology name for the runner-up."""
+    got = A.parse_sfadb_year(SFADB_SHORT)
+    assert ("Better Living Through Algorithms", "winner") in [
+        (e["title"], e["status"]) for e in got]
+
+
+def test_sfadb_prefers_the_story_over_a_bolded_anthology():
+    got = A.parse_sfadb_year(SFADB_SHORT)
+    titles = {e["title"] for e in got}
+    assert "Answerless Journey" in titles
+    assert "Adventures in Space" not in titles
+
+
+def test_sfadb_title_is_not_the_winner_class_attribute():
+    """Unescaping before stripping tags left class="winner" in play, and the
+    quoted-title regex matched the word 'winner'."""
+    got = A.parse_sfadb_year(SFADB_SHORT)
+    assert all(e["title"].lower() != "winner" for e in got)
+
+
+def test_sfadb_captures_the_venue_for_short_fiction():
+    got = A.parse_sfadb_year(SFADB_SHORT)
+    k = [e for e in got if e["title"].startswith("Better Living")][0]
+    assert k["publisher"] == "Clarkesworld May 2023"
+
+
+def test_decode_page_falls_back_to_latin1():
+    """sfadb serves Latin-1; decoding as UTF-8 turned 'Djèlí' into replacement
+    characters that were then stored as the author's name."""
+    assert A._decode_page("P. Dj\u00e8l\u00ed Clark".encode("latin-1")) == \
+        "P. Dj\u00e8l\u00ed Clark"
+    assert A._decode_page("caf\u00e9".encode("utf-8")) == "caf\u00e9"
+
+
+# --- where to read a short work -------------------------------------------------
+
+def test_read_route_spots_the_free_magazines():
+    assert A.read_route("Clarkesworld May 2023")["route"] == "free-online"
+    assert A.read_route("Uncanny Jan/Feb 2023")["route"] == "free-online"
+    assert "clarkesworld" in A.read_route("Clarkesworld 5/23")["where"]
+
+
+def test_read_route_separates_print_magazines_from_free_ones():
+    assert A.read_route("Asimov\'s Sep/Oct 2024")["route"] == "print-magazine"
+    assert A.read_route("Analog Mar 2020")["route"] == "print-magazine"
+
+
+def test_read_route_treats_a_publisher_as_a_book():
+    assert A.read_route("Tordotcom")["route"] == "book"
+    assert A.read_route("Neon Hemlock")["route"] == "book"
+
+
+def test_read_route_handles_a_missing_venue():
+    assert A.read_route(None)["route"] == "unknown"
+    assert A.read_route("")["route"] == "unknown"
