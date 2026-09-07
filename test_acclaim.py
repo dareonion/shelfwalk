@@ -932,3 +932,14 @@ def test_read_route_treats_a_publisher_as_a_book():
 def test_read_route_handles_a_missing_venue():
     assert A.read_route(None)["route"] == "unknown"
     assert A.read_route("")["route"] == "unknown"
+
+
+# --- ISFDB author guard ---------------------------------------------------------
+
+def test_isfdb_author_guard_must_search_the_whole_page():
+    """ISFDB puts 'Author: Ray Nayler' in the record details around char 6300.
+    A 4000-character window rejected every work and produced zero containers
+    while reporting no failures at all."""
+    page = "x" * 6000 + "Author: Ray Nayler" + "y" * 2000
+    assert A._flat_name("Ray Nayler") in A._flat_name(page)
+    assert A._flat_name("Ray Nayler") not in A._flat_name(page[:4000])

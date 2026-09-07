@@ -2108,7 +2108,10 @@ def isfdb_containers(conn, title: str, author: str = None,
         if traw is None:
             continue
         page = traw.decode("utf-8", "replace")
-        if author and _flat_name(author) not in _flat_name(page[:4000]):
+        # Search the WHOLE page: ISFDB puts "Author: Ray Nayler" in the record
+        # details around char 6300, so a 4000-char window rejected every
+        # single work and silently produced zero containers.
+        if author and _flat_name(author) not in _flat_name(page):
             continue                        # a different work of the same name
         for pid, name in _ISFDB_PUB_RE.findall(page):
             name = _strip(name)
