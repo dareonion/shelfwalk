@@ -2,19 +2,20 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-09-08T07:34:49**. Don't hand-edit; run `uv run report.py --write`._
 
 
 **103** of **165** titles are in the catalog; **55** have at least one copy on a shelf right now. Titles link to the record in this catalog; unlabeled lines are the plain edition, labels mark the other versions we track (board book / audiobook / eBook / eAudiobook / translations).
 
 
-## Children's World Languages - 1st Floor — 28 on the shelf
+## Children's World Languages - 1st Floor — 29 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
 | `J CHINESE J BOARD C` | [The very busy spider](https://classiccatalog.mountainview.gov/record=b3468979) | Chinese board book: “Hao mang de zhi zhu” — translation of “Very busy spider” |  |
 | `J CHINESE J BOARD C` | [好餓的毛毛蟲](https://classiccatalog.mountainview.gov/record=b1262580) | board book: “Hao e de mao mao chong” |  |
 | `J CHINESE J P ALBOROUGH` | [抱抱！](https://classiccatalog.mountainview.gov/record=b2352043) | translation of “Hug” |  |
+| `J CHINESE J P BROWN` | [Goodnight moon](https://classiccatalog.mountainview.gov/record=b3418110) | Chinese: “Wan an, yue liang” — translation of “Goodnight moon” | AD360L |
 | `J CHINESE J P CARLE` | [好餓的毛毛蟲](https://classiccatalog.mountainview.gov/record=b2381002) |  |  |
 | `J CHINESE J P DONALDSON` | [The Gruffalo](https://classiccatalog.mountainview.gov/record=b2788259) | Chinese: “Gufeile” — translation of “The Gruffalo” | AD510L |
 | `J CHINESE J P LANG` | [Grumpy monkey](https://classiccatalog.mountainview.gov/record=b2821345) | Chinese: “Xin fan de hou zi” | AD460L |
@@ -30,7 +31,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J SPANISH J E EASTMAN` | [Are you my mother?](https://classiccatalog.mountainview.gov/record=b3476138) | Spanish: “¿Eres tú mi mamá?” — translation of “Are you my mother?” | 80L |
 | `J SPANISH J P CREWS` | [Freight train = Tren de carga](https://classiccatalog.mountainview.gov/record=b1309560) | Spanish: “Freight train = Tren de carga” | PreK |
 | `J SPANISH J P HENKES` | [Kitten's first full moon](https://classiccatalog.mountainview.gov/record=b1340145) | Spanish: “La primera luna llena de gatita” — translation of “Kitten's first full moon” | 360L |
-| `J SPANISH J P KLASSEN` | [I want my hat back](https://classiccatalog.mountainview.gov/record=b2711384) | Spanish: “Yo quiero mi sombrero” — translation of “I want my hat back” | 90L |
+| `J SPANISH J P KLASSEN` | [I want my hat back](https://classiccatalog.mountainview.gov/record=b2711384) | Spanish: “Yo quiero mi sombrero” — translation of “I want my hat back” | PreK |
 | `J SPANISH J P MARTIN` | [Brown bear, brown bear, what do you see?](https://classiccatalog.mountainview.gov/record=b1227606) | Spanish: “Oso pardo, oso pardo, qué ves ahí?” — translation of “Brown bear, brown bear, what do you see?” | AD440L |
 | `J SPANISH J P MARTIN` | [Polar bear, polar bear, what do you hear?](https://classiccatalog.mountainview.gov/record=b1238329) | Spanish: “Oso polar, oso polar, qué es ese ruido?” — translation of “Polar bear, polar bear, what do you hear?” | AD670L |
 | `J SPANISH J P NUMEROFF` | [If you give a mouse a cookie](https://classiccatalog.mountainview.gov/record=b1175721) | Spanish: “Si le das una galletita a un ratón” — translation of “If you give a mouse a cookie” | AD660L |
@@ -102,6 +103,15 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J E EASTMAN` | [Are you my mother?](https://classiccatalog.mountainview.gov/record=b1052293) |  | 80L |
 | `J E SEUSS` | [Mr. Brown can moo! Can you?](https://classiccatalog.mountainview.gov/record=b1052397) |  |  |
 
+## Children's Concept Books - 1st Floor — 4 on the shelf
+
+| Call # | Title | Version | Ages |
+|---|---|---|---|
+| `J P KLASSEN Read-Along` | [I want my hat back](https://classiccatalog.mountainview.gov/record=b3457979) |  | PreK |
+| `J P SCARRY VEH` | [Cars and trucks and things that go](https://classiccatalog.mountainview.gov/record=b3459660) |  | AD490L |
+| `J P SHANNON Read-Along` | [Duck on a bike](https://classiccatalog.mountainview.gov/record=b2821456) |  | AD240L |
+| `J P SHANNON VEH` | [Duck on a bike](https://classiccatalog.mountainview.gov/record=b1248676) |  | AD240L |
+
 ## Childrens Holiday Books - 1st Floor — 4 on the shelf
 
 | Call # | Title | Version | Ages |
@@ -110,14 +120,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J BOARD HOLIDAY Easter` | [Don't push the button!](https://classiccatalog.mountainview.gov/record=b2380314) | board book | Ages 4-8 |
 | `J BOARD HOLIDAY Halloween` | [Don't push the button!](https://classiccatalog.mountainview.gov/record=b2275644) | board book | Ages 4-8 |
 | `J P JACKSON THA` | [I know an old lady who swallowed a pie](https://classiccatalog.mountainview.gov/record=b1206670) |  |  |
-
-## Children's Concept Books - 1st Floor — 3 on the shelf
-
-| Call # | Title | Version | Ages |
-|---|---|---|---|
-| `J P SCARRY VEH` | [Cars and trucks and things that go](https://classiccatalog.mountainview.gov/record=b3459660) |  | AD490L |
-| `J P SHANNON Read-Along` | [Duck on a bike](https://classiccatalog.mountainview.gov/record=b2821456) |  | AD240L |
-| `J P SHANNON VEH` | [Duck on a bike](https://classiccatalog.mountainview.gov/record=b1248676) |  | AD240L |
 
 ## Bookmobile — 1 on the shelf
 
@@ -163,7 +165,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | [Giraffes can't dance](https://classiccatalog.mountainview.gov/record=b2821451) |  |
 | [Go, dog. Go!](https://classiccatalog.mountainview.gov/record=b1572994) |  |
 | [Go, dog. Go!](https://classiccatalog.mountainview.gov/record=b3455296) | Spanish board book: “Ve, perro. ¡Ve! : libro de cosas que van” |
-| [Goodnight moon](https://classiccatalog.mountainview.gov/record=b3418110) | Chinese: “Wan an, yue liang” — translation of “Goodnight moon” |
 | [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b1421852) |  |
 | [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b1600044) | board book |
 | [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b3361558) | Japanese: “Oyasumi, hataraku kurumatachi” — translation of “Goodnight, goodnight, construction site” |

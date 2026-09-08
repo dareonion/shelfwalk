@@ -2,7 +2,7 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-09-08T07:34:49**. Don't hand-edit; run `uv run report.py --write`._
 
 
 **101** of **165** titles are in the catalog; **94** have at least one copy on a shelf right now. Titles link to the record in this catalog; unlabeled lines are the plain edition, labels mark the other versions we track (board book / audiobook / eBook / eAudiobook / translations).
@@ -35,7 +35,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | Ages 3-8 |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Lang` | [Grumpy monkey](https://sjpl.bibliocommons.com/v2/record/S156C5810325) |  | AD460L |
 | `J PICTURE BOOK Lewis` | [Chugga-chugga choo-choo](https://sjpl.bibliocommons.com/v2/record/S156C6009668) |  | AD130L |
 | `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
@@ -131,7 +131,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
 | `J PICTURE BOOK Keats` | [The snowy day](https://sjpl.bibliocommons.com/v2/record/S156C1523415) |  | AD500L |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
 | `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
 | `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
@@ -187,7 +187,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C2595426) |  | 360L |
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
 | `J PICTURE BOOK Lang` | [Grumpy monkey](https://sjpl.bibliocommons.com/v2/record/S156C5810325) |  | AD460L |
 | `J PICTURE BOOK Lang` | [Grumpy monkey party time!](https://sjpl.bibliocommons.com/v2/record/S156C5898961) |  | Ages 0-3 |
@@ -289,7 +289,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Hills` | [Duck & Goose go to the beach](https://sjpl.bibliocommons.com/v2/record/S156C4701335) |  | Ages 3-7 |
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
 | `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
 | `J PICTURE BOOK Numeroff` | [If you give a mouse a cookie](https://sjpl.bibliocommons.com/v2/record/S156C1165469) |  | AD660L |
@@ -312,7 +312,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 |---|---|---|---|
 | `J CHI PICTURE BOOK Gomi` | [小金魚逃走了](https://sjpl.bibliocommons.com/v2/record/S156C6370352) |  |  |
 | `J CHI PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4885016) | Chinese: “Bu yao ba, Xiaoguai !” — translation of “Oh no, George!” | Ages 2-5 |
-| `J CHI PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C5130281) | Chinese: “Zhao hui wo de mao zi” — translation of “I want my hat back” | 90L |
+| `J CHI PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C5130281) | Chinese: “Zhao hui wo de mao zi” — translation of “I want my hat back” | PreK |
 | `J CHI PICTURE BOOK McDonnel` | [抱抱！](https://sjpl.bibliocommons.com/v2/record/S156C4433175) |  |  |
 | `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C6148671) |  |  |
 | `J EASY READER Carle` | [The very quiet cricket](https://sjpl.bibliocommons.com/v2/record/S156C4772180) |  |  |
@@ -337,7 +337,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Gravett` | [Orange pear apple bear](https://sjpl.bibliocommons.com/v2/record/S156C3251830) |  | Ages 2-4 |
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
 | `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
 | `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
@@ -402,7 +402,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | Call # | Title | Version | Ages |
 |---|---|---|---|
 | `J CHI PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4885016) | Chinese: “Bu yao ba, Xiaoguai !” — translation of “Oh no, George!” | Ages 2-5 |
-| `J CHI PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C5130281) | Chinese: “Zhao hui wo de mao zi” — translation of “I want my hat back” | 90L |
+| `J CHI PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C5130281) | Chinese: “Zhao hui wo de mao zi” — translation of “I want my hat back” | PreK |
 | `J CHI-ENG PICTURE BOOK Gomi` | [鱷魚怕怕．牙醫怕怕](https://sjpl.bibliocommons.com/v2/record/S156C5892977) |  |  |
 | `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C4632780) |  |  |
 | `J EASY READER Carle` | [The very quiet cricket](https://sjpl.bibliocommons.com/v2/record/S156C4772180) |  |  |
@@ -421,7 +421,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
 | `J PICTURE BOOK Keats` | [The snowy day](https://sjpl.bibliocommons.com/v2/record/S156C1523415) |  | AD500L |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Lang` | [Grumpy monkey party time!](https://sjpl.bibliocommons.com/v2/record/S156C5898961) |  | Ages 0-3 |
 | `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
 | `J PICTURE BOOK Numeroff` | [If you give a mouse a cookie](https://sjpl.bibliocommons.com/v2/record/S156C1165469) |  | AD660L |
@@ -454,7 +454,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J EASY READER Regan` | [Mike delivers : the duck is stuck!](https://sjpl.bibliocommons.com/v2/record/S156C6273637) |  | Ages 4-6 |
 | `J HARDPAGE` | [Blueberries for Sal](https://sjpl.bibliocommons.com/v2/record/S156C6816164) |  | AD890L |
 | `J HARDPAGE` | [Don't let the pigeon drive the bus](https://sjpl.bibliocommons.com/v2/record/S156C6762592) |  | 120L |
-| `J HARDPAGE` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C5898648) |  | 90L |
+| `J HARDPAGE` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C5898648) |  | PreK |
 | `J HARDPAGE` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C6768249) |  | 360L |
 | `J HARDPAGE` | [Knuffle Bunny : a cautionary tale](https://sjpl.bibliocommons.com/v2/record/S156C6688246) |  | Ages 2-5 |
 | `J HARDPAGE` | [Little Excavator](https://sjpl.bibliocommons.com/v2/record/S156C6754442) |  | AD480L |
@@ -472,7 +472,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK McMullan` | [I stink!](https://sjpl.bibliocommons.com/v2/record/S156C1958490) |  |  |
 | `J PICTURE BOOK Numeroff` | [If you give a mouse a cookie](https://sjpl.bibliocommons.com/v2/record/S156C1165469) |  | AD660L |
 | `J PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C4151651) |  |  |
@@ -510,7 +510,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
 | `J PICTURE BOOK Keats` | [The snowy day](https://sjpl.bibliocommons.com/v2/record/S156C1523415) |  | AD500L |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
 | `J PICTURE BOOK Lang` | [Grumpy monkey party time!](https://sjpl.bibliocommons.com/v2/record/S156C5898961) |  | Ages 0-3 |
 | `J PICTURE BOOK Lewis` | [Chugga-chugga choo-choo](https://sjpl.bibliocommons.com/v2/record/S156C6009668) |  | AD130L |
@@ -549,7 +549,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Henkes` | [Kitten's first full moon](https://sjpl.bibliocommons.com/v2/record/S156C2595426) |  | 360L |
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
 | `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
 | `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
@@ -575,7 +575,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J EASY READER Carle` | [The very quiet cricket](https://sjpl.bibliocommons.com/v2/record/S156C6148665) |  |  |
 | `J HARDPAGE` | [Dear zoo](https://sjpl.bibliocommons.com/v2/record/S156C3114067) |  | 150L |
 | `J HARDPAGE` | [Don't let the pigeon drive the bus](https://sjpl.bibliocommons.com/v2/record/S156C6762592) |  | 120L |
-| `J HARDPAGE` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C5898648) |  | 90L |
+| `J HARDPAGE` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C5898648) |  | PreK |
 | `J HARDPAGE` | [Knuffle Bunny too : a case of mistaken identity](https://sjpl.bibliocommons.com/v2/record/S156C6769300) |  | Ages 3-6 |
 | `J HARDPAGE` | [Moo, baa, la la la!](https://sjpl.bibliocommons.com/v2/record/S156C6129892) |  | AD230L |
 | `J HARDPAGE` | [The going to bed book](https://sjpl.bibliocommons.com/v2/record/S156C5848135) |  | AD460L |
@@ -610,7 +610,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
-| `J CHI PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C5130281) | Chinese: “Zhao hui wo de mao zi” — translation of “I want my hat back” | 90L |
+| `J CHI PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C5130281) | Chinese: “Zhao hui wo de mao zi” — translation of “I want my hat back” | PreK |
 | `J EASY READER Carle` | [The very quiet cricket](https://sjpl.bibliocommons.com/v2/record/S156C6148665) |  |  |
 | `J EASY READER Cronin` | [Duck stays in the truck](https://sjpl.bibliocommons.com/v2/record/S156C6020915) |  | Ages 5-7 |
 | `J EASY READER Eastman` | [Are you my mother?](https://sjpl.bibliocommons.com/v2/record/S156C2154030) |  | 80L |
@@ -629,7 +629,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Hills` | [Duck & Goose go to the beach](https://sjpl.bibliocommons.com/v2/record/S156C4701335) |  | Ages 3-7 |
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
 | `J PICTURE BOOK Martin` | [Polar bear, polar bear, what do you hear?](https://sjpl.bibliocommons.com/v2/record/S156C1681071) |  | AD670L |
 | `J PICTURE BOOK McCloske` | [Blueberries for Sal](https://sjpl.bibliocommons.com/v2/record/S156C2212224) |  | AD890L |
@@ -671,7 +671,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
 | `J PICTURE BOOK Keats` | [The snowy day](https://sjpl.bibliocommons.com/v2/record/S156C1523415) |  | AD500L |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
 | `J PICTURE BOOK Pizzoli` | [The watermelon seed](https://sjpl.bibliocommons.com/v2/record/S156C6631965) |  | 350L |
 | `J PICTURE BOOK Portis` | [Not a box](https://sjpl.bibliocommons.com/v2/record/S156C3054198) |  |  |
@@ -703,7 +703,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4321178) |  | Ages 2-5 |
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
 | `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
 | `J PICTURE BOOK Numeroff` | [If you give a mouse a cookie](https://sjpl.bibliocommons.com/v2/record/S156C1165469) |  | AD660L |
@@ -742,7 +742,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
 | `J PICTURE BOOK Hills` | [Duck & Goose go to the beach](https://sjpl.bibliocommons.com/v2/record/S156C4701335) |  | Ages 3-7 |
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C6812829) |  | Ages 3-8 |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Lewis` | [Chugga-chugga choo-choo](https://sjpl.bibliocommons.com/v2/record/S156C6009668) |  | AD130L |
 | `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
 | `J PICTURE BOOK Patricel` | [Higher! Higher!](https://sjpl.bibliocommons.com/v2/record/S156C3818180) |  |  |
@@ -758,7 +758,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | Call # | Title | Version | Ages |
 |---|---|---|---|
 | `J CHI PICTURE BOOK Haughton` | [Oh no, George!](https://sjpl.bibliocommons.com/v2/record/S156C4885016) | Chinese: “Bu yao ba, Xiaoguai !” — translation of “Oh no, George!” | Ages 2-5 |
-| `J CHI PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C5130281) | Chinese: “Zhao hui wo de mao zi” — translation of “I want my hat back” | 90L |
+| `J CHI PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C5130281) | Chinese: “Zhao hui wo de mao zi” — translation of “I want my hat back” | PreK |
 | `J EASY READER Carle` | [The very busy spider](https://sjpl.bibliocommons.com/v2/record/S156C4632780) |  |  |
 | `J EASY READER Cronin` | [Duck stays in the truck](https://sjpl.bibliocommons.com/v2/record/S156C6020915) |  | Ages 5-7 |
 | `J EASY READER Diesen` | [You can do it, Pout-Pout Fish!](https://sjpl.bibliocommons.com/v2/record/S156C5871163) |  | 210L |
@@ -775,7 +775,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Dewdney` | [Llama Llama misses Mama](https://sjpl.bibliocommons.com/v2/record/S156C3800297) |  |  |
 | `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C4151651) |  |  |
 | `J PICTURE BOOK Rubin` | [Dragons love tacos](https://sjpl.bibliocommons.com/v2/record/S156C4321176) |  | AD520L |
 | `J PICTURE BOOK Scarry` | [Cars and trucks and things that go](https://sjpl.bibliocommons.com/v2/record/S156C6652228) |  | AD490L |
@@ -849,7 +849,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Hills` | [Duck & Goose go to the beach](https://sjpl.bibliocommons.com/v2/record/S156C4701335) |  | Ages 3-7 |
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Lang` | [Grumpy monkey](https://sjpl.bibliocommons.com/v2/record/S156C5810325) |  | AD460L |
 | `J PICTURE BOOK Lang` | [Grumpy monkey party time!](https://sjpl.bibliocommons.com/v2/record/S156C5898961) |  | Ages 0-3 |
 | `J PICTURE BOOK Lewis` | [Chugga-chugga choo-choo](https://sjpl.bibliocommons.com/v2/record/S156C6009668) |  | AD130L |
@@ -883,7 +883,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
 | `J PICTURE BOOK Gravett` | [Monkey and me](https://sjpl.bibliocommons.com/v2/record/S156C3370402) |  |  |
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
 | `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
 | `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
@@ -921,7 +921,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Dewdney` | [Llama Llama misses Mama](https://sjpl.bibliocommons.com/v2/record/S156C3800297) |  |  |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
 | `J PICTURE BOOK Keats` | [The snowy day](https://sjpl.bibliocommons.com/v2/record/S156C4208827) |  | AD500L |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
 | `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
 | `J PICTURE BOOK Martin` | [Polar bear, polar bear, what do you hear?](https://sjpl.bibliocommons.com/v2/record/S156C1681071) |  | AD670L |
@@ -950,7 +950,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Carle` | [From head to toe](https://sjpl.bibliocommons.com/v2/record/S156C2133914) |  |  |
 | `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
 | `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |
 | `J PICTURE BOOK Rinker` | [Goodnight, goodnight, construction site](https://sjpl.bibliocommons.com/v2/record/S156C4151651) |  |  |
@@ -976,7 +976,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PICTURE BOOK Donaldso` | [The Gruffalo](https://sjpl.bibliocommons.com/v2/record/S156C5886122) |  | AD510L |
 | `J PICTURE BOOK Hills` | [Duck & Goose, honk! quack! boo!](https://sjpl.bibliocommons.com/v2/record/S156C5693662) |  | Ages 3-8 |
 | `J PICTURE BOOK Jackson` | [I know an old lady who swallowed a pie](https://sjpl.bibliocommons.com/v2/record/S156C5832493) |  |  |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Krauss` | [The carrot seed](https://sjpl.bibliocommons.com/v2/record/S156C2367560) |  | AD230L |
 | `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
 | `J PICTURE BOOK Rosen` | [We're going on a bear hunt](https://sjpl.bibliocommons.com/v2/record/S156C6196123) |  |  |
@@ -996,7 +996,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `J PB PICTURE BOOK` | [Bluey : the creek.](https://sjpl.bibliocommons.com/v2/record/S156C6274428) |  | AD500L |
 | `J PICTURE BOOK Carle` | [From head to toe](https://sjpl.bibliocommons.com/v2/record/S156C2133914) |  |  |
 | `J PICTURE BOOK Dewdney` | [Llama Llama red pajama](https://sjpl.bibliocommons.com/v2/record/S156C2625879) |  |  |
-| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | 90L |
+| `J PICTURE BOOK Klassen` | [I want my hat back](https://sjpl.bibliocommons.com/v2/record/S156C4246749) |  | PreK |
 | `J PICTURE BOOK Litwin` | [Pete the cat : I love my white shoes](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |  | Ages 3-7 |
 | `J PICTURE BOOK Martin` | [Brown bear, brown bear, what do you see?](https://sjpl.bibliocommons.com/v2/record/S156C2209000) |  | AD440L |
 | `J PICTURE BOOK Martin` | [Chicka chicka boom boom](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |  | PreK |

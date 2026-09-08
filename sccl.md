@@ -2,7 +2,7 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-09-08T07:34:49**. Don't hand-edit; run `uv run report.py --write`._
 
 
 **113** of **165** titles are in the catalog; **98** have at least one copy on a shelf right now. Titles link to the record in this catalog; unlabeled lines are the plain edition, labels mark the other versions we track (board book / audiobook / eBook / eAudiobook / translations).
@@ -35,7 +35,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `JP CARLE` | [The very quiet cricket](https://sccl.bibliocommons.com/v2/record/S118C27971) |  |  |
 | `JP CHINESE CREWS` | [Freight train = Tren de carga](https://sccl.bibliocommons.com/v2/record/S118C928639) | Chinese: “Huo che kuai pao” — translation of “Freight train” | PreK |
 | `JP CHINESE GOMI` | [鱷魚怕怕．牙醫怕怕](https://sccl.bibliocommons.com/v2/record/S118C1074922) | “E yu pa pa ya yi pa pa” |  |
-| `JP CHINESE KLASSEN` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C1332571) | Chinese: “Wo yao zhao hui wo de mao zi” — translation of “I want my hat back” | 90L |
+| `JP CHINESE KLASSEN` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C1332571) | Chinese: “Wo yao zhao hui wo de mao zi” — translation of “I want my hat back” | PreK |
 | `JP CHINESE PORTIS` | [Not a box](https://sccl.bibliocommons.com/v2/record/S118C1116838) | Chinese: “Bu shi xiang zi” — translation of “Not a box” |  |
 | `JP CHINESE ROSEN` | [We're going on a bear hunt](https://sccl.bibliocommons.com/v2/record/S118C448005) | Chinese: “Wo men yao qu zhuo gou xiong” — translation of “We're going on a bear hunt” |  |
 | `JP CHINESE ZENG` | [媽媽買綠豆](https://sccl.bibliocommons.com/v2/record/S118C593060) |  |  |
@@ -84,7 +84,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `JP WILSON` | [Bear snores on](https://sccl.bibliocommons.com/v2/record/S118C110074) |  | AD280L |
 | `JP WOOD` | [The napping house](https://sccl.bibliocommons.com/v2/record/S118C14620) |  |  |
 
-## Cupertino Library — 63 on the shelf
+## Cupertino Library — 64 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -107,6 +107,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `JP CHINESE GOMI` | [小金魚逃走了](https://sccl.bibliocommons.com/v2/record/S118C1179700) |  |  |
 | `JP CHINESE GOMI` | [小金魚逃走了](https://sccl.bibliocommons.com/v2/record/S118C1360410) | “Xiao jin yu tao zou le” |  |
 | `JP CHINESE GOMI` | [鱷魚怕怕．牙醫怕怕](https://sccl.bibliocommons.com/v2/record/S118C1074922) | “E yu pa pa ya yi pa pa” |  |
+| `JP CHINESE RINKER` | [Steam train, dream train](https://sccl.bibliocommons.com/v2/record/S118C1331967) | Chinese: “Xiao huo che,ye dan kuai le!” — translation of “Steam train, dream train” | AD610L |
 | `JP CHINESE ROSEN` | [We're going on a bear hunt](https://sccl.bibliocommons.com/v2/record/S118C448005) | Chinese: “Wo men yao qu zhuo gou xiong” — translation of “We're going on a bear hunt” |  |
 | `JP CHINESE SHANNON` | [Duck on a bike](https://sccl.bibliocommons.com/v2/record/S118C604994) | Chinese: “Ya zi qi che ji” — translation of “Duck on a bike” | AD240L |
 | `JP CHUA` | [Hug](https://sccl.bibliocommons.com/v2/record/S118C852991) |  |  |
@@ -122,7 +123,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `JP HILLS` | [Duck & Goose, honk! quack! boo!](https://sccl.bibliocommons.com/v2/record/S118C587717) |  | Ages 3-8 |
 | `JP JACKSON` | [I know an old lady who swallowed a pie](https://sccl.bibliocommons.com/v2/record/S118C62742) |  |  |
 | `JP KEATS` | [The snowy day](https://sccl.bibliocommons.com/v2/record/S118C5414) |  | AD500L |
-| `JP KLASSEN` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C329557) |  | 90L |
+| `JP KLASSEN` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C329557) |  | PreK |
 | `JP KRAUSS` | [The carrot seed](https://sccl.bibliocommons.com/v2/record/S118C3902) |  | AD230L |
 | `JP LEWIS` | [Chugga-chugga choo-choo](https://sccl.bibliocommons.com/v2/record/S118C81632) |  | AD130L |
 | `JP MARTIN` | [Brown bear, brown bear, what do you see?](https://sccl.bibliocommons.com/v2/record/S118C14618) |  | AD440L |
@@ -194,7 +195,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `JP CHINESE GOMI` | [鱷魚怕怕．牙醫怕怕](https://sccl.bibliocommons.com/v2/record/S118C1365930) |  |  |
 | `JP CHINESE HAUGHTO` | [Oh no, George!](https://sccl.bibliocommons.com/v2/record/S118C1182566) | Chinese: “Bie zhe yang, Xiaoguai!” — translation of “Oh no, George!” | Ages 2-5 |
 | `JP CHINESE HUTCHIN` | [母雞蘿絲去散步](https://sccl.bibliocommons.com/v2/record/S118C1365950) |  |  |
-| `JP CHINESE KLASSEN` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C1332571) | Chinese: “Wo yao zhao hui wo de mao zi” — translation of “I want my hat back” | 90L |
+| `JP CHINESE KLASSEN` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C1332571) | Chinese: “Wo yao zhao hui wo de mao zi” — translation of “I want my hat back” | PreK |
 | `JP CHINESE PORTIS` | [Not a box](https://sccl.bibliocommons.com/v2/record/S118C1116838) | Chinese: “Bu shi xiang zi” — translation of “Not a box” |  |
 | `JP CHINESE RINKER` | [Steam train, dream train](https://sccl.bibliocommons.com/v2/record/S118C1331967) | Chinese: “Xiao huo che,ye dan kuai le!” — translation of “Steam train, dream train” | AD610L |
 | `JP CHINESE ROSEN` | [We're going on a bear hunt](https://sccl.bibliocommons.com/v2/record/S118C448005) | Chinese: “Wo men yao qu zhuo gou xiong” — translation of “We're going on a bear hunt” |  |
@@ -212,8 +213,8 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `JP HILLS` | [Duck & Goose, honk! quack! boo!](https://sccl.bibliocommons.com/v2/record/S118C587717) |  | Ages 3-8 |
 | `JP JACKSON` | [I know an old lady who swallowed a pie](https://sccl.bibliocommons.com/v2/record/S118C62742) |  |  |
 | `JP KEATS` | [The snowy day](https://sccl.bibliocommons.com/v2/record/S118C5414) |  | AD500L |
-| `JP KLASSEN` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C329557) |  | 90L |
-| `JP KLASSEN 1DISC` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C406692) |  | 90L |
+| `JP KLASSEN` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C329557) |  | PreK |
+| `JP KLASSEN 1DISC` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C406692) |  | PreK |
 | `JP MARTIN` | [Brown bear, brown bear, what do you see?](https://sccl.bibliocommons.com/v2/record/S118C14618) |  | AD440L |
 | `JP MARTIN` | [Chicka Chicka I love you](https://sccl.bibliocommons.com/v2/record/S118C1333448) |  |  |
 | `JP MATHESO` | [Tap the magic tree](https://sccl.bibliocommons.com/v2/record/S118C383304) |  | Ages 4-8 |
@@ -233,7 +234,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `JP SPANISH TALK BROWN PRELOAD` | [Goodnight moon](https://sccl.bibliocommons.com/v2/record/S118C759014) | audiobook: “Buenas noches, Luna” | AD360L |
 | `JP SPANISH TALK CREWS PRELOAD` | [Freight train = Tren de carga](https://sccl.bibliocommons.com/v2/record/S118C1163925) | audiobook: “Freight Train : Tren De Carga” | PreK |
 | `JP TALK DEWDNEY PRELOAD` | [Llama Llama red pajama](https://sccl.bibliocommons.com/v2/record/S118C974494) | audiobook |  |
-| `JP TALK KLASSEN PRELOAD` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C1151413) | audiobook | 90L |
+| `JP TALK KLASSEN PRELOAD` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C1151413) | audiobook | PreK |
 | `JP TALK RUBIN PRELOAD` | [Dragons love tacos](https://sccl.bibliocommons.com/v2/record/S118C1081031) | audiobook: “Dragons Love Tacos 2 : The Sequel” | AD520L |
 | `JP TULLET` | [Dot! scribble! go!](https://sccl.bibliocommons.com/v2/record/S118C1197305) |  | Ages 3-5 |
 | `JP TULLET` | [Press here](https://sccl.bibliocommons.com/v2/record/S118C315109) |  | AD480L |
@@ -278,7 +279,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `JP HILLS` | [Duck & Goose go to the beach](https://sccl.bibliocommons.com/v2/record/S118C413946) |  | Ages 3-7 |
 | `JP HILLS` | [Duck & Goose, honk! quack! boo!](https://sccl.bibliocommons.com/v2/record/S118C587717) |  | Ages 3-8 |
 | `JP JACKSON` | [I know an old lady who swallowed a pie](https://sccl.bibliocommons.com/v2/record/S118C62742) |  |  |
-| `JP KLASSEN` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C329557) |  | 90L |
+| `JP KLASSEN` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C329557) |  | PreK |
 | `JP KRAUSS` | [The carrot seed](https://sccl.bibliocommons.com/v2/record/S118C3902) |  | AD230L |
 | `JP LANG` | [Grumpy monkey : mom for a day](https://sccl.bibliocommons.com/v2/record/S118C1239878) |  | Ages 4-8 |
 | `JP LEWIS` | [Chugga-chugga choo-choo](https://sccl.bibliocommons.com/v2/record/S118C81632) |  | AD130L |
@@ -416,7 +417,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `JP HILLS` | [Duck & Goose, honk! quack! boo!](https://sccl.bibliocommons.com/v2/record/S118C587717) |  | Ages 3-8 |
 | `JP JACKSON` | [I know an old lady who swallowed a pie](https://sccl.bibliocommons.com/v2/record/S118C62742) |  |  |
 | `JP KEATS` | [The snowy day](https://sccl.bibliocommons.com/v2/record/S118C5414) |  | AD500L |
-| `JP KLASSEN` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C329557) |  | 90L |
+| `JP KLASSEN` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C329557) |  | PreK |
 | `JP KRAUSS` | [The carrot seed](https://sccl.bibliocommons.com/v2/record/S118C3902) |  | AD230L |
 | `JP LANG` | [Grumpy monkey : mom for a day](https://sccl.bibliocommons.com/v2/record/S118C1239878) |  | Ages 4-8 |
 | `JP MARTIN` | [Chicka chicka boom boom](https://sccl.bibliocommons.com/v2/record/S118C24027) |  | PreK |
@@ -477,7 +478,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `JP SPANISH WADDELL` | [Owl babies](https://sccl.bibliocommons.com/v2/record/S118C758601) | Spanish: “Las lechucitas” — translation of “Owl babies” | Ages 0-3 |
 | `JP TALK DEWDNEY PRELOAD` | [Llama Llama red pajama](https://sccl.bibliocommons.com/v2/record/S118C974494) | audiobook |  |
 | `JP TALK HENKES CD 1DISC` | [Kitten's first full moon](https://sccl.bibliocommons.com/v2/record/S118C369033) | audiobook | 360L |
-| `JP TALK KLASSEN PRELOAD` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C1151413) | audiobook | 90L |
+| `JP TALK KLASSEN PRELOAD` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C1151413) | audiobook | PreK |
 | `JP TALK MCCLOSK CD 1DISC` | [Blueberries for Sal](https://sccl.bibliocommons.com/v2/record/S118C206901) | audiobook: “Blueberries for Sal” | AD890L |
 | `JP TALK RUBIN PRELOAD` | [Dragons love tacos](https://sccl.bibliocommons.com/v2/record/S118C1081030) | audiobook | AD520L |
 | `JP TALK SCHERTL PRELOAD` | [Little blue truck](https://sccl.bibliocommons.com/v2/record/S118C1011897) | audiobook: “Little Blue Truck Leads the Way” | AD580L |
@@ -492,7 +493,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `JP WILLEMS` | [Knuffle Bunny too : a case of mistaken identity](https://sccl.bibliocommons.com/v2/record/S118C219128) |  | Ages 3-6 |
 | `JP WILLEMS` | [The pigeon needs a bath!](https://sccl.bibliocommons.com/v2/record/S118C407291) |  | AD350L |
 
-## Campbell Library — 34 on the shelf
+## Campbell Library — 35 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -503,6 +504,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `JP AHLBERG` | [Each peach pear plum](https://sccl.bibliocommons.com/v2/record/S118C11853) |  |  |
 | `JP CARLE` | [From head to toe](https://sccl.bibliocommons.com/v2/record/S118C59289) |  |  |
 | `JP CHUA` | [Hug](https://sccl.bibliocommons.com/v2/record/S118C852991) |  |  |
+| `JP COUSINS` | [Hooray for fish!](https://sccl.bibliocommons.com/v2/record/S118C162412) |  |  |
 | `JP FOX` | [Ten little fingers and ten little toes](https://sccl.bibliocommons.com/v2/record/S118C246888) |  | Ages 5-8 |
 | `JP GOETZ` | [Old MacDonald had a truck](https://sccl.bibliocommons.com/v2/record/S118C501791) |  | AD910L |
 | `JP GRAVETT` | [Orange pear apple bear](https://sccl.bibliocommons.com/v2/record/S118C207714) |  | Ages 2-4 |
@@ -551,7 +553,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-07T07:33:49**. Don'
 | `JP GOETZ` | [Old MacDonald had a truck](https://sccl.bibliocommons.com/v2/record/S118C501791) |  | AD910L |
 | `JP HILL` | [Where's Spot?](https://sccl.bibliocommons.com/v2/record/S118C13334) |  | Ages 2-6 |
 | `JP JACKSON` | [I know an old lady who swallowed a pie](https://sccl.bibliocommons.com/v2/record/S118C62742) |  |  |
-| `JP KLASSEN` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C329557) |  | 90L |
+| `JP KLASSEN` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C329557) |  | PreK |
 | `JP KRAUSS` | [The carrot seed](https://sccl.bibliocommons.com/v2/record/S118C3902) |  | AD230L |
 | `JP LANG` | [Grumpy monkey](https://sccl.bibliocommons.com/v2/record/S118C634947) |  | AD460L |
 | `JP LANG` | [Grumpy monkey : mom for a day](https://sccl.bibliocommons.com/v2/record/S118C1239878) |  | Ages 4-8 |
