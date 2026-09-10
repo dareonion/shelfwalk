@@ -2,7 +2,7 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-09-09T07:32:12**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-09-10T07:30:09**. Don't hand-edit; run `uv run report.py --write`._
 
 
 Bibliographic detail for the **163** tracked titles (138 with catalog details fetched), merged across systems by the `--enrich` pass. Ages come from the catalogs' audience notes, so a Lexile (`AD420L`) or grade band appears where no age range was recorded, and blanks mean the record says nothing.
@@ -23,7 +23,7 @@ Bibliographic detail for the **163** tracked titles (138 with catalog details fe
 | Bonne nuit tout le monde | Haughton, Chris |  | 9782211237970 |  | "Comment rassurer un enfant qui a peur de la nuit, convaincre un tout-petit que le sommeil est doux ? En lui montrant que tout finit par aller se reposer après un instant d'hésitation : le papillon qui volette, les ch… |
 | Bonne nuit, Gorille | Rathmann, Peggy |  |  |  |  |
 | Bonsoir Lune | Brown, Margaret Wise |  | 2211093183 |  | Goodnight to each of the objects in the great green room: goodnight chairs, goodnight comb, goodnight air |
-| Brown bear, brown bear, what do you see? | Martin, Bill, 1916-2004 author | AD440L | 9780805095777 |  | Children see a variety of animals, each one a different color, and a teacher looking at them |
+| Brown bear, brown bear, what do you see? | Martin, Bill, 1916-2004 author | 440L | 9780805095777 |  | Children see a variety of animals, each one a different color, and a teacher looking at them |
 | But not the hippopotamus | Boynton, Sandra | AD390L | 0671449044 |  | Animals pair up in these humorous rhymes |
 | Bébés chouettes | Waddell, Martin |  | 9782877670883 |  | "Toutes les chouettes réfléchissent beaucoup, même les bébés chouettes comme Sarah, Rémy et Lou. Et c'est la nuit qu'ils réfléchissent le plus, quand il fait noir, qu'ils sont seuls, et que leur maman chouette n'est p… |
 | Caca boudin | Blake, Stephanie |  |  |  |  |
@@ -41,7 +41,7 @@ Bibliographic detail for the **163** tracked titles (138 with catalog details fe
 | Dot! scribble! go! | Tullet, Hervé author illustrator | Ages 3-5 | 9781797232584 |  | "Once again, Hervé Tullet brilliantly and successfully coaxes children to recognize and celebrate their innate artistic talent. He convinces each reader that their hand is magic and capable of transforming a few simp… |
 | Dragons love tacos | Rubin, Adam, 1983- author | AD520L | 9780803736801 |  | Explores the love dragons have for tacos, and the dangers of feeding them them anything with spicy salsa |
 | Duck & Goose go to the beach | Hills, Tad author illustrator | Ages 3-7 | 9780385372350 |  | "Duck wants to go on an adventure. Goose doesn't. He doesn't see the point. After all, why would they go anywhere when they're happy right where they are? But then Goose sees the ocean and loves it. Who doesn't? Well,… |
-| Duck & Goose, honk! quack! boo! | Hills, Tad author illustrator | AD510L | 9781524701758 |  | Duck and Goose, dressed for Halloween as a ghost and a superhero, respectively, go trick-or-treating in the forest, but they are careful to follow Thistle's warning to look out for a scary swamp monster |
+| Duck & Goose, honk! quack! boo! | Hills, Tad author illustrator | Ages 3-8 | 9781524701758 |  | Duck and Goose, dressed for Halloween as a ghost and a superhero, respectively, go trick-or-treating in the forest, but they are careful to follow Thistle's warning to look out for a scary swamp monster |
 | Duck on a bike | Shannon, David | PreK | 9781338744903 | 2 x 2 Reading List, 2003 | A duck decides to ride a bike and soon influences all the other animals on the farm to ride bikes too |
 | Duck stays in the truck | Cronin, Doreen author | Ages 5-7 | 9781534454149 |  | "Farmer Brown wants to go camping. He packs up the animals. He packs up his brother, Bob. The chickens want to hike. The cows want to fish. The pigs want to picnic. And Duck? Duck just wants to stay in the truck. How … |
 | Each peach pear plum | Ahlberg, Janet |  | 9780140506396 |  | Rhymed text and illustrations invite the reader to play "I Spy" with a variety of Mother Goose and other folklore characters |
@@ -69,7 +69,7 @@ Bibliographic detail for the **163** tracked titles (138 with catalog details fe
 | In my heart : a book of feelings | Witek, Jo, 1968- | AD450L | 9781419713101 |  | A young girl explores what different emotions feel like, such as happiness which makes her want to twirl, or sadness which feels as heavy as an elephant |
 | Jamberry | Degen, Bruce | PreK | 0060214171 |  | A little boy walking in the forest meets a big lovable bear that takes him on a delicious berry-picking adventure in the magical world of Berryland |
 | Kitten's first full moon | Henkes, Kevin | 360L | 9780060588281 | School Library Journal Best Books | When Kitten mistakes the full moon for a bowl of milk, she ends up tired, wet, and hungry trying to reach it |
-| Knuffle Bunny : a cautionary tale | Willems, Mo author | Ages 2-5 | 0786818700 | Caldecott Honor Book, 2005 | A trip to the laundromat leads to a momentous occasion when Trixie, too young to speak words, realizes that something important is missing and struggles to explain the problem to her father. Trixie, Daddy, and Knuffle… |
+| Knuffle Bunny : a cautionary tale | Willems, Mo author | Ages 2-5 | 0786818700 | Caldecott Honor | A trip to the laundromat leads to a momentous occasion when Trixie, too young to speak words, realizes that something important is missing and struggles to explain the problem to her father. Trixie, Daddy, and Knuffle… |
 | Knuffle Bunny too : a case of mistaken identity | Willems, Mo author | Ages 3-6 | 9781423102991 | A Junior Library Guild selection | Her daddy in tow, Trixie hurries to school to show off her one-of-a-kind Knuffle Bunny. But an awful surprise awaits her: someone else has the exact same bunny! |
 | L'âne Trotro | Guettier, Bénédicte |  |  |  |  |
 | La chenille qui fait des trous | Carle, Eric |  | 2871421749 |  | Follows the progress of a hungry little caterpillar as he eats his way through a varied and very large quantity of food until, full at last, he forms a cocoon around himself and goes to sleep. Die-cut pages illustrate… |
@@ -127,7 +127,7 @@ Bibliographic detail for the **163** tracked titles (138 with catalog details fe
 | The snowy day | Keats, Ezra Jack illustrator author | AD500L | 0606049231 | Caldecott Medal, 1963 | The adventures of a little boy in the city on a very snowy day |
 | The very busy spider | Carle, Eric author illustrator |  | 9780399211669 |  | The farm animals try to divert a busy little spider from spinning her web, but she persists and produces a thing of both beauty and usefulness. The pictures may be felt as well as seen |
 | The very hungry caterpillar | Carle, Eric author | Ages 2-5 | 0399208534 |  | Follows the progress of a hungry little caterpillar as he eats his way through a varied and very large quantity of food until, full at last, he forms a cocoon around himself and goes to sleep. Die-cut pages illustrate… |
-| The very quiet cricket | Carle, Eric | AD490L | 9780399218859 |  | A very quiet cricket who wants to rub his wings together and make a sound as do so many other animals finally achieves his wish. The cricket's sound is reproduced at the end of the book |
+| The very quiet cricket | Carle, Eric | AD490L | 9780448481395 |  | "One day a tiny cricket is born. He meets a big cricket who chirps his welcome. The tiny cricket tries to respond, but he cannot make a sound. And so the cricket makes his way in the world, meeting one insect after an… |
 | The watermelon seed | Pizzoli, Greg author | 350L | 9781423171010 | Theodor Seuss Geisel Award | After swallowing a watermelon seed, a crocodile imagines a scary outcome |
 | Time for bed | Fox, Mem, 1946- |  | 0152010149 |  | As darkness falls parents everywhere try to get their children ready for sleep |
 | Twinkle, twinkle, little sheepy : a sleepy sheepy story | Cummins, Lucy Ruth author |  | 9798217041008 |  | Twinkle, twinkle, little sheep, now it's time to go to sleep . . . Crafted from the original bedtime song "Twinkle, Twinkle, Little Star," and with sturdy board book pages, this is the perfect bedtime read for little … |
