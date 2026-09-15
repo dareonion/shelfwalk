@@ -1138,3 +1138,22 @@ def test_a_system_that_keeps_failing_is_abandoned():
         ba.SYSTEMS.clear()
         ba.SYSTEMS.update(saved)
     assert len(calls) == ba.MAX_CONSECUTIVE_FAILURES
+
+
+def test_a_missing_page_is_not_retried(monkeypatch):
+    """A 404 won't turn up on retry, and each retry spends a host's crawl delay."""
+    import io
+    import urllib.error
+    calls = []
+
+    def not_found(req, timeout=None):
+        calls.append(req.full_url)
+        raise urllib.error.HTTPError(req.full_url, 404, "Not Found", {}, io.BytesIO())
+
+    monkeypatch.setattr(ba.urllib.request, "urlopen", not_found)
+    monkeypatch.setattr(ba, "_pace", lambda url: None)
+    try:
+        ba._get("https://example.invalid/gone")
+    except RuntimeError as exc:
+        assert "after 1 tries" in str(exc)
+    assert len(calls) == 1

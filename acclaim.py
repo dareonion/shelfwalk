@@ -10,7 +10,8 @@ line to SOURCES below.
     uv run acclaim.py pull --all                  # every scriptable source
     uv run acclaim.py browser-plan                # what needs a Chrome pass
     uv run acclaim.py stats                       # coverage + provenance
-    uv run acclaim.py score                       # rank by breadth across juries
+    uv run acclaim.py score                       # rank books by breadth across juries
+    uv run acclaim.py audio                       # rank audiobooks
     uv run acclaim.py shelf                       # acclaimed AND borrowable now
     uv run acclaim.py find "<story>"              # which book carries a work
 """
@@ -47,6 +48,11 @@ from sources.pen import *  # noqa: F401,F403
 from sources.goodreads import *  # noqa: F401,F403
 from sources.nbcc import *  # noqa: F401,F403
 from sources.nobel import *  # noqa: F401,F403
+from sources.librofm import *  # noqa: F401,F403
+from sources.apple_audio import *  # noqa: F401,F403
+from sources.libby_audio import *  # noqa: F401,F403
+from sources.audible import *  # noqa: F401,F403
+from sources.listen_list import *  # noqa: F401,F403
 
 # `import *` skips underscore names, but these are part of the module's
 # de-facto surface (tests and callers reach for them), so re-export them.
@@ -143,6 +149,34 @@ SOURCES: dict[str, Source] = {
                note="via sfadb", forms=("novel", "novella", "novelette",
                                         "short-story", "collection",
                                         "anthology", "nonfiction")),
+        Source("listen-list", "ALA RUSA Listen List", "list", HTTP,
+               load_listen_list, cadence="annual-jan",
+               note="outstanding audiobook narration, 2012–; rusaupdate.org "
+                    "panels plus ALA pages for 2012–2015",
+               forms=("audio",)),
+        Source("audible-best", "Audible Best of the Year", "list", HTTP,
+               load_audible_best, cadence="annual-nov",
+               note="editors' Audiobook of the Year + Top 20, and genre lists "
+                    "from the best-of-the-year blog tag",
+               forms=("audio",)),
+        Source("audible-charts", "Audible bestsellers", "popularity", HTTP,
+               load_audible_charts, cadence="weekly",
+               note="top 20 overall + 7 categories; robots.txt forbids paging",
+               forms=("audio",)),
+        Source("librofm", "Libro.fm bestsellers", "popularity", HTTP,
+               load_librofm, cadence="weekly",
+               note="site-wide top 100 audiobooks (indie bookstores); snapshot",
+               forms=("audio",)),
+        Source("apple-audio", "Apple Books top audiobooks", "popularity", HTTP,
+               load_apple_audio, cadence="weekly",
+               note="official marketing RSS, top 100 (US); kids' titles skipped; "
+                    "no narrator",
+               forms=("audio",)),
+        Source("libby-audio", "OverDrive audiobook demand", "popularity", HTTP,
+               load_libby_audio, cadence="weekly",
+               note="Thunder API, top 300 adult English audiobooks by "
+                    "OverDrive-wide popularity",
+               forms=("audio",)),
     ]
 }
 
@@ -385,6 +419,26 @@ def award_family(source: str) -> str:
     return AWARD_FAMILIES.get(source, source)
 
 
+# Audiobook sources judge or rank a recording, not the text, so they feed the
+# audio ranking and never the book score. Goodreads is a book source except
+# for its Audiobook category.
+AUDIO_JURIES = {"audies", "grammy"}
+AUDIO_LISTS = {"listen-list", "audible-best"}
+AUDIO_POPULARITY = {"audible-charts", "librofm", "apple-audio", "libby-audio"}
+AUDIO_SOURCES = AUDIO_JURIES | AUDIO_LISTS | AUDIO_POPULARITY
+AUDIO_TOP_CATEGORIES = {("audies", "Audiobook Of The Year")}
+# Audie categories that judge packaging, not the listen.
+AUDIO_IGNORED_CATEGORIES = {("audies", "Package Design"),
+                            ("audies", "Excellence In Design")}
+AUDIO_WEIGHTS = {"won": 3.0, "nominated": 1.0, "listed": 2.0, "popular": 1.0,
+                 "top_prize": 2.0, "book": 0.5, "book_cap": 5.0}
+
+
+def is_audio_accolade(source: str, category: str | None) -> bool:
+    return source in AUDIO_SOURCES or (source == "goodreads"
+                                       and category == "Audiobook")
+
+
 def compute_scores(conn) -> int:
     """Recompute `work_scores` from scratch. Never incremental: a rerun after
     a parser fix must produce the same numbers, not accumulate on top."""
@@ -393,7 +447,9 @@ def compute_scores(conn) -> int:
     # and testable; the table is small enough that it costs nothing.
     per_work: dict[str, dict] = {}
     for r in conn.execute(
-            "SELECT work_key, source, source_kind, status FROM accolades"):
+            "SELECT work_key, source, source_kind, status, category FROM accolades"):
+        if is_audio_accolade(r["source"], r["category"]):
+            continue
         acc = per_work.setdefault(r["work_key"],
                                   {"won": set(), "nom": set(), "lists": set()})
         fam = award_family(r["source"])
@@ -417,6 +473,81 @@ def compute_scores(conn) -> int:
             (key, n_won, n_nom, n_lists, score, now))
     conn.commit()
     return len(per_work)
+
+
+def compute_audio_scores(conn) -> int:
+    """Recompute `audio_scores` from scratch, after `compute_scores`.
+
+    score = 3 per audio jury family won + 1 per family nominated + 2 for a top
+    category win + 2 per audio editorial list + 1 per popularity chart
+    + half the book's own score, capped at 5. Only works with at least one
+    audio signal are ranked; the book term orders recordings, never admits one.
+    """
+    conn.execute("DELETE FROM audio_scores")
+    book = {r[0]: r[1] for r in conn.execute(
+        "SELECT work_key, score FROM work_scores")}
+    per_work: dict[str, dict] = {}
+    for r in conn.execute(
+            "SELECT work_key, source, status, category, narrator FROM accolades"):
+        src, cat = r["source"], r["category"]
+        if not is_audio_accolade(src, cat) or (src, cat) in AUDIO_IGNORED_CATEGORIES:
+            continue
+        acc = per_work.setdefault(r["work_key"], {
+            "won": set(), "nom": set(), "lists": set(), "pop": set(),
+            "top": False, "narrators": {}})
+        if src in AUDIO_JURIES:
+            if r["status"] in _WON:
+                acc["won"].add(src)
+                acc["top"] |= (src, cat) in AUDIO_TOP_CATEGORIES
+            elif r["status"] in _NOMINATED:
+                acc["nom"].add(src)
+        elif src in AUDIO_LISTS:
+            acc["lists"].add(src)
+        else:                                       # charts and the Goodreads vote
+            acc["pop"].add("goodreads-audio" if src == "goodreads" else src)
+        name = re.sub(r",?\s*published by\b.*$", "", r["narrator"] or "",
+                      flags=re.I).strip(" ,")
+        if name:
+            acc["narrators"][name] = acc["narrators"].get(name, 0) + 1
+    w = AUDIO_WEIGHTS
+    now = db._now()
+    for key, acc in per_work.items():
+        nom = acc["nom"] - acc["won"]
+        book_score = book.get(key) or 0.0
+        score = (w["won"] * len(acc["won"]) + w["nominated"] * len(nom)
+                 + w["top_prize"] * acc["top"] + w["listed"] * len(acc["lists"])
+                 + w["popular"] * len(acc["pop"])
+                 + min(w["book"] * book_score, w["book_cap"]))
+        narrator = (max(acc["narrators"], key=lambda k: (acc["narrators"][k], -len(k)))
+                    if acc["narrators"] else None)
+        conn.execute(
+            "INSERT INTO audio_scores (work_key, n_won, n_nominated, n_lists, "
+            "n_popular, top_prize, book_score, score, narrator, computed_at) "
+            "VALUES (?,?,?,?,?,?,?,?,?,?)",
+            (key, len(acc["won"]), len(nom), len(acc["lists"]), len(acc["pop"]),
+             int(acc["top"]), book_score, score, narrator, now))
+    conn.commit()
+    return len(per_work)
+
+
+def cmd_audio(args) -> int:
+    """The audiobook ranking, whether or not a copy is available."""
+    conn = db.open_db(args.db)
+    compute_scores(conn)
+    n = compute_audio_scores(conn)
+    print(f"ranked {n} audiobooks\n")
+    print(f"{'score':>5}  {'won':>3} {'nom':>3} {'lst':>3} {'pop':>3} {'book':>4}  "
+          f"title / author / narrator")
+    for r in conn.execute(
+            "SELECT s.*, w.title, w.author FROM audio_scores s "
+            "JOIN works w USING(work_key) WHERE s.score >= ? "
+            "ORDER BY s.score DESC, s.book_score DESC, w.title LIMIT ?",
+            (args.min_score, args.top)):
+        print(f"{r['score']:>5.1f}  {r['n_won']:>3} {r['n_nominated']:>3} "
+              f"{r['n_lists']:>3} {r['n_popular']:>3} {r['book_score']:>4.0f}  "
+              f"{r['title'][:48]} — {(r['author'] or '?')[:24]}"
+              + (f" · read by {r['narrator'][:40]}" if r["narrator"] else ""))
+    return 0
 
 
 def cmd_score(args) -> int:
@@ -709,6 +840,10 @@ def main(argv=None):
     sc = sub.add_parser("score", help="recompute work_scores across sources")
     sc.add_argument("--top", type=int, default=30)
 
+    au = sub.add_parser("audio", help="rank audiobooks by juries, lists and charts")
+    au.add_argument("--top", type=int, default=40)
+    au.add_argument("--min-score", type=float, default=0.0)
+
     sh = sub.add_parser("shelf", help="acclaimed AND borrowable near you now")
     sh.add_argument("--limit", type=int, default=40,
                     help="how many top-scored works to check live (default 40)")
@@ -727,7 +862,7 @@ def main(argv=None):
     if getattr(args, "system", None) is None and args.cmd == "shelf":
         args.system = ["sccl", "sjpl"]
     return {"pull": cmd_pull, "browser-plan": cmd_browser_plan,
-            "stats": cmd_stats, "score": cmd_score,
+            "stats": cmd_stats, "score": cmd_score, "audio": cmd_audio,
             "shelf": cmd_shelf, "find": cmd_find}[args.cmd](args)
 
 

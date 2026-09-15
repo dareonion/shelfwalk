@@ -134,6 +134,20 @@ two stay separate.
 - **Scores count distinct award families, never rows.** Hugo, Nebula and Locus
   count as one family, as do the three Bookers. `compute_scores` is a full
   recompute, never incremental.
+- **Audio sources rank recordings, not books.** `AUDIO_SOURCES` (Audies,
+  Grammy, Listen List, Audible, the charts) and Goodreads' Audiobook category
+  never count toward `work_scores`; `compute_audio_scores` (`acclaim.py audio`)
+  ranks them: audio jury wins and nominations, a top-category bonus, editorial
+  lists, chart breadth, plus half the book's score capped at 5. Audio loaders
+  don't set `works.form`.
+- **Charts are snapshots.** Popularity sources (`source_kind='popularity'`)
+  fetch with `_fetch(fresh=True)` or a max page age; everything else reads the
+  mirror first. A chart row is one per work per year, keeping the first rank
+  seen.
+- **Honour crawl delays.** `bayarea_lookup.HOST_SPACING` sets per-host request
+  spacing (ala.org and kirkusreviews.com at 10 s). NYT's robots.txt names
+  Claude's agents and Publishers Weekly disallows all crawlers — neither is
+  scripted.
 - **The shelf join has its own strict matcher** (`acclaim.shelf_match`): print
   format, the work's whole stem as the record's title or one of its parts, an
   author among the credits, English; an author-less record needs the exact

@@ -1148,3 +1148,71 @@ def test_a_failed_search_is_not_cached_as_not_held(monkeypatch):
         A.resolve_work_bibs(conn, "abundance|klein", "Abundance",
                             "Ezra Klein & Derek Thompson", systems=("sjpl",))
         assert db.systems_searched(conn, "abundance|klein") == set()
+
+
+# --- the audiobook ranking --------------------------------------------------------
+
+def _accolade(conn, title, author, source, kind, status, **kw):
+    key = db.upsert_work(conn, title, author)
+    db.add_accolade(conn, key, source, kind, status, **kw)
+    return key
+
+
+def test_book_score_ignores_audio_sources():
+    """An Audie, a Grammy or the Goodreads audiobook vote judges a recording,
+    so none of them may raise the book's own score."""
+    with tempfile.TemporaryDirectory() as d:
+        conn = db.open_db(os.path.join(d, "t.db"))
+        k = _accolade(conn, "Becoming", "Michelle Obama", "audies", "award",
+                      "winner", category="Autobiography/Memoir", year=2020)
+        _accolade(conn, "Becoming", "Michelle Obama", "grammy", "award",
+                  "winner", category="Best Audio Book", year=2020)
+        _accolade(conn, "Becoming", "Michelle Obama", "goodreads", "award",
+                  "nominee", category="Audiobook", year=2018)
+        _accolade(conn, "Becoming", "Michelle Obama", "goodreads", "award",
+                  "nominee", category="Memoir & Autobiography", year=2018)
+        conn.commit()
+        A.compute_scores(conn)
+        r = conn.execute("SELECT * FROM work_scores WHERE work_key = ?", (k,)).fetchone()
+        assert (r["n_won"], r["n_nominated"], r["score"]) == (0, 1, 1.0)
+
+
+def test_audio_score_adds_juries_lists_charts_and_capped_book_score():
+    with tempfile.TemporaryDirectory() as d:
+        conn = db.open_db(os.path.join(d, "t.db"))
+        k = _accolade(conn, "Piranesi", "Susanna Clarke", "audies", "award", "winner",
+                      category="Audiobook Of The Year", year=2021,
+                      narrator="Chiwetel Ejiofor, published by Bloomsbury PLC")
+        _accolade(conn, "Piranesi", "Susanna Clarke", "grammy", "award", "nominee",
+                  category="Best Audio Book", year=2021)
+        _accolade(conn, "Piranesi", "Susanna Clarke", "listen-list", "list", "listed",
+                  category="Listen List", year=2021)
+        for chart in ("libby-audio", "apple-audio"):
+            _accolade(conn, "Piranesi", "Susanna Clarke", chart, "popularity",
+                      "listed", category="Top audiobooks", year=2026)
+        for src in ("hugo", "nebula", "womens-prize", "latimes", "goodreads"):
+            _accolade(conn, "Piranesi", "Susanna Clarke", src, "award", "winner",
+                      category="Novel", year=2021)
+        conn.commit()
+        A.compute_scores(conn)
+        A.compute_audio_scores(conn)
+        r = conn.execute("SELECT * FROM audio_scores WHERE work_key = ?", (k,)).fetchone()
+        # won 3 + nominated 1 + top prize 2 + list 2 + two charts 2 + book min(0.5*12, 5)
+        assert r["score"] == 15.0
+        assert (r["n_won"], r["n_nominated"], r["n_lists"], r["n_popular"],
+                r["top_prize"]) == (1, 1, 1, 2, 1)
+        assert r["narrator"] == "Chiwetel Ejiofor"
+
+
+def test_audio_ranking_needs_an_audio_signal_and_skips_design_categories():
+    with tempfile.TemporaryDirectory() as d:
+        conn = db.open_db(os.path.join(d, "t.db"))
+        _accolade(conn, "Wolf Hall", "Hilary Mantel", "booker", "award", "winner",
+                  category="Fiction", year=2009)
+        design = _accolade(conn, "Cold Mountain", "Charles Frazier", "audies", "award",
+                           "winner", category="Package Design", year=1999)
+        conn.commit()
+        A.compute_scores(conn)
+        A.compute_audio_scores(conn)
+        keys = {r[0] for r in conn.execute("SELECT work_key FROM audio_scores")}
+        assert keys == set() and design not in keys

@@ -3,9 +3,8 @@
 #
 #   ./acclaim.sh                 # every http-transport source
 #
-# Weekly, not daily: these are annual awards. The per-source `cadence` in
-# acclaim.py is what keeps a prize that announces in November from being
-# re-fetched every week in March.
+# Weekly: the awards are annual and their pages are read from the mirror once
+# fetched, so a weekly run costs little; the chart sources re-fetch each time.
 #
 # Browser-tier sources (Pulitzer, PEN, Douban, NYT, WSJ) need a real Chrome
 # session and are not refreshed here; `acclaim.py browser-plan` lists them and

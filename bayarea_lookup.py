@@ -130,6 +130,10 @@ def _archive(url: str, body: bytes) -> None:
 # Minimum spacing between requests to the SAME host, across threads: sccl and
 # sjpl share gateway.bibliocommons.com, which 403s uncoordinated threads.
 _HOST_SPACING = 0.4
+# Hosts that ask for more: robots.txt crawl delays, and slower spacing for
+# sites fetched in bulk only by the acclaim sources.
+HOST_SPACING = {"www.ala.org": 10.0, "www.rusaupdate.org": 10.0,
+                "www.kirkusreviews.com": 10.0, "www.audible.com": 2.0}
 # Cap a single back-off: giving up on one title beats escalating waits that
 # stall the whole run into the service timeout.
 THROTTLE_MAX_WAIT = 30
@@ -142,7 +146,8 @@ def _pace(url: str) -> None:
     while True:
         with _host_gate:
             now = time.monotonic()
-            wait = _host_last.get(host, 0.0) + _HOST_SPACING - now
+            wait = (_host_last.get(host, 0.0)
+                    + HOST_SPACING.get(host, _HOST_SPACING) - now)
             if wait <= 0:
                 _host_last[host] = now
                 return
@@ -171,6 +176,8 @@ def _get(url: str, accept: str = "application/json", tries: int = 3,
                 e.close()
             except Exception:
                 pass
+            if getattr(e, "code", None) in (404, 410):  # gone stays gone: no retry
+                break
             if getattr(e, "code", None) in (403, 429):  # throttled: back off
                 wait = min(20 * (attempt + 1), THROTTLE_MAX_WAIT)
                 # say so: a silent multi-minute sleep looks like a hang, and a
@@ -180,7 +187,7 @@ def _get(url: str, accept: str = "application/json", tries: int = 3,
                 time.sleep(wait)
             else:
                 time.sleep(1.5 * (attempt + 1))
-    raise RuntimeError(f"GET failed after {tries} tries: {url}: {last_err}")
+    raise RuntimeError(f"GET failed after {attempt + 1} tries: {url}: {last_err}")
 
 
 # --- query building / fuzzy matching --------------------------------------------

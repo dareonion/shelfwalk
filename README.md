@@ -23,7 +23,7 @@ The Bay Area catalogs are plain HTTP — no browser or credentials.
 |---|---|
 | `bayarea_lookup.py` | want-list lookups, matching, availability, enrichment |
 | `report.py` | renders every markdown report from the store |
-| `catalog_db.py` | schema and all SQL |
+| `catalog_db.py` | schema and shared queries |
 | `hotlist.py`, `hotlist.json` | hot-release watcher and its watchlist |
 | `acclaim.py`, `acclaim_core.py`, `sources/` | awards corpus: CLI, shared machinery, one adapter per awarding body |
 | `tools/collector.py` | localhost sink for browser-side harvests |
@@ -125,13 +125,17 @@ implemented until their endpoints are captured — see `docs/hold-recon.md`.
 uv run acclaim.py pull --all        # every source that runs unattended
 uv run acclaim.py browser-plan      # what needs a Chrome pass
 uv run acclaim.py stats             # coverage and provenance
-uv run acclaim.py score             # rank by breadth across independent juries
+uv run acclaim.py score             # rank books by breadth across independent juries
+uv run acclaim.py audio             # rank audiobooks: audio juries, lists, charts
 uv run acclaim.py shelf             # top-scored works with a copy available now
 uv run acclaim.py find "<story>"    # which book carries a short work
 ```
 
 Sources are the awarding bodies themselves; Wikipedia is only a fallback, since
-it lists winners but few shortlists. Short fiction is tracked too, with
+it lists winners but few shortlists. Audiobook sources — the Audies, the
+Grammy, the ALA Listen List, Audible's Best of the Year, and bestseller charts
+from Audible, Libro.fm, Apple Books and OverDrive — feed a separate audiobook
+ranking and never a book's own score. Short fiction is tracked too, with
 `work_containers` recording which collection or anthology reprints it.
 `docs/sources.md` is the inventory; sites that refuse scripts are harvested in
 a real Chrome tab (`docs/harvesting.md`).

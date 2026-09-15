@@ -57,14 +57,19 @@ class Source:
 # --- fetching -------------------------------------------------------------------
 
 def _fetch(conn, url: str, fails: list, *, accept: str = "text/html",
-           timeout: float = 60) -> bytes | None:
+           timeout: float = 60, fresh: bool = False) -> bytes | None:
     """Mirror-first fetch. Returns the body, or None with the reason appended
     to `fails` — never swallowed, so a source whose fetches fail (a locked
     database included) looks different from one with nothing to return.
+
+    fresh=True always fetches live (still mirrored), for pages that change
+    under the same URL such as bestseller charts; a failed fresh fetch returns
+    None rather than an old copy under today's date.
     """
-    raw = db.get_raw_page(conn, url)
-    if raw is not None:
-        return raw
+    if not fresh:
+        raw = db.get_raw_page(conn, url)
+        if raw is not None:
+            return raw
     import bayarea_lookup as B
     # armed here, not in each loader, so no loader can skip the mirror
     _arm_archive(conn)

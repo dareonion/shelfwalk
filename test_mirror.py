@@ -8,6 +8,7 @@ by hand. They skip when a page is not mirrored, so a fresh clone is not blocked.
 """
 from __future__ import annotations
 
+import json
 import os
 import re
 
@@ -295,6 +296,278 @@ def test_audie_titles_are_never_credits(conn):
         assert not bad, (year, bad)
 
 
+# --- ALA RUSA Listen List -----------------------------------------------------
+
+def _listen_list_panels(conn):
+    from sources import listen_list as LL
+    return LL.parse_listen_list_panels(_page(conn, LL.LISTEN_LIST_URL))
+
+
+def _listen_list_archive(conn, year):
+    from sources import listen_list as LL
+    return LL.parse_listen_list_archive(
+        _page(conn, LL.LISTEN_LIST_ARCHIVE[year]), year)
+
+
+def test_listen_list_panels_carry_2016_onward_twelve_or_so_a_year(conn):
+    from collections import Counter
+    counts = Counter(e["year"] for e in _listen_list_panels(conn))
+    assert counts == {2016: 12, 2017: 12, 2018: 12, 2019: 13, 2020: 13, 2021: 12,
+                      2022: 12, 2023: 13, 2024: 12, 2025: 12, 2026: 12}
+
+
+def test_listen_list_2026_buffalo_hunter_hunter_credit(conn):
+    """Author from 'Written by', narrators up to the publisher."""
+    e = next(e for e in _listen_list_panels(conn)
+             if e["year"] == 2026 and e["title"] == "The Buffalo Hunter Hunter")
+    assert e["author"] == "Stephen Graham Jones"
+    assert e["narrator"] == "Shane Ghostkeeper, Marin Ireland, and Owen Teale"
+
+
+def test_listen_list_never_loads_listen_alikes(conn):
+    """'The Fire Next Time' and 'The Outsider' are Listen-Alikes under the 2026
+    Baldwin selection, not selections."""
+    titles = {e["title"] for e in _listen_list_panels(conn) if e["year"] == 2026}
+    assert "Baldwin: A Love Story" in titles
+    assert not titles & {"The Fire Next Time", "The Outsider"}
+
+
+def test_listen_list_skips_a_pasted_listen_alike_heading(conn):
+    """Two 2023 <h3>s are unquoted Listen-Alike credit lines ('My Life as a
+    Goddess…', 'The Shore…') over paragraphs that belong to other titles."""
+    titles = [e["title"] for e in _listen_list_panels(conn) if e["year"] == 2023]
+    assert not any(t.startswith(("My Life as a Goddess", "The Shore")) for t in titles)
+    assert "Playing with Myself" in titles
+
+
+def test_listen_list_heading_typos_and_heading_narrators(conn):
+    """2019 headings carry 'rby', 'by by', a stray 'class' and, once, the
+    narrator credit itself."""
+    by_title = {e["title"]: e for e in _listen_list_panels(conn) if e["year"] == 2019}
+    assert by_title["Dear America: Notes of an Undocumented Citizen"]["author"] == \
+        "Jose Antonio Vargas"
+    assert by_title["The Trauma Cleaner: One Woman’s Extraordinary Life in the "
+                    "Business of Death, Decay, and Disaster"]["author"] == \
+        "Sarah Krasnostein"
+    assert by_title["I Am, I Am, I Am: Seventeen Brushes with Death"]["author"] == \
+        "Maggie O’Farrell"
+    silence = by_title["The Silence of the Girls"]
+    assert silence["author"] == "Pat Barker"
+    assert silence["narrator"] == "Kristin Atherton and Michael Fox"
+
+
+def test_listen_list_2015_archive_page(conn):
+    """The opening quote of 'The Bees' sits outside its <strong>; 'R.C. Bray.'
+    ends at the surname, not the initial."""
+    entries = _listen_list_archive(conn, 2015)
+    assert len(entries) == 12
+    by_title = {e["title"]: e for e in entries}
+    assert by_title["The Bees"]["author"] == "Laline Paull"
+    assert by_title["The Martian"]["author"] == "Andy Weir"
+    assert by_title["The Martian"]["narrator"] == "R.C. Bray"
+
+
+def test_listen_list_press_releases_match_alas_winner_list(conn):
+    """2012–2014 selections parsed from the press releases are the same titles
+    ALA's own awards page lists for those years (titles compared as work_key
+    stems, since the awards page drops subtitles and some articles)."""
+    import re
+    from html import unescape
+    awards = _page(conn, "https://www.ala.org/awards/books-media/listen-list")
+    listed: dict = {}
+    for title, year in re.findall(
+            r'<a href="/winner/[^"]+" hreflang="en">([^<]*)</a>\s*'
+            r'<p class="lg:hidden years__field">(\d{4})', awards):
+        listed.setdefault(int(year), set()).add(unescape(title).strip())
+
+    def stems(titles):
+        return {re.sub(r"^(the|a|an)", "", db.work_key(t).split("|")[0])
+                for t in titles}
+
+    for year, n in ((2012, 12), (2013, 13), (2014, 12)):
+        parsed = [e["title"] for e in _listen_list_archive(conn, year)]
+        assert len(parsed) == n
+        assert stems(parsed) == stems(listed[year]), year
+
+
+# --- Audible: best of the year and bestseller charts --------------------------
+
+def test_audible_hub_2025_audiobook_of_the_year_and_top_20(conn):
+    """The 2025 Audiobook of the Year is Atmosphere (Taylor Jenkins Reid, read by
+    Julia Whelan and Kristen DiMercurio), followed by the Top 20."""
+    from sources import audible as AU
+    hub = AU.parse_boty_hub(_page(conn, AU.AUDIBLE_BOTY_HUB))
+    assert hub["year"] == 2025
+    aoty = [e for e in hub["entries"] if e["category"] == "Audiobook of the Year"]
+    assert aoty == [{"category": "Audiobook of the Year", "title": "Atmosphere",
+                     "author": "Taylor Jenkins Reid",
+                     "narrator": "Julia Whelan, Kristen DiMercurio"}]
+    top = [e for e in hub["entries"] if e["category"] == "Top 20"]
+    assert len(top) == 20
+
+
+def test_audible_hub_narrators_stay_inside_their_own_item(conn):
+    """Narrator links are read per item: Mel Robbins reads The Let Them Theory
+    herself (no link), so Jefferson White belongs only to Sunrise on the Reaping."""
+    from sources import audible as AU
+    top = {e["title"]: e for e in AU.parse_boty_hub(_page(conn, AU.AUDIBLE_BOTY_HUB))["entries"]}
+    assert top["The Buffalo Hunter Hunter"]["narrator"] == \
+        "Shane Ghostkeeper, Marin Ireland, Owen Teale"
+    assert top["The Let Them Theory"]["narrator"] is None
+    assert top["Sunrise on the Reaping"]["narrator"] == "Jefferson White"
+    # headings keep the punctuation the aria-labels drop
+    assert "Someday, Now" in top and "If Anyone Builds It, Everyone Dies" in top
+    assert top["If Anyone Builds It, Everyone Dies"]["author"] == "Eliezer Yudkowsky"
+
+
+def test_audible_tag_page_lists_every_year_and_skips_app_tests(conn):
+    from sources import audible as AU
+    first = AU.parse_boty_tag(_page(conn, AU.AUDIBLE_BOTY_TAG))
+    assert first["last_page"] == 6
+    assert ("/blog/article-2025-best-fiction-audiobooks", 2025) in first["articles"]
+    fifth = AU.parse_boty_tag(_page(conn, AU.AUDIBLE_BOTY_TAG + "/page/5"))
+    paths = [p for p, _ in fifth["articles"]]
+    assert "/blog/article-2022-best-fantasy-audiobooks" in paths
+    assert not any(p.endswith("-app-test") for p in paths)
+
+
+def test_audible_blog_list_reads_the_json_ld_picks(conn):
+    """Each pick is a schema.org Audiobook block with author and readBy."""
+    from sources import audible as AU
+    path = "/blog/article-2025-best-sci-fi-fantasy-audiobooks"
+    lst = AU.parse_blog_list(_page(conn, AU.AUDIBLE + path), path)
+    assert (lst["year"], lst["list"]) == (2025, "The 10 best sci-fi & fantasy listens of 2025")
+    assert len(lst["entries"]) == 10
+    first = lst["entries"][0]
+    assert (first["title"], first["author"], first["narrator"]) == \
+        ("The Incandescent", "Emily Tesh", "Zara Ramm")
+    assert any(e["title"] == "This Inevitable Ruin" and e["author"] == "Matt Dinniman"
+               for e in lst["entries"])
+
+
+def test_audible_blog_list_2022_uses_the_same_structure(conn):
+    from sources import audible as AU
+    path = "/blog/article-2022-best-fiction-audiobooks"
+    lst = AU.parse_blog_list(_page(conn, AU.AUDIBLE + path), path)
+    assert lst["year"] == 2022 and len(lst["entries"]) == 15
+    assert lst["list"] == "The 15 Best Fiction Audiobooks of 2022"
+    assert lst["entries"][0]["title"] == "Our Missing Hearts"
+    assert lst["entries"][0]["narrator"] == "Lucy Liu"
+
+
+def test_audible_chart_top_20_with_ranks_authors_and_narrators(conn):
+    from sources import audible as AU
+    chart = AU.parse_chart(_page(conn, AU.AUDIBLE_CHART))
+    assert chart["chart"] == "Bestselling Audiobooks"
+    assert [e["rank"] for e in chart["entries"]] == list(range(1, 21))
+    assert all(e["title"] and e["author"] for e in chart["entries"])
+    dcc = next(e for e in chart["entries"] if e["title"] == "Dungeon Crawler Carl")
+    assert (dcc["author"], dcc["narrator"], dcc["series"]) == \
+        ("Matt Dinniman", "Jeff Hays", "Dungeon Crawler Carl, Book 1")
+
+
+def test_audible_chart_links_only_query_free_category_charts(conn):
+    """robots.txt disallows /charts/*?; category chart paths carry no query."""
+    from sources import audible as AU
+    chart = AU.parse_chart(_page(conn, AU.AUDIBLE_CHART))
+    assert "/charts/best/science-fiction-fantasy-audiobooks/18580606011" in chart["categories"]
+    assert all("?" not in p for p in chart["categories"])
+    sff = AU.parse_chart(_page(
+        conn, AU.AUDIBLE + "/charts/best/science-fiction-fantasy-audiobooks/18580606011"))
+    assert sff["chart"] == "Bestselling Science Fiction & Fantasy Audiobooks"
+    assert len(sff["entries"]) == 20
+
+
+# --- audiobook popularity charts ----------------------------------------------
+#
+# Snapshots change on every fetch, so these check shape, filters and title
+# cleaning rather than any title's rank.
+
+def _mirrored(conn, url):
+    raw = db.get_raw_page(conn, url)
+    if raw is None:
+        pytest.skip(f"not mirrored: {url}")
+    return raw
+
+
+def test_librofm_chart_is_a_complete_top_100(conn):
+    from sources.librofm import LIBROFM_URL, parse_librofm
+    entries = parse_librofm(_mirrored(conn, LIBROFM_URL).decode("utf-8", "replace"))
+    assert [e["rank"] for e in entries] == list(range(1, 101))
+    assert entries[0]["title"] and entries[0]["authors"]
+    assert all(e["title"] and e["authors"] for e in entries)
+    assert sum(1 for e in entries if e["narrators"]) >= 95
+
+
+def test_librofm_titles_lose_book_club_and_series_tags(conn):
+    from sources.librofm import LIBROFM_URL, clean_librofm_title, parse_librofm
+    assert clean_librofm_title("Kin: Oprah&#39;s Book Club") == "Kin"
+    assert clean_librofm_title("Atmosphere: A GMA Book Club Pick") == "Atmosphere"
+    assert clean_librofm_title("The Witches of Cambridge (A Read with Jenna Pick)") == \
+        "The Witches of Cambridge"
+    assert clean_librofm_title("Sunrise on the Reaping (The Hunger Games)") == \
+        "Sunrise on the Reaping"
+    titles = [e["title"] for e in
+              parse_librofm(_mirrored(conn, LIBROFM_URL).decode("utf-8", "replace"))]
+    assert not any("Book Club" in t or "(" in t or "&#" in t for t in titles)
+
+
+def test_apple_audio_chart_drops_kids_and_storefront_decoration(conn):
+    from sources.apple_audio import (APPLE_AUDIO_URL, APPLE_KIDS_GENRE,
+                                     parse_apple_audio)
+    raw = _mirrored(conn, APPLE_AUDIO_URL)
+    results = json.loads(raw)["feed"]["results"]
+    kids = sum(1 for r in results
+               if any(g.get("name") == APPLE_KIDS_GENRE for g in r.get("genres", [])))
+    snap, entries = parse_apple_audio(raw)
+    assert len(results) == 100
+    assert snap and len(snap) == 10
+    assert len(entries) == 100 - kids
+    assert entries[0]["title"] and entries[0]["author"]
+    assert not any("(Unabridged)" in e["title"] or "[" in e["title"]
+                   or ", Book " in e["title"] for e in entries)
+
+
+def test_apple_audio_title_and_author_cleaning():
+    from sources.apple_audio import clean_apple_title, first_author
+    assert clean_apple_title(
+        "Carl's Doomsday Scenario: Dungeon Crawler Carl, Book 2 (Unabridged)") == \
+        "Carl's Doomsday Scenario"
+    assert clean_apple_title("Red Rising (Red Rising)") == "Red Rising"
+    assert clean_apple_title("Yesteryear: A GMA Book Club Pick: A Novel (Unabridged)") == \
+        "Yesteryear: A Novel"
+    assert first_author("James Patterson & James O. Born") == "James Patterson"
+    assert first_author("Bessel van der Kolk, M.D.") == "Bessel van der Kolk"
+
+
+LIBBY_PAGE1 = ("https://thunder.api.overdrive.com/v2/libraries/santaclara/media"
+               "?mediaTypes=audiobook&perPage=100&page=1&sortBy=popularity")
+
+
+def test_libby_page_carries_authors_and_narrators(conn):
+    from sources.libby_audio import parse_libby_page
+    rows = parse_libby_page(_mirrored(conn, LIBBY_PAGE1))
+    assert len(rows) == 100
+    assert [r["rank"] for r in rows] == list(range(1, 101))
+    adult = [r for r in rows if r["adult_english"]]
+    assert adult[0]["title"] and adult[0]["author"]
+    assert sum(1 for r in adult if r["narrators"]) >= len(adult) - 2
+
+
+def test_libby_skips_juvenile_young_adult_and_non_english(conn):
+    from sources.libby_audio import libby_is_adult_english, parse_libby_page
+    raw = _mirrored(conn, LIBBY_PAGE1)
+    items = json.loads(raw)["items"]
+    youth = [i for i in items if (i.get("ratings", {}).get("maturityLevel") or {})
+             .get("id") in ("juvenile", "youngadult")]
+    assert youth, "page 1 of the OverDrive-wide chart always carries youth titles"
+    assert not any(libby_is_adult_english(i) for i in youth)
+    rows = {r["title"]: r for r in parse_libby_page(raw)}
+    assert all(not rows[i["title"]]["adult_english"] for i in youth)
+    assert libby_is_adult_english({"ratings": {"maturityLevel": {"id": "generalcontent"}},
+                                   "languages": [{"id": "es"}]}) is False
+
+
 # --- every loader, offline ------------------------------------------------------
 
 def test_every_registered_loader_runs_offline(conn, monkeypatch, tmp_path):
@@ -342,9 +615,9 @@ def test_every_source_has_at_least_one_winner(conn):
         "FROM accolades GROUP BY source").fetchall()
     if not rows:
         pytest.skip("corpus not loaded")
-    listy = {"nyt", "wsj", "obama", "douban"}      # lists have no winners
     for r in rows:
-        if r["source"] in listy:
+        src = A.SOURCES.get(r["source"])
+        if src is not None and src.kind != "award":   # lists and charts have none
             continue
         assert r["w"] > 0, f"{r['source']} has {r['n']} rows and no winners"
 

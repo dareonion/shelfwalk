@@ -315,9 +315,8 @@ CREATE TABLE IF NOT EXISTS author_accolades (
 
 -- Which catalog record each acclaimed work matches, per system. The MATCH is
 -- stable and expensive (two searches per system per title); AVAILABILITY is
--- volatile and cheap (one call per known bib). Separating them is what makes
--- the shelf join fast enough to run: before this it re-searched every catalog
--- on every query and timed out on 26 titles.
+-- volatile and cheap (one call per known bib), so only availability is
+-- fetched per query.
 --
 -- A row with bib_id NULL is a recorded MISS: searched, not held. Without it a
 -- work absent from a system is re-searched forever.
@@ -341,6 +340,22 @@ CREATE TABLE IF NOT EXISTS work_scores (
     n_nominated INTEGER,
     n_lists     INTEGER,
     score       REAL,
+    computed_at TEXT NOT NULL
+);
+
+-- The audiobook ranking: audio juries, audio editorial lists and popularity
+-- charts, plus a capped share of the book's own score. Recomputed, never
+-- accumulated.
+CREATE TABLE IF NOT EXISTS audio_scores (
+    work_key    TEXT PRIMARY KEY,
+    n_won       INTEGER,              -- audio jury families won
+    n_nominated INTEGER,              -- audio jury families nominated, not won
+    n_lists     INTEGER,              -- audio editorial list families
+    n_popular   INTEGER,              -- popularity chart families
+    top_prize   INTEGER,              -- won a top category (Audiobook of the Year)
+    book_score  REAL,                 -- work_scores.score for the text
+    score       REAL,
+    narrator    TEXT,
     computed_at TEXT NOT NULL
 );
 
