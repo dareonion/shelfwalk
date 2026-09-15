@@ -29,6 +29,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-11T07:31:06**. Don'
 | [Brown bear, brown bear, what do you see?](https://classiccatalog.mountainview.gov/record=b1227606) | Spanish: “Oso pardo, oso pardo, qué ves ahí?” — translation of “Brown bear, brown bear, what do you see?” |
 | [Brown bear, brown bear, what do you see?](https://classiccatalog.mountainview.gov/record=b1424060) | board book |
 | [Brown bear, brown bear, what do you see?](https://classiccatalog.mountainview.gov/record=b1577508) |  |
+| [Brown bear, brown bear, what do you see?](https://classiccatalog.mountainview.gov/record=b2392348) | Chinese board book: “Zong se de xiong, zong se de xiong, ni zai kan shen me?” — translation of “Brown bear, brown bear, what do you see?” |
 | [Brown bear, brown bear, what do you see?](https://classiccatalog.mountainview.gov/record=b3476128) | Spanish board book: “Oso pardo, oso pardo, ¿qué ves ahí?” — translation of “Brown bear, brown bear, what do you see?” |
 | [But not the hippopotamus](https://classiccatalog.mountainview.gov/record=b2597286) | board book |
 | [Caps for sale : a tale of a peddler, some monkeys, and their monkey business](https://classiccatalog.mountainview.gov/record=b1394814) | audiobook |
@@ -74,14 +75,14 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-11T07:31:06**. Don'
 | [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b1600044) | board book |
 | [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b3361558) | Japanese: “Oyasumi, hataraku kurumatachi” — translation of “Goodnight, goodnight, construction site” |
 | [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b3460798) | Chinese: “Wan an, gong di shang de che” — translation of “Goodnight, goodnight, construction site” |
+| [Grumpy monkey : mom for a day](https://classiccatalog.mountainview.gov/record=b2774133) | French: “Gaston grognon” — translation of “Grumpy monkey” |
+| [Grumpy monkey : mom for a day](https://classiccatalog.mountainview.gov/record=b2821345) | Chinese: “Xin fan de hou zi” |
 | [Grumpy monkey : mom for a day](https://classiccatalog.mountainview.gov/record=b3455236) | Spanish: “Grumpy monkey : ¡está gruñón!” |
 | [Grumpy monkey : mom for a day](https://classiccatalog.mountainview.gov/record=b3465648) |  |
 | [Grumpy monkey party time!](https://classiccatalog.mountainview.gov/record=b2448440) |  |
 | [Grumpy monkey party time!](https://classiccatalog.mountainview.gov/record=b2786758) | Spanish: “Gruñón, ¡esto es una fiesta!” — translation of “Grumpy monkey party time!” |
 | [Grumpy monkey yuck!](https://classiccatalog.mountainview.gov/record=b3455767) | board book |
 | [Grumpy monkey](https://classiccatalog.mountainview.gov/record=b2361523) |  |
-| [Grumpy monkey](https://classiccatalog.mountainview.gov/record=b2774133) | French: “Gaston grognon” — translation of “Grumpy monkey” |
-| [Grumpy monkey](https://classiccatalog.mountainview.gov/record=b2821345) | Chinese: “Xin fan de hou zi” |
 | [Hooray for fish!](https://classiccatalog.mountainview.gov/record=b1301058) |  |
 | [How do dinosaurs say good night?](https://classiccatalog.mountainview.gov/record=b1227952) |  |
 | [Hug](https://classiccatalog.mountainview.gov/record=b1328185) | board book |
@@ -202,7 +203,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-11T07:31:06**. Don'
 | [小金魚逃走了](https://classiccatalog.mountainview.gov/record=b3479942) |  |
 | [抱抱！](https://classiccatalog.mountainview.gov/record=b2352043) | translation of “Hug” |
 | [晚安，猩猩](https://classiccatalog.mountainview.gov/record=b3468980) |  |
-| [棕色的熊、棕色的熊，你在看什麼？](https://classiccatalog.mountainview.gov/record=b2392348) | board book: “Zong se de xiong, zong se de xiong, ni zai kan shen me?” — translation of “Brown bear, brown bear, what do you see?” |
 | [棕色的熊、棕色的熊，你在看什麼？](https://classiccatalog.mountainview.gov/record=b3466624) | translation of “Brown bear, brown bear, what do you see?” |
 | [鱷魚怕怕．牙醫怕怕](https://classiccatalog.mountainview.gov/record=b2380989) |  |
 

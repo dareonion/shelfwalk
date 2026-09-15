@@ -2,7 +2,7 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-09-15T07:31:52**. Don't hand-edit; run `uv run report.py --write`._
 
 
 Bibliographic detail for the **163** tracked titles (138 with catalog details fetched), merged across systems by the `--enrich` pass. Ages come from the catalogs' audience notes, so a Lexile (`AD420L`) or grade band appears where no age range was recorded, and blanks mean the record says nothing.

@@ -2,13 +2,13 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-09-15T07:31:52**. Don't hand-edit; run `uv run report.py --write`._
 
 
-**113** of **165** titles are in the catalog; **100** have at least one copy on a shelf right now. Titles link to the record in this catalog; unlabeled lines are the plain edition, labels mark the other versions we track (board book / audiobook / eBook / eAudiobook / translations).
+**113** of **165** titles are in the catalog; **99** have at least one copy on a shelf right now. Titles link to the record in this catalog; unlabeled lines are the plain edition, labels mark the other versions we track (board book / audiobook / eBook / eAudiobook / translations).
 
 
-## Los Altos Library — 68 on the shelf
+## Los Altos Library — 67 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -41,7 +41,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `JP DEWDNEY` | [Llama Llama misses Mama](https://sccl.bibliocommons.com/v2/record/S118C276874) |  |  |
 | `JP DEWDNEY` | [Llama Llama red pajama](https://sccl.bibliocommons.com/v2/record/S118C181656) |  |  |
 | `JP FOX` | [Ten little fingers and ten little toes](https://sccl.bibliocommons.com/v2/record/S118C246888) |  | Ages 5-8 |
-| `JP FOX` | [Time for bed](https://sccl.bibliocommons.com/v2/record/S118C38181) |  |  |
 | `JP GOETZ` | [Old MacDonald had a truck](https://sccl.bibliocommons.com/v2/record/S118C501791) |  | AD910L |
 | `JP GRAVETT` | [Monkey and me](https://sccl.bibliocommons.com/v2/record/S118C226626) |  |  |
 | `JP GRAVETT` | [Orange pear apple bear](https://sccl.bibliocommons.com/v2/record/S118C207714) |  | Ages 2-4 |
@@ -63,6 +62,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `JP SAYRES` | [Where do diggers sleep at night?](https://sccl.bibliocommons.com/v2/record/S118C348667) |  | AD510L |
 | `JP SCARRY` | [Cars and trucks and things that go](https://sccl.bibliocommons.com/v2/record/S118C22437) |  | AD490L |
 | `JP SENDAK` | [Where the wild things are](https://sccl.bibliocommons.com/v2/record/S118C5702) |  | Ages 4-8 |
+| `JP SHAW` | [Sheep in a jeep](https://sccl.bibliocommons.com/v2/record/S118C17446) |  | 130L |
 | `JP SPANISH DEWDNEY` | [Llama Llama red pajama](https://sccl.bibliocommons.com/v2/record/S118C335149) | Spanish: “La llama llama rojo pijama” — translation of “Llama, Llama red pajama” |  |
 | `JP SPANISH HENKES` | [Kitten's first full moon](https://sccl.bibliocommons.com/v2/record/S118C183658) | Spanish: “La primera luna llena de gatita” — translation of “Kitten's first full moon” | 360L |
 | `JP SPANISH LANG` | [Grumpy monkey party time!](https://sccl.bibliocommons.com/v2/record/S118C1147835) | Spanish: “Grumpy Monkey : ¡Esto es una fiesta!” — translation of “Grumpy Monkey party time!” | Ages 0-3 |
@@ -72,7 +72,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `JP TALK CARLE PRELOAD` | [The very busy spider](https://sccl.bibliocommons.com/v2/record/S118C1081028) | audiobook |  |
 | `JP TALK MCCLOSK PRELOAD` | [Blueberries for Sal](https://sccl.bibliocommons.com/v2/record/S118C1021951) | audiobook: “Blueberries for Sal” | Gr K-3 |
 | `JP TULLET` | [Press here](https://sccl.bibliocommons.com/v2/record/S118C315109) |  | AD480L |
-| `JP WADDELL` | [Owl babies](https://sccl.bibliocommons.com/v2/record/S118C33847) |  | Ages 0-3 |
 | `JP WALSH` | [Mouse paint](https://sccl.bibliocommons.com/v2/record/S118C21503) |  | PreK |
 | `JP WILLEMS` | [Don't let the pigeon drive the bus](https://sccl.bibliocommons.com/v2/record/S118C138660) |  | 120L |
 | `JP WILLEMS` | [Knuffle Bunny : a cautionary tale](https://sccl.bibliocommons.com/v2/record/S118C154311) |  | Ages 2-5 |
@@ -81,11 +80,12 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `JP WILSON` | [Bear snores on](https://sccl.bibliocommons.com/v2/record/S118C110074) |  | AD280L |
 | `JP WOOD` | [The napping house](https://sccl.bibliocommons.com/v2/record/S118C14620) |  |  |
 
-## Cupertino Library — 58 on the shelf
+## Cupertino Library — 61 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
 | `J CHINESE TODDLER` | [棕色的熊、棕色的熊，你在看什麼？](https://sccl.bibliocommons.com/v2/record/S118C744249) |  |  |
+| `J TODDLER` | [Brown bear, brown bear, what do you see?](https://sccl.bibliocommons.com/v2/record/S118C52169) | board book | AD440L |
 | `J TODDLER` | [Grumpy monkey yuck!](https://sccl.bibliocommons.com/v2/record/S118C1128042) | board book | Ages 0-3 |
 | `J TODDLER` | [Moo, baa, fa la la la la!](https://sccl.bibliocommons.com/v2/record/S118C1066724) | board book |  |
 | `J TODDLER` | [The going to bed book](https://sccl.bibliocommons.com/v2/record/S118C91924) | board book | AD460L |
@@ -111,6 +111,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `JP DEAN` | [Pete the cat : I love my white shoes](https://sccl.bibliocommons.com/v2/record/S118C323988) |  | Ages 3-7 |
 | `JP DEWDNEY` | [Little Excavator](https://sccl.bibliocommons.com/v2/record/S118C563265) |  | AD480L |
 | `JP FOX` | [Ten little fingers and ten little toes](https://sccl.bibliocommons.com/v2/record/S118C246888) |  | Ages 5-8 |
+| `JP FRENCH LLENAS` | [La couleur des émotions](https://sccl.bibliocommons.com/v2/record/S118C1021940) |  |  |
 | `JP GRAVETT` | [Orange pear apple bear](https://sccl.bibliocommons.com/v2/record/S118C207714) |  | Ages 2-4 |
 | `JP HAUGHTO` | [Oh no, George!](https://sccl.bibliocommons.com/v2/record/S118C344470) |  | Ages 2-5 |
 | `JP HENKES` | [Kitten's first full moon](https://sccl.bibliocommons.com/v2/record/S118C143699) |  | 360L |
@@ -137,6 +138,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `JP SENDAK` | [Where the wild things are](https://sccl.bibliocommons.com/v2/record/S118C5702) |  | Ages 4-8 |
 | `JP SPANISH CREWS` | [Freight train = Tren de carga](https://sccl.bibliocommons.com/v2/record/S118C137809) | Spanish: “Freight train : Tren de carga” | PreK |
 | `JP SPANISH HENKES` | [Kitten's first full moon](https://sccl.bibliocommons.com/v2/record/S118C183658) | Spanish: “La primera luna llena de gatita” — translation of “Kitten's first full moon” | 360L |
+| `JP TALK CARLE PRELOAD` | [The very hungry caterpillar](https://sccl.bibliocommons.com/v2/record/S118C1256363) | audiobook: “The Very Hungry Caterpillar's 5-minute Stories” (contains: The Very Hungry Caterpillar's first winter; A day in the snow with the Very Hungry Caterpillar; The Very Hungry Caterpillar's first spring; A day on the farm with the Very Hungry Caterpillar; The Very Hungry Caterpillar's first summer; A day at the beach with the Very Hungry Caterpillar; The Very…) | Ages 2-5 |
 | `JP WADDELL` | [Owl babies](https://sccl.bibliocommons.com/v2/record/S118C33847) |  | Ages 0-3 |
 | `JP WALSH` | [Mouse paint](https://sccl.bibliocommons.com/v2/record/S118C21503) |  | PreK |
 | `JP WILLEMS` | [Knuffle Bunny : a cautionary tale](https://sccl.bibliocommons.com/v2/record/S118C154311) |  | Ages 2-5 |
@@ -144,11 +146,10 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `JP WITEK` | [In my heart : a book of feelings](https://sccl.bibliocommons.com/v2/record/S118C437008) |  | AD450L |
 | `JP WOOD` | [The napping house](https://sccl.bibliocommons.com/v2/record/S118C14620) |  |  |
 
-## Milpitas Library — 81 on the shelf
+## Milpitas Library — 80 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
-| `J CHINESE TODDLER` | [好餓的毛毛蟲](https://sccl.bibliocommons.com/v2/record/S118C1020595) |  |  |
 | `J CHINESE TODDLER` | [棕色的熊、棕色的熊，你在看什麼？](https://sccl.bibliocommons.com/v2/record/S118C744249) |  |  |
 | `J SPANISH TODDLER` | [Chicka chicka boom boom](https://sccl.bibliocommons.com/v2/record/S118C921523) | Spanish: “Chica chica bum bum” — translation of “Chicka chicka boom boom” | PreK |
 | `J SPANISH TODDLER` | [Goodnight moon](https://sccl.bibliocommons.com/v2/record/S118C567250) | Spanish: “Buenas noches, luna : goodnight moon” — translation of “Goodnight moon” | AD360L |
@@ -175,16 +176,17 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `JP AHLBERG` | [Each peach pear plum](https://sccl.bibliocommons.com/v2/record/S118C11853) |  |  |
 | `JP ANDREAE` | [Giraffes can't dance](https://sccl.bibliocommons.com/v2/record/S118C348000) |  | AD450L |
 | `JP BROWN` | [Big red barn](https://sccl.bibliocommons.com/v2/record/S118C21506) |  | AD490L |
+| `JP CAMPBEL` | [Dear zoo](https://sccl.bibliocommons.com/v2/record/S118C14525) |  | 150L |
 | `JP CARLE` | [From head to toe](https://sccl.bibliocommons.com/v2/record/S118C59289) |  |  |
 | `JP CARLE` | [The very hungry caterpillar](https://sccl.bibliocommons.com/v2/record/S118C7975) |  | Ages 2-5 |
 | `JP CARLE` | [The very quiet cricket](https://sccl.bibliocommons.com/v2/record/S118C27971) |  |  |
 | `JP CHINESE BURNING` | [Mr. Gumpy's outing](https://sccl.bibliocommons.com/v2/record/S118C448009) | Chinese: “He Gan bo bo qu you he” — translation of “Mr.Gumpy's outing” | 490L |
 | `JP CHINESE CREWS` | [Freight train = Tren de carga](https://sccl.bibliocommons.com/v2/record/S118C928639) | Chinese: “Huo che kuai pao” — translation of “Freight train” | PreK |
-| `JP CHINESE GOMI` | [誰吃掉了？](https://sccl.bibliocommons.com/v2/record/S118C604978) |  |  |
 | `JP CHINESE GOMI` | [鱷魚怕怕．牙醫怕怕](https://sccl.bibliocommons.com/v2/record/S118C1365930) | “E yu pa pa ya yi pa pa” |  |
 | `JP CHINESE HAUGHTO` | [Oh no, George!](https://sccl.bibliocommons.com/v2/record/S118C1182566) | Chinese: “Bie zhe yang, Xiaoguai!” — translation of “Oh no, George!” | Ages 2-5 |
 | `JP CHINESE HUTCHIN` | [母雞蘿絲去散步](https://sccl.bibliocommons.com/v2/record/S118C1365950) |  |  |
 | `JP CHINESE KLASSEN` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C1332571) | Chinese: “Wo yao zhao hui wo de mao zi” — translation of “I want my hat back” | 90L |
+| `JP CHINESE LIONNI` | [小藍和小黃](https://sccl.bibliocommons.com/v2/record/S118C603415) |  |  |
 | `JP CHINESE PORTIS` | [Not a box](https://sccl.bibliocommons.com/v2/record/S118C1116838) | Chinese: “Bu shi xiang zi” — translation of “Not a box” |  |
 | `JP CHINESE RINKER` | [Steam train, dream train](https://sccl.bibliocommons.com/v2/record/S118C1331967) | Chinese: “Xiao huo che,ye dan kuai le!” — translation of “Steam train, dream train” | AD610L |
 | `JP CHINESE ROSEN` | [We're going on a bear hunt](https://sccl.bibliocommons.com/v2/record/S118C448005) | Chinese: “Wo men yao qu zhuo gou xiong” — translation of “We're going on a bear hunt” |  |
@@ -225,12 +227,11 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `JP TULLET` | [Press here](https://sccl.bibliocommons.com/v2/record/S118C315109) |  | AD480L |
 | `JP WADDELL` | [Owl babies](https://sccl.bibliocommons.com/v2/record/S118C33847) |  | Ages 0-3 |
 | `JP WALSH` | [Mouse paint](https://sccl.bibliocommons.com/v2/record/S118C21503) |  | PreK |
-| `JP WILLEMS` | [Knuffle Bunny : a cautionary tale](https://sccl.bibliocommons.com/v2/record/S118C154311) |  | Ages 2-5 |
 | `JP WILLEMS` | [Knuffle Bunny too : a case of mistaken identity](https://sccl.bibliocommons.com/v2/record/S118C219128) |  | Ages 3-6 |
 | `JP WILLEMS` | [The pigeon needs a bath!](https://sccl.bibliocommons.com/v2/record/S118C407291) |  | AD350L |
 | `JP WOOD` | [The napping house](https://sccl.bibliocommons.com/v2/record/S118C14620) |  |  |
 
-## Gilroy Library — 63 on the shelf
+## Gilroy Library — 62 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -251,16 +252,14 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `JE REGAN` | [Mike delivers : the duck is stuck!](https://sccl.bibliocommons.com/v2/record/S118C996028) |  | Ages 4-6 |
 | `JE SEUSS` | [Mr. Brown can moo! Can you?](https://sccl.bibliocommons.com/v2/record/S118C8727) |  |  |
 | `JE SLOBODK` | [Caps for sale : a tale of a peddler, some monkeys, and their monkey business](https://sccl.bibliocommons.com/v2/record/S118C3946) |  | Ages 3-7 |
-| `JP CARLE` | [From head to toe](https://sccl.bibliocommons.com/v2/record/S118C59289) |  |  |
 | `JP CARLE` | [The very hungry caterpillar](https://sccl.bibliocommons.com/v2/record/S118C7975) |  | Ages 2-5 |
-| `JP CARLE` | [The very quiet cricket](https://sccl.bibliocommons.com/v2/record/S118C27971) |  |  |
 | `JP CHINESE GOMI` | [小金魚逃走了](https://sccl.bibliocommons.com/v2/record/S118C1360410) | “Xiao jin yu tao zou le” |  |
 | `JP COUSINS` | [Hooray for fish!](https://sccl.bibliocommons.com/v2/record/S118C162412) |  | PreK |
 | `JP DEAN` | [Pete the cat : I love my white shoes](https://sccl.bibliocommons.com/v2/record/S118C323988) |  | Ages 3-7 |
 | `JP DEWDNEY` | [Little Excavator](https://sccl.bibliocommons.com/v2/record/S118C563265) |  | AD480L |
+| `JP FOX` | [Ten little fingers and ten little toes](https://sccl.bibliocommons.com/v2/record/S118C246888) |  | Ages 5-8 |
 | `JP FOX` | [Time for bed](https://sccl.bibliocommons.com/v2/record/S118C38181) |  |  |
 | `JP GRAVETT` | [Monkey and me](https://sccl.bibliocommons.com/v2/record/S118C226626) |  |  |
-| `JP GRAVETT` | [Orange pear apple bear](https://sccl.bibliocommons.com/v2/record/S118C207714) |  | Ages 2-4 |
 | `JP HAUGHTO` | [Oh no, George!](https://sccl.bibliocommons.com/v2/record/S118C344470) |  | Ages 2-5 |
 | `JP HILL` | [Where's Spot?](https://sccl.bibliocommons.com/v2/record/S118C13334) |  | Ages 2-6 |
 | `JP HILLS` | [Duck & Goose, honk! quack! boo!](https://sccl.bibliocommons.com/v2/record/S118C587717) |  | Ages 3-8 |
@@ -268,6 +267,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `JP KLASSEN` | [I want my hat back](https://sccl.bibliocommons.com/v2/record/S118C329557) |  | 90L |
 | `JP KRAUSS` | [The carrot seed](https://sccl.bibliocommons.com/v2/record/S118C3902) |  | AD230L |
 | `JP LEWIS` | [Chugga-chugga choo-choo](https://sccl.bibliocommons.com/v2/record/S118C81632) |  | AD130L |
+| `JP MARTIN` | [Brown bear, brown bear, what do you see?](https://sccl.bibliocommons.com/v2/record/S118C14618) |  | AD440L |
 | `JP MARTIN` | [Chicka Chicka I love you](https://sccl.bibliocommons.com/v2/record/S118C1333448) |  |  |
 | `JP MARTIN` | [Polar bear, polar bear, what do you hear?](https://sccl.bibliocommons.com/v2/record/S118C30253) |  | AD670L |
 | `JP MCMULLA` | [I stink!](https://sccl.bibliocommons.com/v2/record/S118C114918) |  |  |
@@ -298,7 +298,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `JP TULLET` | [Press here](https://sccl.bibliocommons.com/v2/record/S118C315109) |  | AD480L |
 | `JP WALSH` | [Mouse paint](https://sccl.bibliocommons.com/v2/record/S118C21503) |  | PreK |
 
-## Morgan Hill Library — 56 on the shelf
+## Morgan Hill Library — 57 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -309,7 +309,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `J TODDLER` | [The going to bed book](https://sccl.bibliocommons.com/v2/record/S118C91924) | board book | AD460L |
 | `J TODDLER` | [The very busy spider](https://sccl.bibliocommons.com/v2/record/S118C194486) | board book |  |
 | `J TODDLER` | [Twinkle, twinkle, little sheepy : a sleepy sheepy story](https://sccl.bibliocommons.com/v2/record/S118C1313836) | board book |  |
-| `J TODDLER` | [We're going on a bear hunt](https://sccl.bibliocommons.com/v2/record/S118C945478) | board book |  |
 | `JE CARLE` | [The very quiet cricket](https://sccl.bibliocommons.com/v2/record/S118C620847) |  |  |
 | `JE CRONIN` | [Duck stays in the truck](https://sccl.bibliocommons.com/v2/record/S118C771400) |  | Ages 5-7 |
 | `JE EASTMAN` | [Are you my mother?](https://sccl.bibliocommons.com/v2/record/S118C5033) |  | 80L |
@@ -335,7 +334,9 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `JP LEWIS` | [Chugga-chugga choo-choo](https://sccl.bibliocommons.com/v2/record/S118C81632) |  | AD130L |
 | `JP MARTIN` | [Brown bear, brown bear, what do you see?](https://sccl.bibliocommons.com/v2/record/S118C14618) |  | AD440L |
 | `JP MARTIN` | [Chicka Chicka I love you](https://sccl.bibliocommons.com/v2/record/S118C1333448) |  |  |
+| `JP MARTIN` | [Polar bear, polar bear, what do you hear?](https://sccl.bibliocommons.com/v2/record/S118C30253) |  | AD670L |
 | `JP MCMULLA` | [I stink!](https://sccl.bibliocommons.com/v2/record/S118C114918) |  |  |
+| `JP NUMEROF` | [If you give a mouse a cookie](https://sccl.bibliocommons.com/v2/record/S118C15777) |  | AD660L |
 | `JP RINKER` | [Goodnight, goodnight, construction site](https://sccl.bibliocommons.com/v2/record/S118C323945) |  |  |
 | `JP RUBIN` | [Dragons love tacos](https://sccl.bibliocommons.com/v2/record/S118C350842) |  | AD520L |
 | `JP SENDAK` | [Where the wild things are](https://sccl.bibliocommons.com/v2/record/S118C5702) |  | Ages 4-8 |
@@ -416,7 +417,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `JP WILLEMS` | [Knuffle Bunny too : a case of mistaken identity](https://sccl.bibliocommons.com/v2/record/S118C219128) |  | Ages 3-6 |
 | `JP WILLEMS` | [The pigeon needs a bath!](https://sccl.bibliocommons.com/v2/record/S118C407291) |  | AD350L |
 
-## Saratoga Library — 48 on the shelf
+## Saratoga Library — 49 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
@@ -425,6 +426,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `J TODDLER` | [From head to toe](https://sccl.bibliocommons.com/v2/record/S118C76187) | board book |  |
 | `J TODDLER` | [How do dinosaurs say good night?](https://sccl.bibliocommons.com/v2/record/S118C830364) | board book | AD210L |
 | `J TODDLER` | [Little blue truck](https://sccl.bibliocommons.com/v2/record/S118C921524) | board book | AD580L |
+| `J TODDLER` | [The going to bed book](https://sccl.bibliocommons.com/v2/record/S118C91924) | board book | AD460L |
 | `J TODDLER` | [The very hungry caterpillar](https://sccl.bibliocommons.com/v2/record/S118C196388) | board book | Ages 2-5 |
 | `JE CARLE` | [The very quiet cricket](https://sccl.bibliocommons.com/v2/record/S118C620847) |  |  |
 | `JE CRONIN` | [Duck stays in the truck](https://sccl.bibliocommons.com/v2/record/S118C771400) |  | Ages 5-7 |
@@ -469,21 +471,20 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `JP WILLEMS` | [Knuffle Bunny : a cautionary tale](https://sccl.bibliocommons.com/v2/record/S118C154311) |  | Ages 2-5 |
 | `JP WILLEMS` | [The pigeon needs a bath!](https://sccl.bibliocommons.com/v2/record/S118C407291) |  | AD350L |
 
-## Campbell Library — 38 on the shelf
+## Campbell Library — 36 on the shelf
 
 | Call # | Title | Version | Ages |
 |---|---|---|---|
 | `J TODDLER` | [Don't let the pigeon drive the bus](https://sccl.bibliocommons.com/v2/record/S118C1341220) | board book | 120L |
 | `J TODDLER` | [Moo, baa, fa la la la la!](https://sccl.bibliocommons.com/v2/record/S118C1066724) | board book |  |
-| `J TODDLER` | [Moo, baa, la la la!](https://sccl.bibliocommons.com/v2/record/S118C32871) | board book | AD230L |
 | `JE EASTMAN` | [Go, dog. Go!](https://sccl.bibliocommons.com/v2/record/S118C5302) |  |  |
 | `JE SEUSS` | [Mr. Brown can moo! Can you?](https://sccl.bibliocommons.com/v2/record/S118C8727) |  |  |
 | `JP AHLBERG` | [Each peach pear plum](https://sccl.bibliocommons.com/v2/record/S118C11853) |  |  |
 | `JP ANDREAE` | [Giraffes can't dance](https://sccl.bibliocommons.com/v2/record/S118C348000) |  | AD450L |
+| `JP BROWN` | [Goodnight moon](https://sccl.bibliocommons.com/v2/record/S118C3950) |  | AD360L |
 | `JP CARLE` | [From head to toe](https://sccl.bibliocommons.com/v2/record/S118C59289) |  |  |
 | `JP CARLE` | [The very quiet cricket](https://sccl.bibliocommons.com/v2/record/S118C27971) |  |  |
 | `JP CHUA` | [Hug](https://sccl.bibliocommons.com/v2/record/S118C852991) |  |  |
-| `JP COUSINS` | [Hooray for fish!](https://sccl.bibliocommons.com/v2/record/S118C162412) |  | PreK |
 | `JP CREWS` | [Freight train = Tren de carga](https://sccl.bibliocommons.com/v2/record/S118C11960) |  | PreK |
 | `JP FOX` | [Ten little fingers and ten little toes](https://sccl.bibliocommons.com/v2/record/S118C246888) |  | Ages 5-8 |
 | `JP GOETZ` | [Old MacDonald had a truck](https://sccl.bibliocommons.com/v2/record/S118C501791) |  | AD910L |
@@ -499,7 +500,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `JP NUMEROF` | [If you give a mouse a cookie](https://sccl.bibliocommons.com/v2/record/S118C15777) |  | AD660L |
 | `JP PORTIS` | [Not a box](https://sccl.bibliocommons.com/v2/record/S118C196127) |  |  |
 | `JP RINKER` | [Goodnight, goodnight, construction site](https://sccl.bibliocommons.com/v2/record/S118C323945) |  |  |
-| `JP RINKER` | [Steam train, dream train](https://sccl.bibliocommons.com/v2/record/S118C372893) |  | AD610L |
 | `JP ROSEN` | [We're going on a bear hunt](https://sccl.bibliocommons.com/v2/record/S118C22403) |  |  |
 | `JP SENDAK` | [Where the wild things are](https://sccl.bibliocommons.com/v2/record/S118C5702) |  | Ages 4-8 |
 | `JP SLOBODK` | [Caps for sale : a tale of a peddler, some monkeys, and their monkey business](https://sccl.bibliocommons.com/v2/record/S118C1161154) |  | Ages 3-7 |
@@ -519,12 +519,12 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | `J TODDLER` | [Barnyard dance!](https://sccl.bibliocommons.com/v2/record/S118C1111836) | board book | Ages 2-5 |
 | `J TODDLER` | [Dear zoo](https://sccl.bibliocommons.com/v2/record/S118C131874) | board book | 150L |
 | `J TODDLER` | [The very hungry caterpillar](https://sccl.bibliocommons.com/v2/record/S118C196388) | board book | Ages 2-5 |
-| `J TODDLER` | [Twinkle, twinkle, little sheepy : a sleepy sheepy story](https://sccl.bibliocommons.com/v2/record/S118C1313836) | board book |  |
 | `JE CARLE` | [The very quiet cricket](https://sccl.bibliocommons.com/v2/record/S118C620847) |  |  |
 | `JE CRONIN` | [Duck stays in the truck](https://sccl.bibliocommons.com/v2/record/S118C771400) |  | Ages 5-7 |
 | `JE EASTMAN` | [Are you my mother?](https://sccl.bibliocommons.com/v2/record/S118C5033) |  | 80L |
 | `JE EASTMAN` | [Go, dog. Go!](https://sccl.bibliocommons.com/v2/record/S118C5302) |  |  |
 | `JE SEUSS` | [Mr. Brown can moo! Can you?](https://sccl.bibliocommons.com/v2/record/S118C8727) |  |  |
+| `JP ANDREAE` | [Giraffes can't dance](https://sccl.bibliocommons.com/v2/record/S118C348000) |  | AD450L |
 | `JP BROWN` | [Goodnight moon](https://sccl.bibliocommons.com/v2/record/S118C3950) |  | AD360L |
 | `JP CARLE` | [From head to toe](https://sccl.bibliocommons.com/v2/record/S118C59289) |  |  |
 | `JP CARLE` | [The very quiet cricket](https://sccl.bibliocommons.com/v2/record/S118C27971) |  |  |
@@ -620,7 +620,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | [Steam train, dream train](https://sccl.bibliocommons.com/v2/record/S980C1263097) | eBook |
 | [The Gruffalo](https://sccl.bibliocommons.com/v2/record/S980C12821879) | eAudiobook: “Gruffalo Granny” |
 | [The Gruffalo](https://sccl.bibliocommons.com/v2/record/S980C3348546) | eAudiobook |
-| [The Gruffalo](https://sccl.bibliocommons.com/v2/record/S980C3368460) | eAudiobook: “The Gruffalo's Child : Includes a song and read-along track” |
+| [The Gruffalo](https://sccl.bibliocommons.com/v2/record/S980C3368460) | eAudiobook: “The Gruffalo's Child” |
 | [The Gruffalo](https://sccl.bibliocommons.com/v2/record/S981C20046131) | eAudiobook: “The Gruffalo Song and Other Songs” |
 | [The carrot seed](https://sccl.bibliocommons.com/v2/record/S980C1289591) | eAudiobook: “The Carrot Seed” |
 | [The color monster : a story about emotions](https://sccl.bibliocommons.com/v2/record/S980C3889485) | eBook |
@@ -677,18 +677,18 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don'
 | [The Gruffalo](https://sccl.bibliocommons.com/v2/record/S118C78280) |  |
 | [The color monster : a story about emotions](https://sccl.bibliocommons.com/v2/record/S118C670811) |  |
 | [The snowy day](https://sccl.bibliocommons.com/v2/record/S118C1293271) |  |
-| [The very hungry caterpillar](https://sccl.bibliocommons.com/v2/record/S118C1256363) | audiobook: “The Very Hungry Caterpillar's 5-minute Stories” (contains: The Very Hungry Caterpillar's first winter; A day in the snow with the Very Hungry Caterpillar; The Very Hungry Caterpillar's first spring; A day on the farm with the Very Hungry Caterpillar; The Very Hungry Caterpillar's first summer; A day at the beach with the Very Hungry Caterpillar; The Very…) |
 | [Time for bed](https://sccl.bibliocommons.com/v2/record/S118C1127718) | board book |
 | [Where the wild things are](https://sccl.bibliocommons.com/v2/record/S118C605040) | Chinese: “Ye shou guo : Where the wild things are” — translation of “Where the wild things are” |
 | [Where's Spot?](https://sccl.bibliocommons.com/v2/record/S118C104812) | board book |
 | [好大的紅蘋果](https://sccl.bibliocommons.com/v2/record/S118C1243792) |  |
 | [好大的紅蘋果](https://sccl.bibliocommons.com/v2/record/S118C577101) | “Hao da de hong pin guo : Everyone comes to big red apples” |
+| [好餓的毛毛蟲](https://sccl.bibliocommons.com/v2/record/S118C1020595) |  |
 | [好餓的毛毛蟲](https://sccl.bibliocommons.com/v2/record/S118C676168) | “Hao e de mao mao chong” |
 | [媽媽買綠豆](https://sccl.bibliocommons.com/v2/record/S118C1365933) | “Ma ma mai Lü dou” |
-| [小藍和小黃](https://sccl.bibliocommons.com/v2/record/S118C603415) |  |
 | [小金魚逃走了](https://sccl.bibliocommons.com/v2/record/S118C1179700) |  |
 | [從頭動到腳](https://sccl.bibliocommons.com/v2/record/S118C1360462) | translation of “From head to toe” |
 | [晚安，猩猩](https://sccl.bibliocommons.com/v2/record/S118C1360480) |  |
+| [誰吃掉了？](https://sccl.bibliocommons.com/v2/record/S118C604978) |  |
 | [誰的家到了？](https://sccl.bibliocommons.com/v2/record/S118C832059) |  |
 | [點點玩聲音](https://sccl.bibliocommons.com/v2/record/S118C700687) |  |
 

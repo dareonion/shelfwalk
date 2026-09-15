@@ -2,7 +2,7 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-09-14T18:16:17**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-09-15T07:31:52**. Don't hand-edit; run `uv run report.py --write`._
 
 
 > ⚠ **Mountain View Public Library** was last checked **2026-09-11**: Mountain View's catalog has refused scripted searches since 2026-09-12, and its robots.txt disallows crawlers. Its shelf status is left out rather than shown stale (marked `?`); its catalog links still work.
@@ -12,17 +12,17 @@ The want-list, looked up at four Bay Area systems (`uv run bayarea_lookup.py`):
 
 | Key | System | In catalog | On a shelf now |
 |---|---|---|---|
-| `sccl` | Santa Clara County Library District | 111 | 98 |
-| `sjpl` | San José Public Library | 99 | 89 |
+| `sccl` | Santa Clara County Library District | 111 | 97 |
+| `sjpl` | San José Public Library | 99 | 90 |
 | `mvpl` | Mountain View Public Library | 101 | ? (last checked 2026-09-11) |
-| `linkplus` | LINK+ (union catalog — request for pickup) | 123 | 119 |
+| `linkplus` | LINK+ (union catalog — request for pickup) | 123 | 120 |
 
 Per-system shelf lists: `sccl.md`, `sjpl.md`, `mountainview.md`, `linkplus.md`; per-title bibliographic detail: `titles.md`.
 
 
 ## To do
 
-**32** to hold · **16** to request through LINK+ · **25** to buy. Everything else is either on a favorite branch's shelf right now (see the per-system files) or already covered.
+**31** to hold · **16** to request through LINK+ · **25** to buy. Everything else is either on a favorite branch's shelf right now (see the per-system files) or already covered.
 
 
 ### Place a hold
@@ -31,7 +31,7 @@ Your systems own these, but no copy is on a favorite branch's shelf right now.
 
 | Title | Owned by | Speed |
 |---|---|---|
-| Bluey : the creek. | [San José Public Library](https://sjpl.bibliocommons.com/v2/record/S156C6274428) | on the shelf at Alum Rock, Alviso +8 |
+| Bluey : the creek. | [San José Public Library](https://sjpl.bibliocommons.com/v2/record/S156C6274428) | on the shelf at Almaden, Alum Rock +9 |
 | Bluey : zoo. | [Mountain View Public Library](https://classiccatalog.mountainview.gov/record=b3480569) | shelf status not current |
 | Bon appétit ! Monsieur Lapin | [San José Public Library](https://sjpl.bibliocommons.com/v2/record/S156C2607003) | every copy out — hold and wait |
 | Bonne nuit tout le monde | [Mountain View Public Library](https://classiccatalog.mountainview.gov/record=b3475974) | shelf status not current |
@@ -41,15 +41,14 @@ Your systems own these, but no copy is on a favorite branch's shelf right now.
 | Each peach pear plum | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C11853), [San José Public Library](https://sjpl.bibliocommons.com/v2/record/S156C6129920), [Mountain View Public Library](https://classiccatalog.mountainview.gov/record=b1034817) | on the shelf at Berryessa, Campbell Library +1 |
 | How do dinosaurs say good night? | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C830364), [San José Public Library](https://sjpl.bibliocommons.com/v2/record/S156C6023708), [Mountain View Public Library](https://classiccatalog.mountainview.gov/record=b1227952) | on the shelf at Milpitas Library, Saratoga Library |
 | La chenille qui fait des trous | [San José Public Library](https://sjpl.bibliocommons.com/v2/record/S156C3921097) | on the shelf at King |
-| La couleur des émotions | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C1021940) | on the shelf at Morgan Hill Library |
 | My truck is stuck! | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C123875), [Mountain View Public Library](https://classiccatalog.mountainview.gov/record=b1259887) | every copy out — hold and wait |
 | Petit ours brun joue dans la neige | [Mountain View Public Library](https://classiccatalog.mountainview.gov/record=b3469638) | shelf status not current |
 | Petit Ours Brun joue dans son bain | [Mountain View Public Library](https://classiccatalog.mountainview.gov/record=b3469637) | shelf status not current |
 | Petit ours brun va chez la docteure | [Mountain View Public Library](https://classiccatalog.mountainview.gov/record=b3469639) | shelf status not current |
 | Roule galette | [San José Public Library](https://sjpl.bibliocommons.com/v2/record/S156C2133457) | on the shelf at King |
-| Sheep in a jeep | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C17446), [San José Public Library](https://sjpl.bibliocommons.com/v2/record/S156C1192386), [Mountain View Public Library](https://classiccatalog.mountainview.gov/record=b1109692) | on the shelf at Gilroy Library, Hillview +3 |
 | Shh! We have a plan | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C430395), [San José Public Library](https://sjpl.bibliocommons.com/v2/record/S156C6722775), [Mountain View Public Library](https://classiccatalog.mountainview.gov/record=b1503194) | on the shelf at Bookmobile Department, Evergreen +3 |
 | The color monster : a story about emotions | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C670811), [San José Public Library](https://sjpl.bibliocommons.com/v2/record/S156C5837301), [Mountain View Public Library](https://classiccatalog.mountainview.gov/record=b2242647) | every copy out — hold and wait |
+| Time for bed | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C38181), [San José Public Library](https://sjpl.bibliocommons.com/v2/record/S156C2161106), [Mountain View Public Library](https://classiccatalog.mountainview.gov/record=b1154249) | on the shelf at Almaden, Berryessa +2 |
 | 好大的紅蘋果 | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C1243792), [Mountain View Public Library](https://classiccatalog.mountainview.gov/record=b2788272) | every copy out — hold and wait |
 | 小金魚逃走了 | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C1179700), [San José Public Library](https://sjpl.bibliocommons.com/v2/record/S156C6370352), [Mountain View Public Library](https://classiccatalog.mountainview.gov/record=b3479942) | on the shelf at Educational Park, Gilroy Library +3 |
 | 從頭動到腳 | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C1360462) | every copy out — hold and wait |
@@ -59,7 +58,7 @@ Your systems own these, but no copy is on a favorite branch's shelf right now.
 | 母雞蘿絲去散步 | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C1365950), [San José Public Library](https://sjpl.bibliocommons.com/v2/record/S156C4317199) | on the shelf at King, Milpitas Library |
 | 米米坐馬桶 | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C1222409) | on the shelf at Milpitas Library |
 | 親愛的動物園 | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C1360471) | on the shelf at Saratoga Library |
-| 誰吃掉了？ | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C604978) | on the shelf at Milpitas Library |
+| 誰吃掉了？ | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C604978) | every copy out — hold and wait |
 | 誰的家到了？ | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C832059) | every copy out — hold and wait |
 | 貝蒂好想好想吃香蕉 | [San José Public Library](https://sjpl.bibliocommons.com/v2/record/S156C5709834) | on the shelf at Almaden, King +1 |
 | 點點玩聲音 | [Santa Clara County Library District](https://sccl.bibliocommons.com/v2/record/S118C700687) | every copy out — hold and wait |
@@ -75,7 +74,7 @@ No local system has these; a LINK+ member does — request for pickup at Mountai
 | [Cher zoo](https://csul.iii.com/record=b51517608) | ✓ 1 |
 | [Le loup qui voulait changer de couleur](https://csul.iii.com/record=b41510198) | ✓ 3 |
 | [Maman !](https://csul.iii.com/record=b31994659) | ✓ 1 |
-| [Ours brun, dis-moi ce que tu vois ?](https://csul.iii.com/record=b41510197) | ✓ 6 |
+| [Ours brun, dis-moi ce que tu vois ?](https://csul.iii.com/record=b41510197) | ✓ 5 |
 | [Petit Ours Brun aime sa maman](https://csul.iii.com/record=b48911464) | ✓ 1 |
 | [Petit-Bleu et Petit-Jaune](https://csul.iii.com/record=b52253462) | ✓ 2 |
 | [Regarde dans la nuit](https://csul.iii.com/record=b45258282) | ✓ 1 |
@@ -142,7 +141,7 @@ In no catalog here — not borrowable, even by request.
 | Bébés chouettes | ? | — | — | — | — | — |
 | Caca boudin | ? | — | — | — | — | — |
 | Caps for sale : a tale of a peddler, some monkeys, and their monkey business | picture | [✓](https://sccl.bibliocommons.com/v2/record/S118C1161154) | [✗](https://sccl.bibliocommons.com/v2/record/S118C1161154) | [?](https://classiccatalog.mountainview.gov/record=b1396609) | [✓](https://sjpl.bibliocommons.com/v2/record/S156C3659138) | [✓](https://sjpl.bibliocommons.com/v2/record/S156C3659138) |
-| Cars and trucks and things that go | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C22437) | [✓](https://sccl.bibliocommons.com/v2/record/S118C22437) | [?](https://classiccatalog.mountainview.gov/record=b3459660) | [✓](https://sjpl.bibliocommons.com/v2/record/S156C6652228) | [✓](https://sjpl.bibliocommons.com/v2/record/S156C6652228) |
+| Cars and trucks and things that go | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C22437) | [✓](https://sccl.bibliocommons.com/v2/record/S118C22437) | [?](https://classiccatalog.mountainview.gov/record=b3459660) | [✓](https://sjpl.bibliocommons.com/v2/record/S156C6652228) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C6652228) |
 | Cher zoo | ? | — | — | — | — | — |
 | Chicka chicka boom boom | board | [✓](https://sccl.bibliocommons.com/v2/record/S118C1079308) | [✗](https://sccl.bibliocommons.com/v2/record/S118C1079308) | [?](https://classiccatalog.mountainview.gov/record=b1433211) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C1146942) | [✓](https://sjpl.bibliocommons.com/v2/record/S156C1146942) |
 | Chicka Chicka I love you | picture | [✓](https://sccl.bibliocommons.com/v2/record/S118C1333448) | [✓](https://sccl.bibliocommons.com/v2/record/S118C1333448) | — | — | — |
@@ -187,7 +186,7 @@ In no catalog here — not borrowable, even by request.
 | Knuffle Bunny too : a case of mistaken identity | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C219128) | [✓](https://sccl.bibliocommons.com/v2/record/S118C219128) | [?](https://classiccatalog.mountainview.gov/record=b1339909) | [✓](https://sjpl.bibliocommons.com/v2/record/S156C3251823) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C3251823) |
 | L'âne Trotro | ? | — | — | — | — | — |
 | La chenille qui fait des trous | ? | — | — | — |  |  |
-| La couleur des émotions | ? | [✗](https://sccl.bibliocommons.com/v2/record/S118C1021940) |  | — | — | — |
+| La couleur des émotions | ? | [✓](https://sccl.bibliocommons.com/v2/record/S118C1021940) |  | — | — | — |
 | Le cherche-et-trouve de mes 2 ans | ? | — | — | — | — | — |
 | Le loup qui voulait changer de couleur | ? | — | — | — | — | — |
 | Little blue truck | board | [✗](https://sccl.bibliocommons.com/v2/record/S118C921524) | [✗](https://sccl.bibliocommons.com/v2/record/S118C921524) | [?](https://classiccatalog.mountainview.gov/record=b1385148) | [✓](https://sjpl.bibliocommons.com/v2/record/S156C3431980) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C3431980) |
@@ -211,7 +210,7 @@ In no catalog here — not borrowable, even by request.
 | Old MacDonald had a truck | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C501791) | [✓](https://sccl.bibliocommons.com/v2/record/S118C501791) | [?](https://classiccatalog.mountainview.gov/record=b1566301) |  |  |
 | Orange pear apple bear | picture | [✓](https://sccl.bibliocommons.com/v2/record/S118C207714) | [✓](https://sccl.bibliocommons.com/v2/record/S118C207714) | [?](https://classiccatalog.mountainview.gov/record=b1340742) |  | [✓](https://sjpl.bibliocommons.com/v2/record/S156C3251830) |
 | Ours brun, dis-moi ce que tu vois ? | ? | — | — | — | — | — |
-| Owl babies | picture | [✓](https://sccl.bibliocommons.com/v2/record/S118C33847) | [✓](https://sccl.bibliocommons.com/v2/record/S118C33847) | [?](https://classiccatalog.mountainview.gov/record=b1145705) |  |  |
+| Owl babies | picture | [✓](https://sccl.bibliocommons.com/v2/record/S118C33847) | [✗](https://sccl.bibliocommons.com/v2/record/S118C33847) | [?](https://classiccatalog.mountainview.gov/record=b1145705) |  |  |
 | Pete the cat : I love my white shoes | picture | [✓](https://sccl.bibliocommons.com/v2/record/S118C323988) | [✓](https://sccl.bibliocommons.com/v2/record/S118C323988) | [?](https://classiccatalog.mountainview.gov/record=b1425984) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C4240266) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C4240266) |
 | Petit Ours Brun aime sa maman | ? | — | — | — | — | — |
 | Petit Ours Brun dit non | ? | — | — | — | — | — |
@@ -224,7 +223,7 @@ In no catalog here — not borrowable, even by request.
 | Press here | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C315109) | [✓](https://sccl.bibliocommons.com/v2/record/S118C315109) | [?](https://classiccatalog.mountainview.gov/record=b1419447) | [✓](https://sjpl.bibliocommons.com/v2/record/S156C5922114) |  |
 | Regarde dans la nuit | ? | — | — | — | — | — |
 | Roule galette | ? | — | — | — |  |  |
-| Sheep in a jeep | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C17446) | [✗](https://sccl.bibliocommons.com/v2/record/S118C17446) | [?](https://classiccatalog.mountainview.gov/record=b1109692) |  |  |
+| Sheep in a jeep | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C17446) | [✓](https://sccl.bibliocommons.com/v2/record/S118C17446) | [?](https://classiccatalog.mountainview.gov/record=b1109692) |  |  |
 | Shh! We have a plan | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C430395) | [✗](https://sccl.bibliocommons.com/v2/record/S118C430395) | [?](https://classiccatalog.mountainview.gov/record=b1503194) |  |  |
 | Steam train, dream train | picture | [✓](https://sccl.bibliocommons.com/v2/record/S118C372893) | [✓](https://sccl.bibliocommons.com/v2/record/S118C372893) | [?](https://classiccatalog.mountainview.gov/record=b1458131) |  | [✗](https://sjpl.bibliocommons.com/v2/record/S156C4487673) |
 | T'choupi va sur le pot | ? | — | — | — | — | — |
@@ -243,7 +242,7 @@ In no catalog here — not borrowable, even by request.
 | The very hungry caterpillar | picture | [✓](https://sccl.bibliocommons.com/v2/record/S118C7975) | [✓](https://sccl.bibliocommons.com/v2/record/S118C7975) | [?](https://classiccatalog.mountainview.gov/record=b1411494) | [✓](https://sjpl.bibliocommons.com/v2/record/S156C2945517) | [✓](https://sjpl.bibliocommons.com/v2/record/S156C2945517) |
 | The very quiet cricket | picture | [✓](https://sccl.bibliocommons.com/v2/record/S118C27971) | [✓](https://sccl.bibliocommons.com/v2/record/S118C27971) | [?](https://classiccatalog.mountainview.gov/record=b1475527) | [✓](https://sjpl.bibliocommons.com/v2/record/S156C6148665) | [✓](https://sjpl.bibliocommons.com/v2/record/S156C6148665) |
 | The watermelon seed | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C374209) | [✓](https://sccl.bibliocommons.com/v2/record/S118C374209) | [?](https://classiccatalog.mountainview.gov/record=b1458139) |  | [✓](https://sjpl.bibliocommons.com/v2/record/S156C6631965) |
-| Time for bed | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C38181) | [✓](https://sccl.bibliocommons.com/v2/record/S118C38181) | [?](https://classiccatalog.mountainview.gov/record=b1154249) |  |  |
+| Time for bed | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C38181) | [✗](https://sccl.bibliocommons.com/v2/record/S118C38181) | [?](https://classiccatalog.mountainview.gov/record=b1154249) |  |  |
 | Twinkle, twinkle, little sheepy : a sleepy sheepy story | board | [✗](https://sccl.bibliocommons.com/v2/record/S118C1313836) | [✗](https://sccl.bibliocommons.com/v2/record/S118C1313836) | [?](https://classiccatalog.mountainview.gov/record=b3481817) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C6801747) | [✓](https://sjpl.bibliocommons.com/v2/record/S156C6801747) |
 | Un livre | ? | — | — | — | — | — |
 | Un peu perdu | ? | — | — | — | — | — |
@@ -295,14 +294,14 @@ Legend: ✓ on that shelf now · in-library use only ✗ that branch's copies ar
 | Title | Type | Santa Clara County Library District | San José Public Library | Mountain View Public Library | LINK+ (union catalog — request for pickup) |
 |---|---|---|---|---|---|
 | 2 yeux ? | ? | — | — | — | — |
-| Are you my mother? | reader | [✓ 7](https://sccl.bibliocommons.com/v2/record/S118C5033) | [✓ 8](https://sjpl.bibliocommons.com/v2/record/S156C2154030) | [?](https://classiccatalog.mountainview.gov/record=b1052293) | [✓ 21](https://csul.iii.com/record=b39392248) |
+| Are you my mother? | reader | [✓ 7](https://sccl.bibliocommons.com/v2/record/S118C5033) | [✓ 8](https://sjpl.bibliocommons.com/v2/record/S156C2154030) | [?](https://classiccatalog.mountainview.gov/record=b1052293) | [✓ 20](https://csul.iii.com/record=b39392248) |
 | Bao bao biao qing ji: My Face Book (baby faces) | picture | — | — | — | — |
 | Barbapapa | ? | — | — | — | [✓ 1](https://csul.iii.com/record=b37102393) |
 | Barnyard dance! | board | [✓ 2](https://sccl.bibliocommons.com/v2/record/S118C1111836) | [✓ 6](https://sjpl.bibliocommons.com/v2/record/S156C6604025) | [?](https://classiccatalog.mountainview.gov/record=b3192731) | [✓ 9](https://csul.iii.com/record=b51638111) |
 | Bear snores on | picture | [✓ 2](https://sccl.bibliocommons.com/v2/record/S118C110074) | [✓ 11](https://sjpl.bibliocommons.com/v2/record/S156C2401797) | [?](https://classiccatalog.mountainview.gov/record=b1248124) | [✓ 5](https://csul.iii.com/record=b35222854) |
 | Big red barn | picture | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C21506) | [✓ 2](https://sjpl.bibliocommons.com/v2/record/S156C2409890) | — | [✓ 4](https://csul.iii.com/record=b47526206) |
-| Blueberries for Sal | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C3978) | [✓ 16](https://sjpl.bibliocommons.com/v2/record/S156C2212224) | [?](https://classiccatalog.mountainview.gov/record=b3474508) | [✗](https://csul.iii.com/record=b52740598) |
-| Bluey : the creek. | picture | [✗](https://sccl.bibliocommons.com/v2/record/S980C5329700) | [✓ 10](https://sjpl.bibliocommons.com/v2/record/S156C6274428) | — | [✓ 6](https://csul.iii.com/record=b48480408) |
+| Blueberries for Sal | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C3978) | [✓ 16](https://sjpl.bibliocommons.com/v2/record/S156C2212224) | [?](https://classiccatalog.mountainview.gov/record=b3474508) | [✓ 1](https://csul.iii.com/record=b52740598) |
+| Bluey : the creek. | picture | [✗](https://sccl.bibliocommons.com/v2/record/S980C5329700) | [✓ 11](https://sjpl.bibliocommons.com/v2/record/S156C6274428) | — | [✓ 6](https://csul.iii.com/record=b48480408) |
 | Bluey : zoo. | picture | — | — | [?](https://classiccatalog.mountainview.gov/record=b3480569) | [✓ 1](https://csul.iii.com/record=b52678883) |
 | Bon appétit ! Monsieur Lapin | ? | — | [✗](https://sjpl.bibliocommons.com/v2/record/S156C2607003) | — | [✓ 3](https://csul.iii.com/record=b20236045) |
 | Bonne nuit tout le monde | ? | — | — | [?](https://classiccatalog.mountainview.gov/record=b3475974) | [✓ 2](https://csul.iii.com/record=b47386175) |
@@ -313,114 +312,114 @@ Legend: ✓ on that shelf now · in-library use only ✗ that branch's copies ar
 | Bébés chouettes | ? | — | — | — | [✓ 2](https://csul.iii.com/record=b52128577) |
 | Caca boudin | ? | — | — | — | — |
 | Caps for sale : a tale of a peddler, some monkeys, and their monkey business | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C1161154) | [✓ 6](https://sjpl.bibliocommons.com/v2/record/S156C3659138) | [?](https://classiccatalog.mountainview.gov/record=b1396609) | [✗](https://csul.iii.com/record=b34881865) |
-| Cars and trucks and things that go | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C22437) | [✓ 13](https://sjpl.bibliocommons.com/v2/record/S156C6652228) | [?](https://classiccatalog.mountainview.gov/record=b3459660) | [✓ 1](https://csul.iii.com/record=b52802575) |
+| Cars and trucks and things that go | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C22437) | [✓ 10](https://sjpl.bibliocommons.com/v2/record/S156C6652228) | [?](https://classiccatalog.mountainview.gov/record=b3459660) | [✓ 1](https://csul.iii.com/record=b52802575) |
 | Cher zoo | ? | — | — | — | [✓ 1](https://csul.iii.com/record=b51517608) |
-| Chicka chicka boom boom | board | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C1079308) | [✓ 13](https://sjpl.bibliocommons.com/v2/record/S156C1146942) | [?](https://classiccatalog.mountainview.gov/record=b1433211) | [✓ 15](https://csul.iii.com/record=b46287673) |
+| Chicka chicka boom boom | board | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C1079308) | [✓ 12](https://sjpl.bibliocommons.com/v2/record/S156C1146942) | [?](https://classiccatalog.mountainview.gov/record=b1433211) | [✓ 16](https://csul.iii.com/record=b46287673) |
 | Chicka Chicka I love you | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C1333448) | — | — | [✓ 13](https://csul.iii.com/record=b52120212) |
 | Chugga-chugga choo-choo | picture | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C81632) | [✓ 7](https://sjpl.bibliocommons.com/v2/record/S156C6009668) | [?](https://classiccatalog.mountainview.gov/record=b1214976) | [✓ 7](https://csul.iii.com/record=b15703850) |
 | Chut ! On a un plan | ? | — | — | — | — |
 | De la petite taupe qui voulait savoir qui lui avait fait sur la tête | ? | — | — | — | — |
 | Dear zoo | picture | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C14525) | [✓ 12](https://sjpl.bibliocommons.com/v2/record/S156C2132911) | [?](https://classiccatalog.mountainview.gov/record=b1229472) | [✓ 13](https://csul.iii.com/record=b45943116) |
-| Don't let the pigeon drive the bus | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C138660) | [✓ 12](https://sjpl.bibliocommons.com/v2/record/S156C2530651) | [?](https://classiccatalog.mountainview.gov/record=b1270945) | [✓ 9](https://csul.iii.com/record=b52284697) |
+| Don't let the pigeon drive the bus | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C138660) | [✓ 13](https://sjpl.bibliocommons.com/v2/record/S156C2530651) | [?](https://classiccatalog.mountainview.gov/record=b1270945) | [✓ 8](https://csul.iii.com/record=b52284697) |
 | Don't push the button! | picture | [✓ 2](https://sccl.bibliocommons.com/v2/record/S118C411019) | [✓ 2](https://sjpl.bibliocommons.com/v2/record/S156C5907283) | [?](https://classiccatalog.mountainview.gov/record=b3482594) | [✗](https://csul.iii.com/record=b48412120) |
 | Dot! scribble! go! | picture | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C1197305) | — | [?](https://classiccatalog.mountainview.gov/record=b3467211) | — |
-| Dragons love tacos | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C350842) | [✓ 16](https://sjpl.bibliocommons.com/v2/record/S156C4321176) | [?](https://classiccatalog.mountainview.gov/record=b1439506) | [✓ 36](https://csul.iii.com/record=b45396817) |
+| Dragons love tacos | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C350842) | [✓ 15](https://sjpl.bibliocommons.com/v2/record/S156C4321176) | [?](https://classiccatalog.mountainview.gov/record=b1439506) | [✓ 35](https://csul.iii.com/record=b45396817) |
 | Duck & Goose go to the beach | picture | [✓ 2](https://sccl.bibliocommons.com/v2/record/S118C413946) | [✓ 8](https://sjpl.bibliocommons.com/v2/record/S156C4701335) | [?](https://classiccatalog.mountainview.gov/record=b1481550) | [✓ 27](https://csul.iii.com/record=b37108851) |
-| Duck & Goose, honk! quack! boo! | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C587717) | [✓ 18](https://sjpl.bibliocommons.com/v2/record/S156C6812829) | [?](https://classiccatalog.mountainview.gov/record=b1880833) | [✓ 23](https://csul.iii.com/record=b52708991) |
+| Duck & Goose, honk! quack! boo! | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C587717) | [✓ 18](https://sjpl.bibliocommons.com/v2/record/S156C6812829) | [?](https://classiccatalog.mountainview.gov/record=b1880833) | [✓ 24](https://csul.iii.com/record=b52708991) |
 | Duck on a bike | picture | [✓ 7](https://sccl.bibliocommons.com/v2/record/S118C113130) | [✓ 7](https://sjpl.bibliocommons.com/v2/record/S156C1983989) | [?](https://classiccatalog.mountainview.gov/record=b1248676) | [✓ 39](https://csul.iii.com/record=b51453407) |
 | Duck stays in the truck | reader | [✓ 8](https://sccl.bibliocommons.com/v2/record/S118C771400) | [✓ 16](https://sjpl.bibliocommons.com/v2/record/S156C6020915) | [?](https://classiccatalog.mountainview.gov/record=b2546685) | — |
-| Each peach pear plum | picture | [✓ 2](https://sccl.bibliocommons.com/v2/record/S118C11853) | [✓ 1](https://sjpl.bibliocommons.com/v2/record/S156C6129920) | [?](https://classiccatalog.mountainview.gov/record=b1034817) | [✓ 6](https://csul.iii.com/record=b50534930) |
+| Each peach pear plum | picture | [✓ 2](https://sccl.bibliocommons.com/v2/record/S118C11853) | [✓ 1](https://sjpl.bibliocommons.com/v2/record/S156C6129920) | [?](https://classiccatalog.mountainview.gov/record=b1034817) | [✓ 7](https://csul.iii.com/record=b50534930) |
 | Et dedans il y a... | ? | — | — | — | — |
-| Freight train = Tren de carga | picture | [✓ 9](https://sccl.bibliocommons.com/v2/record/S118C11960) | [✓ 15](https://sjpl.bibliocommons.com/v2/record/S156C1049398) | [?](https://classiccatalog.mountainview.gov/record=b1035344) | [✓ 33](https://csul.iii.com/record=b52076023) |
-| From head to toe | board | [✓ 8](https://sccl.bibliocommons.com/v2/record/S118C76187) | [✓ 8](https://sjpl.bibliocommons.com/v2/record/S156C5804959) | [?](https://classiccatalog.mountainview.gov/record=b2163238) | [✓ 9](https://csul.iii.com/record=b43253654) |
-| Giraffes can't dance | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C348000) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C2408497) | [?](https://classiccatalog.mountainview.gov/record=b1273464) | [✓ 4](https://csul.iii.com/record=b51652384) |
+| Freight train = Tren de carga | picture | [✓ 9](https://sccl.bibliocommons.com/v2/record/S118C11960) | [✓ 16](https://sjpl.bibliocommons.com/v2/record/S156C1049398) | [?](https://classiccatalog.mountainview.gov/record=b1035344) | [✓ 34](https://csul.iii.com/record=b52076023) |
+| From head to toe | board | [✓ 8](https://sccl.bibliocommons.com/v2/record/S118C76187) | [✓ 9](https://sjpl.bibliocommons.com/v2/record/S156C5804959) | [?](https://classiccatalog.mountainview.gov/record=b2163238) | [✓ 10](https://csul.iii.com/record=b43253654) |
+| Giraffes can't dance | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C348000) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C2408497) | [?](https://classiccatalog.mountainview.gov/record=b1273464) | [✓ 3](https://csul.iii.com/record=b51652384) |
 | Go, dog. Go! | reader | [✓ 8](https://sccl.bibliocommons.com/v2/record/S118C5302) | [✓ 8](https://sjpl.bibliocommons.com/v2/record/S156C2154053) | [?](https://classiccatalog.mountainview.gov/record=b1572994) | [✓ 15](https://csul.iii.com/record=b13826510) |
-| Goodnight moon | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C3950) | [✓ 14](https://sjpl.bibliocommons.com/v2/record/S156C6020675) | [?](https://classiccatalog.mountainview.gov/record=b1430061) | [✓ 4](https://csul.iii.com/record=b51375751) |
+| Goodnight moon | picture | [✓ 7](https://sccl.bibliocommons.com/v2/record/S118C3950) | [✓ 15](https://sjpl.bibliocommons.com/v2/record/S156C6020675) | [?](https://classiccatalog.mountainview.gov/record=b1430061) | [✓ 2](https://csul.iii.com/record=b51375751) |
 | Goodnight, goodnight, construction site | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C323945) | [✓ 24](https://sjpl.bibliocommons.com/v2/record/S156C4151651) | [?](https://classiccatalog.mountainview.gov/record=b1421852) | [✓ 1](https://csul.iii.com/record=b51751972) |
 | Gros pipi | ? | — | — | — | — |
-| Grumpy monkey | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C634947) | [✓ 8](https://sjpl.bibliocommons.com/v2/record/S156C5810325) | [?](https://classiccatalog.mountainview.gov/record=b2361523) | [✓ 7](https://csul.iii.com/record=b52697340) |
-| Grumpy monkey : mom for a day | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C1239878) | — | [?](https://classiccatalog.mountainview.gov/record=b3465648) | [✓ 23](https://csul.iii.com/record=b51908531) |
-| Grumpy monkey party time! | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C768844) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C5898961) | [?](https://classiccatalog.mountainview.gov/record=b2448440) | [✓ 17](https://csul.iii.com/record=b52638376) |
+| Grumpy monkey | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C634947) | [✓ 9](https://sjpl.bibliocommons.com/v2/record/S156C5810325) | [?](https://classiccatalog.mountainview.gov/record=b2361523) | [✓ 7](https://csul.iii.com/record=b52697340) |
+| Grumpy monkey : mom for a day | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C1239878) | — | [?](https://classiccatalog.mountainview.gov/record=b3465648) | [✓ 24](https://csul.iii.com/record=b51908531) |
+| Grumpy monkey party time! | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C768844) | [✓ 1](https://sjpl.bibliocommons.com/v2/record/S156C5898961) | [?](https://classiccatalog.mountainview.gov/record=b2448440) | [✓ 18](https://csul.iii.com/record=b52638376) |
 | Grumpy monkey yuck! | picture | [✓ 1](https://sccl.bibliocommons.com/v2/record/S118C1128042) | [✓ 4](https://sjpl.bibliocommons.com/v2/record/S156C6768248) | [?](https://classiccatalog.mountainview.gov/record=b3455767) | [✓ 5](https://csul.iii.com/record=b51095090) |
-| Higher! Higher! | picture | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C265723) | [✓ 3](https://sjpl.bibliocommons.com/v2/record/S156C3818180) | — | [✓ 13](https://csul.iii.com/record=b50850455) |
-| Hooray for fish! | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C162412) | [✓ 9](https://sjpl.bibliocommons.com/v2/record/S156C6632361) | [?](https://classiccatalog.mountainview.gov/record=b1301058) | [✓ 22](https://csul.iii.com/record=b41508511) |
+| Higher! Higher! | picture | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C265723) | [✓ 3](https://sjpl.bibliocommons.com/v2/record/S156C3818180) | — | [✓ 25](https://csul.iii.com/record=b50850455) |
+| Hooray for fish! | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C162412) | [✓ 8](https://sjpl.bibliocommons.com/v2/record/S156C6632361) | [?](https://classiccatalog.mountainview.gov/record=b1301058) | [✓ 22](https://csul.iii.com/record=b41508511) |
 | How do dinosaurs say good night? | board | [✓ 2](https://sccl.bibliocommons.com/v2/record/S118C830364) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C6023708) | [?](https://classiccatalog.mountainview.gov/record=b1227952) | [✓ 6](https://csul.iii.com/record=b52676957) |
 | Hug | board | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C852991) | — | [?](https://classiccatalog.mountainview.gov/record=b1328185) | [✓ 19](https://csul.iii.com/record=b36634509) |
 | I know an old lady who swallowed a pie | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C62742) | [✓ 19](https://sjpl.bibliocommons.com/v2/record/S156C5832493) | [?](https://classiccatalog.mountainview.gov/record=b1206670) | [✓ 29](https://csul.iii.com/record=b42233531) |
 | I love you to the moon and back | board | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C1245100) | [✓ 4](https://sjpl.bibliocommons.com/v2/record/S156C6657336) | [?](https://classiccatalog.mountainview.gov/record=b2822815) | [✓ 4](https://csul.iii.com/record=b52595906) |
 | I stink! | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C114918) | [✓ 5](https://sjpl.bibliocommons.com/v2/record/S156C1958490) | [?](https://classiccatalog.mountainview.gov/record=b1251479) | [✓ 1](https://csul.iii.com/record=b28713253) |
-| I want my hat back | picture | [✓ 7](https://sccl.bibliocommons.com/v2/record/S118C329557) | [✓ 19](https://sjpl.bibliocommons.com/v2/record/S156C4246749) | [?](https://classiccatalog.mountainview.gov/record=b1425648) | [✓ 34](https://csul.iii.com/record=b44819221) |
-| If you give a mouse a cookie | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C15777) | [✓ 14](https://sjpl.bibliocommons.com/v2/record/S156C1165469) | [?](https://classiccatalog.mountainview.gov/record=b1078546) | [✓ 10](https://csul.iii.com/record=b51632784) |
+| I want my hat back | picture | [✓ 7](https://sccl.bibliocommons.com/v2/record/S118C329557) | [✓ 18](https://sjpl.bibliocommons.com/v2/record/S156C4246749) | [?](https://classiccatalog.mountainview.gov/record=b1425648) | [✓ 34](https://csul.iii.com/record=b44819221) |
+| If you give a mouse a cookie | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C15777) | [✓ 13](https://sjpl.bibliocommons.com/v2/record/S156C1165469) | [?](https://classiccatalog.mountainview.gov/record=b1078546) | [✓ 9](https://csul.iii.com/record=b51632784) |
 | In my heart : a book of feelings | picture | [✓ 1](https://sccl.bibliocommons.com/v2/record/S118C437008) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C4968334) | [?](https://classiccatalog.mountainview.gov/record=b1507025) | [✓ 16](https://csul.iii.com/record=b51552550) |
 | Jamberry | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C14319) | [✓ 14](https://sjpl.bibliocommons.com/v2/record/S156C1123306) | [?](https://classiccatalog.mountainview.gov/record=b1062223) | [✓ 9](https://csul.iii.com/record=b41764524) |
 | Kitten's first full moon | picture | [✓ 9](https://sccl.bibliocommons.com/v2/record/S118C143699) | [✓ 17](https://sjpl.bibliocommons.com/v2/record/S156C2595426) | [?](https://classiccatalog.mountainview.gov/record=b1279884) | [✓ 5](https://csul.iii.com/record=b51850915) |
-| Knuffle Bunny : a cautionary tale | picture | [✓ 7](https://sccl.bibliocommons.com/v2/record/S118C154311) | [✓ 16](https://sjpl.bibliocommons.com/v2/record/S156C2597957) | [?](https://classiccatalog.mountainview.gov/record=b1286804) | [✓ 33](https://csul.iii.com/record=b51611095) |
+| Knuffle Bunny : a cautionary tale | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C154311) | [✓ 16](https://sjpl.bibliocommons.com/v2/record/S156C2597957) | [?](https://classiccatalog.mountainview.gov/record=b1286804) | [✓ 33](https://csul.iii.com/record=b51611095) |
 | Knuffle Bunny too : a case of mistaken identity | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C219128) | [✓ 14](https://sjpl.bibliocommons.com/v2/record/S156C3251823) | [?](https://classiccatalog.mountainview.gov/record=b1339909) | [✓ 35](https://csul.iii.com/record=b52117656) |
 | L'âne Trotro | ? | — | — | — | — |
-| La chenille qui fait des trous | ? | — | [✓ 1](https://sjpl.bibliocommons.com/v2/record/S156C3921097) | — | [✓ 7](https://csul.iii.com/record=b41810083) |
-| La couleur des émotions | ? | [✓ 1](https://sccl.bibliocommons.com/v2/record/S118C1021940) | — | — | [✓ 2](https://csul.iii.com/record=b45980872) |
+| La chenille qui fait des trous | ? | — | [✓ 1](https://sjpl.bibliocommons.com/v2/record/S156C3921097) | — | [✓ 6](https://csul.iii.com/record=b41810083) |
+| La couleur des émotions | ? | [✓ 2](https://sccl.bibliocommons.com/v2/record/S118C1021940) | — | — | [✓ 2](https://csul.iii.com/record=b45980872) |
 | Le cherche-et-trouve de mes 2 ans | ? | — | — | — | — |
 | Le loup qui voulait changer de couleur | ? | — | — | — | [✓ 3](https://csul.iii.com/record=b41510198) |
 | Little blue truck | board | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C921524) | [✓ 12](https://sjpl.bibliocommons.com/v2/record/S156C3431980) | [?](https://classiccatalog.mountainview.gov/record=b1385148) | [✓ 5](https://csul.iii.com/record=b50224210) |
-| Little Excavator | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C563265) | [✓ 5](https://sjpl.bibliocommons.com/v2/record/S156C5670730) | [?](https://classiccatalog.mountainview.gov/record=b1585689) | [✓ 24](https://csul.iii.com/record=b51801518) |
-| Llama Llama misses Mama | picture | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C276874) | [✓ 10](https://sjpl.bibliocommons.com/v2/record/S156C3800297) | [?](https://classiccatalog.mountainview.gov/record=b1420231) | [✓ 27](https://csul.iii.com/record=b46941381) |
-| Llama Llama red pajama | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C181656) | [✓ 12](https://sjpl.bibliocommons.com/v2/record/S156C2625879) | [?](https://classiccatalog.mountainview.gov/record=b1301067) | [✓ 2](https://csul.iii.com/record=b52676958) |
+| Little Excavator | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C563265) | [✓ 4](https://sjpl.bibliocommons.com/v2/record/S156C5670730) | [?](https://classiccatalog.mountainview.gov/record=b1585689) | [✓ 23](https://csul.iii.com/record=b51801518) |
+| Llama Llama misses Mama | picture | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C276874) | [✓ 11](https://sjpl.bibliocommons.com/v2/record/S156C3800297) | [?](https://classiccatalog.mountainview.gov/record=b1420231) | [✓ 28](https://csul.iii.com/record=b46941381) |
+| Llama Llama red pajama | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C181656) | [✓ 13](https://sjpl.bibliocommons.com/v2/record/S156C2625879) | [?](https://classiccatalog.mountainview.gov/record=b1301067) | [✓ 3](https://csul.iii.com/record=b52676958) |
 | Loup | ? | — | — | — | — |
 | Maman ! | ? | — | — | — | [✓ 1](https://csul.iii.com/record=b31994659) |
 | Mighty, mighty construction site | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C545728) | [✓ 4](https://sjpl.bibliocommons.com/v2/record/S156C5558376) | [?](https://classiccatalog.mountainview.gov/record=b1587466) | [✓ 28](https://csul.iii.com/record=b49649830) |
 | Mike delivers : the duck is stuck! | reader | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C996028) | [✓ 14](https://sjpl.bibliocommons.com/v2/record/S156C6273637) | [?](https://classiccatalog.mountainview.gov/record=b2992838) | [✓ 13](https://csul.iii.com/record=b48804417) |
 | Monkey and me | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C226626) | [✓ 5](https://sjpl.bibliocommons.com/v2/record/S156C3370402) | [?](https://classiccatalog.mountainview.gov/record=b1350037) | [✓ 32](https://csul.iii.com/record=b25805616) |
 | Moo, baa, fa la la la la! | board | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C1066724) | — | [?](https://classiccatalog.mountainview.gov/record=b3192779) | — |
-| Moo, baa, la la la! | board | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C32871) | [✓ 7](https://sjpl.bibliocommons.com/v2/record/S156C6129892) | [?](https://classiccatalog.mountainview.gov/record=b2582373) | [✓ 4](https://csul.iii.com/record=b51667266) |
+| Moo, baa, la la la! | board | [✓ 2](https://sccl.bibliocommons.com/v2/record/S118C32871) | [✓ 7](https://sjpl.bibliocommons.com/v2/record/S156C6129892) | [?](https://classiccatalog.mountainview.gov/record=b2582373) | [✓ 4](https://csul.iii.com/record=b51667266) |
 | Mouse paint | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C21503) | [✓ 7](https://sjpl.bibliocommons.com/v2/record/S156C1648898) | [?](https://classiccatalog.mountainview.gov/record=b1110201) | [✓ 10](https://csul.iii.com/record=b51519300) |
 | Mr. Brown can moo! Can you? | picture | [✓ 8](https://sccl.bibliocommons.com/v2/record/S118C8727) | [✓ 11](https://sjpl.bibliocommons.com/v2/record/S156C1711944) | [?](https://classiccatalog.mountainview.gov/record=b1052397) | [✓ 8](https://csul.iii.com/record=b20341302) |
 | Mr. Gumpy's outing | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C11270) | — | [?](https://classiccatalog.mountainview.gov/record=b1031769) | [✓ 1](https://csul.iii.com/record=b40112477) |
-| My truck is stuck! | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C123875) | — | [?](https://classiccatalog.mountainview.gov/record=b1259887) | [✓ 10](https://csul.iii.com/record=b42055954) |
+| My truck is stuck! | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C123875) | — | [?](https://classiccatalog.mountainview.gov/record=b1259887) | [✓ 9](https://csul.iii.com/record=b42055954) |
 | Méli-mélo | ? | — | — | — | — |
 | Not a box | picture | [✓ 8](https://sccl.bibliocommons.com/v2/record/S118C196127) | [✓ 9](https://sjpl.bibliocommons.com/v2/record/S156C3054198) | [?](https://classiccatalog.mountainview.gov/record=b1327221) | [✓ 40](https://csul.iii.com/record=b33194550) |
-| Oh no, George! | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C344470) | [✓ 13](https://sjpl.bibliocommons.com/v2/record/S156C4321178) | [?](https://classiccatalog.mountainview.gov/record=b1435450) | [✓ 23](https://csul.iii.com/record=b51767097) |
+| Oh no, George! | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C344470) | [✓ 14](https://sjpl.bibliocommons.com/v2/record/S156C4321178) | [?](https://classiccatalog.mountainview.gov/record=b1435450) | [✓ 23](https://csul.iii.com/record=b51767097) |
 | Old MacDonald had a truck | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C501791) | [✓ 1](https://sjpl.bibliocommons.com/v2/record/S156C5911463) | [?](https://classiccatalog.mountainview.gov/record=b1566301) | [✓ 20](https://csul.iii.com/record=b45931604) |
-| Orange pear apple bear | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C207714) | [✓ 2](https://sjpl.bibliocommons.com/v2/record/S156C3251830) | [?](https://classiccatalog.mountainview.gov/record=b1340742) | [✓ 28](https://csul.iii.com/record=b49830404) |
-| Ours brun, dis-moi ce que tu vois ? | ? | — | — | — | [✓ 6](https://csul.iii.com/record=b41510197) |
-| Owl babies | picture | [✓ 7](https://sccl.bibliocommons.com/v2/record/S118C33847) | [✓ 3](https://sjpl.bibliocommons.com/v2/record/S156C5077002) | [?](https://classiccatalog.mountainview.gov/record=b1145705) | [✓ 9](https://csul.iii.com/record=b45983943) |
-| Pete the cat : I love my white shoes | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C323988) | [✓ 20](https://sjpl.bibliocommons.com/v2/record/S156C4240266) | [?](https://classiccatalog.mountainview.gov/record=b1425984) | [✓ 16](https://csul.iii.com/record=b30366943) |
+| Orange pear apple bear | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C207714) | [✓ 2](https://sjpl.bibliocommons.com/v2/record/S156C3251830) | [?](https://classiccatalog.mountainview.gov/record=b1340742) | [✓ 29](https://csul.iii.com/record=b49830404) |
+| Ours brun, dis-moi ce que tu vois ? | ? | — | — | — | [✓ 5](https://csul.iii.com/record=b41510197) |
+| Owl babies | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C33847) | [✓ 3](https://sjpl.bibliocommons.com/v2/record/S156C5077002) | [?](https://classiccatalog.mountainview.gov/record=b1145705) | [✓ 9](https://csul.iii.com/record=b45983943) |
+| Pete the cat : I love my white shoes | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C323988) | [✓ 19](https://sjpl.bibliocommons.com/v2/record/S156C4240266) | [?](https://classiccatalog.mountainview.gov/record=b1425984) | [✓ 16](https://csul.iii.com/record=b30366943) |
 | Petit Ours Brun aime sa maman | ? | — | — | — | [✓ 1](https://csul.iii.com/record=b48911464) |
 | Petit Ours Brun dit non | ? | — | — | — | — |
 | Petit ours brun joue dans la neige | ? | — | — | [?](https://classiccatalog.mountainview.gov/record=b3469638) | — |
 | Petit Ours Brun joue dans son bain | ? | — | — | [?](https://classiccatalog.mountainview.gov/record=b3469637) | — |
 | Petit ours brun va chez la docteure | ? | — | — | [?](https://classiccatalog.mountainview.gov/record=b3469639) | — |
 | Petit-Bleu et Petit-Jaune | ? | — | — | — | [✓ 2](https://csul.iii.com/record=b52253462) |
-| Polar bear, polar bear, what do you hear? | board | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C67031) | [✓ 7](https://sjpl.bibliocommons.com/v2/record/S156C1681071) | [?](https://classiccatalog.mountainview.gov/record=b1324547) | [✓ 12](https://csul.iii.com/record=b35179406) |
+| Polar bear, polar bear, what do you hear? | board | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C67031) | [✓ 7](https://sjpl.bibliocommons.com/v2/record/S156C1681071) | [?](https://classiccatalog.mountainview.gov/record=b1324547) | [✓ 12](https://csul.iii.com/record=b35179406) |
 | Pop mange de toutes les couleurs | ? | — | — | — | — |
-| Press here | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C315109) | [✓ 10](https://sjpl.bibliocommons.com/v2/record/S156C5922114) | [?](https://classiccatalog.mountainview.gov/record=b1419447) | [✓ 32](https://csul.iii.com/record=b51340159) |
+| Press here | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C315109) | [✓ 10](https://sjpl.bibliocommons.com/v2/record/S156C5922114) | [?](https://classiccatalog.mountainview.gov/record=b1419447) | [✓ 31](https://csul.iii.com/record=b51340159) |
 | Regarde dans la nuit | ? | — | — | — | [✓ 1](https://csul.iii.com/record=b45258282) |
 | Roule galette | ? | — | [✓ 1](https://sjpl.bibliocommons.com/v2/record/S156C2133457) | — | [✓ 1](https://csul.iii.com/record=b52086063) |
-| Sheep in a jeep | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C17446) | [✓ 1](https://sjpl.bibliocommons.com/v2/record/S156C1192386) | [?](https://classiccatalog.mountainview.gov/record=b1109692) | [✓ 4](https://csul.iii.com/record=b44351704) |
-| Shh! We have a plan | picture | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C430395) | [✓ 2](https://sjpl.bibliocommons.com/v2/record/S156C6722775) | [?](https://classiccatalog.mountainview.gov/record=b1503194) | [✓ 31](https://csul.iii.com/record=b39677910) |
-| Steam train, dream train | picture | [✓ 8](https://sccl.bibliocommons.com/v2/record/S118C372893) | [✓ 3](https://sjpl.bibliocommons.com/v2/record/S156C4487673) | [?](https://classiccatalog.mountainview.gov/record=b1458131) | [✓ 4](https://csul.iii.com/record=b52156179) |
+| Sheep in a jeep | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C17446) | [✓ 1](https://sjpl.bibliocommons.com/v2/record/S156C1192386) | [?](https://classiccatalog.mountainview.gov/record=b1109692) | [✓ 3](https://csul.iii.com/record=b44351704) |
+| Shh! We have a plan | picture | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C430395) | [✓ 2](https://sjpl.bibliocommons.com/v2/record/S156C6722775) | [?](https://classiccatalog.mountainview.gov/record=b1503194) | [✓ 33](https://csul.iii.com/record=b39677910) |
+| Steam train, dream train | picture | [✓ 8](https://sccl.bibliocommons.com/v2/record/S118C372893) | [✓ 2](https://sjpl.bibliocommons.com/v2/record/S156C4487673) | [?](https://classiccatalog.mountainview.gov/record=b1458131) | [✓ 5](https://csul.iii.com/record=b52156179) |
 | T'choupi va sur le pot | ? | — | — | — | — |
 | T'choupi veut tout faire tout seul | ? | — | — | — | — |
 | Tap the magic tree | picture | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C383304) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C4619313) | [?](https://classiccatalog.mountainview.gov/record=b1464193) | [✓ 24](https://csul.iii.com/record=b40347658) |
 | Ten apples up on top! | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C5301) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C5581421) | [?](https://classiccatalog.mountainview.gov/record=b1328375) | [✓ 4](https://csul.iii.com/record=b16370157) |
-| Ten little fingers and ten little toes | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C246888) | [✓ 5](https://sjpl.bibliocommons.com/v2/record/S156C3694772) | [?](https://classiccatalog.mountainview.gov/record=b1356017) | [✓ 8](https://csul.iii.com/record=b51803403) |
+| Ten little fingers and ten little toes | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C246888) | [✓ 5](https://sjpl.bibliocommons.com/v2/record/S156C3694772) | [?](https://classiccatalog.mountainview.gov/record=b1356017) | [✓ 8](https://csul.iii.com/record=b51803403) |
 | The carrot seed | picture | [✓ 7](https://sccl.bibliocommons.com/v2/record/S118C3902) | [✓ 11](https://sjpl.bibliocommons.com/v2/record/S156C2367560) | [?](https://classiccatalog.mountainview.gov/record=b1004474) | [✓ 11](https://csul.iii.com/record=b51459550) |
 | The color monster : a story about emotions | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C670811) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C5837301) | [?](https://classiccatalog.mountainview.gov/record=b2242647) | [✓ 15](https://csul.iii.com/record=b48123984) |
-| The going to bed book | board | [✓ 4](https://sccl.bibliocommons.com/v2/record/S118C91924) | [✓ 11](https://sjpl.bibliocommons.com/v2/record/S156C4938045) | [?](https://classiccatalog.mountainview.gov/record=b1471534) | [✓ 4](https://csul.iii.com/record=b51597166) |
-| The Gruffalo | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C78280) | [✓ 13](https://sjpl.bibliocommons.com/v2/record/S156C5876187) | [?](https://classiccatalog.mountainview.gov/record=b1440004) | [✓ 20](https://csul.iii.com/record=b51861556) |
+| The going to bed book | board | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C91924) | [✓ 11](https://sjpl.bibliocommons.com/v2/record/S156C4938045) | [?](https://classiccatalog.mountainview.gov/record=b1471534) | [✓ 4](https://csul.iii.com/record=b51597166) |
+| The Gruffalo | picture | [✗](https://sccl.bibliocommons.com/v2/record/S118C78280) | [✓ 14](https://sjpl.bibliocommons.com/v2/record/S156C5876187) | [?](https://classiccatalog.mountainview.gov/record=b1440004) | [✓ 21](https://csul.iii.com/record=b51861556) |
 | The napping house | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C14620) | [✓ 1](https://sjpl.bibliocommons.com/v2/record/S156C1139479) | [?](https://classiccatalog.mountainview.gov/record=b1072078) | [✓ 28](https://csul.iii.com/record=b39707154) |
-| The pigeon needs a bath! | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C407291) | [✓ 13](https://sjpl.bibliocommons.com/v2/record/S156C4701385) | [?](https://classiccatalog.mountainview.gov/record=b1466930) | [✓ 39](https://csul.iii.com/record=b52571016) |
+| The pigeon needs a bath! | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C407291) | [✓ 13](https://sjpl.bibliocommons.com/v2/record/S156C4701385) | [?](https://classiccatalog.mountainview.gov/record=b1466930) | [✓ 40](https://csul.iii.com/record=b52571016) |
 | The snowy day | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C5414) | [✓ 6](https://sjpl.bibliocommons.com/v2/record/S156C4208827) | [?](https://classiccatalog.mountainview.gov/record=b2693057) | [✓ 28](https://csul.iii.com/record=b35434801) |
-| The very busy spider | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C15845) | [✓ 20](https://sjpl.bibliocommons.com/v2/record/S156C6148671) | [?](https://classiccatalog.mountainview.gov/record=b1468189) | [✓ 16](https://csul.iii.com/record=b48004713) |
-| The very hungry caterpillar | picture | [✓ 7](https://sccl.bibliocommons.com/v2/record/S118C7975) | [✓ 12](https://sjpl.bibliocommons.com/v2/record/S156C2945517) | [?](https://classiccatalog.mountainview.gov/record=b1411494) | [✓ 2](https://csul.iii.com/record=b52740608) |
-| The very quiet cricket | picture | [✓ 8](https://sccl.bibliocommons.com/v2/record/S118C27971) | [✓ 15](https://sjpl.bibliocommons.com/v2/record/S156C6148665) | [?](https://classiccatalog.mountainview.gov/record=b1475527) | [✓ 20](https://csul.iii.com/record=b48054940) |
-| The watermelon seed | picture | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C374209) | [✓ 8](https://sjpl.bibliocommons.com/v2/record/S156C6631965) | [?](https://classiccatalog.mountainview.gov/record=b1458139) | [✓ 26](https://csul.iii.com/record=b46701590) |
-| Time for bed | picture | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C38181) | [✓ 2](https://sjpl.bibliocommons.com/v2/record/S156C2161106) | [?](https://classiccatalog.mountainview.gov/record=b1154249) | [✓ 1](https://csul.iii.com/record=b31116487) |
-| Twinkle, twinkle, little sheepy : a sleepy sheepy story | board | [✓ 2](https://sccl.bibliocommons.com/v2/record/S118C1313836) | [✓ 10](https://sjpl.bibliocommons.com/v2/record/S156C6801747) | [?](https://classiccatalog.mountainview.gov/record=b3481817) | [✓ 8](https://csul.iii.com/record=b52647487) |
+| The very busy spider | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C15845) | [✓ 20](https://sjpl.bibliocommons.com/v2/record/S156C6148671) | [?](https://classiccatalog.mountainview.gov/record=b1468189) | [✓ 17](https://csul.iii.com/record=b48004713) |
+| The very hungry caterpillar | picture | [✓ 7](https://sccl.bibliocommons.com/v2/record/S118C7975) | [✓ 13](https://sjpl.bibliocommons.com/v2/record/S156C2945517) | [?](https://classiccatalog.mountainview.gov/record=b1411494) | [✓ 1](https://csul.iii.com/record=b52740608) |
+| The very quiet cricket | picture | [✓ 7](https://sccl.bibliocommons.com/v2/record/S118C27971) | [✓ 15](https://sjpl.bibliocommons.com/v2/record/S156C6148665) | [?](https://classiccatalog.mountainview.gov/record=b1475527) | [✓ 20](https://csul.iii.com/record=b48054940) |
+| The watermelon seed | picture | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C374209) | [✓ 8](https://sjpl.bibliocommons.com/v2/record/S156C6631965) | [?](https://classiccatalog.mountainview.gov/record=b1458139) | [✓ 24](https://csul.iii.com/record=b46701590) |
+| Time for bed | picture | [✓ 2](https://sccl.bibliocommons.com/v2/record/S118C38181) | [✓ 2](https://sjpl.bibliocommons.com/v2/record/S156C2161106) | [?](https://classiccatalog.mountainview.gov/record=b1154249) | [✓ 1](https://csul.iii.com/record=b31116487) |
+| Twinkle, twinkle, little sheepy : a sleepy sheepy story | board | [✓ 1](https://sccl.bibliocommons.com/v2/record/S118C1313836) | [✓ 10](https://sjpl.bibliocommons.com/v2/record/S156C6801747) | [?](https://classiccatalog.mountainview.gov/record=b3481817) | [✓ 8](https://csul.iii.com/record=b52647487) |
 | Un livre | ? | — | — | — | [✓ 3](https://csul.iii.com/record=b38217262) |
 | Un peu perdu | ? | — | — | — | [✗](https://csul.iii.com/record=b51692959) |
 | Va-t'en, Grand Monstre Vert ! | ? | — | — | — | — |
-| We're going on a bear hunt | picture | [✓ 7](https://sccl.bibliocommons.com/v2/record/S118C22403) | [✓ 14](https://sjpl.bibliocommons.com/v2/record/S156C2586605) | [?](https://classiccatalog.mountainview.gov/record=b1113068) | [✓ 4](https://csul.iii.com/record=b52032303) |
-| Where do diggers sleep at night? | board | [✓ 1](https://sccl.bibliocommons.com/v2/record/S118C348667) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C4321181) | [?](https://classiccatalog.mountainview.gov/record=b3062776) | [✓ 12](https://csul.iii.com/record=b37444830) |
+| We're going on a bear hunt | picture | [✓ 6](https://sccl.bibliocommons.com/v2/record/S118C22403) | [✓ 13](https://sjpl.bibliocommons.com/v2/record/S156C2586605) | [?](https://classiccatalog.mountainview.gov/record=b1113068) | [✓ 4](https://csul.iii.com/record=b52032303) |
+| Where do diggers sleep at night? | board | [✓ 1](https://sccl.bibliocommons.com/v2/record/S118C348667) | [✗](https://sjpl.bibliocommons.com/v2/record/S156C4321181) | [?](https://classiccatalog.mountainview.gov/record=b3062776) | [✓ 11](https://csul.iii.com/record=b37444830) |
 | Where the wild things are | picture | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C5702) | [✓ 22](https://sjpl.bibliocommons.com/v2/record/S156C2375876) | [?](https://classiccatalog.mountainview.gov/record=b1008048) | [✓ 27](https://csul.iii.com/record=b51605738) |
 | Where's Spot? | board | [✓ 5](https://sccl.bibliocommons.com/v2/record/S118C104812) | [✓ 15](https://sjpl.bibliocommons.com/v2/record/S156C3248913) | [?](https://classiccatalog.mountainview.gov/record=b1346170) | [✓ 4](https://csul.iii.com/record=b50498693) |
 | You can do it, Pout-Pout Fish! | reader | [✗](https://sccl.bibliocommons.com/v2/record/S980C5752827) | [✓ 12](https://sjpl.bibliocommons.com/v2/record/S156C5871163) | [?](https://classiccatalog.mountainview.gov/record=b2324144) | [✓ 17](https://csul.iii.com/record=b44668435) |
@@ -428,11 +427,11 @@ Legend: ✓ on that shelf now · in-library use only ✗ that branch's copies ar
 | 什麼唱歌：給0-3歲的傳統兒歌 | ? | — | — | — | — |
 | 企鵝體操 | ? | — | [✓ 1](https://sjpl.bibliocommons.com/v2/record/S156C5882281) | — | [✓ 1](https://csul.iii.com/record=b45012894) |
 | 好大的紅蘋果 | ? | [✗](https://sccl.bibliocommons.com/v2/record/S118C1243792) | — | [?](https://classiccatalog.mountainview.gov/record=b2788272) | — |
-| 好餓的毛毛蟲 | ? | [✓ 3](https://sccl.bibliocommons.com/v2/record/S118C1020595) | [✓ 2](https://sjpl.bibliocommons.com/v2/record/S156C5876504) | [?](https://classiccatalog.mountainview.gov/record=b2381002) | [✓ 6](https://csul.iii.com/record=b45170422) |
+| 好餓的毛毛蟲 | ? | [✓ 2](https://sccl.bibliocommons.com/v2/record/S118C1020595) | [✓ 2](https://sjpl.bibliocommons.com/v2/record/S156C5876504) | [?](https://classiccatalog.mountainview.gov/record=b2381002) | [✓ 6](https://csul.iii.com/record=b45170422) |
 | 媽媽買綠豆 | ? | [✓ 1](https://sccl.bibliocommons.com/v2/record/S118C593060) | — | — | — |
 | 子兒，吐吐 | ? | — | — | — | [✓ 7](https://csul.iii.com/record=b40645967) |
 | 寶寶喜歡吃 | ? | — | — | — | — |
-| 小藍和小黃 | ? | [✓ 1](https://sccl.bibliocommons.com/v2/record/S118C603415) | — | — | [✓ 1](https://csul.iii.com/record=b30346694) |
+| 小藍和小黃 | ? | [✓ 2](https://sccl.bibliocommons.com/v2/record/S118C603415) | — | — | [✓ 1](https://csul.iii.com/record=b30346694) |
 | 小金魚逃走了 | ? | [✓ 1](https://sccl.bibliocommons.com/v2/record/S118C1179700) | [✓ 4](https://sjpl.bibliocommons.com/v2/record/S156C6370352) | [?](https://classiccatalog.mountainview.gov/record=b3479942) | [✓ 4](https://csul.iii.com/record=b18585985) |
 | 小雨滴：給0-3歲的律動兒歌 | ? | — | — | — | — |
 | 小黃點 | ? | — | [✓ 3](https://sjpl.bibliocommons.com/v2/record/S156C6369933) | — | [✓ 1](https://csul.iii.com/record=b39877216) |
@@ -450,7 +449,7 @@ Legend: ✓ on that shelf now · in-library use only ✗ that branch's copies ar
 | 親愛的動物園 | ? | [✓ 1](https://sccl.bibliocommons.com/v2/record/S118C1360471) | — | — | — |
 | 說不要的書！ | ? | — | — | — | [✓ 2](https://csul.iii.com/record=b51314585) |
 | 誰來玩躲貓貓？ | ? | — | — | — | — |
-| 誰吃掉了？ | ? | [✓ 1](https://sccl.bibliocommons.com/v2/record/S118C604978) | — | — | [✓ 2](https://csul.iii.com/record=b18585988) |
+| 誰吃掉了？ | ? | [✗](https://sccl.bibliocommons.com/v2/record/S118C604978) | — | — | [✓ 2](https://csul.iii.com/record=b18585988) |
 | 誰的家到了？ | ? | [✗](https://sccl.bibliocommons.com/v2/record/S118C832059) | — | — | — |
 | 貝蒂好想好想吃香蕉 | ? | [✗](https://sccl.bibliocommons.com/v2/record/S118C1308327) | [✓ 3](https://sjpl.bibliocommons.com/v2/record/S156C5709834) | — | — |
 | 跑跑鎮 | ? | — | — | — | [✓ 2](https://csul.iii.com/record=b39984388) |
