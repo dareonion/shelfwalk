@@ -7,6 +7,7 @@ import urllib.parse
 from html import unescape as htmlunescape
 
 import catalog_db as db
+from sources.nyt import clean_nyt_author
 from acclaim_core import (  # noqa: F401
     BROWSER, HARVEST_DIR, HTTP, WIKIDATA, Source, _arm_archive, _decode_page,
     _fetch, _fetch_note, _flat_name, _kp_title_case, _strip, _warn_if_mostly_failing,

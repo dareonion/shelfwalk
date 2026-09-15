@@ -53,7 +53,7 @@ from sources.nobel import *  # noqa: F401,F403
 from sources.goodreads import _gr_form  # noqa: F401
 from sources.latimes import _lat_form  # noqa: F401
 from sources.obama import _OBAMA_STOP_RE  # noqa: F401
-from sources.sfadb import _sfadb_form  # noqa: F401
+from sources.sfadb import _load_sfadb, _sfadb_form  # noqa: F401
 
 # --- registry -------------------------------------------------------------------
 

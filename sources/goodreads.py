@@ -71,7 +71,7 @@ def load_goodreads(conn) -> int:
     import datetime
     fails: list = []
     n = years_ok = parsed = 0
-    for year in range(GOODREADS_FIRST_YEAR.date.today().year + 1):
+    for year in range(GOODREADS_FIRST_YEAR, datetime.date.today().year + 1):
         raw = _fetch(conn, GOODREADS_YEAR.format(year), fails, timeout=60)
         if raw is None:
             continue

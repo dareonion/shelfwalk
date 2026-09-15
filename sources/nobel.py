@@ -51,28 +51,3 @@ def load_nobel(conn) -> int:
                  note=_fetch_note(len(payload.get("nobelPrizes", [])), fails,
                                   "prize years (author-level)"))
     return n
-
-
-def _load_obama_harvest(conn, path: str) -> int:
-    """harvest/obama.json: [{year, url, books:[{title, author}]}]."""
-    with open(path, encoding="utf-8") as fh:
-        payload = json.load(fh)
-    n = posts = 0
-    for post in payload:
-        year = post.get("year")
-        year = int(year) if str(year).isdigit() else None
-        posts += 1
-        for b in post.get("books", []):
-            title = demojibake((b.get("title") or "").strip())
-            if not title:
-                continue
-            author = demojibake((b.get("author") or "").strip()) or None
-            key = db.upsert_work(conn, title, author)
-            if db.add_accolade(conn, key, "obama", "list", "listed",
-                               category="Obama's favorites", year=year,
-                               url=post.get("url")):
-                n += 1
-        conn.commit()
-    db.log_fetch(conn, "obama", posts > 0, url=OBAMA_FEED, n_records=n,
-                 note=f"{posts} post(s) from browser harvest")
-    return n

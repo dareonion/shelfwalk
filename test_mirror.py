@@ -201,6 +201,43 @@ def test_shelf_searches_the_first_of_several_authors(mirrored_catalog):
     assert any(c["format"] == "BK" and c["authors"] == ["Klein, Ezra"] for c in kept)
 
 
+# --- every loader, offline ------------------------------------------------------
+
+def test_every_registered_loader_runs_offline(conn, monkeypatch, tmp_path):
+    """Each SOURCES loader completes against the mirror and harvest/ without
+    raising. Unmirrored pages fail like a dead link, so this checks the code
+    paths (names, imports, signatures), not coverage. A browser-tier source
+    with no harvest on this machine is skipped."""
+    import urllib.request
+
+    import bayarea_lookup as B
+
+    def get(url, **_kw):
+        raw = db.get_raw_page(conn, url)
+        if raw is None:
+            raise RuntimeError(f"not mirrored: {url}")
+        return raw
+
+    def no_network(*_a, **_kw):
+        raise RuntimeError("network access in a test")
+
+    monkeypatch.setattr(B, "_get", get)
+    monkeypatch.setattr(urllib.request, "urlopen", no_network)
+    scratch = db.open_db(str(tmp_path / "loaders.db"))
+    monkeypatch.setattr(B, "_archive_path", None)
+    errors = {}
+    for key, source in A.SOURCES.items():
+        harvested = any(os.path.exists(os.path.join(A.HARVEST_DIR, name))
+                        for name in (f"{key}.json", key))
+        if source.transport == A.BROWSER and not harvested:
+            continue
+        try:
+            source.load(scratch)
+        except Exception as exc:                          # noqa: BLE001
+            errors[key] = f"{type(exc).__name__}: {exc}"
+    assert errors == {}
+
+
 # --- the loaded corpus: shape assertions ----------------------------------------
 
 def test_every_source_has_at_least_one_winner(conn):

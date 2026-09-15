@@ -85,7 +85,7 @@ def load_kirkus(conn) -> int:
     import datetime
     fails: list = []
     n = years_ok = parsed = 0
-    for year in range(KIRKUS_FIRST_YEAR.date.today().year + 1):
+    for year in range(KIRKUS_FIRST_YEAR, datetime.date.today().year + 1):
         raw = _fetch(conn, KIRKUS_YEAR.format(year), fails, timeout=60)
         if raw is None:
             continue
