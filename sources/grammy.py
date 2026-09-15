@@ -81,8 +81,6 @@ def load_grammy(conn) -> int:
         # the performing artist is the best author guess we have; for spoken
         # word they are usually the same person
         key = db.upsert_work(conn, e["title"], e["narrator"])
-        conn.execute("UPDATE works SET form = COALESCE(form, 'audio') "
-                     "WHERE work_key = ?", (key,))
         if db.add_accolade(conn, key, "grammy", "award", e["status"],
                            category="Best Audio Book / Spoken Word",
                            year=e["year"], narrator=e["narrator"],

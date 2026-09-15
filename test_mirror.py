@@ -9,11 +9,13 @@ by hand. They skip when a page is not mirrored, so a fresh clone is not blocked.
 from __future__ import annotations
 
 import os
+import re
 
 import pytest
 
 import acclaim as A
 import catalog_db as db
+from sources import audies as AU
 
 DB = os.environ.get("SHELFWALK_DB", "shelfwalk.db")
 
@@ -185,6 +187,112 @@ def test_shelf_searches_the_first_of_several_authors(mirrored_catalog):
     credited author."""
     kept = A.shelf_candidates("sccl", "Abundance", "Ezra Klein & Derek Thompson")
     assert any(c["format"] == "BK" and c["authors"] == ["Klein, Ezra"] for c in kept)
+
+
+# --- Audie Awards: every mirrored year page -----------------------------------
+
+def _audie_year(conn, year):
+    page = _page(conn, AU.AUDIE_BASE + AU.AUDIE_YEARS[year])
+    return page, AU.parse_audie_any(page)
+
+
+def _one(entries, category, status="winner"):
+    got = [e for e in entries if e["category"] == category and e["status"] == status]
+    assert len(got) == 1, (category, status, got)
+    return got[0]
+
+
+def test_audie_audiobook_of_the_year_winners(conn):
+    """Read off each year's page, including the 2008 header that drops 'OF'."""
+    expected = {
+        2008: ("The Chopin Manuscript: A Serial Thriller", "Alfred Molina"),
+        2009: ("The Graveyard Book", "Neil Gaiman"),
+        2017: ("Hamilton: The Revolution", "Mariska Hargitay"),
+        2022: ("Project Hail Mary", "Ray Porter"),
+    }
+    for year, (title, narrator) in expected.items():
+        _, entries = _audie_year(conn, year)
+        e = _one(entries, "Audiobook Of The Year")
+        assert (e["title"], e["narrator"]) == (title, narrator), year
+    _, entries = _audie_year(conn, 2022)
+    assert _one(entries, "Audiobook Of The Year")["author"] == "Andy Weir"
+    _, entries = _audie_year(conn, 2017)
+    assert _one(entries, "Audiobook Of The Year")["author"] == \
+        "Lin-Manuel Miranda and Jeremy McCarter"
+
+
+def test_audie_narrator_categories_name_the_book_not_the_narrator(conn):
+    """2022 onward list '<Narrator> / for / <title> / By <Author>'."""
+    _, entries = _audie_year(conn, 2023)
+    male = _one(entries, "Best Male Narrator")
+    assert (male["title"], male["author"], male["narrator"]) == \
+        ("Fairy Tale", "Stephen King", "Seth Numrich")
+    female = _one(entries, "Best Female Narrator")
+    assert (female["title"], female["author"], female["narrator"]) == \
+        ("The Eye of the World", "Robert Jordan", "Rosamund Pike")
+    for year in (2022, 2023, 2024, 2025, 2026):
+        _, entries = _audie_year(conn, year)
+        narr = [e for e in entries if "Narrator" in e["category"]]
+        assert narr and all(e["title"] != e["narrator"] for e in narr), year
+
+
+def test_audie_modern_entries_carry_their_author(conn):
+    """'By <Author>' and 'Narrated by <Narrator>' sit on separate lines."""
+    _, entries = _audie_year(conn, 2024)
+    tom = [e for e in entries if e["title"] == "Tom Lake"]
+    assert tom and all(e["author"] == "Ann Patchett" for e in tom)
+    assert all(e["narrator"] == "Meryl Streep" for e in tom)
+    for year in (2022, 2023, 2024, 2025, 2026):
+        _, entries = _audie_year(conn, year)
+        assert sum(1 for e in entries if not e["author"]) == 0, year
+
+
+def test_audie_legacy_pages_include_finalists(conn):
+    """Before 2017 a finalist is '<title>' then 'by <A>; narrated by <N> (<P>)'."""
+    _, entries = _audie_year(conn, 1996)
+    win = _one(entries, "Children’s Title")
+    assert (win["title"], win["author"], win["narrator"]) == \
+        ("Jumanji", "Chris Van Allsburg", "Robin Williams")
+    fin = {e["title"]: e for e in entries
+           if e["category"] == "Children’s Title" and e["status"] == "finalist"}
+    assert set(fin) == {"Octopus Lady and Crow", "Toy Story Read-Along"}
+    assert fin["Octopus Lady and Crow"]["author"] == "Johnny Moses"
+    assert fin["Octopus Lady and Crow"]["narrator"] == "Johnny Moses"
+
+
+def test_audie_every_category_on_every_page_yields_entries(conn):
+    """A category header with nothing parsed under it means a layout slipped.
+    The 2018 marketing winner is a campaign the page gives no credit for."""
+    no_credit = {(2018, "Excellence In Marketing", "winner")}
+    for year in sorted(AU.AUDIE_YEARS):
+        page, entries = _audie_year(conn, year)
+        lines = AU._audie_lines(page)
+        lines = lines[:lines.index("APA LINKS")]
+        headers = {AU._header(x) for x in lines if AU._header(x)}
+        headers = {h for h in headers
+                   if not AU._AU_PERSON_CATEGORY_RE.search(h[0])}
+        parsed = {(e["category"], e["status"]) for e in entries}
+        missing = {h for h in headers - parsed if (year, *h) not in no_credit}
+        assert not missing, (year, missing)
+
+
+def test_audie_modern_pages_parse_every_published_entry(conn):
+    """From 2022 each entry ends in a 'Published by' line."""
+    for year in (2022, 2023, 2024, 2025, 2026):
+        page, entries = _audie_year(conn, year)
+        published = sum(1 for x in AU._audie_lines(page) if x.startswith("Published by"))
+        assert len(entries) >= published - 2, (year, len(entries), published)
+
+
+def test_audie_titles_are_never_credits(conn):
+    """A credit line never becomes a title ('Written in My Own Heart's Blood'
+    is a real one)."""
+    for year in sorted(AU.AUDIE_YEARS):
+        _, entries = _audie_year(conn, year)
+        bad = [e["title"] for e in entries
+               if re.match(r"^(?:(?:written|narrated|performed|published)"
+                           r"(?: and \w+)? )?by\b", e["title"], re.I)]
+        assert not bad, (year, bad)
 
 
 # --- every loader, offline ------------------------------------------------------
