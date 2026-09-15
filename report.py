@@ -27,6 +27,7 @@ import argparse
 import json
 import re
 import unicodedata
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import catalog_db as db
@@ -233,6 +234,43 @@ def _load_remote(db_path):
     return rows, bibs, titles, editions, as_of
 
 
+# One refresh checks every system within an hour or two of the others, so a
+# system this far behind the newest one was not in the latest refresh at all.
+STALE_AFTER = timedelta(hours=20)
+
+
+def stale_systems(db_path) -> dict:
+    """{system: (last checked, why)} for systems the latest refresh left out.
+
+    Such a system shows no shelf state until it is checked again, instead of
+    old shelf marks printed under the report's newer date.
+    """
+    import bayarea_lookup
+    conn = db.open_db(db_path)
+    last = dict(conn.execute("SELECT system, MAX(checked_at) FROM remote_availability "
+                             "GROUP BY system").fetchall())
+    conn.close()
+    if not last:
+        return {}
+    newest = max(datetime.fromisoformat(t) for t in last.values())
+    why = getattr(bayarea_lookup, "SKIPPED_SYSTEMS", {})
+    return {s: (t, why.get(s, "it was not checked in the latest refresh"))
+            for s, t in last.items()
+            if newest - datetime.fromisoformat(t) > STALE_AFTER}
+
+
+def _stale_note(stale, only=None) -> list:
+    out = []
+    for s in ((only,) if only else REMOTE_ORDER):
+        if s in (stale or {}):
+            when, why = stale[s]
+            out.append(f"\n> ⚠ **{REMOTE_SYSTEMS[s][0]}** was last checked "
+                       f"**{when[:10]}**: {why}. Its shelf status is left out "
+                       f"rather than shown stale (marked `?`); its catalog links "
+                       f"still work.\n")
+    return out
+
+
 _LANG_LABEL = {"chi": "Chinese", "fre": "French", "spa": "Spanish",
                "jpn": "Japanese", "kor": "Korean", "vie": "Vietnamese",
                "rus": "Russian", "ger": "German"}
@@ -393,11 +431,16 @@ def _ages(det) -> str:
 _LOCAL_SYSTEMS = ("sccl", "sjpl", "mvpl")   # you can walk in; LINK+ you request
 
 
-def _todo_md(meta, matched, bib_of, bstate, branches, titles, editions) -> list:
+def _todo_md(meta, matched, bib_of, bstate, branches, titles, editions,
+             stale=()) -> list:
     """The actionable ladder: nothing to do (it's on a favorite shelf) → place a
     hold → request through LINK+ → buy. Availability alone doesn't say which,
-    so this is the part of the report you act on."""
-    fav_keys = [(s, b) for s, b, _ in FAVORITES]
+    so this is the part of the report you act on.
+
+    A stale system still counts as owning a title (holdings barely move), but
+    its old shelf marks must not excuse a title from the hold list."""
+    fav_keys = [(s, b) for s, b, _ in FAVORITES if s not in stale]
+    bstate = {k: v for k, v in bstate.items() if k[1] not in stale}
     digital = set()     # (tkey, system) that own it only as eBook/eAudiobook
     physical = set()
     for (system, rid, bib), e in editions.items():
@@ -433,7 +476,9 @@ def _todo_md(meta, matched, bib_of, bstate, branches, titles, editions) -> list:
                                 and (s, None) not in fav_keys})
             speed = (f"on the shelf at {', '.join(elsewhere[:2])}"
                      f"{f' +{len(elsewhere) - 2}' if len(elsewhere) > 2 else ''}"
-                     if elsewhere else "every copy out — hold and wait")
+                     if elsewhere else
+                     "shelf status not current" if all(s in stale for s in owns)
+                     else "every copy out — hold and wait")
             # the title stays plain — "Owned by" carries a link per system
             hold.append(f"| {title} | {where} | {speed} |")
         elif (tkey, "linkplus") in matched:
@@ -475,7 +520,8 @@ def _todo_md(meta, matched, bib_of, bstate, branches, titles, editions) -> list:
     return out
 
 
-def _bayarea_md(rows, bibs, titles, editions, as_of) -> str:
+def _bayarea_md(rows, bibs, titles, editions, as_of, stale=None) -> str:
+    stale = stale or {}
     # per (title-key, system): best state + branches with an available copy
     state = {}      # (tkey, system) -> 'available' | 'out' | 'reference'
     branches = {}   # (tkey, system) -> set of branches with a copy on shelf
@@ -508,6 +554,8 @@ def _bayarea_md(rows, bibs, titles, editions, as_of) -> str:
     def cell(tkey, system):
         k = (tkey, system)
         url = record_url(system, bib_of.get(k))
+        if system in stale and k in matched:
+            return _link("?", url)
         if k in branches:
             n = len(branches[k])
             return _link("✓" if system == "mvpl" else f"✓ {n}", url)
@@ -523,6 +571,8 @@ def _bayarea_md(rows, bibs, titles, editions, as_of) -> str:
             return ""
         if (tkey, system) not in matched:
             return "—"
+        if system in stale:
+            return _link("?", record_url(system, bib_of.get((tkey, system))))
         if branch is None:
             states = [s for (tk, sy, _), s in bstate.items()
                       if tk == tkey and sy == system]
@@ -535,18 +585,21 @@ def _bayarea_md(rows, bibs, titles, editions, as_of) -> str:
                      record_url(system, bib_of.get((tkey, system))))
 
     sys_names = [REMOTE_SYSTEMS[s][0] for s in REMOTE_ORDER]
-    out = ["# Bay Area libraries — overview\n", _gen_header(as_of),
-           "\nThe want-list, looked up at four Bay Area systems "
-           "(`uv run bayarea_lookup.py`):\n",
-           "| Key | System | In catalog | On a shelf now |", "|---|---|---|---|"]
+    out = ["# Bay Area libraries — overview\n", _gen_header(as_of)]
+    out += _stale_note(stale)
+    out += ["\nThe want-list, looked up at four Bay Area systems "
+            "(`uv run bayarea_lookup.py`):\n",
+            "| Key | System | In catalog | On a shelf now |", "|---|---|---|---|"]
     for s in REMOTE_ORDER:
         in_cat = sum(1 for (tk, sy) in matched if sy == s)
-        on_shelf = sum(1 for (tk, sy) in branches if sy == s)
+        on_shelf = (f"? (last checked {stale[s][0][:10]})" if s in stale else
+                    sum(1 for (tk, sy) in branches if sy == s))
         out.append(f"| `{s}` | {REMOTE_SYSTEMS[s][0]} | {in_cat} | {on_shelf} |")
     out += ["\nPer-system shelf lists: " +
             ", ".join(f"`{REMOTE_SYSTEMS[s][1]}`" for s in REMOTE_ORDER) +
             "; per-title bibliographic detail: `titles.md`.\n"]
-    out += _todo_md(meta, matched, bib_of, bstate, branches, titles, editions)
+    out += _todo_md(meta, matched, bib_of, bstate, branches, titles, editions,
+                    stale)
     out += ["\n## Your branches\n",
             "| Title | Type | " + " | ".join(lbl for _, _, lbl in FAVORITES) + " |",
             "|" + "---|" * (2 + len(FAVORITES))]
@@ -556,7 +609,10 @@ def _bayarea_md(rows, bibs, titles, editions, as_of) -> str:
         out.append(f"| {title} | {fmt} | " + " | ".join(cells) + " |")
     out += ["\nLegend: ✓ on that shelf now · in-library use only "
             "✗ that branch's copies are all out (blank = that branch doesn't "
-            "hold it) — not in that system's catalog. Marks link to the "
+            "hold it) — not in that system's catalog"
+            + (" ? in that catalog, shelf status not current (see the note "
+               "at the top)" if stale else "")
+            + ". Marks link to the "
             "record in that catalog and cover every tracked version "
             "(board/audio/translations — breakdown in the per-system files).\n",
             "\n## Title × system\n",
@@ -568,8 +624,9 @@ def _bayarea_md(rows, bibs, titles, editions, as_of) -> str:
         out.append(f"| {title} | {fmt} | " + " | ".join(cells) + " |")
     out.append("\nLegend: ✓ on the shelf now (SCCLD/SJPL: at that many branches) "
                "· in-library use only ✗ in the catalog but no copy on the shelf "
-               "— not found in that catalog (blank = not looked up there yet). "
-               "Marks link to the record in that catalog and cover every "
+               "— not found in that catalog (blank = not looked up there yet)"
+               + (" ? in the catalog, shelf status not current" if stale else "")
+               + ". Marks link to the record in that catalog and cover every "
                "tracked version of the title.")
     return "\n".join(out) + "\n"
 
@@ -617,7 +674,8 @@ def _linkplus_md(rows, bibs, titles, editions, as_of) -> str:
     return "\n".join(lines) + "\n"
 
 
-def _system_md(system, rows, bibs, titles, editions, as_of) -> str:
+def _system_md(system, rows, bibs, titles, editions, as_of, stale=None) -> str:
+    stale = stale or {}
     if system == "linkplus":
         return _linkplus_md(rows, bibs, titles, editions, as_of)
     name, _ = REMOTE_SYSTEMS[system]
@@ -710,6 +768,28 @@ def _system_md(system, rows, bibs, titles, editions, as_of) -> str:
     not_in_cat = sorted({(titles[b["record_id"]]["title"]
                           if b["record_id"] in titles else b["record_id"])
                          for b in unmatched})
+
+    if system in stale:
+        # holdings only: every shelf line below would be dated, and a dated
+        # "on the shelf" is the one thing this file must never say
+        lines = [f"# {name} — want-list in the catalog\n",
+                 _gen_header(stale[system][0])]
+        lines += _stale_note(stale, only=system)
+        lines.append(f"\n**{len(all_records)}** of **{len(sbibs)}** titles are "
+                     f"in the catalog. Titles link to the record there, which "
+                     f"shows the live shelf status.\n")
+        held = dedupe_versions(all_versions)
+        if held:
+            lines += ["\n## In the catalog\n", "| Title | Version |", "|---|---|"]
+            lines += [f"| {link} | {lab} |" for link, lab in held]
+        if digital:
+            lines.append("\n## Digital (eBook / eAudiobook)\n")
+            lines += ["| Title | Version |", "|---|---|"]
+            lines += [f"| {link} | {lab} |" for link, lab in dedupe_versions(digital)]
+        if not_in_cat:
+            lines.append("\n## Not found in this catalog\n")
+            lines.append(", ".join(not_in_cat) + "\n")
+        return "\n".join(lines) + "\n"
 
     lines = [f"# {name} — want-list on the shelf now\n", _gen_header(as_of),
              f"\n**{len(all_records)}** of **{len(sbibs)}** titles are in the "
@@ -815,10 +895,11 @@ def write_bayarea(db_path: str, outdir: str = ".") -> list[str]:
     rows, bibs, titles, editions, as_of = _load_remote(db_path)
     if not bibs:
         return []
+    stale = stale_systems(db_path)
     outdir = Path(outdir)
     written = []
     (outdir / "bayarea.md").write_text(
-        _bayarea_md(rows, bibs, titles, editions, as_of), encoding="utf-8")
+        _bayarea_md(rows, bibs, titles, editions, as_of, stale), encoding="utf-8")
     written.append(str(outdir / "bayarea.md"))
     (outdir / "titles.md").write_text(
         _titles_md(bibs, titles, editions, as_of), encoding="utf-8")
@@ -826,7 +907,7 @@ def write_bayarea(db_path: str, outdir: str = ".") -> list[str]:
     for system, (_, fname) in REMOTE_SYSTEMS.items():
         if any(b["system"] == system for b in bibs):
             (outdir / fname).write_text(
-                _system_md(system, rows, bibs, titles, editions, as_of),
+                _system_md(system, rows, bibs, titles, editions, as_of, stale),
                 encoding="utf-8")
             written.append(str(outdir / fname))
     return written

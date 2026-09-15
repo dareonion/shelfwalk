@@ -1025,7 +1025,7 @@ def test_resolve_work_bibs_skips_systems_already_searched(monkeypatch):
     import hotlist
     calls = []
 
-    def fake(system, entry):
+    def fake(system, entry, errors=None):
         calls.append(system)
         return [{"bib_id": "S1", "title": "x", "format_class": "book",
                  "url": "u"}]
@@ -1043,10 +1043,116 @@ def test_resolve_work_bibs_refresh_forces_a_research(monkeypatch):
     import hotlist
     calls = []
     monkeypatch.setattr(hotlist, "bc_bibs",
-                        lambda s, e: calls.append(s) or [])
+                        lambda s, e, errors=None: calls.append(s) or [])
     with tempfile.TemporaryDirectory() as d:
         conn = db.open_db(os.path.join(d, "t.db"))
         A.resolve_work_bibs(conn, "w|a", "T", "A")
         n = len(calls)
         A.resolve_work_bibs(conn, "w|a", "T", "A", refresh=True)
         assert len(calls) == 2 * n
+
+
+# --- the shelf join's matcher --------------------------------------------------
+#
+# Records are shaped after real catalog responses; test_mirror.py replays those.
+
+def _rec(title, authors, format_class="book", language="eng"):
+    return {"title": title, "authors": authors, "format_class": format_class,
+            "language": language}
+
+
+def test_author_surnames_splits_co_authors_and_drops_suffixes():
+    assert A.author_surnames("Ezra Klein & Derek Thompson") == ["Klein", "Thompson"]
+    assert A.author_surnames("Lin-Manuel Miranda and Quiara Alegría Hudes") == \
+        ["Miranda", "Hudes"]
+    assert A.author_surnames("John Milton Cooper, Jr.") == ["Cooper"]
+    assert A.author_surnames("Brendan Phibbs, MD") == ["Phibbs"]
+    assert A.author_surnames("Ursula K. Le Guin") == ["Guin"]
+    assert A.author_surnames(None) == []
+
+
+def test_shelf_match_rejects_a_title_that_only_contains_the_work():
+    assert A.shelf_match("Home", "Marilynne Robinson",
+                         _rec("Home", ["Robinson, Marilynne"]))
+    assert not A.shelf_match("Home", "Marilynne Robinson",
+                             _rec("Close to Home", ["Robinson, Peter"]))
+    assert not A.shelf_match("Home", "Marilynne Robinson",
+                             _rec("Stealing Home: An Intimate Family Portrait",
+                                  ["Robinson, Sharon"]))
+
+
+def test_shelf_match_wants_print_and_english():
+    assert not A.shelf_match("Euphoria", "Lily King",
+                             _rec("Euphoria: Complete Seasons 1-2", [], "other"))
+    assert not A.shelf_match("The Corrections", "Jonathan Franzen",
+                             _rec("The Corrections", ["Franzen, Jonathan"], "audio"))
+    assert not A.shelf_match("A Little Life", "Hanya Yanagihara",
+                             _rec("Miao xiao yi sheng: A little life",
+                                  ["Yanagihara, Hanya"], language="chi"))
+
+
+def test_shelf_match_needs_the_whole_stem_not_one_comma_part():
+    assert A.shelf_match("Sing, Unburied, Sing", "Jesmyn Ward",
+                         _rec("Sing, Unburied, Sing: A Novel", ["Ward, Jesmyn"]))
+    assert not A.shelf_match("Sing, Unburied, Sing", "Jesmyn Ward",
+                             _rec("Sing", ["Ward, Jesmyn"]))
+
+
+def test_shelf_match_finds_a_volume_filed_under_its_series():
+    assert A.shelf_match(
+        "Master of the Senate", "Robert A. Caro",
+        _rec("The Years of Lyndon Johnson: [Vol. 3], Master of the Senate",
+             ["Caro, Robert A."]))
+
+
+def test_shelf_match_authorless_record_needs_the_exact_title():
+    """Anthologies are often catalogued with no author, so they cannot be
+    rejected for lacking one — but nothing else anchors them either."""
+    assert A.shelf_match("The Best American Essays 2020", "André Aciman",
+                         _rec("The Best American Essays 2020", []))
+    assert not A.shelf_match("Home", "Marilynne Robinson",
+                             _rec("Making Home From War: Stories", []))
+
+
+def test_shelf_match_takes_any_co_author_accents_and_ampersands():
+    assert A.shelf_match("Abundance", "Ezra Klein & Derek Thompson",
+                         _rec("Abundance", ["Klein, Ezra"]))
+    assert A.shelf_match("Trust", "Hernan Diaz", _rec("Trust", ["Díaz, Hernán"]))
+    assert A.shelf_match("Nettle & Bone", "T. Kingfisher",
+                         _rec("Nettle and Bone", ["Kingfisher, T."]))
+
+
+def test_resolve_work_bibs_refresh_drops_a_match_that_no_longer_holds(monkeypatch):
+    """A re-search replaces that system's cached rows, so a bib the matcher now
+    rejects does not stay cached."""
+    import hotlist
+    served = [[{"bib_id": "S1", "title": "Home", "authors": ["Robinson, Marilynne"],
+                "format_class": "book", "language": "eng", "url": "u"}]]
+    monkeypatch.setattr(hotlist, "bc_bibs", lambda s, e, errors=None: served[0])
+    with tempfile.TemporaryDirectory() as d:
+        conn = db.open_db(os.path.join(d, "t.db"))
+        A.resolve_work_bibs(conn, "home|robinson", "Home", "Marilynne Robinson",
+                            systems=("sccl",))
+        assert [r["bib_id"] for r in db.work_bibs(conn, "home|robinson")] == ["S1"]
+        served[0] = []
+        A.resolve_work_bibs(conn, "home|robinson", "Home", "Marilynne Robinson",
+                            systems=("sccl",), refresh=True)
+        assert [r["bib_id"] for r in db.work_bibs(conn, "home|robinson")] == [None]
+
+
+def test_a_failed_search_is_not_cached_as_not_held(monkeypatch):
+    """bc_bibs returns [] for a failed query; that must leave the system
+    unsearched, not cached as holding nothing."""
+    import hotlist
+
+    def failing(system, entry, errors=None):
+        if errors is not None:
+            errors.append(f"{system}: database is locked")
+        return []
+
+    monkeypatch.setattr(hotlist, "bc_bibs", failing)
+    with tempfile.TemporaryDirectory() as d:
+        conn = db.open_db(os.path.join(d, "t.db"))
+        A.resolve_work_bibs(conn, "abundance|klein", "Abundance",
+                            "Ezra Klein & Derek Thompson", systems=("sjpl",))
+        assert db.systems_searched(conn, "abundance|klein") == set()

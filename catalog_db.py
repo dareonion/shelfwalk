@@ -857,6 +857,12 @@ def record_work_bib(conn, work_key_: str, system: str, bib: dict = None) -> None
          (bib or {}).get("format_class"), (bib or {}).get("url"), _now()))
 
 
+def clear_work_bibs(conn, work_key_: str, system: str) -> None:
+    """Forget one system's matches for a work before it is searched again."""
+    conn.execute("DELETE FROM work_bibs WHERE work_key = ? AND system = ?",
+                 (work_key_, system))
+
+
 def work_bibs(conn, work_key_: str, system: str = None):
     where = "WHERE work_key = ?" + (" AND system = ?" if system else "")
     args = (work_key_, system) if system else (work_key_,)

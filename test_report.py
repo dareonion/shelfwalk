@@ -96,9 +96,48 @@ def test_lakeview_empty_is_graceful():
         assert "(none right now)" in lake
 
 
-if __name__ == "__main__":
-    fns = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
-    for fn in fns:
-        fn()
-        print(f"ok  {fn.__name__}")
-    print(f"\n{len(fns)} passed")
+def test_a_system_left_out_of_the_refresh_shows_no_shelf_state():
+    """A system the latest refresh left out gets a warning and '?' marks instead
+    of its old shelf state, which no longer takes a title off the hold
+    list."""
+    with tempfile.TemporaryDirectory() as d:
+        dbp = os.path.join(d, "t.db")
+        conn = db.open_db(dbp)
+        old, new = "2026-09-11T07:30:00", "2026-09-14T07:30:00"
+        db.upsert_title(conn, "WANT:1", "Dear zoo", old, {"format": "picture"})
+        for system, ts, bib, branch in (
+                ("sccl", new, "S1", "Milpitas Library"),
+                ("mvpl", old, "b1", "Children's Picture Books")):
+            sid = db.record_scrape(conn, "remote", ts, source="test", profile=system)
+            db.upsert_remote_bib(conn, system, "WANT:1", ts,
+                                 {"bib_id": bib, "title": "Dear zoo"}, 1.0)
+            db.replace_remote_editions(conn, system, "WANT:1",
+                                       [{"bib_id": bib, "title": "Dear zoo",
+                                         "format_class": "picture",
+                                         "kind": "primary"}], ts)
+            db.add_remote_availability(conn, sid, system, "WANT:1", bib, "Dear zoo",
+                                       [{"branch": branch, "call_number": "JP",
+                                         "status": "AVAILABLE",
+                                         "state": "available"}], ts)
+        conn.commit()
+        conn.close()
+
+        assert set(report.stale_systems(dbp)) == {"mvpl"}
+        report.write_bayarea(dbp, d)
+        overview = open(os.path.join(d, "bayarea.md"), encoding="utf-8").read()
+        assert "⚠ **Mountain View Public Library** was last checked **2026-09-11**" \
+            in overview
+        assert "| `mvpl` | Mountain View Public Library | 1 | ? (last checked " \
+               "2026-09-11) |" in overview
+        # Mountain View was a favourite shelf holding it; that must not count,
+        # and Milpitas isn't a favourite, so the title needs a hold
+        assert "### Place a hold" in overview
+        assert "on the shelf at Milpitas Library" in overview
+
+        mv = open(os.path.join(d, "mountainview.md"), encoding="utf-8").read()
+        assert "want-list in the catalog" in mv
+        assert "data as of **2026-09-11T07:30:00**" in mv
+        assert "on the shelf" not in mv
+        assert "[Dear zoo](https://classiccatalog.mountainview.gov/record=b1)" in mv
+        sccl = open(os.path.join(d, "sccl.md"), encoding="utf-8").read()
+        assert "Milpitas Library — 1 on the shelf" in sccl

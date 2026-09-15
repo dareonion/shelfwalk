@@ -1091,9 +1091,50 @@ def test_editions_store_report_labels_links_and_supersede():
         conn.close()
 
 
-if __name__ == "__main__":
-    fns = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
-    for fn in fns:
-        fn()
-        print(f"ok  {fn.__name__}")
-    print(f"\n{len(fns)} passed")
+# --- formats, and a system that stops answering ---------------------------------
+
+def test_non_book_formats_are_never_books():
+    """Unrecognised BiblioCommons formats class as 'other', never 'book': a
+    Blu-ray must not count as a shelf copy or take a hot-list hold."""
+    for fmt in ("DVD", "BLURAY", "VIDEO_ONLINE", "MUSIC_CD", "BOOK_CLUB_KIT",
+                "BR", "RESTRICTED_BOOK_MP3", "A_CODE_NOT_SEEN_YET"):
+        assert ba._bc_format_class(fmt) == "other", fmt
+    for fmt in ("BK", "LPRINT", "LARGE_PRINT", "PAPERBACK", "KIT"):
+        assert ba._bc_format_class(fmt) == "book", fmt
+    assert ba._bc_format_class("SPOKEN_CD") == "audio"
+    assert ba._bc_format_class("GRAPHIC_NOVEL_DOWNLOAD") == "ebook"
+
+
+def test_want_list_formats_keep_their_class():
+    """The want-list only ever sees BC_BOOK_FORMATS; none may become 'other'."""
+    assert all(ba._bc_format_class(f) != "other" for f in ba.BC_BOOK_FORMATS)
+
+
+def test_mountain_view_is_not_a_default_system():
+    assert "mvpl" not in ba.DEFAULT_SYSTEMS
+    assert set(ba.DEFAULT_SYSTEMS) == set(ba.SYSTEMS) - set(ba.SKIPPED_SYSTEMS)
+
+
+def test_a_system_that_keeps_failing_is_abandoned():
+    """A system that fails MAX_CONSECUTIVE_FAILURES titles in a row is dropped for
+    the run, so a blocked catalog cannot stall the others past the service
+    timeout."""
+    calls = []
+
+    class Refusing:
+        def search(self, query):
+            calls.append(query)
+            raise RuntimeError("GET failed after 3 tries: HTTP Error 403")
+
+    rows = [{"record_id": f"WANT:{i}", "title": f"Book {i}", "author": None,
+             "format": None, "isbns": None} for i in range(10)]
+    saved = dict(ba.SYSTEMS)
+    ba.SYSTEMS["refusing"] = ("Refusing library", Refusing)
+    try:
+        with tempfile.TemporaryDirectory() as d:
+            ba._lookup_system(os.path.join(d, "t.db"), "refusing", rows, {},
+                              0, False, False)
+    finally:
+        ba.SYSTEMS.clear()
+        ba.SYSTEMS.update(saved)
+    assert len(calls) == ba.MAX_CONSECUTIVE_FAILURES

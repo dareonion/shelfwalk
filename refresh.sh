@@ -41,11 +41,13 @@ main() {
         echo "=== $(date -Is) lookup exit $?"
     } >>"$log" 2>&1
 
-    # Keep the working tree clean: the .md files are generated, so an
-    # un-committed refresh just looks like uncommitted work forever.
-    if ! git diff --quiet -- '*.md'; then
-        git add -- '*.md'
-        git commit -q -m "Refresh availability $(date +%Y-%m-%d)" >>"$log" 2>&1 \
+    # Commit only the generated reports (the files carrying report.py's banner),
+    # never hand-written docs or anything else that happens to be staged.
+    local reports
+    mapfile -t reports < <(git grep -l 'AUTO-GENERATED from shelfwalk.db' -- '*.md')
+    if [ "${#reports[@]}" -gt 0 ] && ! git diff --quiet -- "${reports[@]}"; then
+        git commit -q -m "Refresh availability $(date +%Y-%m-%d)" \
+            -- "${reports[@]}" >>"$log" 2>&1 \
             && echo "=== committed regenerated reports" >>"$log"
     else
         # normal overnight: the libraries were shut, so nothing moved

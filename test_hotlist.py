@@ -255,3 +255,23 @@ def test_retiring_a_title_keeps_its_history():
         assert row["retired_at"] is not None
         assert conn.execute(
             "SELECT COUNT(*) c FROM hot_sightings").fetchone()["c"] == 1
+
+
+# --- matching: text folding and the default systems ------------------------------
+
+def test_accented_catalog_author_matches_a_plain_surname():
+    """Accents are folded, not stripped: SCCL credits Trust to 'Díaz, Hernán'."""
+    entry = {"title": "Trust", "author": "Diaz", "isbns": []}
+    assert H._entry_matches(entry, {"title": "Trust", "isbns": [],
+                                    "authors": ["Díaz, Hernán"]})
+
+
+def test_ampersand_and_and_are_the_same_title():
+    entry = {"title": "Nettle & Bone", "author": "Kingfisher", "isbns": []}
+    assert H._entry_matches(entry, {"title": "Nettle and Bone", "isbns": [],
+                                    "authors": ["Kingfisher, T."]})
+
+
+def test_mountain_view_is_not_watched_by_default():
+    assert "mvpl" not in H.WATCH_SYSTEMS
+    assert {"sccl", "sjpl"} <= set(H.WATCH_SYSTEMS)

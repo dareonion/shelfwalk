@@ -122,6 +122,85 @@ def test_pulitzer_finalists_start_in_1980():
     assert min(years) >= 1980
 
 
+# --- BiblioCommons: the acclaim shelf join -------------------------------------
+
+@pytest.fixture
+def mirrored_catalog(conn, monkeypatch):
+    """Serve every catalog request from raw_pages; skip when one isn't there."""
+    import bayarea_lookup as B
+
+    def get(url, **_kw):
+        raw = db.get_raw_page(conn, url)
+        if raw is None:
+            pytest.skip(f"not mirrored: {url}")
+        return raw
+    monkeypatch.setattr(B, "_get", get)
+
+
+def test_every_mirrored_bibliocommons_format_is_classified(conn):
+    """Unknown codes fall to 'other', which is safe but silent — so a code the
+    catalogs start sending must be placed deliberately, here."""
+    import json
+    import zlib
+
+    import bayarea_lookup as B
+    known = (B.BC_BOOK_FORMATS | B._BC_AUDIO_FORMATS | B._BC_PRINT_FORMATS
+             | B._BC_NONBOOK_FORMATS
+             | {"BOARD_BK", "PICTURE_BOOK", "EBOOK", "EAUDIOBOOK",
+                "GRAPHIC_NOVEL_DOWNLOAD"})
+    seen = set()
+    for (body,) in conn.execute(
+            "SELECT body_gz FROM raw_pages WHERE host = 'gateway.bibliocommons.com'"
+            " AND url LIKE '%/bibs/search%'"):
+        bibs = json.loads(zlib.decompress(body)).get("entities", {}).get("bibs") or {}
+        seen |= {(b.get("briefInfo") or {}).get("format") for b in bibs.values()}
+    seen.discard(None)
+    if not seen:
+        pytest.skip("no BiblioCommons searches mirrored")
+    assert seen - known == set()
+
+
+def test_shelf_home_is_marilynne_robinsons_not_every_robinson_home(mirrored_catalog):
+    """SCCL's search also returns Peter Robinson's 'Close to Home', 'Stealing
+    Home' and DVDs such as 'Home Page'; only her print Home is kept."""
+    kept = A.shelf_candidates("sccl", "Home", "Marilynne Robinson")
+    assert kept
+    assert all(c["authors"] == ["Robinson, Marilynne"] for c in kept)
+    assert all(c["title"] == "Home" for c in kept)
+
+
+def test_shelf_never_counts_a_dvd_as_the_novel(mirrored_catalog):
+    kept = A.shelf_candidates("paloalto", "Euphoria", "Lily King")
+    assert kept and all(c["format"] in ("BK", "LPRINT") for c in kept)
+    railroad = A.shelf_candidates("sccl", "The Underground Railroad",
+                                  "Colson Whitehead")
+    assert railroad and not {c["format"] for c in railroad} & {"DVD", "BLURAY"}
+
+
+def test_shelf_skips_a_translation_that_shares_the_title(mirrored_catalog):
+    """SJPL's Chinese edition is 'Miao xiao yi sheng: A little life'."""
+    kept = A.shelf_candidates("sjpl", "A Little Life", "Hanya Yanagihara")
+    assert kept and all(c["language"] == "eng" for c in kept)
+
+
+def test_shelf_finds_a_volume_filed_under_its_series(mirrored_catalog):
+    kept = A.shelf_candidates("sccl", "Master of the Senate", "Robert A. Caro")
+    assert any(c["title"].startswith("The Years of Lyndon Johnson") for c in kept)
+
+
+def test_shelf_matches_an_accented_credit(mirrored_catalog):
+    """SCCL credits the print *Trust* to 'Díaz, Hernán'; the corpus says Diaz."""
+    kept = A.shelf_candidates("sccl", "Trust", "Hernan Diaz")
+    assert any("Díaz" in a for c in kept for a in c["authors"])
+
+
+def test_shelf_searches_the_first_of_several_authors(mirrored_catalog):
+    """SCCL's print Abundance credits only Klein, so the search uses the first
+    credited author."""
+    kept = A.shelf_candidates("sccl", "Abundance", "Ezra Klein & Derek Thompson")
+    assert any(c["format"] == "BK" and c["authors"] == ["Klein, Ezra"] for c in kept)
+
+
 # --- the loaded corpus: shape assertions ----------------------------------------
 
 def test_every_source_has_at_least_one_winner(conn):
@@ -160,7 +239,7 @@ def test_short_fiction_is_actually_present(conn):
         "AND w.form IN ('novella','novelette','short-story')").fetchone()[0]
     if n == 0:
         pytest.skip("SF awards not loaded")
-    assert n > 4000, f"only {n} short-fiction rows; the quoted-title bug is back"
+    assert n > 4000, f"only {n} short-fiction rows; sfadb short fiction is under-parsed"
 
 
 def test_audiobook_awards_carry_narrators(conn):

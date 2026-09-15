@@ -92,7 +92,7 @@ SOURCES: dict[str, Source] = {
                forms=("novel", "nonfiction")),
         Source("nyt", "New York Times book lists", "list", BROWSER, load_nyt,
                cadence="annual-nov",
-               note="subscriber harvest; 100 Best of the 21st C. loaded",
+               note="subscriber harvest: 10 Best, 100 Notable, 100 Best of the 21st C.",
                forms=("novel", "nonfiction", "poetry")),
         Source("wsj", "WSJ Best Books", "list", BROWSER, load_wsj,
                cadence="annual-dec", note="subscriber harvest",
@@ -104,7 +104,7 @@ SOURCES: dict[str, Source] = {
                forms=("nonfiction",)),
         Source("latimes", "LA Times Book Prizes", "award", HTTP, load_latimes,
                cadence="annual-apr",
-               note="15 categories; page shows the current cycle only",
+               note="history page, 1980 onward; winner ribbon is its own module",
                forms=("novel", "nonfiction", "poetry", "collection")),
         Source("douban", "Douban annual book lists", "list", BROWSER,
                load_douban, cadence="annual-dec",
@@ -359,9 +359,13 @@ def cmd_find(args) -> int:
     for name, standalone in list(names.items())[:args.limit]:
         tag = "standalone printing" if standalone else "anthology/collection"
         print(f"\n  · {name}   ({tag})")
+        # the surname, not the whole credit: 'Ray Nayler' never appears inside
+        # a catalog's 'Nayler, Ray'
+        surnames = author_surnames(author)
         for sysname in ("sccl", "sjpl"):
             for cand in hotlist.bc_bibs(
-                    sysname, {"title": name, "author": author or "",
+                    sysname, {"title": name,
+                              "author": surnames[0] if surnames else "",
                               "isbns": [], "formats": ("book",)}):
                 if cand["format_class"] != "book":
                     continue
@@ -458,9 +462,89 @@ FAVORITE_BRANCHES: dict[str, set | None] = {
     "sccl": {"Los Altos Library", "Cupertino Library"},
     "sjpl": {"Calabazas", "West Valley"},
     "paloalto": {"Mitchell Park"},
-    "mvpl": None,
 }
 BC_SHELF_SYSTEMS = ("sccl", "sjpl", "paloalto")
+
+_NAME_SUFFIX = re.compile(r"^(?:jr|sr|ii|iii|iv|md|phd)\.?$", re.I)
+
+
+def author_surnames(author: str | None) -> list[str]:
+    """Each credited author's surname, first author first.
+
+    Corpus credits are 'First Last', with commas only between co-authors or
+    before a suffix ('John Milton Cooper, Jr.'). Catalogs may credit only the
+    first author (SCCL's print *Abundance* lists Klein alone), so searches use it.
+    """
+    out = []
+    for name in re.split(r"\s*(?:&|;|,|\band\b)\s*", author or ""):
+        words = [w for w in name.split() if not _NAME_SUFFIX.match(w)]
+        if words:
+            out.append(words[-1])
+    return out
+
+
+def _title_segments(title: str) -> set[str]:
+    """Flattened pieces of a catalogued title: the stem, and each part a colon
+    or comma sets off — so a volume filed under its series ('The Years of
+    Lyndon Johnson: [Vol. 3], Master of the Senate') still offers its own name."""
+    import hotlist
+    t = re.sub(r"\[[^\]]*\]", " ", title or "")
+    # colon parts keep their commas ('Sing, Unburied, Sing: A Novel' must still
+    # offer 'Sing, Unburied, Sing'); comma parts are the series-volume case
+    parts = [t] + re.split(r"\s*[:;=/]\s*", t) + re.split(r"\s*[:;,=/]\s*", t)
+    out = set()
+    for p in parts:
+        p = re.sub(r"^\s*(?:the|a|an)\s+", "", p, flags=re.I)
+        if hotlist._flat(p):
+            out.add(hotlist._flat(p))
+    return out
+
+
+def shelf_match(title: str, author: str | None, cand: dict) -> bool:
+    """Is this catalog record a print copy of this work?
+
+    Stricter than hotlist._entry_matches, whose title containment suits a
+    pre-publication 'Taipei Story (Deluxe Limited Edition)' but here would take
+    Peter Robinson's 'Close to Home' for Marilynne Robinson's *Home*. So: a
+    print format, English, the work's whole stem as the record's title or one
+    of its parts, and the author among the record's credits.
+    """
+    import hotlist
+    if cand.get("format_class") != "book":
+        return False
+    if (cand.get("language") or "eng") not in ("eng", "und"):
+        return False
+    # only the record is split into parts; the work's whole stem must be one
+    # of them, or 'Sing, Unburied, Sing' would be satisfied by any 'Sing'
+    want = hotlist._flat(re.sub(r"^\s*(?:the|a|an)\s+", "", shelf_stem(title),
+                                flags=re.I))
+    if not want or want not in _title_segments(cand.get("title")):
+        return False
+    credits = hotlist._flat(" ".join(str(a) for a in cand.get("authors") or []))
+    surnames = [hotlist._flat(s) for s in author_surnames(author)]
+    if credits and surnames:
+        return any(s and s in credits for s in surnames)
+    # Anthologies and poetry collections are often catalogued with no author at
+    # all. With nothing to anchor on, only the whole title will do.
+    ct = hotlist._flat(re.sub(r"\[[^\]]*\]", " ", cand.get("title") or ""))
+    return ct in {hotlist._flat(title), hotlist._flat(shelf_stem(title))}
+
+
+def shelf_candidates(system: str, title: str, author: str = None) -> list[dict]:
+    """Print records of this work in one BiblioCommons system.
+
+    Raises when the search itself failed: bc_bibs reports that as an empty
+    list, and resolve_work_bibs would cache it as "this library holds nothing".
+    """
+    import hotlist
+    surnames = author_surnames(author)
+    entry = {"title": shelf_stem(title), "author": surnames[0] if surnames else "",
+             "isbns": [], "formats": ("book",)}
+    errors: list = []
+    cands = hotlist.bc_bibs(system, entry, errors)
+    if errors:
+        raise RuntimeError("; ".join(errors))
+    return [c for c in cands if shelf_match(title, author, c)]
 
 
 def resolve_work_bibs(conn, work_key: str, title: str, author: str = None,
@@ -472,25 +556,23 @@ def resolve_work_bibs(conn, work_key: str, title: str, author: str = None,
     into one availability call per known bib. A system that holds nothing is
     recorded as a miss so it is not searched again.
     """
-    import hotlist
     already = set() if refresh else db.systems_searched(conn, work_key)
-    surname = (author or "").split()[-1] if author else ""
-    entry = {"title": shelf_stem(title), "author": surname, "isbns": [],
-             "formats": ("book",)}
     for system in systems:
         if system in already:
             continue
         try:
-            cands = [c for c in hotlist.bc_bibs(system, entry)
-                     if c["format_class"] == "book"]
+            cands = shelf_candidates(system, title, author)
         except Exception:                                # noqa: BLE001
             continue                                     # leave unresolved
+        db.clear_work_bibs(conn, work_key, system)
         if cands:
             for c in cands:
                 db.record_work_bib(conn, work_key, system, c)
         else:
             db.record_work_bib(conn, work_key, system, None)   # recorded miss
-    conn.commit()
+        # commit before the next system's search: its response is mirrored
+        # through a second connection, which an open write here would lock out
+        conn.commit()
 
 
 def branch_availability(conn, title: str, author: str = None,
@@ -504,9 +586,6 @@ def branch_availability(conn, title: str, author: str = None,
     """
     import bayarea_lookup as B
     import hotlist
-    surname = (author or "").split()[-1] if author else ""
-    entry = {"title": shelf_stem(title), "author": surname, "isbns": [],
-             "formats": ("book",)}
     cached = {}
     if work_key:
         resolve_work_bibs(conn, work_key, title, author)
@@ -522,8 +601,7 @@ def branch_availability(conn, title: str, author: str = None,
             cands = cached.get(system, [])
         else:
             try:
-                cands = [c for c in hotlist.bc_bibs(system, entry)
-                         if c["format_class"] == "book"]
+                cands = shelf_candidates(system, title, author)
             except Exception:                            # noqa: BLE001
                 continue
         for c in cands:
@@ -543,6 +621,11 @@ def branch_availability(conn, title: str, author: str = None,
                             "url": c.get("url")})
     # Mountain View is one library on a WebPAC; its items carry shelf
     # locations rather than branches, so any available copy counts.
+    if "mvpl" in B.SKIPPED_SYSTEMS:
+        return out
+    surnames = author_surnames(author)
+    entry = {"title": shelf_stem(title), "author": surnames[0] if surnames else "",
+             "isbns": [], "formats": ("book",)}
     try:
         for c in hotlist.mvpl_bibs(entry):
             if c["format_class"] != "book":
@@ -591,14 +674,13 @@ def cmd_shelf(args) -> int:
     print(f"checking {len(rows)} works at {', '.join(args.system)}…\n")
     found = 0
     for r in rows:
-        entry = {"title": r["title"], "author": r["author"] or "",
-                 "isbns": [], "formats": ("book",)}
         hits = []
         for sysname in args.system:
-            for c in hotlist.bc_bibs(sysname, entry):
-                if c["format_class"] != "book":
-                    continue
-                hits.append((sysname, c))
+            try:
+                hits += [(sysname, c) for c in
+                         shelf_candidates(sysname, r["title"], r["author"])]
+            except RuntimeError as exc:
+                print(f"  ! {sysname}: {r['title'][:40]} — {exc}", file=sys.stderr)
         avail = [(s, c) for s, c in hits if (c.get("available") or 0) > 0]
         if not avail and not args.include_unavailable:
             continue
@@ -659,7 +741,7 @@ def main(argv=None):
                     help="how many top-scored works to check live (default 40)")
     sh.add_argument("--min-score", type=float, default=4.0)
     sh.add_argument("--system", action="append",
-                    choices=["sccl", "sjpl"], default=None)
+                    choices=list(BC_SHELF_SYSTEMS), default=None)
     sh.add_argument("--include-unavailable", action="store_true")
 
     fd = sub.add_parser("find", help="which book carries a short work")

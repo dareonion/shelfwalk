@@ -63,7 +63,18 @@ BC_BOOK_FORMATS = {"BK", "BOARD_BK", "PICTURE_BOOK", "PAPERBACK", "LARGE_PRINT",
                    "AB", "AUDIOBOOK_CD", "PLAYAWAY_AUDIOBOOK",
                    "EBOOK", "EAUDIOBOOK"}
 _BC_AUDIO_FORMATS = {"AB", "AUDIOBOOK_CD", "PLAYAWAY_AUDIOBOOK",
-                     "BOOK_CD", "BOOK_PCD"}
+                     "BOOK_CD", "BOOK_PCD", "SPOKEN_CD", "BOOK_PAUDIO"}
+_BC_PRINT_FORMATS = {"BK", "PAPERBACK", "LARGE_PRINT", "LPRINT", "KIT",
+                     "GRAPHIC_NOVEL"}
+# Known codes that are not books. These and any unseen code class as "other",
+# so a Blu-ray never counts as a shelf copy or takes a hot-list hold. BR sits
+# beside BOARD_BK for the same picture-book titles ('Brown Bear, Brown Bear'),
+# so it is read as a braille printing (inferred, not documented). test_mirror.py
+# fails on any mirrored code missing from these sets.
+_BC_NONBOOK_FORMATS = {"DVD", "BLURAY", "VIDEO_ONLINE", "VIDEO_DOWNLOAD",
+                       "NONSTANDARD_VIDEO", "PRELOADED_VIDEO_PLAYER", "MUSIC_CD",
+                       "MUSIC_DOWNLOAD", "MN", "MAP", "UK", "BR",
+                       "BOOK_CLUB_KIT", "RESTRICTED_BOOK_MP3"}
 # Digital editions are listed and linked but have no shelf: their availability
 # is a licensing queue (Libby/hoopla), not a branch, so no state is recorded.
 DIGITAL_CLASSES = ("ebook", "eaudio")
@@ -468,11 +479,13 @@ def _bc_format_class(fmt: str) -> str:
         return "picture"
     if fmt in _BC_AUDIO_FORMATS:
         return "audio"
-    if fmt == "EBOOK":
+    if fmt in ("EBOOK", "GRAPHIC_NOVEL_DOWNLOAD"):
         return "ebook"
     if fmt == "EAUDIOBOOK":
         return "eaudio"
-    return "book"
+    if fmt in _BC_PRINT_FORMATS:
+        return "book"
+    return "other"          # _BC_NONBOOK_FORMATS, and any code not seen yet
 
 
 def bc_parse_search(payload: dict, strict: bool = False) -> list[dict]:
@@ -1156,6 +1169,20 @@ SYSTEMS = {
     "linkplus": ("LINK+ union catalog", LinkPlus),
 }
 
+# Run only when named. Since 2026-09-12 Mountain View's WebPAC returns 403 for
+# any search not submitted from its own search page, and robots.txt on it and
+# on its Vega catalog disallows crawlers: a deliberate gate, so it is not worked
+# around. Its record links still load, so the reports keep them.
+SKIPPED_SYSTEMS = {
+    "mvpl": "Mountain View's catalog has refused scripted searches since "
+            "2026-09-12, and its robots.txt disallows crawlers",
+}
+DEFAULT_SYSTEMS = [s for s in sorted(SYSTEMS) if s not in SKIPPED_SYSTEMS]
+# A system whose searches fail this many titles in a row is abandoned for the
+# run: it is blocked or down, and back-off on every remaining title would only
+# stall the systems that are working.
+MAX_CONSECUTIVE_FAILURES = 3
+
 # Politeness per host, applied within each system's own (serial) thread —
 # LINK+ 429s below a full second; the others tolerate a brisker pace.
 SYSTEM_DELAYS = {"sccl": 0.4, "sjpl": 0.4, "mvpl": 0.4, "linkplus": 1.0}
@@ -1283,7 +1310,12 @@ def _lookup_system(db_path: str, system: str, rows, langs: dict, delay: float,
                                          query=f"{len(todo)} titles",
                                          source="bayarea_lookup", profile=system)
         print(f"[{system}] {label}: {len(todo)} titles")
+        failures = 0
         for i, row in enumerate(todo, 1):
+            if failures >= MAX_CONSECUTIVE_FAILURES:
+                print(f"[{system}] giving up: {failures} titles in a row failed "
+                      f"— skipping the remaining {len(todo) - i + 1} this run")
+                break
             lang = langs.get(row["record_id"])
             t, surname = query_terms(row["title"], row["author"])
             # CJK titles are specific enough alone; a Latin surname ANDed onto a
@@ -1336,6 +1368,7 @@ def _lookup_system(db_path: str, system: str, rows, langs: dict, delay: float,
                                                    checked_at)
                     print(f"[{system}] {i:3}/{len(todo)} ✗ {row['title'][:50]!r} "
                           f"no match (best {score})")
+                    failures = 0
                     continue
                 editions = [dict(e, title=_display_title(e)) for e in editions]
                 with conn:
@@ -1369,7 +1402,9 @@ def _lookup_system(db_path: str, system: str, rows, langs: dict, delay: float,
                       f"{_display_title(best)[:40]!r} ({best['format']}, {score}) "
                       f"{n_avail}/{n_items} on shelf"
                       + (f" [{extras}]" if extras else ""))
+                failures = 0
             except Exception as e:
+                failures += 1
                 print(f"[{system}] {i:3}/{len(todo)} ! {row['title'][:50]!r} "
                       f"ERROR: {e}")
         conn.commit()
@@ -1468,9 +1503,10 @@ def probe(systems: list[str], query: str) -> None:
 
 def main(argv=None):
     ap = argparse.ArgumentParser(
-        description="Look up the want-list at SCCLD / SJPL / Mountain View.")
+        description="Look up the want-list at Bay Area library systems.")
     ap.add_argument("--system", action="append", choices=sorted(SYSTEMS),
-                    help="limit to a system (repeatable; default: all four)")
+                    help="limit to a system (repeatable; default: every system "
+                         "except " + ", ".join(sorted(SKIPPED_SYSTEMS)) + ")")
     ap.add_argument("--limit", type=int, help="only the first N titles (testing)")
     ap.add_argument("--delay", type=float, default=None,
                     help="seconds between requests, same for every system "
@@ -1486,7 +1522,10 @@ def main(argv=None):
     ap.add_argument("--db", default="shelfwalk.db")
     args = ap.parse_args(argv)
 
-    systems = args.system or sorted(SYSTEMS)
+    systems = args.system or DEFAULT_SYSTEMS
+    for s in systems:
+        if s in SKIPPED_SYSTEMS:
+            print(f"warning: {s} is skipped by default — {SKIPPED_SYSTEMS[s]}")
     set_archive(args.db)
     if args.title:
         probe(systems, args.title)

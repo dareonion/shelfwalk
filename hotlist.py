@@ -40,6 +40,7 @@ import os
 import re
 import subprocess
 import sys
+import unicodedata
 import urllib.parse
 from datetime import datetime
 
@@ -49,8 +50,11 @@ import catalog_db as db
 WATCHLIST_FILE = "hotlist.json"
 
 # Systems we can *watch*. Whether we can also place a hold is a separate
-# question (see HOLD_ROUTES) — watching needs no card at all.
-WATCH_SYSTEMS = ("sccl", "sjpl", "mvpl")
+# question (see HOLD_ROUTES) — watching needs no card at all. Mountain View is
+# out by default for the reason in bayarea_lookup.SKIPPED_SYSTEMS; an entry can
+# still name it in its own "systems".
+WATCH_SYSTEMS = tuple(s for s in ("sccl", "sjpl", "mvpl")
+                      if s not in B.SKIPPED_SYSTEMS)
 
 # Physical formats only, by default: a Libby queue is a licence pool, and its
 # 250-deep hold list behaves nothing like a shelf.
@@ -131,7 +135,7 @@ def _norm_isbn(s: str) -> str:
     return re.sub(r"[^0-9Xx]", "", s or "").upper()
 
 
-def bc_bibs(subdomain: str, entry: dict) -> list[dict]:
+def bc_bibs(subdomain: str, entry: dict, errors: list = None) -> list[dict]:
     """Every BiblioCommons record matching this entry, with the bib-level
     availability summary the want-list path never needed.
 
@@ -156,6 +160,8 @@ def bc_bibs(subdomain: str, entry: dict) -> list[dict]:
         except Exception as exc:                      # noqa: BLE001
             print(f"  ! {subdomain}: {q} — {type(exc).__name__}: {exc}",
                   file=sys.stderr)
+            if errors is not None:
+                errors.append(f"{subdomain}: {q}: {exc}")
             continue
         for bid, bib in (payload.get("entities", {}).get("bibs", {})).items():
             if bid in found:
@@ -170,6 +176,7 @@ def bc_bibs(subdomain: str, entry: dict) -> list[dict]:
                 "format_class": fmt_class,
                 "isbns": [_norm_isbn(i) for i in (info.get("isbns") or [])],
                 "authors": info.get("authors") or [],
+                "language": info.get("primaryLanguage"),
                 "year": info.get("publicationDate"),
                 "holdable": bool((bib.get("policy") or {}).get("holdable")),
                 "status": av.get("status"),
@@ -329,7 +336,11 @@ def _entry_matches(entry: dict, cand: dict) -> bool:
 
 
 def _flat(s: str) -> str:
-    return re.sub(r"[^a-z0-9]+", "", (s or "").lower())
+    # fold accents and '&' before stripping, so 'Díaz' meets 'Diaz' and
+    # 'Nettle & Bone' meets 'Nettle and Bone'
+    s = unicodedata.normalize("NFKD", (s or "").replace("&", " and "))
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    return re.sub(r"[^a-z0-9]+", "", s.lower())
 
 
 PROBES = {
