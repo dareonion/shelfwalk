@@ -13,9 +13,8 @@ from acclaim_core import (  # noqa: F401
 
 # --- Goodreads Choice Awards ----------------------------------------------------
 
-# The only popular-vote award here, and worth keeping separate in the head from
-# the juried ones: it measures what a large self-selected readership liked, not
-# what a jury judged. Structure per year:
+# The only popular-vote award here: it measures what a self-selected readership
+# liked, not what a jury judged. Structure per year:
 #   /choiceawards/best-books-<year>   -> category links + names
 #   /choiceawards/<slug>-<year>       -> winner + 20 nominees
 # Nominee credits live in the cover image's alt text as "Title by Author", and

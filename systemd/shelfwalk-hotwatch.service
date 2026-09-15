@@ -6,7 +6,7 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 ExecStart=%h/gitrepo/shelfwalk/hotwatch.sh
-# a handful of titles across three systems; nothing like the 30min want-list pass
+# a handful of titles; nothing like the 30-minute want-list pass
 TimeoutStartSec=15min
 # Placing holds acts on a real library account, so it stays off until you turn
 # it on here deliberately. Uncomment once credentials are in the keyring and

@@ -19,9 +19,8 @@ from acclaim_core import (  # noqa: F401
 # a community rating attached, so it lands as source_kind='list' with the
 # rating in `detail` rather than as winner/nominee.
 #
-# Worth having despite the extra effort — SCCL and San Jose both hold real
-# Chinese-language collections, and `bayarea_lookup` already romanizes CJK to
-# pinyin for exactly these searches.
+# Worth the extra effort: SCCL and San José both hold real Chinese-language
+# collections.
 #
 # Harvest is manual: book.douban.com serves scripted clients a 2.4KB stub, and
 # from inside the page Chrome blocks the automatic download while Private

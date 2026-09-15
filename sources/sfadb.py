@@ -57,8 +57,8 @@ def parse_sfadb_year(page: str) -> list[dict]:
     """One sfadb year page -> entries.
 
     Winners carry `<span class="winner">`; everything else in the same list is
-    a nominee. Title is the `<b>`, author the first `<a>`, publisher the
-    trailing parenthetical.
+    a nominee. Title is the quoted string (short fiction) or else the `<b>`
+    (novels); author the first `<a>`; publisher the trailing parenthetical.
     """
     out = []
     for chunk in page.split(_CATBLOCK_SPLIT)[1:]:
@@ -72,16 +72,12 @@ def parse_sfadb_year(page: str) -> list[dict]:
         body = chunk[m.end():]
         for li in _LI_RE.findall(body):
             is_winner = 'class="winner"' in li
-            # ⚠ Short fiction is QUOTED, novels are BOLDED:
+            # ⚠ Short fiction is QUOTED, novels are BOLDED, and a story's
+            # containing anthology may be bolded too — so a quote wins:
             #   <b>The Tusks of Extinction</b>, <a>Ray Nayler</a> (Tordotcom)
             #   "Better Living Through Algorithms", <a>Naomi Kritzer</a> (Clarkesworld)
-            # Looking only for <b> dropped every quoted story, and where the
-            # containing anthology happened to be bolded it captured THAT as
-            # the title — so "Galaxy's Edge Vol. 13" was filed as a Hugo
-            # short-story nominee while Kritzer's winner was absent entirely.
-            # Strip tags BEFORE hunting for quotes: unescaping first leaves
-            # the straight quotes of class="winner" in play, and the title
-            # regex happily matched the word 'winner'.
+            # Strip tags before unescaping, or the quotes of class="winner"
+            # match as a title.
             plain = _strip(htmlunescape(re.sub(r"<[^>]+>", " ", li)))
             plain = re.sub(r"^\s*Winner\s*:\s*", "", plain, flags=re.I)
             tm = re.search(r"<b>(.*?)</b>", li, re.S)

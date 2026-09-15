@@ -1,20 +1,8 @@
-"""Parser tests against the REAL mirrored pages, not hand-written fixtures.
+"""Parser and matcher tests against the real pages mirrored in raw_pages.
 
-Every fixture in `test_acclaim.py` encodes what I *believed* the markup was.
-That belief was wrong five separate times, and each time the parser returned
-less while reporting success:
-
-    sfadb   short-fiction titles are quoted, not bolded  (⅔ of it lost)
-    FT      {{blue ribbon}} vs {{Blue ribbon}}           (14 of 21 winners)
-    Audies  no "Published by" line before ~2017          (21 years lost)
-    ISFDB   author sits past a 4000-char window          (0 containers)
-    NYT     titles wrapping onto two lines               (6 of 100 lost)
-
-`raw_pages` holds ~5,900 mirrored responses, so these run offline against the
-bytes the site actually served, and assert against facts checkable by hand.
-They skip rather than fail when a page is not mirrored, so a fresh clone is
-not blocked — but on Darren's machine they are the ones that would catch a
-site quietly changing its layout on the next scrape.
+Hand-written fixtures encode what the markup was believed to be; these run
+offline against the bytes each site actually served and assert facts checkable
+by hand. They skip when a page is not mirrored, so a fresh clone is not blocked.
 
     uv run pytest test_mirror.py -q
 """
@@ -44,12 +32,11 @@ def _page(conn, url, decoder=None):
     return (decoder or (lambda b: b.decode("utf-8", "replace")))(raw)
 
 
-# --- sfadb: the bug that hid two-thirds of the short fiction --------------------
+# --- sfadb ---------------------------------------------------------------------
 
 def test_sfadb_2024_short_story_winner_is_kritzer(conn):
-    """Known truth: the 2024 Hugo for Best Short Story went to Naomi Kritzer's
-    'Better Living Through Algorithms' (Clarkesworld). Before the quoted-title
-    fix this parsed as 'Galaxy's Edge Vol. 13' — an anthology name."""
+    """The 2024 Hugo for Best Short Story went to Naomi Kritzer's 'Better Living
+    Through Algorithms' (Clarkesworld)."""
     page = _page(conn, "https://www.sfadb.com/Hugo_Awards_2024", A._decode_page)
     shorts = [e for e in A.parse_sfadb_year(page) if e["form"] == "short-story"]
     winners = [e for e in shorts if e["status"] == "winner"]
@@ -60,8 +47,8 @@ def test_sfadb_2024_short_story_winner_is_kritzer(conn):
 
 
 def test_sfadb_2024_short_story_has_a_full_ballot(conn):
-    """A Hugo category carries a winner plus five finalists. Anything much
-    under six means the parser is dropping entries again."""
+    """A Hugo category carries a winner plus five finalists; fewer than six means
+    the parser is dropping entries."""
     page = _page(conn, "https://www.sfadb.com/Hugo_Awards_2024", A._decode_page)
     shorts = [e for e in A.parse_sfadb_year(page) if e["form"] == "short-story"]
     assert len(shorts) >= 6
@@ -76,8 +63,7 @@ def test_sfadb_never_stores_an_anthology_as_the_story(conn):
 
 
 def test_sfadb_pages_are_latin1_and_accents_survive(conn):
-    """Decoding sfadb as UTF-8 turned 'P. Djèlí Clark' into replacement
-    characters, and that string became the author in the corpus."""
+    """sfadb serves Latin-1; 'P. Djèlí Clark' must come through intact."""
     page = _page(conn, "https://www.sfadb.com/Hugo_Awards_2024", A._decode_page)
     authors = {e["author"] for e in A.parse_sfadb_year(page) if e["author"]}
     assert any("Djèlí" in a for a in authors)
@@ -85,7 +71,7 @@ def test_sfadb_pages_are_latin1_and_accents_survive(conn):
 
 
 def test_sfadb_novel_category_still_uses_bold_titles(conn):
-    """The quoted-title fix must not break the bolded-novel path."""
+    """Novel titles are bolded, not quoted, and must still parse."""
     page = _page(conn, "https://www.sfadb.com/Hugo_Awards_2024", A._decode_page)
     novels = [e for e in A.parse_sfadb_year(page) if e["form"] == "novel"]
     assert len(novels) >= 6
@@ -95,7 +81,7 @@ def test_sfadb_novel_category_still_uses_bold_titles(conn):
 # --- Pulitzer: the browser harvest ---------------------------------------------
 
 def test_pulitzer_2026_fiction_is_angel_down():
-    """Confirmed live against pulitzer.org during the build."""
+    """Checked by hand against pulitzer.org."""
     path = os.path.join(A.HARVEST_DIR, "pulitzer.json")
     if not os.path.exists(path):
         pytest.skip("pulitzer harvest not present")
@@ -241,8 +227,8 @@ def test_every_registered_loader_runs_offline(conn, monkeypatch, tmp_path):
 # --- the loaded corpus: shape assertions ----------------------------------------
 
 def test_every_source_has_at_least_one_winner(conn):
-    """A source with nominees but no winners has almost certainly lost its
-    winner marker — the FT lost 14 of 21 that way."""
+    """A source with nominees but no winners has almost certainly lost its winner
+    marker."""
     rows = conn.execute(
         "SELECT source, SUM(status IN ('winner')) w, COUNT(*) n "
         "FROM accolades GROUP BY source").fetchall()
@@ -256,8 +242,7 @@ def test_every_source_has_at_least_one_winner(conn):
 
 
 def test_no_work_key_collapses_to_an_empty_title(conn):
-    """Stripping to [a-z0-9] folded every CJK title to '' and collapsed 540
-    Douban books into 26 keys."""
+    """A key stripped to [a-z0-9] folds every CJK title to ''."""
     rows = conn.execute(
         "SELECT work_key, title FROM works WHERE work_key LIKE '|%'").fetchall()
     if rows is None:
@@ -268,8 +253,8 @@ def test_no_work_key_collapses_to_an_empty_title(conn):
 
 
 def test_short_fiction_is_actually_present(conn):
-    """The sfadb bug left ~1,800 short-fiction rows where there should be
-    ~5,400. This is the regression guard for that."""
+    """Hugo, Nebula and Locus short fiction runs to thousands of rows; far fewer
+    means titles are being dropped."""
     n = conn.execute(
         "SELECT COUNT(*) FROM accolades a JOIN works w USING(work_key) "
         "WHERE a.source IN ('hugo','nebula','locus') "

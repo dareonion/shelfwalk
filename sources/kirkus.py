@@ -37,9 +37,6 @@ _KIRKUS_FORMS = {"fiction": "novel", "nonfiction": "nonfiction",
                  "young readers' literature": "novel"}
 
 
-
-
-
 def parse_kirkus_year(page: str) -> list[dict]:
     out = []
     for block in _KP_WINNER_RE.findall(page):

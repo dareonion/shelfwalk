@@ -20,9 +20,8 @@ from acclaim_core import (  # noqa: F401
 # entirely client-side — no request fires on a page change — so the harvest
 # walks all 50 pages in-page and dedupes.
 #
-# PEN is the source that makes the author/work split concrete: 35 of its 999
-# rows carry Title "N/A" because the prize is for a career (PEN/Nabokov,
-# PEN/Manheim for translation), not a book. Those go to author_accolades.
+# Rows with Title "N/A" are career prizes (PEN/Nabokov, PEN/Manheim for
+# translation), not books, so they go to author_accolades.
 _PEN_GENRE_FORMS = {"fiction": "novel", "nonfiction": "nonfiction",
                     "biography": "nonfiction", "essay": "nonfiction",
                     "poetry": "poetry", "drama": "drama",

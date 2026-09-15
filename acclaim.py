@@ -181,9 +181,7 @@ def cmd_pull(args) -> int:
                   file=sys.stderr)
     print(f"total +{total}")
     if regressions:
-        # exit non-zero so the timer's log shows a failed run rather than a
-        # quiet one: a source returning less than it used to is the single
-        # most common failure this corpus has had.
+        # exit non-zero so the timer logs a failed run, not a quiet one
         print(f"\n{len(regressions)} source(s) parsed far less than before:",
               file=sys.stderr)
         for w in regressions:
@@ -198,9 +196,7 @@ def cmd_browser_plan(args) -> int:
     for s in SOURCES.values():
         if s.transport != BROWSER:
             continue
-        # a harvest is either one file or a directory of per-year files;
-        # checking only for the file reported nyt/wsj/douban as missing when
-        # they were loaded
+        # a harvest is either one file or a directory of per-list files
         one = os.path.join(HARVEST_DIR, f"{s.key}.json")
         many = os.path.join(HARVEST_DIR, s.key)
         have = os.path.exists(one) or (
@@ -212,10 +208,9 @@ def cmd_browser_plan(args) -> int:
 
 # --- where a short work can actually be read -------------------------------------
 
-# Half of recent award short fiction was published in magazines that put their
-# whole archive online for nothing, so "which anthology contains it" is the
-# wrong first question — the right one is "is it a click away". The venue
-# sfadb records is enough to tell them apart.
+# Much award short fiction first appeared in magazines with free online
+# archives, so the first question is "is it a click away", not "which anthology
+# carries it". The venue sfadb records is enough to tell.
 FREE_ONLINE_VENUES = {
     "clarkesworld": "https://clarkesworldmagazine.com/",
     "uncanny": "https://www.uncannymagazine.com/",
@@ -297,9 +292,7 @@ def isfdb_containers(conn, title: str, author: str = None,
         if traw is None:
             continue
         page = traw.decode("utf-8", "replace")
-        # Search the WHOLE page: ISFDB puts "Author: Ray Nayler" in the record
-        # details around char 6300, so a 4000-char window rejected every
-        # single work and silently produced zero containers.
+        # search the whole page: the "Author:" line sits deep in the record
         if author and _flat_name(author) not in _flat_name(page):
             continue                        # a different work of the same name
         for pid, name in _ISFDB_PUB_RE.findall(page):
@@ -310,9 +303,6 @@ def isfdb_containers(conn, title: str, author: str = None,
             out.append({"container": name, "isfdb_pub": pid,
                         "standalone": _flat_name(name) == _flat_name(title)})
     return out
-
-
-
 
 
 def cmd_find(args) -> int:
@@ -375,22 +365,16 @@ def cmd_find(args) -> int:
 
 # --- scoring --------------------------------------------------------------------
 
-# Counting *distinct sources*, not rows, is the whole point. Locus alone
-# carries 5,214 accolades because its nominee lists run ten deep in every
-# category; ranking on raw accolade count would put a mid-list Locus nominee
-# above a Pulitzer winner. A book that shows up across many independent
-# juries is the signal — the same work winning one prize twice is not.
+# Scores count distinct sources, not rows: Locus nominee lists run ten deep per
+# category, so row counts would put a mid-list Locus nominee above a Pulitzer
+# winner. Breadth across independent juries is the signal.
 _WON = ("winner",)
 _NOMINATED = ("finalist", "shortlist", "longlist", "nominee")
 SCORE_WEIGHTS = {"won": 3.0, "nominated": 1.0, "listed": 2.0}
 
-# …but "distinct sources" is not the same as "independent juries", and the
-# first run of this scorer proved it: the entire top of the table was science
-# fiction, because Hugo, Nebula and Locus are three near-parallel juries
-# voting on substantially the same ballot. An SF novel banked three wins where
-# a Pulitzer winner banked one — so the metric was rewarding *redundant*
-# juries, not breadth. Sources that share a constituency collapse to one
-# family before anything is counted.
+# Sources that vote on substantially the same ballot collapse to one family
+# before counting; otherwise Hugo, Nebula and Locus let an SF novel bank three
+# wins where a Pulitzer winner banks one.
 AWARD_FAMILIES = {
     "hugo": "sf", "nebula": "sf", "locus": "sf",
     "booker": "booker", "booker-intl": "booker", "booker-childrens": "booker",
@@ -451,13 +435,10 @@ def cmd_score(args) -> int:
 
 # --- the shelf join -------------------------------------------------------------
 
-# The branches actually worth walking into. System-wide "8 of 37 available"
-# says nothing about whether a copy is on the shelf you can reach, so the shelf
-# join filters to these and reports per branch.
-#
-# Palo Alto (Mitchell Park) is a fourth BiblioCommons instance — subdomain
-# 'paloalto' — and is not part of the want-list side of this repo.
-# Mountain View is a single library on a classic WebPAC, so any copy counts.
+# The branches worth walking into. A system-wide "8 of 37 available" says
+# nothing about the shelf you can reach, so branch_availability reports these
+# only. Palo Alto (Mitchell Park) is a BiblioCommons instance used only here;
+# Mountain View is out while bayarea_lookup.SKIPPED_SYSTEMS lists it.
 FAVORITE_BRANCHES: dict[str, set | None] = {
     "sccl": {"Los Altos Library", "Cupertino Library"},
     "sjpl": {"Calabazas", "West Valley"},
@@ -554,7 +535,8 @@ def resolve_work_bibs(conn, work_key: str, title: str, author: str = None,
     The search is the expensive half — two queries per system per title — and
     it is also the stable half. Caching it turns the shelf join from minutes
     into one availability call per known bib. A system that holds nothing is
-    recorded as a miss so it is not searched again.
+    recorded as a miss so it is not searched again. A re-search replaces that
+    system's rows wholesale, so a corrected match leaves no stale bib behind.
     """
     already = set() if refresh else db.systems_searched(conn, work_key)
     for system in systems:
@@ -641,24 +623,15 @@ def branch_availability(conn, title: str, author: str = None,
 
 
 def shelf_stem(title: str) -> str:
-    """Search with the title stem, not the full catalogued title.
-
-    The corpus stores 'There Is No Place for Us: Working and Homeless in
-    America' while a catalog may carry a different subtitle, and the matcher
-    requires containment — passing the full string reported every one of these
-    books as 'not held' when all of them were on the shelf.
-    """
+    """The title before any subtitle or Booker marketing suffix. Search and
+    match on this: a catalog's subtitle often differs from the corpus's."""
     t = re.split(r":\s*(?:Shortlisted|Longlisted|Winner|Nominated)\b", title or "")[0]
     return re.split(r"\s*[:;]\s*", t)[0].strip()
 
 
-
 def cmd_shelf(args) -> int:
-    """Acclaimed *and* borrowable: the point of keeping this next to the catalog.
-
-    Live lookups, so it is deliberately capped — this walks the top N scored
-    works through the same BiblioCommons search the want-list uses.
-    """
+    """Acclaimed *and* borrowable: the top N scored works, matched live with
+    shelf_candidates. Copy counts are system-wide, not per branch."""
     import hotlist
     conn = db.open_db(args.db)
     rows = conn.execute(

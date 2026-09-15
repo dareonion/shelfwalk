@@ -20,11 +20,9 @@ from acclaim_core import (  # noqa: F401
 # page does the reading and the result lands in harvest/nyt/<slug>.json as
 #   {list, year, books: [{rank, title, author, year}]}
 #
-# Two shapes bit while extracting the 100 Best Books of the 21st Century, and
-# both are the same lesson — a fixed line offset is a guess about layout:
-#   * six titles wrap onto two lines, putting the byline a line further down;
-#   * #88 "The Collected Stories of Lydia Davis" carries its author inside the
-#     title, so its byline line is a bare year.
+# The in-page extractor can't assume a fixed line offset: some titles wrap onto
+# two lines, and #88 of the 21st-century list, "The Collected Stories of Lydia
+# Davis", carries its author in the title, leaving a bare year as the byline.
 NYT_DIR = os.path.join(HARVEST_DIR, "nyt")
 _NYT_TRANSLATOR_RE = re.compile(r"\s*[;,]\s*(translated|edited|with)\b.*$", re.I)
 _NYT_LABELS = {

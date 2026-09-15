@@ -19,9 +19,8 @@ from acclaim_core import (  # noqa: F401
 # more than a name — "Han Kang, translated from the Korean by e. yaewon and
 # Paige Aniyah Morris" — so the author is the part before the translator note.
 #
-# Coverage caveat: the landing page carries only the current cycle. Historical
-# years live on separate pages that are not yet wired up, so this source starts
-# shallow by design and `stats` will show it.
+# Coverage: the landing page carries only the current cycle; the separate
+# history pages are not wired up.
 NBCC_URL = "https://www.bookcritics.org/awards/"
 _NBCC_ITEM_RE = re.compile(
     r"<h3[^>]*>(.*?)</h3>\s*<h4[^>]*>(.*?)</h4>\s*"

@@ -13,12 +13,10 @@ from acclaim_core import (  # noqa: F401
 
 # --- LA Times Book Prizes -------------------------------------------------------
 
-# latimes.com/events/festival-of-books/book-prizes. Fifteen categories, each an
-# <h2 data-element="element-header-title">, with entries as rich-text modules
-# holding three short lines: title, author, publisher. The winner's module
-# carries `bp-winner-ribbon` in its class list.
-#
-# The page shows the current cycle; a "History" section links prior years.
+# latimes.com/events/festival-of-books/book-prizes shows the current cycle only:
+# fifteen categories, each an <h2 data-element="element-header-title">, with
+# entries as rich-text modules of three short lines (title, author, publisher).
+# load_latimes prefers the history page, which carries every year.
 LATIMES_URL = ("https://www.latimes.com/events/festival-of-books/book-prizes")
 _LAT_H2_RE = re.compile(
     r'<h2[^>]*data-element="element-header-title"[^>]*>(.*?)</h2>', re.S)
@@ -57,9 +55,8 @@ def parse_latimes(page: str) -> list[dict]:
         section = parts[idx + 1]
         if not category:
             continue
-        # The winner's ribbon is its OWN image-only module sitting just before
-        # the winner's text module, so the flag has to carry forward rather
-        # than be read off the entry itself.
+        # The winner's ribbon (`bp-winner-ribbon`) is its own image-only module
+        # just before the winner's text module, so the flag carries forward.
         pending_winner = False
         for mod in section.split(_LAT_MOD_SPLIT)[1:]:
             if "bp-winner-ribbon" in mod[:400]:
@@ -94,9 +91,9 @@ def _lat_form(category: str) -> str:
     return "novel"
 
 
-# The history page carries the whole run since 1980 on one 636KB page. Year
-# markers and category headers alternate as flat text, so each category block
-# binds to the most recent preceding year:
+# The history page carries every year since 1980 on one page. Year markers and
+# category headers alternate as flat text, so each category block binds to the
+# most recent preceding year:
 #   >2010<  ──────<br><b>FICTION</b><br>──────
 #           <b>Winner: Ibis: A Novel</b>, Justin Haynes, Harry N. Abrams
 #           <b>Finalists:</b><ul><li><b>Plum</b>, Andy Anderegg, Hub City</li>…

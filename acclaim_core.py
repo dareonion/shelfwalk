@@ -1,38 +1,19 @@
 #!/usr/bin/env python3
-"""Shared machinery for the acclaim sources: transports, text repair, guards.
+"""Shared machinery for the acclaim sources: transports, the raw mirror, text
+repair and the yield guard. acclaim.py holds the CLI and the source registry;
+sources/ holds one adapter per awarding body.
 
-See acclaim.py for the CLI and the source registry; sources/ for the adapters.
+Design rules:
 
-ORIGINAL MODULE DOC follows, because the design notes belong with the code
-they constrain:
-
-Awards, best-of lists and canon — a sourced corpus, joined to the shelf.
-
-The want-list answers "is it on a shelf this morning"; `hotlist.py` answers
-"where will I be in the queue". This answers the question before both of them:
-*what is worth reading*, from the bodies that decide it — and then hands the
-answer to the library machinery to find a copy.
-
-Design notes that are load-bearing:
-
-  * **Original sources, Wikipedia only as fallback.** Measured 2026-09-06:
-    Wikidata carries 818 Booker nominees but only 21 Pulitzer finalists (there
-    are ~200), 6 Women's Prize nominees and 1 for the NBCC. Fine for winners,
-    useless for the shortlists — which is most of what makes a corpus worth
-    having. Anything sourced only from Wikidata is flagged as such.
-  * **Three transports.** Most sites yield to plain HTTP. A few defeat scripted
-    clients entirely — pulitzer.org 403s `urllib` *and* `curl`, which is TLS
-    fingerprinting, not headers — and those are fetched by JavaScript running
-    inside a real Chrome tab, which POSTs its harvest to `tools/collector.py`.
-  * **Raw first.** Scripted fetches mirror into `raw_pages` before parsing, and
-    browser harvests land as JSON in `harvest/`. A parser fix must never cost a
-    re-crawl; for the browser tier, where re-crawling means driving Chrome by
-    hand, that matters far more than usual.
-
-    uv run acclaim.py pull --source pulitzer      # one source
-    uv run acclaim.py pull --all                  # every scriptable source
-    uv run acclaim.py browser-plan                # what needs a Chrome pass
-    uv run acclaim.py stats                       # coverage + provenance
+  * **Original sources; Wikipedia/Wikidata only as a flagged fallback.**
+    Wikidata is complete for winners but thin on shortlists (21 of ~200
+    Pulitzer finalists, 2026-09).
+  * **Three transports.** Plain HTTP where a site allows it; JavaScript in a
+    real Chrome tab where it doesn't (pulitzer.org fingerprints TLS, so no
+    header helps), POSTing the harvest to `tools/collector.py`; Wikipedia as
+    the fallback.
+  * **Raw first.** HTTP responses mirror into `raw_pages` and browser harvests
+    land in `harvest/`, so a parser fix never needs a re-crawl.
 """
 from __future__ import annotations
 
@@ -77,27 +58,15 @@ class Source:
 
 def _fetch(conn, url: str, fails: list, *, accept: str = "text/html",
            timeout: float = 60) -> bytes | None:
-    """Mirror-first fetch. Returns the body, or None with the reason recorded.
-
-    Every loader here used to `except Exception: continue`, and that is exactly
-    how a Booker backfill quietly fetched 5 pages out of 733: a concurrent run
-    held the SQLite write lock, `_get` archives *inside* its own try, and
-    'database is locked' came back through the same `except Exception` as a
-    404 would. 728 silent failures were indistinguishable from 728 books with
-    no prize history.
-
-    So: failures are counted and surfaced in the fetch log, never swallowed.
-    A source that suddenly returns nothing must look different from a source
-    that has nothing to return.
+    """Mirror-first fetch. Returns the body, or None with the reason appended
+    to `fails` — never swallowed, so a source whose fetches fail (a locked
+    database included) looks different from one with nothing to return.
     """
     raw = db.get_raw_page(conn, url)
     if raw is not None:
         return raw
     import bayarea_lookup as B
-    # Arm the mirror here rather than in each loader. Three sources had already
-    # been written without calling set_archive, and the only symptom was zero
-    # rows in raw_pages — the pull still "worked", so the raw-first guarantee
-    # was quietly not holding for them.
+    # armed here, not in each loader, so no loader can skip the mirror
     _arm_archive(conn)
     try:
         return B._get(url, accept=accept, timeout=timeout)
@@ -123,17 +92,8 @@ def _fetch_note(ok_count: int, fails: list, what: str) -> str:
     return note
 
 
-# A source that suddenly parses far less than it used to has almost certainly
-# broken, not shrunk. Five separate bugs this repo has already hit looked
-# identical from the outside — the pull reported success and simply returned
-# less:
-#   Booker deadlock          5 pages of 733
-#   FT {{blue ribbon}} case  7 winners of 21
-#   sfadb quoted titles      a third of the short fiction it should have
-#   ISFDB author window      0 containers, 0 errors
-#   Douban CJK work_key      39 accolades from 540 harvested books
-# Only the last was caught, and only because a human read the number. This
-# makes that comparison the machine's job.
+# A source that parses far less than its best previous run has broken, not
+# shrunk: a parser break reports success and simply returns less.
 YIELD_DROP_THRESHOLD = 0.6      # of the best previous run
 YIELD_MIN_HISTORY = 1           # runs needed before the check has an opinion
 
@@ -170,14 +130,11 @@ def _warn_if_mostly_failing(source: str, ok_count: int, fails: list) -> None:
 
 # --- text repair ----------------------------------------------------------------
 
-# Some sources serve double-encoded UTF-8: a curly apostrophe (U+2019, bytes
-# e2 80 99) comes back as the three characters those bytes name in Latin-1.
-# PEN does this on 5 of its 999 rows, which is exactly the frequency that
-# survives a spot-check and then quietly poisons a work_key.
-#
-# Round-tripping through Latin-1 undoes it. The guard is that the round trip
-# must SUCCEED and yield different text: genuine Latin-1 text like 'château'
-# fails to decode as UTF-8 and is returned untouched.
+# Some sources (a few PEN rows) serve double-encoded UTF-8: a curly apostrophe
+# (U+2019, bytes e2 80 99) arrives as the three Latin-1 characters those bytes
+# name. A Latin-1 round trip undoes it. The round trip must succeed and change
+# the text, so genuine Latin-1 like 'château' fails to decode and is returned
+# untouched.
 _MOJI_LEAD = re.compile("[ÂÃâã]")
 
 
@@ -195,11 +152,8 @@ def demojibake(s: str) -> str:
 
 
 def _decode_page(raw: bytes) -> str:
-    """UTF-8 where possible, Latin-1 where not.
-
-    sfadb serves Latin-1: decoding it as UTF-8 turned 'P. Djèlí Clark' into
-    'P. Dj\ufffdl\ufffd Clark', which then became the author's name in the corpus.
-    """
+    """UTF-8 where possible, Latin-1 where not — sfadb serves Latin-1, and
+    decoding it as UTF-8 mangles names like 'P. Djèlí Clark'."""
     try:
         return raw.decode("utf-8")
     except UnicodeDecodeError:

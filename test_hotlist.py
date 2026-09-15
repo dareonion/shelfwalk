@@ -1,7 +1,6 @@
 """Tests for hotlist.py — the hot-release watcher. No network, no browser.
 
-Every case below is a bug that either bit during the Taipei Story build or is
-the specific thing that would make the machinery place a wrong hold.
+The cases centre on what would make it miss a queue or place a wrong hold.
 """
 from __future__ import annotations
 
@@ -16,9 +15,8 @@ import hotlist as H
 # --- matching -------------------------------------------------------------------
 
 def test_isbn_beats_a_mangled_title():
-    """The bug that started this: San Jose catalogued Taipei Story as 'Taipei
-    Story (Deluxe Limited Edition)', which the want-list matcher scored 0.667
-    and discarded — losing the one system whose queue was worth joining."""
+    """SJPL catalogues Taipei Story as 'Taipei Story (Deluxe Limited Edition)';
+    the ISBN still matches it."""
     entry = {"title": "Taipei Story", "author": "Kuang",
              "isbns": ["9780063473744"]}
     cand = {"title": "Taipei Story (Deluxe Limited Edition)",

@@ -1,333 +1,173 @@
 # shelfwalk
 
-Track a curated toddler/preschool want-list against **Bay Area library
-systems** — which branches have which books on the shelf right now, across
-every edition we can find (board/picture printings, audiobooks, eBooks, and
-Chinese / French / Spanish / Japanese translations), with every listing linked
-to the live catalog record.
+Three tools on one SQLite store (`shelfwalk.db`):
 
-> **History:** this repo began as `peorialib`, a Peoria Public Library
-> (RSAcat / SirsiDynix) lookup tool. The Peoria side is no longer refreshed —
-> the want-list it seeded lives on in the DB, its markdown remains as a
-> snapshot, and the Bay Area lookups below are the live part.
-
-## Contents
-
-**Code** (the source of truth is the SQLite DB; everything else is derived):
-- `bayarea_lookup.py` — **the live tool**: the want-list at SCCLD / San José /
-  Mountain View / LINK+
-- `library_lookup.py` — the retired Peoria scraper (browser-driven; see the end)
-- `catalog_db.py` — SQLite store: every scrape's per-branch status over time
-- `ingest.py` — load browser-captured scrape JSON into the store
-- `report.py` — **generates the markdown** from the store (`--write`) + `--matrix`
-- `hotlist.py` — **the hot-release watcher**: a few adult new releases, polled
-  four-hourly for queue position, with opt-in automatic holds
-- `acclaim.py` — **the awards/best-of corpus**: CLI and source registry
-- `sources/` — one adapter per awarding body (20 of them)
-- `acclaim_core.py` — transports, the raw mirror, text repair, the yield guard
-- `tools/collector.py` — localhost sink for browser-side harvests
-- `test_library_lookup.py` / `test_catalog_db.py` / `test_report.py` /
-  `test_bayarea_lookup.py` / `test_hotlist.py` / `test_acclaim.py` — tests
-
-**Generated markdown** — do NOT hand-edit; regenerate with `uv run report.py --write`.
-Every scrape (via `library_lookup.py`/`ingest.py`) regenerates them automatically, so
-they're always current:
-- `bayarea.md` — **start here**: a *To do* ladder (hold / request through LINK+
-  / buy) plus the title × system and your-branches matrices
-- `titles.md` — per-title bibliographic detail: ages, ISBN, awards, summary
-- `sccl.md` / `sjpl.md` / `mountainview.md` — per-system, per-branch shelf-walks
-- `linkplus.md` — LINK+ union catalog, title-centric
-- `books.md` + `north.md` / `lakeview.md` / `main.md` — frozen Peoria snapshot
-
-Every listing links straight to the record in that system's own catalog
-(BiblioCommons, the classic WebPACs, Peoria's RSAcat), so a click lands on the
-live page for holds/renewals.
+- **Want-list** — which Bay Area branches have a toddler's want-list on the
+  shelf right now, across every edition (board/picture printings, audiobooks,
+  eBooks, Chinese / French / Spanish / Japanese translations), with every
+  listing linked to its catalog record.
+- **Hot list** — a few adult new releases, watched for the shortest hold queue.
+- **Acclaim** — award and best-of lists, joined to what's borrowable.
 
 ## Setup
 
 ```bash
-uv sync    # venv + deps (pypinyin; playwright, only the Peoria scraper needs it)
+uv sync    # pypinyin; playwright only for the retired Peoria scraper
 ```
 
-Nothing else — the Bay Area catalogs are plain HTTP, no browser or auth.
+The Bay Area catalogs are plain HTTP — no browser or credentials.
 
-## Bay Area lookups
+## Files
 
-`bayarea_lookup.py` checks the want-list at four Bay Area systems:
+| File | Role |
+|---|---|
+| `bayarea_lookup.py` | want-list lookups, matching, availability, enrichment |
+| `report.py` | renders every markdown report from the store |
+| `catalog_db.py` | schema and all SQL |
+| `hotlist.py`, `hotlist.json` | hot-release watcher and its watchlist |
+| `acclaim.py`, `acclaim_core.py`, `sources/` | awards corpus: CLI, shared machinery, one adapter per awarding body |
+| `tools/collector.py` | localhost sink for browser-side harvests |
+| `refresh.sh`, `hotwatch.sh`, `acclaim.sh`, `systemd/` | scheduled jobs |
+| `library_lookup.py`, `ingest.py` | retired Peoria scraper and its JSON loader |
+| `test_*.py` | tests (`test_mirror.py` runs against the local mirror) |
+| `docs/` | source inventory, browser harvesting, hold placement |
+
+**Generated reports** — never hand-edit; `uv run report.py --write`:
+
+- `bayarea.md` — **start here**: the to-do ladder, your branches, title × system
+- `sccl.md` / `sjpl.md` / `mountainview.md` — per-system shelf lists by branch
+- `linkplus.md` — LINK+ union catalog, per title
+- `titles.md` — ages, ISBN, awards and summary per title
+- `books.md`, `north.md`, `lakeview.md`, `main.md` — frozen Peoria snapshot
+
+## Want-list
 
 | Key | System | Catalog |
 |---|---|---|
 | `sccl` | Santa Clara County Library District | BiblioCommons (gateway JSON API) |
 | `sjpl` | San José Public Library | BiblioCommons (gateway JSON API) |
-| `mvpl` | Mountain View Public Library | classic Innovative WebPAC (HTML) |
-| `linkplus` | LINK+ union catalog (~70 CA/NV systems) | INN-Reach WebPAC (HTML) |
+| `mvpl` | Mountain View Public Library | classic Innovative WebPAC — **skipped** |
+| `linkplus` | LINK+ union catalog (~70 CA/NV systems) | INN-Reach WebPAC |
 
-A LINK+ hit means any member-library copy can be requested for pickup at
-Mountain View (searching needs no login; requesting uses your card). Its
-`linkplus.md` is title-centric — per-branch shelf-walks make no sense across
-seventy library systems.
+**Mountain View is skipped unless named** (`--system mvpl`): its catalog refuses
+searches not launched from its own search page (since 2026-09-12) and its
+robots.txt disallows crawlers. Its report lists holdings with their
+last-checked date and no shelf claims; record links still load, so check a
+title there by hand.
 
-No Cloudflare wall on these catalogs, so it's plain HTTP — no browser needed.
-The four systems run **in parallel** (one thread and one DB connection each;
-each host still gets serial, politely-spaced requests — LINK+ rate-limits, so
-it paces itself at 1s), which makes a full refresh take as long as the slowest
-system instead of the sum of all four:
+A LINK+ hit can be requested for pickup at a member library. Systems run in
+parallel, one thread each; each host gets serial, spaced requests (LINK+ at
+1s).
 
 ```bash
-uv run bayarea_lookup.py                          # every DB title, all four systems
-uv run bayarea_lookup.py --system sccl --limit 5  # quick spot check
-uv run bayarea_lookup.py --resume                 # fill in whatever a crash skipped
+uv run bayarea_lookup.py                          # every title, default systems
+uv run bayarea_lookup.py --system sccl --limit 5  # spot check
+uv run bayarea_lookup.py --resume                 # only titles not yet looked up
 uv run bayarea_lookup.py --retry-misses           # also redo titles that never matched
 uv run bayarea_lookup.py --title "dear zoo"       # ad-hoc probe; prints, stores nothing
 uv run bayarea_lookup.py --enrich                 # just the record-detail pass
 ```
 
-Each title is searched as *cleaned title + author surname*, candidates are scored
-by normalized title similarity (the pinyin Chinese titles match the catalogs'
-romanized fields), and the winning record's per-branch copies land in
-`remote_bibs` / `remote_availability`. "That library doesn't hold it" is a valid
-result and is recorded too. The Bay Area markdown regenerates after every run.
+**Matching.** Each title is searched as cleaned title + author surname and
+candidates are scored on normalized title similarity; "not held" is recorded
+too. CJK titles are searched in CJK where the catalog supports it and as pinyin
+where it doesn't, and pinyin-vs-pinyin only counts when nearly exact.
 
-**Every version of a matched work is tracked**, not just the best record
-(`remote_editions`): other physical formats and printings (board vs picture),
-audiobooks (including compilations like *Brown bear & friends* that carry the
-story under another title), eBooks/eAudiobooks, and Chinese / French / Spanish
-/ Japanese editions. Movies and music are never candidates. Digital editions
-are listed and linked but carry no shelf state — a Libby license queue isn't a
-shelf — so they get their own section in the per-system markdown. Translations
-and audio compilations are only accepted from strict AND-semantics search
-results (WebPAC keyword search, BiblioCommons' fielded search) with a matching
-author — a translated title can't fuzzy-match the original, but its record
-carries the original title, so appearing in those results plus the author is
-the anchor. The per-system markdown labels each non-plain version
-(`— board book`, `— audiobook: “Brown bear & friends”`, `— Spanish: “Oso
-polar, oso polar, ¿qué es ese ruido?”`) — a compilation or translation is its
-own work, so its real title always shows, a compilation lists what it contains
-(`contains: Brown bear…; Polar bear…`), and a translation names its original
-title. Those details come from the record pages (MARC 505/240) in an
-enrichment pass that runs automatically after every lookup; `--enrich` runs
-just that pass for anything still missing.
+**Versions.** Every version of a matched work is tracked (`remote_editions`):
+other printings, audiobooks (including compilations that carry the story under
+another title), eBooks and translations. Translations and compilations are
+accepted only from strict AND-semantics searches with a matching author.
+Digital editions are linked but carry no shelf state. An enrichment pass after
+each lookup reads every version's record page (MARC 505/240) for contents,
+stated original title and full bibliographic detail
+(`remote_editions.details`).
 
-**`wantlist_*.json`** files are the hand-curated want-list — one JSON array of
-`{title, author, format, lang?, isbn?}`: `wantlist_en.json` (English picks),
-`wantlist_zh.json` (Traditional-Chinese, with the Traditional-edition ISBN
-where known; an unmatched title gets one last search by ISBN), and
-`wantlist_fr.json` (French). `lang` pins a title to that language so a French
-want can't match the English edition. `wantlist_exclude.json` lists titles to
-leave out of remote lookups entirely (Peoria-only shelf finds). Every run
-merges the lists into `titles` (as `WANT:…` rows) before looking anything up,
-so adding a book is a one-line edit plus `uv run bayarea_lookup.py --resume`.
-CJK titles are searched in CJK
-where the catalog supports it (BiblioCommons) and via pypinyin romanization
-where it doesn't (Mountain View's classic WebPAC 502s on CJK); scoring compares
-CJK, pinyin, and romanized forms, which also bridges traditional/simplified
-variants. Pinyin-vs-pinyin similarity only counts when it's nearly exact —
-syllable streams blur together ('zhe shi wo de' would otherwise happily match
-*That's Not My Hat*).
+**Want-list files.** `wantlist_{en,zh,fr}.json` are arrays of
+`{title, author, format, lang?, isbn?}`; `lang` pins a title to that language,
+and `isbn` gives an unmatched title one last search. `wantlist_exclude.json`
+lists titles to leave out of remote lookups. Adding a book is one line plus
+`uv run bayarea_lookup.py --resume`.
 
-## Storing scrapes (SQLite)
+**The to-do ladder** in `bayarea.md` puts each title in one rung: on a
+favourite branch's shelf (nothing to do) → place a hold (with whether a copy
+sits on another branch's shelf) → request through LINK+ → buy.
 
-Every lookup can be appended to a local SQLite database (`shelfwalk.db`, gitignored)
-so availability accumulates as a time-series. Two ways in:
+**Raw mirror.** Every response is stored verbatim in `raw_pages` (newest per
+URL), so a parser or matching fix replays offline instead of re-scraping.
 
-```bash
-uv run library_lookup.py --details "pigeon needs a bath"   # live scrape, auto-records (--no-db to skip)
-uv run ingest.py scrape.json                               # load browser-captured JSON
-uv run report.py --matrix                                  # regenerate the cross-branch table
-```
+## Hot list
 
-Tables: `titles` (record metadata), `scrapes` (one row per lookup event),
-`availability` (one row per branch copy per check — the time-series core), and
-`search_snapshots` (Peoria-wide counts). The schema lives in `catalog_db.py`, so the
-DB is always reproducible; it's kept out of git to avoid binary churn.
-
-**Raw mirror**: every response body the Bay Area lookups fetch — search
-results, availability, record details, all four systems — is also stored
-verbatim (zlib-compressed) in `raw_pages`, newest fetch per URL. Every field
-the source sent stays re-parseable offline, so an extraction or matching fix
-can be replayed against mirrored data instead of needing a re-scrape.
-
-**Full details per edition**: the enrichment pass visits every tracked
-version's record page (mirror-first — LINK+ pages were already fetched for
-holdings) and stores the complete bibliographic picture in
-`remote_editions.details` as JSON: ISBN, edition statement, publisher,
-physical description, summary, audience, series, subjects, genres, alternate
-titles — plus the contents note and stated original title used for
-compilation/translation labeling and verification.
-
-## What to do about each title
-
-`bayarea.md` opens with a **To do** section, because "is it on a shelf" isn't
-an action. Every tracked title lands in exactly one rung:
-
-1. **on a favorite branch's shelf now** — nothing to do; it's in that system's
-   shelf-walk file, call number and all
-2. **place a hold** — your systems own it but no favorite branch has a copy
-   out on the shelf; the *Speed* column says whether one is sitting on some
-   other branch's shelf (fast) or every copy is out (wait)
-3. **request through LINK+** — no local system has it, a member library does
-4. **buy** — in no catalog here at all, with the ISBN to order
-
-## Per-title detail
-
-`titles.md` carries what the shelf lists have no room for — reading age, ISBN,
-awards, and the summary — merged across systems (each field from the first
-catalog that recorded it). Ages come from the catalogs' audience notes, which
-are wildly inconsistent (`Ages 3-7`, `2-5 Brodart`, `Pre-K to 1`, `AD 280
-Lexile`), so the column normalizes whatever exists and blanks where a record
-says nothing. The shelf-walk tables carry the same age in a column, for
-judging at the shelf whether a book suits the kid you're shopping for.
-
-## Scheduled refresh
-
-Board books turn over within hours, so the reports are only true if they're
-fresh. `refresh.sh` re-checks everything, regenerates the markdown, and commits
-it (logs in `logs/`, pruned after 30 days; set `SHELFWALK_PUSH=1` to push too).
-A systemd user timer runs it at 7:30am, catching up after a suspend:
-
-```bash
-cp systemd/shelfwalk-refresh.* ~/.config/systemd/user/
-systemctl --user daemon-reload
-systemctl --user enable --now shelfwalk-refresh.timer
-systemctl --user list-timers shelfwalk-refresh.timer   # when it next fires
-journalctl --user -u shelfwalk-refresh -n 20           # what happened
-```
-
-(`loginctl enable-linger` if it should also run while you're logged out.)
-
-## Tests
-
-```bash
-uv run pytest -q        # 61 tests, no network — every parser runs on fixtures
-```
-
----
-
-# Peoria (retired)
-
-Everything below concerns `library_lookup.py` and the Peoria markdown, kept for
-reference. It is no longer refreshed.
-
-## Why it needs a real browser
-
-The catalog sits behind a **Cloudflare bot check**. A plain HTTP request (curl,
-`requests`, etc.) gets a `403`, and headless automation gets stuck on the
-"Just a moment…" interstitial. A *real* browser clears it by running the
-challenge JavaScript — so this tool drives one. No CAPTCHA-solving and no
-fingerprint spoofing; it just uses an actual browser the way a person would.
-One-time browser download: `uv run playwright install chromium`.
-
-## Usage
-
-```bash
-# Fast Peoria-wide copy count:
-uv run library_lookup.py "dear zoo"
-
-# Branch-by-branch, on-shelf breakdown (opens each title's holdings page):
-uv run library_lookup.py --details "little blue truck"
-
-# Limit to your branches, only what's on the shelf right now:
-uv run library_lookup.py --available-only --branch north --branch lakeview "grumpy monkey"
-
-# Several titles at once, as JSON:
-uv run library_lookup.py --json "press here" "moo baa la la la" > out.json
-```
-
-Branches: `north`, `lakeview`, `lincoln`, `main`, `mcclure`, `outreach`.
-`--branch` and `--available-only` both imply `--details`.
-
-### Browser modes
-
-- **headed (default)** — opens a real Chrome/Chromium window. Works on any
-  desktop. A persistent profile in `./.catalog-profile` keeps the Cloudflare
-  clearance cookie so repeat runs are quick.
-- **`--connect URL`** — attach to a Chrome you already have open. Most reliable,
-  and needs no `playwright install`:
-  ```bash
-  google-chrome --remote-debugging-port=9222      # (in another terminal)
-  uv run library_lookup.py --connect http://127.0.0.1:9222 --details "dear zoo"
-  ```
-- **`--headless`** — fastest, but the bot check usually blocks it. Handy only if
-  you're running through `--connect` to a headless-but-already-cleared Chrome, or
-  on a network Cloudflare trusts.
-
-## Notes
-
-- Availability is a point-in-time snapshot; board books move fast, so treat it as
-  "very likely on the shelf," not a reservation.
-- The search scope excludes eBooks/eAudio and the federated article index, matching
-  the branch shelf-lookup workflow. Adjust `SEARCH_PROFILE` in the script to change it.
-
-## Hot list — getting into the queue before publication
-
-The want-list side asks whether a book is on a shelf this morning. For a new
-release by an author you follow that question has no useful answer: every copy
-is on order, and the only thing that decides when you read it is your place in
-the hold queue, which is fixed weeks before publication.
+A new release has no copy on a shelf; what decides when you read it is your
+place in the hold queue, fixed weeks before publication.
 
 ```bash
 uv run hotlist.py add "Taipei Story" --author Kuang --isbn 9780063473744
-uv run hotlist.py check      # poll every watched title at every system
-uv run hotlist.py status     # current standing, shortest joinable queue
+uv run hotlist.py check      # poll every watched title
+uv run hotlist.py status     # standing per title, shortest joinable queue
 uv run hotlist.py holds      # what auto-hold would do (dry run)
 ```
-
-`hotlist.json` is the watchlist; `shelfwalk.db` keeps the sighting history and
-the hold ledger. `hotwatch.sh` + `systemd/shelfwalk-hotwatch.*` run the check
-four-hourly, which is the timescale a release queue actually moves on.
-
-What it looks like three days before publication:
 
 ```
 Taipei Story  (pub 2026-09-08)
   sjpl  BK           copies   28  holds    1   0.04/copy  avail   0 (no holds — walk-in only)
   sjpl  BK           copies   50  holds   18   0.36/copy  avail   0
-  sccl  LPRINT       copies    7  holds   10   1.43/copy  avail   0
   sccl  BK           copies   38  holds   60   1.58/copy  avail   0
-  mvpl  Book         copies    3  holds   12   4.00/copy  avail   0
   → shortest joinable queue: sjpl (0.36 holds/copy)
 ```
 
-Same book, same hour, an eleven-fold spread in queue depth across three
-systems — which is the whole reason the thing exists.
+Watching needs no card. Placing holds needs a credential in the login keyring
+*and* `SHELFWALK_PLACE_HOLDS=1` in the systemd unit, and the placers are not
+implemented until their endpoints are captured — see `docs/hold-recon.md`.
 
-**Holds are watched by default and placed only if you switch it on.** The
-detection half needs no card and no credentials at all. The placing half needs
-both a credential in the login keyring and `SHELFWALK_PLACE_HOLDS=1` in the
-systemd unit, and the endpoints it needs have not been captured yet — see
-`docs/hold-recon.md`.
-
-## Acclaim — what's worth reading, joined to what you can borrow
-
-The want-list and the hot list both answer *where do I get this*. `acclaim.py`
-answers the question before it — *what is worth reading* — from the bodies that
-decide it, and stores the result next to the catalog data so the two can be
-joined.
+## Acclaim
 
 ```bash
 uv run acclaim.py pull --all        # every source that runs unattended
-uv run acclaim.py browser-plan      # what needs a Chrome pass, and why
+uv run acclaim.py browser-plan      # what needs a Chrome pass
 uv run acclaim.py stats             # coverage and provenance
-uv run acclaim.py score             # rank by breadth across juries
-uv run acclaim.py shelf             # acclaimed AND on a shelf near you now
-uv run acclaim.py find "<story>"    # which anthology carries a short work
+uv run acclaim.py score             # rank by breadth across independent juries
+uv run acclaim.py shelf             # top-scored works with a copy available now
+uv run acclaim.py find "<story>"    # which book carries a short work
 ```
 
-Sources are **the awarding bodies themselves**, not an encyclopedia. That is a
-deliberate and load-bearing choice: Wikidata carries 818 Booker nominees but
-only 21 Pulitzer finalists out of roughly 200, 6 Women's Prize nominees and a
-single NBCC record. It is fine for winners and useless for shortlists, which
-is most of what makes a corpus worth having, so it is kept only as a fallback
-and a cross-check.
+Sources are the awarding bodies themselves; Wikipedia is only a fallback, since
+it lists winners but few shortlists. Short fiction is tracked too, with
+`work_containers` recording which collection or anthology reprints it.
+`docs/sources.md` is the inventory; sites that refuse scripts are harvested in
+a real Chrome tab (`docs/harvesting.md`).
 
-Short fiction is tracked as well as books — Hugo/Nebula/Locus novellas,
-novelettes and short stories — because the awards cover it. Since you cannot
-borrow a novelette, `work_containers` records which collections and anthologies
-reprint each one.
+## Scheduled jobs
 
-A weekly timer (`systemd/shelfwalk-acclaim.*`) keeps the scriptable sources
-current. A few sites cannot be scripted at all: `pulitzer.org` returns 403 to
-both `urllib` and `curl` with browser-identical headers — TLS fingerprinting,
-not something header spoofing can beat — and NYT/WSJ need a login. Those are
-harvested by JavaScript running inside a real Chrome tab, which POSTs to
-`tools/collector.py`; see `docs/harvesting.md`.
+| Timer | Runs | When |
+|---|---|---|
+| `shelfwalk-refresh` | `refresh.sh`: lookups, reports, commit of the generated reports (`SHELFWALK_PUSH=1` pushes) | daily 07:30 |
+| `shelfwalk-hotwatch` | `hotwatch.sh`: hot-list check, desktop notice when something moves | every 4 h |
+| `shelfwalk-acclaim` | `acclaim.sh`: `acclaim.py pull --all` | Sunday 04:00 |
+
+```bash
+cp systemd/shelfwalk-*.{service,timer} ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now shelfwalk-refresh.timer   # likewise hotwatch, acclaim
+journalctl --user -u shelfwalk-refresh -n 20
+```
+
+Logs go to `logs/`. `loginctl enable-linger` keeps timers running while logged
+out.
+
+## Tests
+
+```bash
+uv run pytest -q    # no network; test_mirror.py skips pages not in the local mirror
+```
+
+## Peoria (retired)
+
+`library_lookup.py` drove a real browser past the Peoria Public Library
+catalog's Cloudflare check; `ingest.py` loads its JSON. Neither is refreshed,
+and the Peoria reports are a frozen snapshot.
+
+```bash
+uv run playwright install chromium                       # one-time
+uv run library_lookup.py --details "little blue truck"   # per-branch holdings
+uv run library_lookup.py --connect http://127.0.0.1:9222 --details "dear zoo"
+```

@@ -1,157 +1,144 @@
 # shelfwalk — working notes
 
-Tracks a curated toddler want-list against Bay Area library shelves. Formerly
-`peorialib`; **Peoria is retired** (frozen snapshot only — don't propose
-re-scrapes or browser work there). The live path is `bayarea_lookup.py` →
-SQLite → `report.py`.
+Three tools on one SQLite store: the **want-list** (a toddler's books, located on
+Bay Area shelves each morning), the **hot list** (a few adult new releases,
+watched for their hold queues) and the **acclaim corpus** (award and best-of
+lists, joined to the catalogs). Peoria is retired: a frozen snapshot, no
+re-scrapes or browser work there.
 
 ## Ground rules
 
 - `uv` for everything: `uv run bayarea_lookup.py`, `uv run pytest -q`,
   `uv add <pkg>`. Never `pip`.
-- **The report `.md` files are generated artifacts** (`bayarea.md`, `titles.md`,
-  `sccl.md`, `sjpl.md`, `mountainview.md`, `linkplus.md`, and the frozen Peoria
-  set). Never hand-edit them; change `report.py` and run `uv run report.py
-  --write`. `README.md`, this file and `docs/` are hand-written.
-- `shelfwalk.db` is the source of truth and is gitignored. The schema in
-  `catalog_db.py` recreates it; `open_db()` migrates missing columns.
-- Commit/push only when asked.
+- **Report `.md` files are generated** (`bayarea.md`, `titles.md`, `sccl.md`,
+  `sjpl.md`, `mountainview.md`, `linkplus.md`, and the Peoria set); each carries
+  the `AUTO-GENERATED` banner. Change `report.py` and run
+  `uv run report.py --write`. `README.md`, this file and `docs/` are hand-written.
+- `shelfwalk.db` is the source of truth and is gitignored; `catalog_db.py`
+  recreates the schema and `open_db()` migrates missing columns.
+- Commit/push only when asked. `refresh.sh` commits the generated reports by
+  itself every morning, and nothing else.
 
 ## Where things live
 
 | Concern | Place |
 |---|---|
-| Search, matching, availability, enrichment | `bayarea_lookup.py` |
-| Schema + all SQL | `catalog_db.py` |
-| Every markdown renderer | `report.py` |
+| Want-list search, matching, availability, enrichment | `bayarea_lookup.py` |
+| Schema and shared queries | `catalog_db.py` |
+| Every markdown renderer; want-list favourite branches (`FAVORITES`) | `report.py` |
 | Want-list data | `wantlist_{en,zh,fr}.json`, `wantlist_exclude.json` |
-| Favorite branches | `report.py:FAVORITES` |
-| Hot new releases: watch + auto-hold | `hotlist.py`, `hotlist.json` |
-| What the hold leg still needs | `docs/hold-recon.md` |
-| Awards / best-of corpus | `acclaim.py` (CLI + `SOURCES` registry) |
-| One adapter per awarding body | `sources/<name>.py` |
+| Hot list: watch + holds | `hotlist.py`, `hotlist.json`; open work in `docs/hold-recon.md` |
+| Acclaim CLI, `SOURCES` registry, scoring, shelf join | `acclaim.py` |
+| One adapter per awarding body | `sources/<name>.py`; inventory in `docs/sources.md` |
 | Transports, mirror, text repair, yield guard | `acclaim_core.py` |
-| Sources that need a Chrome pass | `docs/harvesting.md`, `tools/collector.py` |
+| Browser-tier harvests | `docs/harvesting.md`, `tools/collector.py`, `harvest/` |
+| Scheduled jobs | `refresh.sh`, `hotwatch.sh`, `acclaim.sh`, `systemd/` |
 
-## Matching invariants (each one is a bug that already bit)
+## Catalog systems
 
-Every rule below has a test in `test_bayarea_lookup.py`. If a change makes one
-fail, the rule is probably right and the change is wrong.
+- `sccl`, `sjpl` and `paloalto` are BiblioCommons (gateway JSON API); `mvpl` and
+  `linkplus` are Innovative WebPACs (HTML). `paloalto` is used only by the
+  acclaim shelf join.
+- ⛔ **Mountain View is skipped** (`bayarea_lookup.SKIPPED_SYSTEMS`). Its WebPAC
+  refuses any search not launched from its own search page (since 2026-09-12),
+  and robots.txt on it and on its Vega catalog disallows crawlers. Don't forge
+  a Referer or scrape Vega; check a title by hand in the browser. Record links
+  still load.
+- A system that fails `MAX_CONSECUTIVE_FAILURES` titles in a row is dropped for
+  the run, so one blocked catalog can't run the refresh into its timeout.
+- `report.stale_systems` marks any system more than 20h behind the newest one:
+  its cells show `?`, its per-system file lists holdings only, and its old shelf
+  marks never take a title off the hold list.
+- Threads run one per system with a connection each (WAL); `_pace()` spaces
+  requests per host because SCCL, SJPL and Palo Alto share the gateway and it
+  403s uncoordinated bursts.
+
+## Want-list matching invariants
+
+Each rule has a test in `test_bayarea_lookup.py`; if a change breaks one, the
+rule is probably right.
 
 - A candidate's **subtitle is part of its identity** — the bare title never
   scores alone (BiblioCommons files series volumes as `Grumpy Monkey` +
   subtitle `Too Many Bugs`).
-- Only **descriptive** subtitles may be dropped for stem matching ("a
-  lift-the-flap book"), never volume names. Parallel titles (`= Tren de carga`)
-  are exempt.
+- Only **descriptive** subtitles ("a lift-the-flap book") may be dropped for
+  stem matching, never volume names. Parallel titles (`= Tren de carga`) are
+  exempt.
 - Extra same-work editions need ≥ `EDITION_MIN_RATIO` (0.95); short-suffix
-  spinoffs live in 0.90–0.95 ("…Caterpillar's Eid", "Dragons Love Tacos 2").
-- Editions must share the primary's language; foreign records go through the
+  spinoffs sit in 0.90–0.95 ("…Caterpillar's Eid", "Dragons Love Tacos 2").
+- Editions share the primary's language; foreign records go through the
   **translation** route, which requires the record's own stated original
   (`Translation of:` note / uniform title) to name the want.
 - Pinyin/CJK comparisons need ≥ `PINYIN_MIN_RATIO` (0.85) — syllable streams
   blur ('zhe shi wo de' vs *That's Not My Hat*).
-- Movies and music are never candidates; digital editions are tracked but
-  carry no shelf state.
+- Movies and music are never candidates; digital editions are tracked but carry
+  no shelf state.
 - WebPAC queries: fold diacritics, join apostrophes (`can't`→`cant`), drop a
-  mid-query `not` (it's a boolean operator), CJK → pinyin (the server 502s).
+  mid-query `not` (a boolean operator), CJK → pinyin (the server 502s).
+- BiblioCommons format codes are classified explicitly in `_bc_format_class`;
+  an unknown code is `"other"`, never `"book"`. `test_mirror.py` fails on any
+  mirrored code that isn't listed.
 
 ## Data safety nets
 
-- Every HTTP response is mirrored into `raw_pages`. **Before re-scraping to
-  debug a parser, check the mirror** — `db.get_raw_page(conn, url)`.
+- Every HTTP response is mirrored into `raw_pages`. **Check the mirror before
+  re-scraping to debug a parser** — `db.get_raw_page(conn, url)`.
 - Re-lookups supersede wholesale: `replace_remote_editions` +
-  `latest_remote_availability` (newest scrape per (system, record) joined to
-  currently-matched bibs), so corrected matches leave no stale footprint.
-- Systems run in parallel threads, one connection each (WAL); `_pace()` spaces
-  requests per host — SCCL and SJPL share the BiblioCommons gateway and it
-  403s uncoordinated threads.
+  `latest_remote_availability` (newest scrape per (system, record), joined to
+  currently matched bibs), so a corrected match leaves no stale footprint.
+  `resolve_work_bibs` replaces a system's cached acclaim matches the same way.
+- A failed search is never a recorded miss: `shelf_candidates` raises when
+  `bc_bibs` reports an error, so `work_bibs` doesn't cache "not held".
 
-## Hot list — a different problem from the want-list
+## Hot list
 
-`hotlist.py` watches a few adult new releases (`hotlist.json`) and queues for
-them. It is deliberately *not* wired into the want-list path, because the two
-answer different questions: the want-list asks "is it on a shelf this morning",
-the hot list asks "where in the queue will I be on publication day".
+`hotlist.py` answers "where will I be in the queue on publication day", a
+different question from the want-list's "is it on a shelf this morning", so the
+two stay separate.
 
-Three rules, each one learned from the Taipei Story lookup on 2026-09-05:
+- **Match on ISBN first.** `_entry_matches` accepts a title that merely contains
+  the watched one (SJPL catalogues *Taipei Story* as `Taipei Story (Deluxe
+  Limited Edition)`), because a missed hold costs more than a stray edition.
+- **Trigger on the bib appearing, rank on holds per copy.** A record is often
+  holdable while most copies are still on order.
+- **Rank only what can be joined.** SJPL "Lucky Day" copies take no holds;
+  `status` and `plan_holds` check `holdable` first.
+- Placing holds is opt-in twice: credentials in the login keyring (never the
+  repo or a log) and `SHELFWALK_PLACE_HOLDS=1` in the systemd unit. The placers
+  are unimplemented until the endpoints are captured (`docs/hold-recon.md`).
+  `UNIQUE(slug, system, bib_id)` on `hot_holds` stops a re-queue; the batch cap
+  refuses a whole run rather than placing part of it.
 
-- **Match on ISBN, never on the title.** San José catalogued it as `Taipei
-  Story (Deluxe Limited Edition)`, which scores 0.667 against the want-list
-  matcher and is discarded as a miss — losing the one system whose queue was
-  worth joining. `_entry_matches` is deliberately looser than
-  `bayarea_lookup.pick_all`; here a false negative (no hold) costs far more
-  than a false positive (a stray edition in a report).
-- **"Holdable" is not the trigger, and holds-per-copy is not a boolean.** The
-  record was holdable with 30 of 38 copies still on order. The event worth
-  catching is the bib *appearing*; the number worth ranking on is holds/copy,
-  which read 0.36 / 1.58 / 4.00 across three systems on the same day.
-- **Rank only what you can actually join.** San José's Lucky Day shelf reads 1
-  hold on 28 copies — a 0.04/copy queue that accepts no holds at all. Both
-  `status` and `plan_holds` check `holdable` before ranking; a test pins it.
+## Acclaim corpus
 
-Placing holds is opt-in twice over: credentials must be in the login keyring
-(never the repo, never a log), and `SHELFWALK_PLACE_HOLDS=1` must be set in the
-systemd unit. The `UNIQUE(slug, system, bib_id)` constraint on `hot_holds` is
-what stops a bug re-queueing a title; the batch cap refuses the whole run
-rather than placing part of it.
-
-## Acclaim corpus — sourcing rules
-
-`acclaim.py` builds the "what is worth reading" half that `hotlist.py` and the
-want-list then locate on a shelf. Three rules it is built around:
-
-- **Original sources; Wikipedia/Wikidata is a fallback and a cross-check, never
-  the primary.** Measured 2026-09-06: Wikidata holds 818 Booker nominees but
-  21 Pulitzer finalists (there are ~200), 6 Women's Prize, 1 NBCC. It is fine
-  for winners and useless for shortlists, which is most of the value.
-- **Raw first, always.** Scripted fetches mirror into `raw_pages` via
-  `bayarea_lookup._get`; browser harvests land in `harvest/*.json`. Re-parsing
-  must never mean re-crawling — and for the browser tier, re-crawling means
-  driving Chrome by hand.
-- **One writer at a time.** Every source writes the same SQLite file, and a
-  concurrent backfill produces `database is locked` mid-scrape. `acclaim.sh`
-  takes a `flock`; don't run two pulls in parallel.
-
-Adding a source is one module in `sources/` plus one `Source(...)` line in
-`acclaim.py`. If it needs more, the framework is wrong rather than the source.
-
-⭐ **A source that returns less than it used to has broken, not shrunk.**
-Five bugs here reported success while returning less — the Booker deadlock
-(5 pages of 733), the FT ribbon case (7 winners of 21), sfadb's quoted
-titles (two-thirds of the short fiction), the ISFDB author window (0
-containers, 0 errors) and the Douban CJK key (39 accolades from 540 books).
-`check_yield` compares each run's `n_parsed` against the BEST previous run
-and `pull` exits 3 on a collapse. Use `n_parsed`, never `n_records`:
-accolades are idempotent, so `n_records` is 0 on every re-run.
-
-**Parser tests belong in `test_mirror.py`, against `raw_pages`.** Hand-written
-fixtures encode what you *believed* the markup was, and that belief was wrong
-five times. ~5,900 real responses are mirrored locally; use them.
-
-Two modelling decisions that are easy to get wrong:
-
-- **Career awards are not work awards.** The Nobel in Literature is given to a
-  person for a body of work, as are the SFWA Grand Master and most lifetime
-  honours. Those go to `author_accolades`, never `works` — inventing a book
-  called "Han Kang" would fabricate a work *and* inflate every score that
-  counts distinct awards per work.
-- ⭐ **`work_key` is Unicode-aware, and must stay that way.** Stripping to
-  `[a-z0-9]` folds every CJK title to the empty string — 540 Douban books
-  became 26 keys, silently. Fold accents first, then keep `\w` with the
-  UNICODE flag.
-- **Scores count distinct sources, never rows.** Locus alone contributes 5,214
-  accolades because its nominee lists run ten deep in every category; ranking
-  on row count puts a mid-list Locus nominee above a Pulitzer winner. Breadth
-  across independent juries is the signal. `compute_scores` is a full
-  recompute, never incremental, so a rerun after a parser fix reproduces the
-  numbers instead of stacking on them.
-
-**The browser tier cannot run on a timer.** `pulitzer.org` 403s `urllib` *and*
-`curl` with identical headers — that is TLS fingerprinting, and no header
-spoofing gets past it — while NYT/WSJ need Darren's login. `fetch()` from
-inside a real tab works, POSTing to `tools/collector.py`. Two traps, both of
-which cost time: Chrome's Private Network Access silently drops a POST to
-127.0.0.1 unless the response carries `Access-Control-Allow-Private-Network`,
-and six sequential in-page fetches blow the 45s CDP timeout where a
-`Promise.all` over the same six does not.
+- **Original sources first.** Wikipedia/Wikidata is a fallback and
+  cross-check: it has winners but few shortlists (21 Pulitzer finalists of ~200
+  as of 2026-09). `grammy` and `ft-business` are the only Wikipedia-sourced
+  sources, and every row says so in `detail`.
+- **Raw first.** Scripted fetches mirror into `raw_pages`; browser harvests land
+  in `harvest/`. Re-parsing never means re-crawling.
+- **One writer at a time.** `acclaim.sh` takes a `flock`; don't run two pulls in
+  parallel.
+- **Adding a source** is one module in `sources/` plus one `Source(...)` line in
+  `acclaim.py`.
+- ⭐ **A source that returns less than before has broken.** `check_yield`
+  compares each run's `n_parsed` with the best previous run and `pull` exits 3
+  on a collapse. Use `n_parsed`, never `n_records` (accolades are idempotent, so
+  `n_records` is 0 on a re-run).
+- **Parser tests go in `test_mirror.py`, against real mirrored responses**, not
+  hand-typed fixtures of what the markup is believed to be.
+- **Career awards are not work awards.** The Nobel, SFWA Grand Master and other
+  lifetime honours go to `author_accolades`, never `works`.
+- ⭐ **`work_key` is Unicode-aware.** Fold accents, then keep `\w` with the
+  UNICODE flag; stripping to `[a-z0-9]` collapses every CJK title to "".
+- **Scores count distinct award families, never rows.** Hugo, Nebula and Locus
+  count as one family, as do the three Bookers. `compute_scores` is a full
+  recompute, never incremental.
+- **The shelf join has its own strict matcher** (`acclaim.shelf_match`): print
+  format, the work's whole stem as the record's title or one of its parts, an
+  author among the credits, English; an author-less record needs the exact
+  title. Keep it separate from the hot list's loose matcher — each is right for
+  its own question.
+- **The browser tier can't run on a timer.** `pulitzer.org` 403s scripts
+  regardless of headers (TLS fingerprinting), `pen.org` and Douban refuse them
+  too, and NYT and WSJ need Darren's login. See `docs/harvesting.md`.

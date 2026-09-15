@@ -40,9 +40,6 @@ _BOOKER_KEYS = {
 }
 
 
-
-
-
 def parse_booker_book(page: str, url: str = "") -> dict:
     """One Booker Library book page -> {title, author, accolades:[…]}."""
     tm = re.search(r"<title>(.*?)</title>", page, re.S | re.I)
@@ -99,11 +96,8 @@ def load_booker(conn) -> int:
             if db.add_accolade(conn, key, a["award"], "award", a["status"],
                                category="Fiction", year=a["year"], url=url):
                 n += 1
-        # Commit before the next fetch, always. `_archive` mirrors through its
-        # OWN connection, so an uncommitted write transaction here blocks it —
-        # one process deadlocking itself on SQLite's single writer. `_get`
-        # then reads 'database is locked' as a fetch failure and retries, and
-        # the backfill crawls to a halt after the first handful of pages.
+        # Commit before the next fetch: `_archive` mirrors through its own
+        # connection, which an open write transaction here would lock out.
         conn.commit()
     conn.commit()
     _warn_if_mostly_failing("booker", pages, fails)

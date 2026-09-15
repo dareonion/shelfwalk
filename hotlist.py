@@ -1,26 +1,16 @@
 #!/usr/bin/env python3
 """Watch a handful of hot new releases and get into the hold queue early.
 
-The want-list side of this repo answers "is it on the shelf this morning?".
-This side answers a different question: a new release by an author you follow
-is never on a shelf — every copy is on order — so the only thing that decides
-when you read it is *where you are in the queue*, and that is set weeks before
-publication.
+The want-list asks "is it on the shelf this morning?". A new release is never
+on a shelf — every copy is on order — so what decides when you read it is
+*where you are in the queue*, which is set weeks before publication. Hence:
 
-What the Taipei Story lookup on 2026-09-05 (publication 09-08) showed, and
-what this module is shaped around:
-
-  * "Becomes holdable" is the wrong trigger. The record was already
-    holdable:true at SCCL with 30 of its 38 copies still on order. For a
-    pre-pub title a record is holdable the moment the vendor feed creates it,
-    so the event worth catching is THE BIB APPEARING AT ALL.
-  * The number that matters is holds-per-copy, not a boolean. Same book, same
-    hour: 0.36 at San Jose, 1.58 at SCCL, 4.0 at Mountain View. Queue in the
-    wrong system and you wait a season for a book you could have had in a week.
-  * Match on ISBN, not on the title. San Jose catalogued it as "Taipei Story
-    (Deluxe Limited Edition)", which scored 0.667 against the want-list matcher
-    and was thrown away as a miss — the one system where the queue was actually
-    worth joining. Publishers' pre-pub records are full of this.
+  * Trigger on the bib appearing, not on "becomes holdable": a pre-pub record
+    is holdable the moment the vendor feed creates it, most copies on order.
+  * Rank on holds per copy, not a boolean: the same book in the same hour can
+    read 0.36 in one system and 4.0 in another.
+  * Match on ISBN, not title: pre-pub records carry titles like "Taipei Story
+    (Deluxe Limited Edition)", which the want-list matcher rejects.
 
     uv run hotlist.py check              # poll every watched title, log changes
     uv run hotlist.py check --quiet      # only print when something moved (cron)
@@ -143,6 +133,9 @@ def bc_bibs(subdomain: str, entry: dict, errors: list = None) -> list[dict]:
     and the only thing that survives a mangled pre-pub title), plus the
     title+author fielded search to pick up the editions whose own ISBNs we
     don't have.
+
+    A failed query is skipped so the others still count; pass `errors` to learn
+    about it — an empty result is otherwise indistinguishable from "not held".
     """
     queries = [f"identifier:({i})" for i in entry["isbns"]]
     if entry.get("author"):
@@ -454,9 +447,8 @@ def status(db_path: str, watchlist: str = WATCHLIST_FILE) -> None:
             mark = {"placed": " ★HELD",
                     "failed": " !failed"}.get(held["outcome"], "") if held else ""
             if not r["holdable"]:
-                # San Jose's 28-copy Lucky Day shelf shows 1 hold on 28 copies
-                # — a dazzling 0.04/copy queue that takes no holds at all. Say
-                # so on the row, or the best-looking line is an unjoinable one.
+                # an unholdable record can show the best ratio (SJPL's Lucky
+                # Day shelf: 1 hold on 28 copies), so mark it on the row
                 mark += " (no holds — walk-in only)"
             ratio = "         —" if hpc is None else f"{hpc:>5.2f}/copy"
             print(f"  {r['system']:<5} {(r['format'] or '?')[:12]:<12} "
@@ -539,7 +531,7 @@ class BiblioCommonsHolds(HoldPlacer):
 
 
 class WebPacHolds(HoldPlacer):
-    """Mountain View / LINK+ classic Innovative. Historically a form POST of
+    """Mountain View / LINK+ classic Innovative: typically a form POST of
     name + barcode + PIN to /search~S1/.b<id>/.b<id>/1,1,1,B/request, but the
     field names differ per install and must be captured, not guessed."""
 

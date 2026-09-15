@@ -17,8 +17,8 @@ from acclaim_core import (  # noqa: F401
 #   /awards-prizes/national-book-awards-<year>/?cat=<slug>
 # and marks status by container, not by text — <div class="winner-book">,
 # "finalist-books", "long-list" — so the section is what says winner vs
-# finalist. Categories are read from each year's own nav rather than hardcoded,
-# because they changed: Translated Literature only exists from 2018.
+# finalist. Categories come from each year's own nav because they vary by year
+# (Translated Literature exists from 2018).
 _NBA_SECTIONS = (("winner-book", "winner"), ("finalist-books", "finalist"),
                  ("long-list", "longlist"))
 _NBA_CAT_RE = re.compile(

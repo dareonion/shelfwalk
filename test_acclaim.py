@@ -1,9 +1,8 @@
-"""Tests for acclaim.py — award/list corpus parsers. No network.
+"""Tests for acclaim.py — corpus parsers, scoring and the shelf join. No network.
 
-Every fixture below is a verbatim slice of real markup from the source it
-names, kept small. The point of fixture tests here is that these parsers run
-against sites that change without warning: when one breaks, the failing test
-should say which source and which shape.
+Parser fixtures are small verbatim slices of each source's markup, so a failure
+names the source and the shape that changed. test_mirror.py runs the same
+parsers against whole mirrored pages.
 """
 from __future__ import annotations
 
@@ -265,9 +264,8 @@ def test_author_accolades_are_idempotent():
 # --- scoring --------------------------------------------------------------------
 
 def test_score_counts_distinct_sources_not_rows():
-    """Locus alone contributes 5,214 accolades because its nominee lists run
-    ten deep per category. Ranking on row count would put a mid-list Locus
-    nominee above a Pulitzer winner, so scores count distinct sources."""
+    """Locus nominee lists run ten deep per category; counting rows would rank a
+    mid-list Locus nominee above a Pulitzer winner."""
     with tempfile.TemporaryDirectory() as d:
         conn = db.open_db(os.path.join(d, "t.db"))
         spammy = db.upsert_work(conn, "Spammy", "Nominee")
@@ -339,9 +337,8 @@ def test_nbcc_reads_category_and_year():
 # --- ISFDB containers -----------------------------------------------------------
 
 def test_isfdb_flags_a_standalone_printing_as_still_borrowable():
-    """Tor publishes Hugo novellas as standalone books. Those are the easiest
-    thing to borrow, so they are kept and flagged — not filtered out as 'not an
-    anthology'."""
+    """Tor publishes Hugo novellas as standalone books; those are kept and
+    flagged, not dropped as 'not an anthology'."""
     assert A._flat_name("The Tusks of Extinction") == A._flat_name("the tusks of extinction!")
 
 
@@ -427,9 +424,8 @@ def test_douban_is_a_list_not_an_award():
 # --- the raw mirror -------------------------------------------------------------
 
 def test_fetch_arms_the_raw_mirror_itself(monkeypatch):
-    """Three loaders shipped without calling set_archive and the only symptom
-    was an empty raw_pages — the pull still reported success, so the
-    'never re-crawl to fix a parser' guarantee was quietly not holding."""
+    """A loader that never calls set_archive leaves raw_pages empty while the pull
+    still reports success."""
     import bayarea_lookup as B
     with tempfile.TemporaryDirectory() as d:
         conn = db.open_db(os.path.join(d, "t.db"))
@@ -460,8 +456,8 @@ def test_fetch_prefers_the_mirror_over_the_network(monkeypatch):
 # --- double-encoded text --------------------------------------------------------
 
 def test_demojibake_repairs_a_double_encoded_apostrophe():
-    """PEN serves 5 of 999 rows this way \u2014 rare enough to survive a
-    spot-check and then quietly poison the work_key."""
+    """PEN serves a few rows with the curly apostrophe double-encoded; unrepaired,
+    it corrupts the work_key."""
     broken = "The World\u00e2\u0080\u0099s Largest Owl"
     assert A.demojibake(broken) == "The World\u2019s Largest Owl"
 
@@ -533,8 +529,8 @@ def test_latimes_form_mapping():
 # --- Obama section boundaries ---------------------------------------------------
 
 def test_obama_stop_catches_the_summer_playlist_heading():
-    """The summer post divides with 'Summer Playlist:', not 'Favorite Movies'.
-    Missing it let 46 songs through as books."""
+    """The summer post divides with 'Summer Playlist:', not 'Favorite Movies'; the
+    songs after it are not books."""
     assert A._OBAMA_STOP_RE.match("Summer Playlist:")
     assert A._OBAMA_STOP_RE.match("Favorite Movies of 2025")
     assert A._OBAMA_STOP_RE.match("My 2026 Summer Music List")
@@ -549,9 +545,8 @@ def test_obama_stop_does_not_swallow_the_books_heading_or_titles():
 # --- award families -------------------------------------------------------------
 
 def test_parallel_sf_juries_collapse_to_one_family():
-    """Hugo, Nebula and Locus vote on substantially the same ballot. Counting
-    them as three independent juries put the entire top of the first scored
-    table into science fiction."""
+    """Hugo, Nebula and Locus vote on substantially the same ballot, so they count
+    as one jury, not three."""
     with tempfile.TemporaryDirectory() as d:
         conn = db.open_db(os.path.join(d, "t.db"))
         sf = db.upsert_work(conn, "Ancillary Justice", "Ann Leckie")
@@ -614,8 +609,7 @@ FT_WIKI = """=== 2010 ===
 
 
 def test_ft_winner_marker_is_case_insensitive():
-    """2010 writes {{blue ribbon}}, 2018 writes {{Blue ribbon}}. A
-    case-sensitive check silently lost 14 of 21 winners."""
+    """2010 writes {{blue ribbon}}, 2018 writes {{Blue ribbon}}."""
     got = A.parse_ft_wikitext(FT_WIKI)
     winners = {(e["year"], e["status"]) for e in got if e["status"] == "winner"}
     assert (2010, "winner") in winners and (2024, "winner") in winners
@@ -631,8 +625,8 @@ def test_ft_reads_a_year_laid_out_as_a_table():
 
 
 def test_ft_year_section_stops_at_a_level_two_heading():
-    """Stopping only at '===' let the last year run on into 'See also' and
-    file a stray bullet as that year's shortlistee."""
+    """Otherwise the last year runs on into 'See also' and files a stray bullet as
+    its shortlistee."""
     got = A.parse_ft_wikitext(FT_WIKI)
     assert all("Harvard Business Review" not in e["title"] for e in got)
     assert {e["year"] for e in got} == {2010, 2020, 2024}
@@ -648,8 +642,8 @@ def test_ft_strips_wiki_link_syntax_from_title_and_author():
 # --- work_key and non-Latin scripts ---------------------------------------------
 
 def test_work_key_preserves_cjk():
-    """The first version stripped every non-ASCII character, so every Chinese
-    title normalized to '' and all 540 Douban books collapsed into 26 keys."""
+    """A key stripped to ASCII would fold every Chinese title to '' and collapse
+    distinct Douban books into one key."""
     k1 = db.work_key("\u4e5d\u8bd7\u5fc3", "\u9ec4\u6653\u4e39")
     k2 = db.work_key("\u8981\u6709\u5149", "\u6881\u9e3f")
     assert k1 != k2
@@ -807,8 +801,8 @@ def test_audie_modern_reads_a_separate_author_and_narrator():
 
 
 def test_audie_legacy_layout_has_no_published_by_line():
-    """Pages up to ~2016 put the publisher in parentheses on the narrator
-    line, so the modern parser terminates no entries and yields nothing."""
+    """Pages up to ~2016 put the publisher in parentheses on the narrator line;
+    the modern parser finds no entries there."""
     assert A.parse_audie_year(AUDIE_LEGACY) == []
     got = A.parse_audie_year_legacy(AUDIE_LEGACY)
     assert any(e["title"].startswith("The Girl on the Train") for e in got)
@@ -862,7 +856,7 @@ def test_grammy_skips_the_infobox_parameter_rows():
     assert A.parse_grammy_wikitext(box) == []
 
 
-# --- sfadb short fiction (three bugs that hid two-thirds of it) -----------------
+# --- sfadb short fiction -------------------------------------------------------
 
 SFADB_SHORT = (
     '<div class="categoryblock">\n<div class="category">Short Story</div>\n<ul>\n'
@@ -876,8 +870,8 @@ SFADB_SHORT = (
 
 
 def test_sfadb_reads_a_quoted_short_fiction_title():
-    """Short fiction is quoted, novels are bolded. Looking only for <b> lost
-    the winner entirely and stored the anthology name for the runner-up."""
+    """Short fiction titles are quoted and novels bolded; a <b>-only parser drops
+    the story and takes the anthology name as its title."""
     got = A.parse_sfadb_year(SFADB_SHORT)
     assert ("Better Living Through Algorithms", "winner") in [
         (e["title"], e["status"]) for e in got]
@@ -891,8 +885,7 @@ def test_sfadb_prefers_the_story_over_a_bolded_anthology():
 
 
 def test_sfadb_title_is_not_the_winner_class_attribute():
-    """Unescaping before stripping tags left class="winner" in play, and the
-    quoted-title regex matched the word 'winner'."""
+    """The quoted-title regex must not match the attribute class="winner"."""
     got = A.parse_sfadb_year(SFADB_SHORT)
     assert all(e["title"].lower() != "winner" for e in got)
 
@@ -904,8 +897,8 @@ def test_sfadb_captures_the_venue_for_short_fiction():
 
 
 def test_decode_page_falls_back_to_latin1():
-    """sfadb serves Latin-1; decoding as UTF-8 turned 'Djèlí' into replacement
-    characters that were then stored as the author's name."""
+    """sfadb serves Latin-1; decoded as UTF-8, 'Djèlí' becomes replacement
+    characters."""
     assert A._decode_page("P. Dj\u00e8l\u00ed Clark".encode("latin-1")) == \
         "P. Dj\u00e8l\u00ed Clark"
     assert A._decode_page("caf\u00e9".encode("utf-8")) == "caf\u00e9"
@@ -937,9 +930,8 @@ def test_read_route_handles_a_missing_venue():
 # --- ISFDB author guard ---------------------------------------------------------
 
 def test_isfdb_author_guard_must_search_the_whole_page():
-    """ISFDB puts 'Author: Ray Nayler' in the record details around char 6300.
-    A 4000-character window rejected every work and produced zero containers
-    while reporting no failures at all."""
+    """ISFDB puts 'Author: Ray Nayler' around char 6300 of the title page, so the
+    author check searches the whole page."""
     page = "x" * 6000 + "Author: Ray Nayler" + "y" * 2000
     assert A._flat_name("Ray Nayler") in A._flat_name(page)
     assert A._flat_name("Ray Nayler") not in A._flat_name(page[:4000])
@@ -948,8 +940,8 @@ def test_isfdb_author_guard_must_search_the_whole_page():
 # --- yield regression detection --------------------------------------------------
 
 def test_check_yield_flags_a_collapse_against_the_best_previous_run():
-    """Five bugs in this repo reported success while returning less. This is
-    the check that would have caught four of them."""
+    """A run that parses far fewer entries than the best previous run has broken;
+    it has not found a smaller year."""
     with tempfile.TemporaryDirectory() as d:
         conn = db.open_db(os.path.join(d, "t.db"))
         db.log_fetch(conn, "sfadb", True, n_parsed=1500)

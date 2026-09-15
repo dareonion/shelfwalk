@@ -1,75 +1,57 @@
-# The browser tier: harvesting sources that block scripts
+# The browser tier: sources that refuse scripts
 
-Most award sites yield to plain HTTP and are handled by `acclaim.py pull`
-without anyone watching. A few do not, and this is the recipe for those.
+Most award sites work over plain HTTP and load unattended with
+`acclaim.py pull`. A few don't: `pulitzer.org` 403s `urllib` and `curl` even
+with browser-identical headers (TLS fingerprinting — the handshake gives the
+client away), `pen.org`, Medium and Douban refuse scripted clients, and NYT and
+WSJ need Darren's subscription. JavaScript running inside a real Chrome tab
+passes all of them, so the page does the fetching and parsing, and only the
+result leaves the browser. `uv run acclaim.py browser-plan` lists what is
+harvested.
 
-## Why a browser at all
-
-Two different walls, same workaround:
-
-- **Bot fingerprinting.** `pulitzer.org` returns 403 to `urllib` *and* to
-  `curl`, with browser-identical headers, cookies and referer. That is TLS
-  fingerprinting: the handshake gives away the client before a header is read,
-  so no amount of header spoofing helps. The page itself is plain
-  server-rendered HTML and complete back to 1917 — nothing is missing, it just
-  will not hand it to a script.
-- **Paywalls.** NYT and WSJ need Darren's own logged-in session.
-
-In both cases `fetch()` running *inside* a real Chrome tab is the browser, so
-it passes. The page does the fetching and parsing; the result is POSTed to a
-localhost sink so a 250KB harvest never travels through a conversation.
-
-## The mechanism
-
-```
-tools/collector.py            # localhost:8765, writes harvest/<name>.json
-   ↑ POST (from page JS)
-Chrome tab on the target site
-```
-
-Start the sink, then run the page-side script:
+## Mechanism
 
 ```sh
-uv run --no-project python tools/collector.py     # leave it running
+uv run --no-project python tools/collector.py   # localhost:8765 → harvest/<name>.json
 ```
 
 ```js
-// in the target tab, via the browser's console or claude-in-chrome
+// in the target tab (devtools console or claude-in-chrome)
 const rows = /* …scrape the DOM… */;
 await fetch('http://127.0.0.1:8765/collect?name=pulitzer',
-            {method:'POST', headers:{'Content-Type':'text/plain'},
+            {method: 'POST', headers: {'Content-Type': 'text/plain'},
              body: JSON.stringify(rows)});
 ```
 
-Then parse offline: `uv run acclaim.py pull --source pulitzer --include-browser`
+Then parse offline: `uv run acclaim.py pull --source pulitzer`.
 
-### Two traps, both of which cost time here
+- **Private Network Access.** Chrome preflights a public HTTPS origin's POST to
+  `127.0.0.1` and drops it unless the response carries
+  `Access-Control-Allow-Private-Network: true`, with no error on either side.
+  `tools/collector.py` sends the header.
+- **The 45s CDP timeout.** Fetch several pages with `Promise.all`, not one
+  after another, then parse.
+- Where a site's CSP or PNA blocks the POST, save the JSON another way: a blob
+  download (needs downloads allowed for the site) or copying it out by hand.
 
-1. **Chrome's Private Network Access silently drops the POST.** A public HTTPS
-   origin reaching `127.0.0.1` gets a preflight even for an otherwise-simple
-   POST, and it is refused unless the response carries
-   `Access-Control-Allow-Private-Network: true`. Without it the request never
-   arrives and the collector just looks idle — there is no error anywhere.
-   `tools/collector.py` sends it.
-2. **Sequential fetches blow the 45s CDP timeout.** Six category pages fetched
-   one after another timed out; `Promise.all` over the same six finished well
-   inside the limit. Parallelise the fetches, then parse.
+## Per source
 
-## Per-source recipes
+| Source | Harvest file | Shape | Notes |
+|---|---|---|---|
+| `pulitzer` | `harvest/pulitzer.json` | `[{category, year, status, raw, person_url, citation}]` | recipe below |
+| `pen` | `harvest/pen.json` | `[{year, first, last, title, award, genre, location}]` | the archive table paginates client-side (no request per page), so walk all pages in-page and dedupe; POST blocked by CSP |
+| `douban` | `harvest/douban/<year>.json` | `{year, books: [{title, author, rating, …}]}` | scripts get a stub page; POST and download both blocked |
+| `obama` | `harvest/obama.json` | `[{year, url, books}]` | Medium posts; the loader prefers this file over its HTTP path |
+| `nyt` | `harvest/nyt/<slug>.json` | `{list, year, books: [{rank, title, author, year}]}` | some titles wrap onto two lines and one carries its author in the title, so don't read the byline at a fixed line offset |
+| `wsj` | `harvest/wsj/<slug>.json` | `{list, year, url, books: [{title, author, publisher}]}` | a title line, then `By <Author> \| <Publisher>` |
 
-### Pulitzer (`harvest/pulitzer.json`)
+### Pulitzer recipe
 
-Category ids are sequential Drupal term ids, discovered from the prev/next
-links: **218 Drama, 219 Fiction, 220 History, 222 Biography, 223 General
-Nonfiction, 224 Poetry.** (221 is a 404; the Memoir/Autobiography category,
-added 2022, has not been located yet and is the one known gap.)
-
-Structure is one `div.accordion-item` per year, with the year in an
-`a[href*="prize-winners-by-year/"]`, and each entry an anchor whose href says
-which it is: `/winners/` or `/finalists/`. The winner's citation is the
-sibling `.winner-citation`.
-
-Yield: 1,116 rows, 1917–2026.
+Category pages are Drupal term ids: **218 Drama, 219 Fiction, 220 History, 222
+Biography, 223 General Nonfiction, 224 Poetry** (221 is a 404; Memoir's id is
+unknown). Each year is a `div.accordion-item` with the year in an
+`a[href*="prize-winners-by-year/"]`; each entry is an anchor whose href contains
+`/winners/` or `/finalists/`, and the winner's citation is `.winner-citation`.
 
 ```js
 const CATS={218:'Drama',219:'Fiction',220:'History',222:'Biography',
@@ -96,13 +78,3 @@ await fetch('http://127.0.0.1:8765/collect?name=pulitzer',
   {method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(rows)});
 rows.length
 ```
-
-### NYT and WSJ
-
-Not yet written. These need Darren's session, and scraping them under his
-login is a personal-use decision worth making deliberately rather than by
-default — the same call as the auto-hold question in `docs/hold-recon.md`.
-
-Targets when they are built: NYT 10 Best Books, 100 Notable Books, the 100
-Best Books of the 21st Century, and the weekly bestseller history (the only
-real popularity source available); WSJ Best Books of the Year.

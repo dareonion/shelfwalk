@@ -17,9 +17,8 @@ from acclaim_core import (  # noqa: F401
 # audiobook award. NOTE theaudies.com is a parked domain serving Kirkus
 # content; audiopub.org is the real site.
 #
-# Slugs are inconsistent and the winners hub does not link every year: 2013,
-# 2021 and 2022 are absent from it and were recovered from sitemap.xml. Hence
-# an explicit map rather than a pattern.
+# Slugs are inconsistent and the winners hub does not link every year (2013,
+# 2021 and 2022 appear only in sitemap.xml), hence an explicit map.
 #
 # Page shape (Squarespace), flattened to text:
 #   <CATEGORY> WINNER / <CATEGORY> FINALISTS
@@ -89,9 +88,8 @@ def parse_audie_year(page: str) -> list[dict]:
     return out
 
 
-# Pages up to ~2016 use a different shape with NO "Published by" line — the
-# publisher is a parenthetical on the narrator line — so the modern parser
-# terminates no entries at all and silently yields nothing for those years:
+# Pages up to ~2016 have no "Published by" line (the publisher is a
+# parenthetical on the narrator line), so the modern parser finds nothing there:
 #   winner    <title> / by <Author> / Narrated by <Narrator> (<Publisher>)
 #   finalist  <Title> by <Author>; narrated by <Narrator> (<Publisher>)
 _AU_ONELINE_RE = re.compile(

@@ -13,11 +13,9 @@ from acclaim_core import (  # noqa: F401
 
 # --- Nobel Prize in Literature --------------------------------------------------
 
-# The Nobel has a real JSON API, which makes it the cheapest source here — and
-# the only one so far that is awarded to a *person* for a body of work rather
-# than to a book. It therefore writes to `author_accolades`, not `accolades`:
-# inventing a work called "Han Kang" would both fabricate a book and inflate
-# every work-level score that counts distinct awards.
+# A real JSON API. The prize goes to a *person* for a body of work, so it writes
+# to `author_accolades`, not `accolades`: a work called "Han Kang" would
+# fabricate a book and inflate every work-level score.
 NOBEL_API = ("https://api.nobelprize.org/2.1/nobelPrizes"
              "?nobelPrizeCategory=lit&limit=200&sort=asc")
 

@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Localhost sink for browser-side scrapes.
 
-Pages that fingerprint-block scripted HTTP clients still run our JavaScript
-happily, so the browser does the fetching and POSTs the result here. Keeps
-large harvests out of the conversation entirely.
+Pages that fingerprint-block scripted HTTP clients still run our JavaScript,
+so the browser does the fetching and POSTs the result here.
 
 POST http://127.0.0.1:8765/collect?name=<slug>  body = whatever the page built
 """
@@ -18,10 +17,9 @@ class H(http.server.BaseHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Headers", "*")
         self.send_header("Access-Control-Allow-Methods", "POST, OPTIONS")
-        # Chrome's Private Network Access: a public HTTPS origin reaching
-        # 127.0.0.1 gets a preflight even for an otherwise-simple POST, and it
-        # is refused unless this header comes back. Without it the request
-        # never arrives and the server looks idle rather than blocked.
+        # Chrome's Private Network Access preflights even a simple POST from a
+        # public HTTPS origin to 127.0.0.1 and drops it unless this header comes
+        # back — silently, so the server just looks idle.
         self.send_header("Access-Control-Allow-Private-Network", "true")
 
     def do_OPTIONS(self):

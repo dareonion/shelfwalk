@@ -9,21 +9,15 @@ Everything else works without any of this: watching, the sighting history, the
 holds-per-copy ranking and the dry run all use the same unauthenticated public
 catalog reads the rest of the repo uses.
 
-## Before anything: is this worth doing?
+## Decide first
 
-Two honest caveats, neither of them a reason not to, but both worth deciding
-once rather than discovering later.
-
-- **Library terms of use.** Automating account actions is very likely outside
-  the letter of SCCL's and San José's terms, which contemplate a person at a
-  browser. This is one household, a handful of titles, a few requests a season,
-  on the account holder's own card — but it is not *nothing*, and it is worth a
-  deliberate decision rather than a drifted-into one.
-- **A hold is not free to anyone else.** Every speculative hold takes a copy
-  out of circulation for the next patron for the length of the pickup window.
-  That is the real argument for `max_holds_per_copy`, for one hold per title
-  rather than one per system, and for cancelling promptly when a title arrives
-  from somewhere else first.
+- **Library terms of use.** Automating account actions is likely outside the
+  letter of SCCL's and San José's terms, even for one household's own card and
+  a few holds a season.
+- **A hold isn't free to anyone else.** A speculative hold keeps a copy from the
+  next patron through the pickup window — hence `max_holds_per_copy`, one hold
+  per title rather than per system, and cancelling as soon as a copy arrives
+  from elsewhere.
 
 ## What to capture
 
@@ -48,9 +42,10 @@ read-only and anonymous. Holds go somewhere else. Capture:
 ### Innovative WebPAC (Mountain View)
 
 Classic Innovative authenticates with name + barcode + PIN and posts to a
-`request` path off the record URL. The field names differ between installs and
-have changed across releases, so they must be read off the real form rather
-than copied from another library's.
+`request` path off the record URL; field names vary by install, so read them off
+the real form. Mountain View is out of the default watch
+(`bayarea_lookup.SKIPPED_SYSTEMS`), so this placer only matters for a watchlist
+entry that names `mvpl`.
 
 ## Storing the credentials
 
@@ -64,9 +59,8 @@ secret-tool store --label='shelfwalk sjpl pin' \
     service shelfwalk system sjpl field pin
 ```
 
-`hotlist.py holds` skips any system with no stored credential, so the watcher
-keeps working for systems you have not set up (and for a card that has
-expired — which is what happened to the San José card that prompted all this).
+`hotlist.py holds` skips any system with no stored credential, so watching
+keeps working for systems not set up and for an expired card.
 
 ## Turning it on
 

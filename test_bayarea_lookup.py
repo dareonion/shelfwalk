@@ -110,8 +110,8 @@ def test_series_subtitles_do_not_cross_match():
     best, score = ba.pick_best("Grumpy monkey : mom for a day", "Lang, Suzanne",
                                "picture", cands)
     assert best is None  # different adventure, must not match on the shared stem
-    # …and the bare series want must not take a volume either: dropping a
-    # volume-naming subtitle is exactly how spinoffs impersonated the original
+    # …and the bare series want must not take a volume either: a subtitle that
+    # names a volume is never dropped for stem matching
     best, _ = ba.pick_best("Grumpy monkey", "Lang, Suzanne", "picture", cands)
     assert best is None
 
@@ -599,8 +599,8 @@ def test_cross_want_claims_collapse_to_the_primary_owner():
 
 
 def test_get_closes_throttled_responses_and_caps_backoff(monkeypatch):
-    """A 429's HTTPError *is* the response — leaving it unclosed left sockets
-    in CLOSE-WAIT, and uncapped 20/40/60s sleeps stalled a run for minutes."""
+    """A 429's HTTPError is the response and must be closed, or its socket lingers
+    in CLOSE-WAIT; back-off sleeps are capped."""
     closed, slept = [], []
 
     class FakeErr(Exception):
@@ -925,8 +925,8 @@ def test_subtitled_series_volumes_never_match_the_bare_title():
 
 
 def test_pick_all_rejects_suffix_spinoffs():
-    # short-suffix spinoffs land just under 0.95 — 'Eid' scored 0.900 and
-    # 'Dragons Love Tacos 2' 0.947, and both sailed under the want's name
+    # short-suffix spinoffs land just under 0.95 ('…Caterpillar's Eid' 0.900,
+    # 'Dragons Love Tacos 2' 0.947) and must not ride along as editions
     cands = [
         _cand("v1", "The Very Hungry Caterpillar", "picture", "eng",
               authors=("Carle, Eric",)),
@@ -949,7 +949,7 @@ def test_pick_all_rejects_suffix_spinoffs():
 
 def test_borderline_translation_reenters_via_translation_rule():
     # 'Pete el gato' scores ~0.91 on the shared subtitle — too low for an
-    # edition now, but the translation rule takes it, correctly labeled
+    # edition, but the translation rule takes it, labeled as a translation
     cands = [
         _cand("p1", "Pete the cat : I love my white shoes", "picture", "eng",
               authors=("Litwin, Eric",)),

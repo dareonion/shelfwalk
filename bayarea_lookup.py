@@ -1,31 +1,32 @@
 #!/usr/bin/env python3
 """Look up the shelfwalk want-list at Bay Area library systems.
 
-Takes every title already in `shelfwalk.db` (the Peoria want-list) and checks
-whether — and where — each one is on the shelf at:
+Checks every title in `shelfwalk.db` (Peoria-seeded rows plus the
+`wantlist_*.json` entries merged in on each run) for whether, and where, it is
+on the shelf at:
 
-  sccl  Santa Clara County Library District   (BiblioCommons; gateway JSON API)
-  sjpl  San José Public Library                (BiblioCommons; gateway JSON API)
-  mvpl  Mountain View Public Library           (classic Innovative WebPAC, HTML)
+  sccl      Santa Clara County Library District  (BiblioCommons gateway JSON API)
+  sjpl      San José Public Library               (BiblioCommons gateway JSON API)
+  linkplus  LINK+ union catalog                   (INN-Reach WebPAC, HTML)
+  mvpl      Mountain View Public Library          (classic Innovative WebPAC, HTML)
+            — only when named; see SKIPPED_SYSTEMS
 
-Unlike Peoria's catalog there is no Cloudflare wall here, so this is plain HTTP —
-no browser needed. Results land in the same SQLite store (`remote_bibs` +
-`remote_availability` in catalog_db) and the Bay Area markdown is regenerated
-after every run.
+Plain HTTP, no browser. Results land in `remote_bibs`, `remote_editions` and
+`remote_availability`, and the Bay Area markdown is regenerated after every run.
 
-    uv run bayarea_lookup.py                          # all titles; systems run in parallel
+    uv run bayarea_lookup.py                          # every title, default systems in parallel
     uv run bayarea_lookup.py --system sccl --limit 5  # quick spot check
     uv run bayarea_lookup.py --resume                 # only titles not yet looked up
     uv run bayarea_lookup.py --title "dear zoo"       # ad-hoc probe, prints only
     uv run bayarea_lookup.py --enrich                 # just the record-detail pass
 
-Matching is fuzzy: we search title + author-surname, then score candidates by
-normalized title similarity (works for the pinyin Chinese titles too, since
-these catalogs index romanized fields). A title can legitimately not match —
-that library just doesn't hold it — and that's recorded as bib_id NULL.
+Matching is fuzzy: search title + author surname, then score candidates by
+normalized title similarity (pinyin titles meet the catalogs' romanized
+fields). A title with no match is recorded as bib_id NULL: that library doesn't
+hold it.
 
 The best match anchors the title, and every other version of the same work in
-the result set rides along (`remote_editions`): other physical formats and
+the results rides along in `remote_editions`: other physical formats and
 printings, audiobooks (physical and digital), eBooks, and Chinese / French /
 Spanish / Japanese editions. Movies and music are never candidates; digital
 editions are linked but carry no shelf state (a license queue isn't a shelf).
@@ -102,9 +103,9 @@ AUTHOR_MISMATCH_PENALTY = 0.85
 
 # --- HTTP -----------------------------------------------------------------------
 
-# Every response body is mirrored verbatim into the DB (raw_pages): each of
-# the matching fixes so far has needed data we had already fetched and thrown
-# away. set_archive() points the mirror at the run's DB; _get() feeds it.
+# Every response body is mirrored verbatim into raw_pages, so a parser or
+# matcher fix re-reads what was already fetched. set_archive() points the
+# mirror at the run's DB; _get() feeds it.
 _archive_path = None
 _archive_local = threading.local()
 
@@ -127,12 +128,10 @@ def _archive(url: str, body: bytes) -> None:
 
 
 # Minimum spacing between requests to the SAME host, across threads: sccl and
-# sjpl share gateway.bibliocommons.com, and two lookup threads interleaving on
-# it without coordination earned CJK searches HTTP 403s.
+# sjpl share gateway.bibliocommons.com, which 403s uncoordinated threads.
 _HOST_SPACING = 0.4
-# Cap a single back-off. Escalating 20/40/60s waits across several editions of
-# one title once burned 12 silent minutes and hit the service start timeout —
-# better to give up on a title and move on than to stall the whole run.
+# Cap a single back-off: giving up on one title beats escalating waits that
+# stall the whole run into the service timeout.
 THROTTLE_MAX_WAIT = 30
 _host_gate = threading.Lock()
 _host_last: dict = {}

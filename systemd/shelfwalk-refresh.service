@@ -6,7 +6,7 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 ExecStart=%h/gitrepo/shelfwalk/refresh.sh
-# a clean four-system pass is ~30 min, but LINK+ throttles under repeated runs
+# a full pass is ~30 min, but LINK+ throttles under repeated runs
 # and back-off can stretch it; kill only a genuinely stuck run
 TimeoutStartSec=90min
 Environment="SHELFWALK_PUSH=1"

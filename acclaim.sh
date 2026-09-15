@@ -7,12 +7,12 @@
 # acclaim.py is what keeps a prize that announces in November from being
 # re-fetched every week in March.
 #
-# Browser-tier sources (Pulitzer, NYT, WSJ) are NOT touched here — they need a
-# real Chrome session. `acclaim.py browser-plan` lists what has gone stale;
-# docs/harvesting.md has the recipe.
+# Browser-tier sources (Pulitzer, PEN, Douban, NYT, WSJ) need a real Chrome
+# session and are not refreshed here; `acclaim.py browser-plan` lists them and
+# docs/harvesting.md has the recipes.
 #
-# Same main()-wrapper as refresh.sh: bash reads a script lazily, so wrapping
-# the body means an edit mid-run cannot resume at a stale byte offset.
+# Body in main(): bash reads a script lazily, so an edit mid-run can't resume
+# at a stale byte offset.
 set -uo pipefail
 
 main() {
@@ -22,9 +22,8 @@ main() {
     mkdir -p logs
     local log="logs/acclaim-$(date +%Y-%m).log"
 
-    # One at a time. A backfill can run for half an hour and these all write to
-    # the same SQLite file; two writers means 'database is locked', which is
-    # exactly how the first NBA run died.
+    # One writer at a time: a backfill can run for half an hour, and a second
+    # writer on the same SQLite file gets 'database is locked'.
     exec 9>>logs/.acclaim.lock
     if ! flock -n 9; then
         echo "=== $(date -Is) skipped — another acclaim run holds the lock" >>"$log"

@@ -32,10 +32,9 @@ OBAMA_SEED_POSTS = [
 ]
 _OBAMA_TITLE_RE = re.compile(
     r"(favorite books|summer reading|reading list|books.*of \d{4})", re.I)
-# Where the books stop. The year-end post says "Favorite Movies of <year>";
-# the summer post says "Summer Playlist:" — a heading the first pass did not
-# know about, which let 46 songs through as books. So: any short heading that
-# names music or film ends the book section.
+# Where the books stop: any short heading that names music or film — the
+# year-end post's "Favorite Movies of <year>", the summer post's "Summer
+# Playlist:" — ends the book section.
 _OBAMA_STOP_RE = re.compile(
     r"^\s*(?:my\s+)?(?:\d{4}\s+)?[\w' &-]{0,30}?"
     r"\b(playlist|music|songs?|movies?|films?|tv|television|podcasts?)\b"
@@ -116,9 +115,9 @@ def _load_obama_harvest(conn, path: str) -> int:
 
 
 def load_obama(conn) -> int:
-    """Medium 403s scripted clients persistently — not a transient rate limit —
-    so a browser harvest at harvest/obama.json wins when present. The HTTP path
-    stays as the route that works whenever Medium relents."""
+    """Medium 403s scripted clients persistently, so a browser harvest at
+    harvest/obama.json wins when present; the HTTP path is kept for when
+    Medium allows it."""
     path = os.path.join(HARVEST_DIR, "obama.json")
     if os.path.exists(path):
         return _load_obama_harvest(conn, path)

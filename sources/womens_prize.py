@@ -14,18 +14,15 @@ from acclaim_core import (  # noqa: F401
 
 # --- Women's Prize --------------------------------------------------------------
 
-# womensprize.com renders its library client-side, which is what defeated the
-# first attempt — but it is WordPress, and /wp-json/wp/v2/book is wide open:
-# 1,423 books with book_author / prize_year / prize_type taxonomies. Compare
-# Wikidata's 6 nominees for this award.
-#
-# The API does not distinguish shortlist from longlist, but each book's own
-# page carries the exact sentence — "Shortlisted for the 2026 Women's Prize for
-# Fiction" — so the spine comes from the API and the status from the page. Both
-# go through the raw mirror, so a re-run costs nothing.
+# womensprize.com renders its library client-side, but it is WordPress and
+# /wp-json/wp/v2/book is open: every book, with book_author / prize_year /
+# prize_type taxonomies. The API doesn't distinguish shortlist from longlist;
+# each book's own page carries the exact sentence ("Shortlisted for the 2026
+# Women's Prize for Fiction"), so the spine comes from the API and the status
+# from the page.
 WP_API = "https://womensprize.com/wp-json/wp/v2"
-# The category group is an explicit alternation, not [A-Za-z -]+: a greedy
-# class swallows the blurb that follows and yields 'Fiction Piranesi Lives'.
+# The category group is an explicit alternation, not [A-Za-z -]+, which would
+# swallow the following blurb ('Fiction Piranesi Lives').
 _WP_STATUS_RE = re.compile(
     r"\b(Winner of|Shortlisted for|Longlisted for)\s+the\s+(\d{4})\s+"
     r"Women'?s Prize(?:\s+for\s+(Non[- ]?Fiction|Fiction|Poetry))?", re.I)

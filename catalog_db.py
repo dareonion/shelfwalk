@@ -1,23 +1,23 @@
-"""SQLite persistence for Peoria Public Library catalog scrapes.
+"""SQLite store for everything shelfwalk scrapes. Pure stdlib `sqlite3`.
 
-A growing time-series of what was on which branch's shelf, and when. Deliberately
-generous with columns (the point is to keep more than we strictly need). Pure
-stdlib `sqlite3`, no dependencies.
+Availability and sightings are time-series: each check appends rows and the
+"latest" readers pick the current state. Generous with columns — keep more than
+strictly needed. Every table is `CREATE TABLE IF NOT EXISTS` and open_db() adds
+missing columns, so init is idempotent.
 
-Two writers feed the same helpers:
-  * library_lookup.py     — the live Playwright scraper (writes when --db is set)
-  * ingest.py             — loads JSON captured via Claude-in-Chrome
-
-Schema (all `CREATE TABLE IF NOT EXISTS`, so init is idempotent):
-  titles            one row per catalog record (stable-ish metadata)
-  scrapes           one row per lookup event
-  availability      one row per branch copy per check  (the time-series core)
-  search_snapshots  per-search Peoria-wide availability signal
-
-Remote systems (the same want-list looked up at other libraries — see
-bayarea_lookup.py):
-  remote_bibs          which remote catalog record we matched each title to
-  remote_availability  one row per branch copy per check, tagged with the system
+  titles, scrapes          every want (Peoria records and WANT: rows); one row
+                           per lookup run
+  availability,            Peoria branch copies and search blurbs (retired;
+  search_snapshots         written by library_lookup.py and ingest.py)
+  remote_bibs,             Bay Area matches, every tracked version, and copies
+  remote_editions,         per branch per check (bayarea_lookup.py)
+  remote_availability
+  hot_titles, hot_sightings, hot_holds
+                           the hot-release watchlist and hold ledger (hotlist.py)
+  works, accolades, author_accolades, work_scores, work_containers,
+  work_bibs, acclaim_fetches
+                           the awards corpus and its catalog matches (acclaim.py)
+  raw_pages                every fetched response body, compressed
 """
 from __future__ import annotations
 
@@ -737,11 +737,9 @@ def clear_hot_hold(conn, slug: str, system: str, bib_id: str) -> int:
 def _fold(s: str) -> str:
     """Lowercase, strip accents, drop everything that is not a word character.
 
-    ⚠ Uses \\w with the UNICODE flag, NOT [a-z0-9]. The first version of this
-    stripped every non-ASCII character, so every CJK title normalized to the
-    empty string and all 540 Douban books collapsed into 26 keys. Accents are
-    folded first (NFKD + drop combining marks) so 'château' and 'chateau' still
-    meet, while 九诗心 survives intact.
+    ⚠ Uses \\w with the UNICODE flag, NOT [a-z0-9]: ASCII-only stripping folds
+    every CJK title to the empty string. Accents are folded first (NFKD, drop
+    combining marks) so 'château' meets 'chateau', while 九诗心 survives intact.
     """
     s = unicodedata.normalize("NFKD", (s or "").lower())
     s = "".join(c for c in s if not unicodedata.combining(c))

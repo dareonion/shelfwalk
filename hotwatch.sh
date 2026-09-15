@@ -4,17 +4,15 @@
 #   ./hotwatch.sh                        # check + dry-run the holds
 #   SHELFWALK_PLACE_HOLDS=1 ./hotwatch.sh   # …and actually place them
 #
-# Runs far more often than refresh.sh (four-hourly, not daily) because that is
-# the timescale a new release's queue moves on: Taipei Story went from record
-# creation to 60 holds at SCCL inside a few weeks, and every hour of delay in
-# the days around publication is a place in the queue.
+# Four-hourly rather than daily: around publication a release's hold queue
+# moves by the hour, and every hour of delay is a place in it.
 #
 # Placing holds is deliberately opt-in via the environment, not a flag baked in
 # here — see systemd/shelfwalk-hotwatch.service. The dry run prints exactly
 # what the live run would do.
 #
-# Same main()-wrapper trick as refresh.sh: bash reads a script lazily, so
-# wrapping the body means an edit mid-run can't resume at a stale byte offset.
+# Body in main(): bash reads a script lazily, so an edit mid-run can't resume
+# at a stale byte offset.
 set -uo pipefail
 
 main() {

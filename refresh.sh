@@ -1,20 +1,13 @@
 #!/usr/bin/env bash
-# Re-check every want-list title at all four systems, regenerate the markdown,
-# and commit (and optionally push) the result. Meant for the systemd user timer
-# (see systemd/) or cron; safe to run by hand too.
+# Re-check every want-list title at the default systems, regenerate the reports,
+# and commit (optionally push) them. Run by the systemd user timer; safe by hand.
 #
 #   ./refresh.sh                                  # refresh + commit the reports
 #   SHELFWALK_PUSH=1 ./refresh.sh                 # …and push
 #   SHELFWALK_ARGS="--system sccl --limit 2" ./refresh.sh    # quick smoke test
 #
-# Availability is the whole point of a refresh: popular board books turn over
-# within hours, so a morning run is what makes the reports true when you
-# actually walk into the branch.
-#
-# Everything lives in main(), called at the very end: bash reads a script
-# lazily, so a plain top-to-bottom script that gets edited mid-run resumes at a
-# now-meaningless byte offset (that silently ate one morning's commit step).
-# Wrapping the body means the whole thing is parsed before any of it runs.
+# Body in main(): bash reads a script lazily, so an edit mid-run can't resume
+# at a stale byte offset.
 set -uo pipefail
 
 main() {

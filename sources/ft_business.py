@@ -14,25 +14,19 @@ from acclaim_core import (  # noqa: F401
 
 # --- FT Business Book of the Year -----------------------------------------------
 
-# ⚠ THE ONE WIKIPEDIA-SOURCED SOURCE, and deliberately so. The award's own page
-# (ft.com/bookaward) is an index of articles whose bodies sit behind the FT
-# paywall, and the shortlists live in those bodies. With no FT subscription
-# there is no original route, so this falls back — and every record it writes
-# is stamped 'via Wikipedia' in `detail` so the provenance is never ambiguous.
+# ⚠ Wikipedia fallback, like grammy. ft.com/bookaward indexes articles whose
+# bodies — where the shortlists live — sit behind the FT paywall. Every record
+# is stamped 'via Wikipedia' in `detail`.
 #
 # Structure: '=== <year> ===' sections of bullets, winner flagged {{Blue ribbon}}:
 #   * {{Blue ribbon}} [[Parmy Olson]], ''[[Supremacy (book)|Supremacy: AI…]]''
 FT_WIKI_PAGE = "Financial Times Business Book of the Year Award"
 FT_WIKI_API = ("https://en.wikipedia.org/w/api.php?action=parse&page={}"
                "&prop=wikitext&format=json")
-# The lookahead must stop at ANY heading level. Stopping only at '\n===' let
-# the final year section run on through the level-2 headings after it, which
-# pulled a bullet out of a later section and filed it as a 2025 shortlistee.
+# The lookahead stops at any heading level, so the last year section can't run
+# on into the level-2 sections after it.
 _FT_YEAR_RE = re.compile(r"===+\s*(\d{4})\s*===+(.*?)(?=\n==|\Z)", re.S)
 _FT_ITALIC_RE = re.compile(r"''+(.+?)''+", re.S)
-
-
-
 
 
 def parse_ft_wikitext(wikitext: str) -> list[dict]:
@@ -40,15 +34,12 @@ def parse_ft_wikitext(wikitext: str) -> list[dict]:
     for year, body in _FT_YEAR_RE.findall(wikitext):
         for line in body.split("\n"):
             line = line.strip()
-            # Most years are bullet lists; 2020 is a wiki table, so its entries
-            # start with '|' instead of '*' and the whole year was being
-            # skipped. An italic title is still required below, which keeps
-            # table headers and formatting rows out.
+            # Most years are bullet lists; 2020 is a wiki table ('|' rows). The
+            # italic title required below keeps table headers out.
             if not line.startswith(("*", "|")):
                 continue
             item = line.lstrip("*|").strip()
-            # {{Blue ribbon}} in some years, {{blue ribbon}} in others — a
-            # case-sensitive check silently lost 14 of 21 winners.
+            # the template is {{Blue ribbon}} in some years, {{blue ribbon}} in others
             status = ("winner" if re.search(r"\{\{\s*blue ribbon", item, re.I)
                       else "shortlist")
             tm = _FT_ITALIC_RE.search(item)

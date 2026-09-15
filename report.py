@@ -1,25 +1,26 @@
 #!/usr/bin/env python3
-"""Render the catalog store (catalog_db) into markdown — the ONLY way the .md files
-are produced. They are generated artifacts of `shelfwalk.db`; never hand-edit them.
+"""Render the catalog store (catalog_db) into markdown — the only way the report
+.md files are produced. They are generated artifacts; never hand-edit them.
 
     uv run report.py --write      # (re)generate all markdown from the DB
-    uv run report.py --matrix     # just print the cross-branch matrix to stdout
+    uv run report.py --matrix     # print the Peoria cross-branch matrix
 
-`--write` produces, from the Bay Area lookups:
-    bayarea.md        title × system overview (+ a "your branches" matrix)
+From the Bay Area lookups:
+    bayarea.md        to-do ladder, your-branches and title × system matrices
+    titles.md         per-title bibliographic detail
     sccl.md           \\
-    sjpl.md            }  per-system, per-branch shelf-walks
-    mountainview.md   /
-    linkplus.md       union catalog, title-centric (70 systems, no shelf-walk)
+    sjpl.md            }  per-system, per-branch shelf-walks (a system the
+    mountainview.md   /   latest refresh left out lists holdings only)
+    linkplus.md       union catalog, title-centric (~70 systems)
 
-and, from the retired Peoria scrape data:
-    books.md      overview: per-branch counts + the full title-x-branch matrix
+From the retired Peoria scrape:
+    books.md      overview: per-branch counts + the full title × branch matrix
     north.md      \\
     lakeview.md    }  per-branch "on the shelf now" shelf-walks
     main.md       /
 
-bayarea_lookup.py (and, historically, ingest.py / library_lookup.py) call the
-writers after every scrape, so the files stay current automatically.
+bayarea_lookup.py rewrites the Bay Area set after every run; ingest.py and
+library_lookup.py rewrite everything.
 """
 from __future__ import annotations
 
@@ -326,8 +327,7 @@ def _title_key(titles, record_id):
     """Collapse duplicate want-list records (same book, two Peoria editions).
 
     Keyed on the title alone: the two Peoria records for *The Very Hungry
-    Caterpillar* differ only in shelf format, and keeping format in the key
-    listed the book twice in every rendering.
+    Caterpillar* differ only in shelf format and must render once.
     """
     t = titles.get(record_id)
     if t is None:
@@ -708,8 +708,8 @@ def _system_md(system, rows, bibs, titles, editions, as_of, stale=None) -> str:
 
     all_records = {b["record_id"] for b in matched}
     shelf_records = {rid for rid, _ in have_shelf}
-    # every version we track: edition rows, plus the primary bib as fallback
-    # for data recorded before remote_editions existed
+    # every version we track: edition rows, plus the primary bib for rows
+    # that have no edition set
     all_versions = {(rid, bib) for (sy, rid, bib) in editions if sy == system}
     all_versions |= {(b["record_id"], b["bib_id"]) for b in matched}
     # digital editions have no shelf — they get their own section, not a
