@@ -4,6 +4,18 @@ What `acclaim.py` loads, how, and where it is thin. Coverage is what the
 corpus held on 2026-09-15; `uv run acclaim.py stats` gives live counts and the
 fetch log.
 
+## Children's books (archive saved 2026-09-18)
+
+`children.py` provides a separate reusable download and offline search, with
+3,577 saved records across 16 award sources and 24 reviewed options for ages
+2½–3. See [coverage and refresh documentation](children-awards.md), the precise
+[source manifest](../data/children/manifest.json), and
+[recommendations](../children-books.md). It downloads ALA/ALSC, Ezra Jack Keats,
+Carnegie/Greenaway, CCBC Zolotow, Boston Globe–Horn Book, and Bank Street archives,
+and reuses children's categories from NBA/Kirkus/Goodreads already in this corpus.
+Full world coverage and private nomination ballots are not claimed. This archive
+does not automatically add books to the availability polling list.
+
 ## Book sources (scriptable, `acclaim.sh` weekly)
 
 | Source | Origin | Loaded | Notes |
@@ -70,6 +82,12 @@ the first rank seen in a year.
 - **Douban** has 2023–2025. Earlier years use a rank-first layout that needs its
   own parser.
 - **Booker Children's** is parsed but has no rows yet.
+- **LA Times' "Achievement In Audiobook Production"** is an audio category
+  inside a book source; its 4 finalists count toward `work_scores` because
+  `is_audio_accolade` recognizes only whole audio sources and Goodreads'
+  Audiobook category.
+- **`browser-plan` omits Obama.** It is registered as HTTP with a preferred
+  harvest, and the plan lists only browser-transport sources.
 - **Current-year award pages don't refresh.** Book sources and Audie pages read
   the mirror first, so a page mirrored before its winners were announced keeps
   its old content until its `raw_pages` row is deleted.

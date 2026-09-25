@@ -5,9 +5,10 @@ and `WebPacHolds` raise `NotImplementedError` on purpose — the endpoints they
 need have not been observed, and guessing at an authenticated write endpoint is
 how you end up with twenty accidental holds instead of one.
 
-Everything else works without any of this: watching, the sighting history, the
-holds-per-copy ranking and the dry run all use the same unauthenticated public
-catalog reads the rest of the repo uses.
+Watching, the sighting history and the holds-per-copy ranking work without any
+of this, from the same unauthenticated catalog reads the rest of the repo uses.
+The dry run plans only for entries with `auto_hold: true` (`hotlist.py add
+--auto-hold`) and systems with stored credentials.
 
 ## Decide first
 
@@ -64,7 +65,8 @@ keeps working for systems not set up and for an expired card.
 
 ## Turning it on
 
-1. Store credentials for one system only.
+1. Set `auto_hold: true` on the watchlist entry and store credentials for one
+   system only.
 2. `uv run hotlist.py holds` — read the dry run and agree with it.
 3. `uv run hotlist.py holds --place` by hand, once, and confirm in the catalog.
 4. Only then uncomment `SHELFWALK_PLACE_HOLDS=1` in

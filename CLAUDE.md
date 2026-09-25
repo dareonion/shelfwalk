@@ -16,8 +16,9 @@ re-scrapes or browser work there.
   `uv run report.py --write`. `README.md`, this file and `docs/` are hand-written.
 - `shelfwalk.db` is the source of truth and is gitignored; `catalog_db.py`
   recreates the schema and `open_db()` migrates missing columns.
-- Commit/push only when asked. `refresh.sh` commits the generated reports by
-  itself every morning, and nothing else.
+- Commit/push only when asked. `refresh.sh` commits only the generated
+  reports whenever its daily timer runs, but with `SHELFWALK_PUSH=1` (set in
+  the supplied unit) it pushes every unpushed commit on the current branch.
 
 ## Where things live
 
@@ -29,9 +30,11 @@ re-scrapes or browser work there.
 | Want-list data | `wantlist_{en,zh,fr}.json`, `wantlist_exclude.json` |
 | Hot list: watch + holds | `hotlist.py`, `hotlist.json`; open work in `docs/hold-recon.md` |
 | Acclaim CLI, `SOURCES` registry, scoring, shelf join | `acclaim.py` |
+| Children's awards and age-reviewed recommendations | `children.py`, `sources/children_awards.py`, `data/children/`, `children-books.md` |
 | One adapter per awarding body | `sources/<name>.py`; inventory in `docs/sources.md` |
 | Transports, mirror, text repair, yield guard | `acclaim_core.py` |
 | Browser-tier harvests | `docs/harvesting.md`, `tools/collector.py`, `harvest/` |
+| Mountain View fallback and bulk availability APIs | `docs/availability-research.md` |
 | Scheduled jobs | `refresh.sh`, `hotwatch.sh`, `acclaim.sh`, `systemd/` |
 
 ## Catalog systems
@@ -46,12 +49,34 @@ re-scrapes or browser work there.
   still load.
 - A system that fails `MAX_CONSECUTIVE_FAILURES` titles in a row is dropped for
   the run, so one blocked catalog can't run the refresh into its timeout.
-- `report.stale_systems` marks any system more than 20h behind the newest one:
-  its cells show `?`, its per-system file lists holdings only, and its old shelf
-  marks never take a title off the hold list.
+- `report.stale_systems` compares successful snapshots to wall-clock time.
+  Every observation expires after 20h, even within an otherwise fresh system.
+  Old shelf marks never take a title off the hold list. Tests pass an explicit
+  `now` to report generation when rendering historical fixtures.
+- `mvpl_linkplus` is a report-only view of LINK+ rows owned by Mountain View,
+  never a new catalog client or database system. It keeps union record links
+  and source dates; missing titles are unknown. Its fresh copies count as local.
 - Threads run one per system with a connection each (WAL); `_pace()` spaces
   requests per host because SCCL, SJPL and Palo Alto share the gateway and it
   403s uncoordinated bursts.
+
+## Discovery cache and language filter
+
+Tested in `test_lookup_cache.py` (language exclusion also in
+`test_bayarea_lookup.py`).
+
+- Spanish (`spa`), Japanese (`jpn`) and French (`fre`) records are excluded,
+  including primary, audio and digital candidates. Extra translations are
+  Chinese only. `prune_excluded_editions()` removes cached matches before
+  polling/enrichment; observation history remains archived. Do not force all
+  discovery caches to expire merely to remove excluded editions.
+- SCCL/SJPL/LINK+ discovery is cached for seven days, including misses.
+  `remote_bibs.checked_at` is the discovery date; status-only refreshes must
+  not move it or replace enriched editions. `query_key` fingerprints matching
+  inputs and has a version to bump after significant matching changes.
+- Deduplicate successful availability lookups by bib within each system's run,
+  never across runs. `--rediscover` bypasses discovery reuse. A failing cached
+  bib invalidates its mapping for the next run without publishing partial data.
 
 ## Want-list matching invariants
 
@@ -69,6 +94,9 @@ rule is probably right.
 - Editions share the primary's language; foreign records go through the
   **translation** route, which requires the record's own stated original
   (`Translation of:` note / uniform title) to name the want.
+- A new title "from/with <wanted book>" is a spin-off, not an edition. Reject
+  these primary matches and rediscover affected cached matches without expiring
+  the entire discovery cache.
 - Pinyin/CJK comparisons need ≥ `PINYIN_MIN_RATIO` (0.85) — syllable streams
   blur ('zhe shi wo de' vs *That's Not My Hat*).
 - Movies and music are never candidates; digital editions are tracked but carry
@@ -84,8 +112,11 @@ rule is probably right.
 - Every HTTP response is mirrored into `raw_pages`. **Check the mirror before
   re-scraping to debug a parser** — `db.get_raw_page(conn, url)`.
 - Re-lookups supersede wholesale: `replace_remote_editions` +
-  `latest_remote_availability` (newest scrape per (system, record), joined to
-  currently matched bibs), so a corrected match leaves no stale footprint.
+  `remote_availability_snapshots` + `latest_remote_availability` (completed
+  snapshot per (system, record), joined to currently matched bibs), so an
+  empty success clears old copies. Fetch all editions first, then publish
+  matches, editions, snapshot and items in one transaction; a failed edition
+  must not publish a partial result.
   `resolve_work_bibs` replaces a system's cached acclaim matches the same way.
 - A failed search is never a recorded miss: `shelf_candidates` raises when
   `bc_bibs` reports an error, so `work_bibs` doesn't cache "not held".
@@ -103,11 +134,35 @@ two stay separate.
   holdable while most copies are still on order.
 - **Rank only what can be joined.** SJPL "Lucky Day" copies take no holds;
   `status` and `plan_holds` check `holdable` first.
-- Placing holds is opt-in twice: credentials in the login keyring (never the
-  repo or a log) and `SHELFWALK_PLACE_HOLDS=1` in the systemd unit. The placers
+- Placing holds is opt-in three times: `auto_hold` on the watchlist entry,
+  credentials in the login keyring (never the repo or a log), and
+  `SHELFWALK_PLACE_HOLDS=1` in the systemd unit. The placers
   are unimplemented until the endpoints are captured (`docs/hold-recon.md`).
   `UNIQUE(slug, system, bib_id)` on `hot_holds` stops a re-queue; the batch cap
   refuses a whole run rather than placing part of it.
+
+## Children's awards
+
+Workflow and coverage: `docs/children-awards.md`.
+
+- `children.py pull` rebuilds from saved source bytes; `--refresh` downloads
+  current archives. `find`/`report` stay offline.
+- `find --age` uses reviewed suggestions; `--candidates` requires
+  source-supplied age guidance. Award status never implies toddler suitability.
+- Keep winner/honor/nominee/shortlist/commended stages and
+  award-year/publication-year distinctions.
+- Importing the archive must not add thousands of books to library
+  availability polling. `children-books.md` is generated by `report.py` from
+  `data/children/recommendations.json` and the archive.
+- Popular acclaim uses dated evidence in `data/children/popularity.json` and
+  saved Goodreads Choice records. Keep age-fit groups ahead of popularity,
+  count each signal family once, and label unknown coverage explicitly.
+  Historical bestseller claims are not current charts. `pull --refresh` does
+  not refresh manually verified rating snapshots.
+- `preferences.json` saves user-reported favorites and tentative theme
+  connections. Personal affinity adds at most one ranking point within age-fit
+  groups, never qualifies a book for `--popular`, and does not add favorites to
+  availability polling.
 
 ## Acclaim corpus
 
@@ -122,8 +177,9 @@ two stay separate.
 - **Adding a source** is one module in `sources/` plus one `Source(...)` line in
   `acclaim.py`.
 - ⭐ **A source that returns less than before has broken.** `check_yield`
-  compares each run's `n_parsed` with the best previous run and `pull` exits 3
-  on a collapse. Use `n_parsed`, never `n_records` (accolades are idempotent, so
+  compares each run's `n_parsed` with the best of the last ten successful runs
+  and `pull` exits 3 on a collapse; PEN and Obama log no `n_parsed`, so they are
+  unguarded (open). Use `n_parsed`, never `n_records` (accolades are idempotent, so
   `n_records` is 0 on a re-run).
 - **Parser tests go in `test_mirror.py`, against real mirrored responses**, not
   hand-typed fixtures of what the markup is believed to be.
@@ -136,14 +192,15 @@ two stay separate.
   recompute, never incremental.
 - **Audio sources rank recordings, not books.** `AUDIO_SOURCES` (Audies,
   Grammy, Listen List, Audible, the charts) and Goodreads' Audiobook category
-  never count toward `work_scores`; `compute_audio_scores` (`acclaim.py audio`)
+  never count toward `work_scores` (open exception: LA Times' audiobook
+  category, see `docs/sources.md`); `compute_audio_scores` (`acclaim.py audio`)
   ranks them: audio jury wins and nominations, a top-category bonus, editorial
   lists, chart breadth, plus half the book's score capped at 5. Audio loaders
   don't set `works.form`.
 - **Charts are snapshots.** Popularity sources (`source_kind='popularity'`)
   fetch with `_fetch(fresh=True)` or a max page age; everything else reads the
-  mirror first. A chart row is one per work per year, keeping the first rank
-  seen.
+  mirror first. A chart row is one per work, chart and year, keeping the first
+  rank seen.
 - **Honour crawl delays.** `bayarea_lookup.HOST_SPACING` sets per-host request
   spacing (ala.org and kirkusreviews.com at 10 s). NYT's robots.txt names
   Claude's agents and Publishers Weekly disallows all crawlers — neither is
