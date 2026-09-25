@@ -107,6 +107,17 @@ def test_children_hornbook_photographic_titles_and_multiple_honors():
     assert sum(r["year"] == 2025 and r["status"] == "honor" for r in rows) == 6
 
 
+def test_children_hornbook_reads_italic_as_well_as_emphasis():
+    """2014's entries are set in <i> rather than <em>: three winners, six honors."""
+    from children import HORNBOOK
+    from sources.children_awards import parse_hornbook
+    rows = [r for r in parse_hornbook(_children_page(HORNBOOK)) if r["year"] == 2014]
+    assert sum(r["status"] == "winner" for r in rows) == 3
+    assert sum(r["status"] == "honor" for r in rows) == 6
+    assert any(r["title"] == "Mr. Tiger Goes Wild" and r["author"] == "Peter Brown"
+               for r in rows)
+
+
 @pytest.fixture(scope="module")
 def conn():
     if not os.path.exists(DB):

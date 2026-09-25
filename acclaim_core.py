@@ -52,6 +52,7 @@ class Source:
     cadence: str = "annual"
     note: str = ""
     forms: tuple = field(default_factory=lambda: ("book",))
+    harvest: bool = False           # prefers a browser harvest over its transport
 
 
 # --- fetching -------------------------------------------------------------------

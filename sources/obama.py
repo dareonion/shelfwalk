@@ -93,7 +93,7 @@ def _load_obama_harvest(conn, path: str) -> int:
     """harvest/obama.json: [{year, url, books:[{title, author}]}]."""
     with open(path, encoding="utf-8") as fh:
         payload = json.load(fh)
-    n = posts = 0
+    n = posts = parsed = 0
     for post in payload:
         year = post.get("year")
         year = int(year) if str(year).isdigit() else None
@@ -102,6 +102,7 @@ def _load_obama_harvest(conn, path: str) -> int:
             title = demojibake((b.get("title") or "").strip())
             if not title:
                 continue
+            parsed += 1
             author = demojibake((b.get("author") or "").strip()) or None
             key = db.upsert_work(conn, title, author)
             if db.add_accolade(conn, key, "obama", "list", "listed",
@@ -110,7 +111,7 @@ def _load_obama_harvest(conn, path: str) -> int:
                 n += 1
         conn.commit()
     db.log_fetch(conn, "obama", posts > 0, url=OBAMA_FEED, n_records=n,
-                 note=f"{posts} post(s) from browser harvest")
+                 n_parsed=parsed, note=f"{posts} post(s) from browser harvest")
     return n
 
 
@@ -123,7 +124,7 @@ def load_obama(conn) -> int:
         return _load_obama_harvest(conn, path)
     import bayarea_lookup as B
     B.set_archive(conn.execute("PRAGMA database_list").fetchone()[2])
-    n = posts = 0
+    n = posts = parsed = 0
     fails: list = []
     for url in _obama_post_urls(conn):
         raw = _fetch(conn, url, fails)
@@ -133,6 +134,7 @@ def load_obama(conn) -> int:
         ym = re.search(r"(?:of|list[s]?)[- ](\d{4})", url) or re.search(r"(\d{4})", url)
         year = int(ym.group(1)) if ym else None
         entries = parse_obama_post(html)
+        parsed += len(entries)
         if entries:
             posts += 1
         for e in entries:
@@ -144,5 +146,5 @@ def load_obama(conn) -> int:
         conn.commit()
     _warn_if_mostly_failing("obama", posts, fails)
     db.log_fetch(conn, "obama", posts > 0, url=OBAMA_FEED, n_records=n,
-                 note=_fetch_note(posts, fails, "posts parsed"))
+                 n_parsed=parsed, note=_fetch_note(posts, fails, "posts parsed"))
     return n

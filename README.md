@@ -46,7 +46,7 @@ The Bay Area catalogs are plain HTTP — no browser or credentials.
 ## Finding more children's books
 
 Start with [the reviewed shortlist](children-books.md). The saved archive contains
-3,577 award records across 16 sources, with original PDFs/HTML, a portable
+3,586 award records across 16 sources, with original PDFs/HTML, a portable
 [CSV](data/children/awards.csv), [JSON](data/children/awards.json), and a
 [coverage manifest](data/children/manifest.json). It covers major US/UK awards,
 not every award worldwide. Public honors and shortlists are distinguished from

@@ -134,8 +134,9 @@ SOURCES: dict[str, Source] = {
                forms=()),
         Source("obama", "Obama's reading lists", "list", HTTP, load_obama,
                cadence="annual-dec+summer",
-               note="Medium is the scriptable original; obama.org renders via JS",
-               forms=("novel", "nonfiction")),
+               note="Medium 403s scripts; harvest/obama.json preferred, HTTP "
+                    "fallback kept",
+               forms=("novel", "nonfiction"), harvest=True),
         Source("nba", "National Book Awards", "award", HTTP, load_nba,
                cadence="annual-nov",
                note="all categories, discovered per year from the nav",
@@ -228,7 +229,7 @@ def cmd_browser_plan(args) -> int:
     """What still needs a human-driven Chrome pass, and why."""
     print("These sources cannot run unattended:\n")
     for s in SOURCES.values():
-        if s.transport != BROWSER:
+        if s.transport != BROWSER and not s.harvest:
             continue
         # a harvest is either one file or a directory of per-list files
         one = os.path.join(HARVEST_DIR, f"{s.key}.json")
@@ -420,13 +421,15 @@ def award_family(source: str) -> str:
 
 
 # Audiobook sources judge or rank a recording, not the text, so they feed the
-# audio ranking and never the book score. Goodreads is a book source except
-# for its Audiobook category.
+# audio ranking and never the book score. Goodreads and the LA Times are book
+# sources except for their audiobook categories.
 AUDIO_JURIES = {"audies", "grammy"}
 AUDIO_LISTS = {"listen-list", "audible-best"}
 AUDIO_POPULARITY = {"audible-charts", "librofm", "apple-audio", "libby-audio"}
 AUDIO_SOURCES = AUDIO_JURIES | AUDIO_LISTS | AUDIO_POPULARITY
 AUDIO_TOP_CATEGORIES = {("audies", "Audiobook Of The Year")}
+# Juried audio categories inside book sources: they judge a recording too.
+AUDIO_JURY_CATEGORIES = {("latimes", "Achievement In Audiobook Production")}
 # Audie categories that judge packaging, not the listen.
 AUDIO_IGNORED_CATEGORIES = {("audies", "Package Design"),
                             ("audies", "Excellence In Design")}
@@ -435,8 +438,8 @@ AUDIO_WEIGHTS = {"won": 3.0, "nominated": 1.0, "listed": 2.0, "popular": 1.0,
 
 
 def is_audio_accolade(source: str, category: str | None) -> bool:
-    return source in AUDIO_SOURCES or (source == "goodreads"
-                                       and category == "Audiobook")
+    return (source in AUDIO_SOURCES or (source, category) in AUDIO_JURY_CATEGORIES
+            or (source == "goodreads" and category == "Audiobook"))
 
 
 def compute_scores(conn) -> int:
@@ -495,12 +498,13 @@ def compute_audio_scores(conn) -> int:
         acc = per_work.setdefault(r["work_key"], {
             "won": set(), "nom": set(), "lists": set(), "pop": set(),
             "top": False, "narrators": {}})
-        if src in AUDIO_JURIES:
+        if src in AUDIO_JURIES or (src, cat) in AUDIO_JURY_CATEGORIES:
+            fam = src if src in AUDIO_JURIES else f"{src}-audio"
             if r["status"] in _WON:
-                acc["won"].add(src)
+                acc["won"].add(fam)
                 acc["top"] |= (src, cat) in AUDIO_TOP_CATEGORIES
             elif r["status"] in _NOMINATED:
-                acc["nom"].add(src)
+                acc["nom"].add(fam)
         elif src in AUDIO_LISTS:
             acc["lists"].add(src)
         else:                                       # charts and the Goodreads vote

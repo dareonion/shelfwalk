@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-18T09:38:29",
+  "generated_at": "2026-09-24T23:13:32",
   "scope": "Major US/UK children's book awards, all ages; not an exhaustive worldwide award registry.",
-  "entries": 3577,
+  "entries": 3586,
   "coverage": [
     {
       "source": "caldecott",
@@ -1162,7 +1162,7 @@
     {
       "source": "hornbook",
       "url": "https://www.hbook.com/page/past-boston-globe-horn-book-award-winners",
-      "count": 524,
+      "count": 533,
       "first_year": 1967,
       "last_year": 2025,
       "years": [
@@ -1213,6 +1213,7 @@
         2011,
         2012,
         2013,
+        2014,
         2015,
         2016,
         2017,

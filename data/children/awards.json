@@ -626,7 +626,7 @@
   {
     "title": "Hidden: A Child’s Story of the Holocaust",
     "author": "Loic Dauvillier",
-    "illustrator": "Marc Lizano, color by Greg Salsedo",
+    "illustrator": "Marc Lizano",
     "credit": "Hidden: A Child’s Story of the Holocaust, written by Loic Dauvillier, illustrated by Marc Lizano, color by Greg Salsedo, translated from the French by Alexis Siegel.",
     "year": 2015,
     "category": "English translation",
@@ -5889,7 +5889,7 @@
     "year_basis": "award"
   },
   {
-    "title": "Hush! A Thai Lulla",
+    "title": "Hush! A Thai Lullaby",
     "author": "Minfong Ho",
     "illustrator": "Holly Meade",
     "credit": "Hush! A Thai Lullaby illustrated by Holly Meade; text: Minfong Ho (Melan ie Kroupa/Orchard Books)",
@@ -10038,8 +10038,8 @@
   {
     "title": "Lampie",
     "author": "Annet Schaap",
-    "illustrator": null,
-    "credit": "Lampie written and illustratedby Annet Schaap and translated by Laura Watkinson (Pushkin Children’s Books)",
+    "illustrator": "Annet Schaap",
+    "credit": "Lampie written and illustrated by Annet Schaap and translated by Laura Watkinson (Pushkin Children’s Books)",
     "year": 2020,
     "category": "Writing",
     "status": "shortlist",
@@ -26472,6 +26472,123 @@
     "year_basis": "award"
   },
   {
+    "title": "Boxers & Saints",
+    "author": "Gene Luen Yang",
+    "illustrator": "Gene Luen Yang",
+    "credit": "Boxers & Saints written and illustrated by Gene Luen Yang, color by Lark Pien (First Second/Roaring Brook)",
+    "year": 2014,
+    "category": "Fiction",
+    "status": "honor",
+    "source": "hornbook",
+    "award": "Boston Globe–Horn Book Award",
+    "source_url": "https://www.hbook.com/page/past-boston-globe-horn-book-award-winners",
+    "year_basis": "award"
+  },
+  {
+    "title": "Grasshopper Jungle",
+    "author": "Andrew Smith",
+    "illustrator": null,
+    "credit": "Grasshopper Jungle by Andrew Smith (Dutton)",
+    "year": 2014,
+    "category": "Fiction",
+    "status": "winner",
+    "source": "hornbook",
+    "award": "Boston Globe–Horn Book Award",
+    "source_url": "https://www.hbook.com/page/past-boston-globe-horn-book-award-winners",
+    "year_basis": "award"
+  },
+  {
+    "title": "Josephine: The Dazzling Life of Josephine Baker",
+    "author": "Patricia Hruby Powell",
+    "illustrator": "Christian Robinson",
+    "credit": "Josephine: The Dazzling Life of Josephine Baker by Patricia Hruby Powell, illustrated by Christian Robinson (Chronicle)",
+    "year": 2014,
+    "category": "Nonfiction",
+    "status": "honor",
+    "source": "hornbook",
+    "award": "Boston Globe–Horn Book Award",
+    "source_url": "https://www.hbook.com/page/past-boston-globe-horn-book-award-winners",
+    "year_basis": "award"
+  },
+  {
+    "title": "Knock Knock: My Dad’s Dream for Me",
+    "author": "Daniel Beaty",
+    "illustrator": "Bryan Collier",
+    "credit": "Knock Knock: My Dad’s Dream for Me by Daniel Beaty, illustrated by Bryan Collier (Little, Brown)",
+    "year": 2014,
+    "category": "Picture Book",
+    "status": "honor",
+    "source": "hornbook",
+    "award": "Boston Globe–Horn Book Award",
+    "source_url": "https://www.hbook.com/page/past-boston-globe-horn-book-award-winners",
+    "year_basis": "award"
+  },
+  {
+    "title": "Mr. Tiger Goes Wild",
+    "author": "Peter Brown",
+    "illustrator": "Peter Brown",
+    "credit": "Mr. Tiger Goes Wild written and illustrated by Peter Brown (Little, Brown)",
+    "year": 2014,
+    "category": "Picture Book",
+    "status": "winner",
+    "source": "hornbook",
+    "award": "Boston Globe–Horn Book Award",
+    "source_url": "https://www.hbook.com/page/past-boston-globe-horn-book-award-winners",
+    "year_basis": "award"
+  },
+  {
+    "title": "Rose Under Fire",
+    "author": "Elizabeth Wein",
+    "illustrator": null,
+    "credit": "Rose Under Fire by Elizabeth Wein (Hyperion)",
+    "year": 2014,
+    "category": "Fiction",
+    "status": "honor",
+    "source": "hornbook",
+    "award": "Boston Globe–Horn Book Award",
+    "source_url": "https://www.hbook.com/page/past-boston-globe-horn-book-award-winners",
+    "year_basis": "award"
+  },
+  {
+    "title": "Rules of Summer",
+    "author": "Shaun Tan",
+    "illustrator": "Shaun Tan",
+    "credit": "Rules of Summer written and illustrated by Shaun Tan (Levine/Scholastic)",
+    "year": 2014,
+    "category": "Picture Book",
+    "status": "honor",
+    "source": "hornbook",
+    "award": "Boston Globe–Horn Book Award",
+    "source_url": "https://www.hbook.com/page/past-boston-globe-horn-book-award-winners",
+    "year_basis": "award"
+  },
+  {
+    "title": "The Animal Book: A Collection of the Fastest, Fiercest, Toughest, Cleverest, Shyest — and Most Surprising — Animals on Earth",
+    "author": "Steve Jenkins",
+    "illustrator": "Steve Jenkins",
+    "credit": "The Animal Book: A Collection of the Fastest, Fiercest, Toughest, Cleverest, Shyest — and Most Surprising — Animals on Earth written and illustrated by Steve Jenkins (Houghton)",
+    "year": 2014,
+    "category": "Nonfiction",
+    "status": "honor",
+    "source": "hornbook",
+    "award": "Boston Globe–Horn Book Award",
+    "source_url": "https://www.hbook.com/page/past-boston-globe-horn-book-award-winners",
+    "year_basis": "award"
+  },
+  {
+    "title": "The Port Chicago 50: Disaster, Mutiny, and the Fight for Civil Rights",
+    "author": "Steve Sheinkin",
+    "illustrator": null,
+    "credit": "The Port Chicago 50: Disaster, Mutiny, and the Fight for Civil Rights by Steve Sheinkin (Roaring Brook)",
+    "year": 2014,
+    "category": "Nonfiction",
+    "status": "winner",
+    "source": "hornbook",
+    "award": "Boston Globe–Horn Book Award",
+    "source_url": "https://www.hbook.com/page/past-boston-globe-horn-book-award-winners",
+    "year_basis": "award"
+  },
+  {
     "title": "A Corner of White [Colors of Madeleine]",
     "author": "Jaclyn Moriarty",
     "illustrator": null,
@@ -29709,8 +29826,8 @@
     "year_basis": "award"
   },
   {
-    "title": "In Summer Light by Zib",
-    "author": "Oneal",
+    "title": "In Summer Light",
+    "author": "Zibby Oneal",
     "illustrator": null,
     "credit": "In Summer Light by Zibby Oneal (Viking Kestrel)",
     "year": 1986,
@@ -32789,8 +32906,8 @@
     "year_basis": "award"
   },
   {
-    "title": "Is That the Bus? by Lib",
-    "author": "Koponen",
+    "title": "Is That the Bus?",
+    "author": "Libby Koponen",
     "illustrator": "Katie Mazeika",
     "credit": "Is That the Bus? by Libby Koponen, illustrated by Katie Mazeika (Charlesbridge)",
     "year": 2025,
@@ -35692,8 +35809,8 @@
     "year_basis": "award"
   },
   {
-    "title": "Hattie Big Sky by Kir",
-    "author": "Larson",
+    "title": "Hattie Big Sky",
+    "author": "Kirby Larson",
     "illustrator": null,
     "credit": "Hattie Big Sky by Kirby Larson (Delacorte Press)",
     "year": 2007,
@@ -41646,8 +41763,8 @@
     "year_basis": "award"
   },
   {
-    "title": "Sequoyah: The Cherokee Man Who Gave His People Writing by James Rumford, translated into Cherokee by Anna Sixkiller Hucka",
-    "author": "(Houghton Mifflin Company)",
+    "title": "Sequoyah: The Cherokee Man Who Gave His People Writing",
+    "author": "James Rumford",
     "illustrator": null,
     "credit": "Sequoyah: The Cherokee Man Who Gave His People Writing by James Rumford, translated into Cherokee by Anna Sixkiller Huckaby (Houghton Mifflin Company)",
     "year": 2005,

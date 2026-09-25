@@ -178,8 +178,7 @@ Workflow and coverage: `docs/children-awards.md`.
   `acclaim.py`.
 - ⭐ **A source that returns less than before has broken.** `check_yield`
   compares each run's `n_parsed` with the best of the last ten successful runs
-  and `pull` exits 3 on a collapse; PEN and Obama log no `n_parsed`, so they are
-  unguarded (open). Use `n_parsed`, never `n_records` (accolades are idempotent, so
+  and `pull` exits 3 on a collapse. Every loader logs `n_parsed` on success. Use `n_parsed`, never `n_records` (accolades are idempotent, so
   `n_records` is 0 on a re-run).
 - **Parser tests go in `test_mirror.py`, against real mirrored responses**, not
   hand-typed fixtures of what the markup is believed to be.
@@ -192,8 +191,8 @@ Workflow and coverage: `docs/children-awards.md`.
   recompute, never incremental.
 - **Audio sources rank recordings, not books.** `AUDIO_SOURCES` (Audies,
   Grammy, Listen List, Audible, the charts) and Goodreads' Audiobook category
-  never count toward `work_scores` (open exception: LA Times' audiobook
-  category, see `docs/sources.md`); `compute_audio_scores` (`acclaim.py audio`)
+  never count toward `work_scores`, nor do audio categories inside book sources
+  (`AUDIO_JURY_CATEGORIES`, e.g. the LA Times' audiobook production prize); `compute_audio_scores` (`acclaim.py audio`)
   ranks them: audio jury wins and nominations, a top-category bonus, editorial
   lists, chart breadth, plus half the book's score capped at 5. Audio loaders
   don't set `works.form`.

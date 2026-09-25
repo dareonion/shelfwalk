@@ -1,6 +1,6 @@
 # Children's award lookup
 
-The 2026-09-18 pass saved **3,577 award records across 16 sources** and reviewed
+The 2026-09-18 pass saved **3,586 award records across 16 sources** and reviewed
 **24 additional English read-aloud options for ages 2½–3**. See
 [children-books.md](../children-books.md) for the recommendations and reasons.
 The broad archive covers children and teens; it is not a toddler reading list.
@@ -137,16 +137,6 @@ so a book can occupy multiple rows. Raw PDFs and HTML are saved alongside them.
 - **Irma Black:** the full official history page is saved, but much of it consists
   of cover images without textual titles. It is retained as a raw reference, not
   falsely presented as a complete normalized dataset.
-
-Known extraction defects (3,577 is the export count, not proof of complete
-extraction):
-
-- Three titles are truncated where the author's name contains "by": *Hattie Big
-  Sky* (Kirby Larson), *Is That the Bus?* (Libby Koponen) and *In Summer Light*
-  (Zibby Oneal) are stored as "… by Kir", "… by Lib", "… by Zib" with a
-  surname-only author. The credit parser matches "by" inside names.
-- Boston Globe–Horn Book 2014 has no rows: the saved page sets those entries
-  in `<i>` rather than `<em>`, which the parser skips.
 
 “All notable awards” has no universal registry. This is a substantial US/UK core,
 with explicit limits. CBCA, Governor General's, Asian/Pacific American, American

@@ -80,7 +80,7 @@ def load_pen(conn) -> int:
     db.log_fetch(conn, "pen", True,
                  url="https://pen.org/literary-awards/"
                      "literary-awards-winners-archive/",
-                 n_records=n,
+                 n_records=n, n_parsed=len(rows),
                  note=f"{len(rows)} archive rows; {career} career-level "
                       f"to author_accolades; archive ends 2023")
     return n

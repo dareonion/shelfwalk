@@ -1216,3 +1216,28 @@ def test_audio_ranking_needs_an_audio_signal_and_skips_design_categories():
         A.compute_audio_scores(conn)
         keys = {r[0] for r in conn.execute("SELECT work_key FROM audio_scores")}
         assert keys == set() and design not in keys
+
+
+def test_an_audio_category_inside_a_book_source_ranks_the_recording():
+    """The LA Times' audiobook-production prize is juried audio, not book acclaim."""
+    with tempfile.TemporaryDirectory() as d:
+        conn = db.open_db(os.path.join(d, "t.db"))
+        k = _accolade(conn, "Some Recording", "A Writer", "latimes", "award",
+                      "finalist", category="Achievement In Audiobook Production",
+                      year=2025)
+        conn.commit()
+        A.compute_scores(conn)
+        A.compute_audio_scores(conn)
+        assert conn.execute("SELECT 1 FROM work_scores WHERE work_key = ?",
+                            (k,)).fetchone() is None
+        r = conn.execute("SELECT * FROM audio_scores WHERE work_key = ?", (k,)).fetchone()
+        assert (r["n_won"], r["n_nominated"]) == (0, 1)
+
+
+def test_browser_plan_lists_sources_that_prefer_a_harvest(capsys):
+    """Obama is registered as HTTP but Medium refuses scripts, so the plan
+    must still list it alongside the browser-transport sources."""
+    A.cmd_browser_plan(None)
+    out = capsys.readouterr().out
+    assert "obama" in out and "pulitzer" in out
+    assert "booker" not in out

@@ -7,7 +7,7 @@ fetch log.
 ## Children's books (archive saved 2026-09-18)
 
 `children.py` provides a separate reusable download and offline search, with
-3,577 saved records across 16 award sources and 24 reviewed options for ages
+3,586 saved records across 16 award sources and 24 reviewed options for ages
 2½–3. See [coverage and refresh documentation](children-awards.md), the precise
 [source manifest](../data/children/manifest.json), and
 [recommendations](../children-books.md). It downloads ALA/ALSC, Ezra Jack Keats,
@@ -57,6 +57,8 @@ These rank recordings and feed only `acclaim.py audio`, never `work_scores`.
 | `libby-audio` | popularity | OverDrive Thunder API | snapshot | top 300 adult English audiobooks by OverDrive-wide demand |
 
 Goodreads Choice's Audiobook category (2024–) counts as audio popularity too.
+The LA Times' "Achievement In Audiobook Production" category counts as an
+audio jury prize.
 Chart sources re-fetch on every run (Audible after 6 days); a chart row records
 the first rank seen in a year.
 
@@ -82,12 +84,6 @@ the first rank seen in a year.
 - **Douban** has 2023–2025. Earlier years use a rank-first layout that needs its
   own parser.
 - **Booker Children's** is parsed but has no rows yet.
-- **LA Times' "Achievement In Audiobook Production"** is an audio category
-  inside a book source; its 4 finalists count toward `work_scores` because
-  `is_audio_accolade` recognizes only whole audio sources and Goodreads'
-  Audiobook category.
-- **`browser-plan` omits Obama.** It is registered as HTTP with a preferred
-  harvest, and the plan lists only browser-transport sources.
 - **Current-year award pages don't refresh.** Book sources and Audie pages read
   the mirror first, so a page mirrored before its winners were announced keeps
   its old content until its `raw_pages` row is deleted.

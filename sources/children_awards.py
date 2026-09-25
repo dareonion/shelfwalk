@@ -25,12 +25,13 @@ def credit(raw):
     """
     raw = clean(raw).replace("w ritten", "written").replace("Origina l", "Original")
     raw = re.sub(r"\bBy,\s+", "by ", raw)
+    raw = re.sub(r"\b(written|illustrated|illustrating|retold|adapted|translated)by\b", r"\1 by", raw, flags=re.I)
     raw = re.sub(r"\billustrated (?=[A-Z])", "illustrated by ", raw)
     markers = list(re.finditer(
         r"(?:,?\s*)(?:(?:written|retold|adapted|compiled|selected|translated|illustrated|illus\.|illustrating)"
-        r"(?:\s+(?:and|&)\s+(?:written|illustrated|adapted))?\s+(?:with photographs\s+)?){0,1}by\s+", raw, re.I))
+        r"(?:\s+(?:and|&)\s+(?:written|illustrated|adapted))?\s+(?:with photographs\s+)?){0,1}(?<![\w'])by\s+", raw, re.I))
     explicit = [m for m in markers if re.search(r"written|retold|adapted|compiled|selected|illustrat|illus\.", m[0], re.I)]
-    cutoff = re.search(r",?\s+(?:and )?translated (?:from|by)", raw, re.I)
+    cutoff = re.search(r",?\s+(?:and )?translated (?:from|by|into\b)", raw, re.I)
     bare = [m for m in markers if not cutoff or m.start() < cutoff.start()]
     marker = explicit[0] if explicit else bare[-1] if bare else None
     if explicit and not re.search(r"written|retold|adapted|selected|compiled|translated", explicit[0][0], re.I):
@@ -45,14 +46,14 @@ def credit(raw):
         return {"title": raw, "author": None, "illustrator": None, "credit": raw}
     title = raw[:marker.start()].strip(" ,.;:\"“”")
     tail = raw[marker.start():]
-    name_end = r"(?=\s*[,;]\s*(?:written|illustrated|illus\.|text(?:\s+by|:)|translated|and published|is the|photos by)|\s+and\s+(?:illustrated|published|translated)|\s*\(|\s+Original\s+text|;\s*music:|$)"
+    name_end = r"(?=\s*[,;]\s*(?:written|illustrated|illus\.|text(?:\s+by|:)|translated|and published|is the|photos by|colou?r(?:s|ed)?\s+by)|\s+and\s+(?:illustrated|published|translated)|\s*\(|\s+Original\s+text|;\s*music:|$)"
     author = re.search(r"(?:written|retold|adapted|text(?:\s+by|:))\s*(?:by\s+)?(.+?)" + name_end, tail, re.I)
     illustrator = re.search(r"(?:illustrated|illustrating|illus\.)\s+by\s+(.+?)" + name_end, tail, re.I)
     both = re.search(r"(?:written|retold|adapted|compiled|selected|illustrated)\s+(?:and|&)\s+(?:written|illustrated)\s+(?:with photographs\s+)?by\s+(.+?)" + name_end, tail, re.I)
     if both:
         author = illustrator = both
     elif not author and not re.search(r"illustrat|illus\.", marker.group(), re.I):
-        author = re.search(r"by\s+(.+?)" + name_end, tail, re.I)
+        author = re.search(r"\bby\s+(.+?)" + name_end, tail, re.I)
     return {"title": title,
             "author": clean(author.group(1)).strip(" ,.;") if author else None,
             "illustrator": clean(illustrator.group(1)).strip(" ,.;") if illustrator else None,
@@ -307,7 +308,7 @@ def parse_hornbook(raw):
         if el.name == "h4" and text:
             category = text
             continue
-        if not year or not category or el.name != "p" or not el.find("em"):
+        if not year or not category or el.name != "p" or not el.find(["em", "i"]):
             continue
         status = "honor" if "Honor" in text[:60] else "winner"
         text = re.sub(r"^.*?Honor Books?\s*:\s*", "", text)

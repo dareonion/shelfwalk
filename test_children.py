@@ -189,3 +189,26 @@ def test_new_only_omits_favorites_without_adding_them_to_wantlist(tmp_path):
     assert "Red Sled" not in {r["title"] for r in C.find(directory, age=3, new_only=True, conn=conn)}
     assert conn.execute("SELECT COUNT(*) FROM titles").fetchone()[0] == 0
     conn.close()
+
+
+@pytest.mark.parametrize("raw,title,author,illustrator", [
+    ("Hattie Big Sky by Kirby Larson (Delacorte Press)", "Hattie Big Sky", "Kirby Larson", None),
+    ("Is That the Bus? by Libby Koponen, illustrated by Katie Mazeika (Charlesbridge)",
+     "Is That the Bus?", "Libby Koponen", "Katie Mazeika"),
+    ("Hush! A Thai Lullaby by Minfong Ho, illustrated by Holly Meade", "Hush! A Thai Lullaby",
+     "Minfong Ho", "Holly Meade"),
+    ("Inch by Inch by Leo Lionni", "Inch by Inch", "Leo Lionni", None),
+    ("Lampie written and illustratedby Annet Schaap and translated by Laura Watkinson "
+     "(Pushkin Children’s Books)", "Lampie", "Annet Schaap", "Annet Schaap"),
+    ("Sequoyah: The Cherokee Man Who Gave His People Writing by James Rumford, translated "
+     "into Cherokee by Anna Sixkiller Huckaby (Houghton Mifflin Company)",
+     "Sequoyah: The Cherokee Man Who Gave His People Writing", "James Rumford", None),
+    ("Boxers & Saints written and illustrated by Gene Luen Yang, color by Lark Pien",
+     "Boxers & Saints", "Gene Luen Yang", "Gene Luen Yang"),
+])
+def test_credit_splits_on_the_word_by_not_inside_names(raw, title, author, illustrator):
+    """'by' inside a name (Kirby, Libby, Lullaby) is not a credit marker; a
+    translator or colorist is never the author."""
+    from sources.children_awards import credit
+    got = credit(raw)
+    assert (got["title"], got["author"], got["illustrator"]) == (title, author, illustrator)

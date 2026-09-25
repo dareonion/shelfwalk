@@ -52,7 +52,7 @@ Reported favorites: The Watermelon Seed, Knuffle Bunny, Knuffle Bunny Too, The V
 
 Major US/UK children's book awards, all ages; not an exhaustive worldwide award registry.
 
-**3,577 award records** from **16 sources**. A record is one award/category/status observation; a book may have several. Honors, nominees, finalists, shortlists, longlists, and highly commended titles remain distinct.
+**3,586 award records** from **16 sources**. A record is one award/category/status observation; a book may have several. Honors, nominees, finalists, shortlists, longlists, and highly commended titles remain distinct.
 
 Download [CSV](data/children/awards.csv) or [JSON](data/children/awards.json). The [manifest](data/children/manifest.json) records exact pages, dates, checksums, year coverage, and gaps. Original PDFs and HTML are saved in `data/children/raw/`.
 
@@ -67,7 +67,7 @@ Download [CSV](data/children/awards.csv) or [JSON](data/children/awards.json). T
 | Theodor Seuss Geisel Award | 90 | 2006–2026; 21 distinct years |
 | goodreads | 200 | 2011–2020; 10 distinct years |
 | Kate Greenaway / Carnegie Medal for Illustration | 224 | 1956–2026; 69 distinct years |
-| Boston Globe–Horn Book Award | 524 | 1967–2025; 58 distinct years |
+| Boston Globe–Horn Book Award | 533 | 1967–2025; 59 distinct years |
 | kirkus | 66 | 2014–2026; 13 distinct years |
 | Margaret Wise Brown Board Book Award | 5 | 2023–2025; 2 distinct years |
 | nba | 150 | 1996–2025; 30 distinct years |
