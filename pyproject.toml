@@ -4,7 +4,10 @@ version = "0.1.0"
 description = "Track a toddler book want-list against Bay Area library shelves"
 requires-python = ">=3.11"
 dependencies = [
+    "beautifulsoup4>=4.15.0",
+    "fonttools>=4.65.0",
     "playwright>=1.40",   # only the retired Peoria scraper needs a browser
+    "pypdf>=6.19.0",
     "pypinyin>=0.55.0",
 ]
 

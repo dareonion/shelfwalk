@@ -2,27 +2,30 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-09-15T07:31:52**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-09-18T11:29:10**. Don't hand-edit; run `uv run report.py --write`._
 
 
-Bibliographic detail for the **163** tracked titles (138 with catalog details fetched), merged across systems by the `--enrich` pass. Ages come from the catalogs' audience notes, so a Lexile (`AD420L`) or grade band appears where no age range was recorded, and blanks mean the record says nothing.
+Bibliographic detail for the **173** tracked titles (145 with catalog details fetched), merged across systems by the `--enrich` pass. Ages come from the catalogs' audience notes, so a Lexile (`AD420L`) or grade band appears where no age range was recorded, and blanks mean the record says nothing.
 
 | Title | Author | Ages | ISBN | Awards | Summary |
 |---|---|---|---|---|---|
 | 2 yeux ? | Félix, Lucie |  |  |  |  |
+| A Ball for Daisy | Raschka, Chris | Ages 3-7 | 9780375858611 | Randolph Caldecott Medal | A wordless picture book showing the fun a dog has with her ball, and what happens when it is lost |
+| A Sick Day for Amos McGee | Stead, Philip C. | Ages 5-8 | 9781596434028 | Caldecott Medal | "Amos McGee, a friendly zookeeper, always made time to visit his good friends: the elephant, the tortoise, the penguin, the rhinoceros, and the owl. But one day--'Ah-choo!'--he woke with the sniffles and the sneezes. … |
 | Are you my mother? | Eastman, P. D. (Philip D.) author illustrator | 80L | 0394900189 |  | Never having seen his mother, a baby bird makes humorous mistakes trying to find her. |
+| Baby Goes to Market | Atinuke | AD460L | 076369570X |  | Join Baby and his doting mama at a bustling southwest Nigerian marketplace for a bright, bouncy read-aloud offering a gentle introduction to numbers |
 | Bao bao biao qing ji: My Face Book (baby faces) |  |  |  |  |  |
 | Barbapapa | Tison, Annette |  | 9782821201286 |  |  |
-| Barnyard dance! | Boynton, Sandra | Ages 2-5 | 9781665925075 |  | Stom your feet! Clap your hands! Everybody ready for a Barnyard dance! |
+| Barnyard dance! | Boynton, Sandra |  | 9781665925075 |  | Stom your feet! Clap your hands! Everybody ready for a Barnyard dance! |
 | Bear snores on | Wilson, Karma | AD280L | 9780689831874 |  | On a cold winter night many animals gather to party in the cave of a sleeping bear, who then awakes and protests that he has missed the food and the fun |
 | Big red barn | Brown, Margaret Wise, 1910-1952 author | AD490L | 0060207485 |  | Rhymed text and illustrations introduce the many different animals that live in the big red barn |
 | Blueberries for Sal | McCloskey, Robert | Gr K-3 | 9780670175918 | Caldecott Honor Book, 1949 | Little Sal and Little Bear both lose their mothers while eating blueberries and almost end up with the other's mother |
 | Bluey : the creek. |  | AD500L | 9780593224571 |  | "Dad takes Bluey, Bingo, and Mackenzie to the creek after they grow tired of playing at the playground. But Bluey doesn't like the thorns, or the spiders, or the pointy rocks, or...the leeches! She struggles to find t… |
 | Bluey : zoo. |  | Ages 4-6 | 9798217142682 |  | "Bluey and her family are playing zoo. But what happens when the big blue monkey escapes?" -- Back cover |
-| Bon appétit ! Monsieur Lapin | Boujon, Claude |  | 2211062814 |  | Not fond of carrots, a rabbit investigates the diet of other animals, only to find out that carrots are quite good after all |
-| Bonne nuit tout le monde | Haughton, Chris |  | 9782211237970 |  | "Comment rassurer un enfant qui a peur de la nuit, convaincre un tout-petit que le sommeil est doux ? En lui montrant que tout finit par aller se reposer après un instant d'hésitation : le papillon qui volette, les ch… |
+| Bon appétit ! Monsieur Lapin | Boujon, Claude |  | 2211017843 : $11.25 |  |  |
+| Bonne nuit tout le monde | Haughton, Chris |  | 2211237975 |  | "Comment rassurer un enfant qui a peur de la nuit, convaincre un tout-petit que le sommeil est doux? En lui montrant que tout finit par aller se reposer après un instant d'hésitation : le papillon qui volette, les cha… |
 | Bonne nuit, Gorille | Rathmann, Peggy |  |  |  |  |
-| Bonsoir Lune | Brown, Margaret Wise |  | 2211093183 |  | Goodnight to each of the objects in the great green room: goodnight chairs, goodnight comb, goodnight air |
+| Bonsoir Lune | Brown, Margaret Wise |  | 9782211010283 |  | Goodnight to each of the objects in the great green room: goodnight chairs, goodnight comb, goodnight air. |
 | Brown bear, brown bear, what do you see? | Martin, Bill, 1916-2004 author | AD440L | 9780805095777 |  | Children see a variety of animals, each one a different color, and a teacher looking at them |
 | But not the hippopotamus | Boynton, Sandra | AD390L | 0671449044 |  | Animals pair up in these humorous rhymes |
 | Bébés chouettes | Waddell, Martin |  | 9782877670883 |  | "Toutes les chouettes réfléchissent beaucoup, même les bébés chouettes comme Sarah, Rémy et Lou. Et c'est la nuit qu'ils réfléchissent le plus, quand il fait noir, qu'ils sont seuls, et que leur maman chouette n'est p… |
@@ -38,6 +41,7 @@ Bibliographic detail for the **163** tracked titles (138 with catalog details fe
 | Dear zoo | Campbell, Rod, 1945- author | 150L | 0027164403 |  | Each animal arriving from the zoo as a possible pet fails to suit its prospective owner, until just the right one is found. Movable flaps reveal the contents of each package |
 | Don't let the pigeon drive the bus | Willems, Mo author | 120L | 9780786819881 | Caldecott Honor | No matter how hard he pleads and begs, the pigeon is not supposed to drive the bus while the driver is away, but pigeon tries every persuasive trick a young child knows to get you to say, "Yes." |
 | Don't push the button! | Cotter, Bill | Ages 4-8 | 9781402287466 |  | The only rule in Larry's book is that the reader not push the button, but when no one is looking, it may be irresistible |
+| Don't Worry, Little Crab | Haughton, Chris |  | 1536211192 |  | "Little Crab and Very Big Crab live in a tiny rock pool near the sea. Today they're going for a dip in the big ocean. 'This is going to be so great, ' says Little Crab, splish-splashing and squelch-squelching along, a… |
 | Dot! scribble! go! | Tullet, Hervé author illustrator | Ages 3-5 | 9781797232584 |  | "Once again, Hervé Tullet brilliantly and successfully coaxes children to recognize and celebrate their innate artistic talent. He convinces each reader that their hand is magic and capable of transforming a few simp… |
 | Dragons love tacos | Rubin, Adam, 1983- author | AD520L | 9780803736801 |  | Explores the love dragons have for tacos, and the dangers of feeding them them anything with spicy salsa |
 | Duck & Goose go to the beach | Hills, Tad author illustrator | Ages 3-7 | 9780385372350 |  | "Duck wants to go on an adventure. Goose doesn't. He doesn't see the point. After all, why would they go anywhere when they're happy right where they are? But then Goose sees the ocean and loves it. Who doesn't? Well,… |
@@ -46,6 +50,7 @@ Bibliographic detail for the **163** tracked titles (138 with catalog details fe
 | Duck stays in the truck | Cronin, Doreen author | Ages 5-7 | 9781534454149 |  | "Farmer Brown wants to go camping. He packs up the animals. He packs up his brother, Bob. The chickens want to hike. The cows want to fish. The pigs want to picnic. And Duck? Duck just wants to stay in the truck. How … |
 | Each peach pear plum | Ahlberg, Janet |  | 9780140506396 |  | Rhymed text and illustrations invite the reader to play "I Spy" with a variety of Mother Goose and other folklore characters |
 | Et dedans il y a... | Ashbé, Jeanne |  |  |  |  |
+| First the Egg | Seeger, Laura Vaccaro | Ages 5-8 | 1596432721 | National Book Award: Young People's Literature | A picture book about transformations |
 | Freight train = Tren de carga | Crews, Donald | PreK | 9780688801656 | Caldecott Honor Book | Brief text and illustrations trace the journey of a colorful train as it goes through tunnels, by cities, and over trestles |
 | From head to toe | Carle, Eric |  | 0694013013 |  | Encourages the reader to exercise by following the movements of various animals; presented in a question and answer format |
 | Giraffes can't dance | Andreae, Giles | AD450L | 9780439287197 |  | Gerald the giraffe is too clumsy to dance with all the other animals at the Jungle Dance, until he finds the right music |
@@ -59,6 +64,8 @@ Bibliographic detail for the **163** tracked titles (138 with catalog details fe
 | Grumpy monkey yuck! | Lang, Suzanne author | Ages 0-3 | 9780593306123 |  | Jim Panzee, really likes bananas. And that's all he ever wants to eat. Good luck getting him to try anything else because he is a pretty picky eater |
 | Higher! Higher! | Patricelli, Leslie |  | z9780763644338 | Boston Globe-Horn Book Honor Winner | One child. One swing. An obliging dad. The inevitable plea to go "Higher! Higher!" Add Leslie Patricelli's wildly expressive illustrations, and an everyday pastime reaches new heights of humor and whimsy. How high can… |
 | Hooray for fish! | Cousins, Lucy | PreK | 9780763627416 |  | Little Fish has all sorts of fishy friends in his underwater home, but loves one of them most of all |
+| Hooray for Hat! | Won, Brian | AD390L | 9780544789883 |  | Elephant wakes up in a grumpy mood, but a present on his doorstep--a hat--cheers him and he sets out to greet his neighbors who all, it seems, need hats of their own |
+| Hot Dog | Salati, Doug |  | 9780593308431 |  | "A summery picture book about mindfulness, featuring an overheated--and overwhelmed-- canine in need of sea, sand, and fresh air"-- |
 | How do dinosaurs say good night? | Yolen, Jane author | AD210L | 9780545153515 |  | Follow along as eleven different dinosaur children and their prehistoric parents give a big kiss, turn out the light, tuck in their tails, and whisper "good night." |
 | Hug | Alborough, Jez |  | 9781525302060 |  | "A little girl finds herself giving hug after hug until, all of a sudden, she's had enough!"-- |
 | I know an old lady who swallowed a pie | Jackson, Alison, 1953- |  | 0525456457 |  | Based on the classic song about the old woman who swallowed a fly, this retelling with a twist features an old lady attending a Thanksgiving dinner who swallows a pie, then a whole squash, all of the salad, and then a… |
@@ -67,13 +74,14 @@ Bibliographic detail for the **163** tracked titles (138 with catalog details fe
 | I want my hat back | Klassen, Jon | 90L | 9780763655983 | Theodor Seuss Geisel Beginning Reader Honor, 2012 | A bear almost gives up his search for his missing hat until he remembers something important |
 | If you give a mouse a cookie | Numeroff, Laura Joffe author | AD660L | 0060245867 | Georgia Children's Book Award, 1988 | Relating the cycle of requests a mouse is likely to make after you give him a cookie takes the reader through a young child's day |
 | In my heart : a book of feelings | Witek, Jo, 1968- | AD450L | 9781419713101 |  | A young girl explores what different emotions feel like, such as happiness which makes her want to twirl, or sadness which feels as heavy as an elephant |
+| Jabari Jumps | Cornwall, Gaia | PreK | 9781536202908 | A Junior Library Guild selection (JLG.) | "Jabari is definitely ready to jump off the diving board. He's finished his swimming lessons and passed his swim test, and he's a great jumper, so he's not scared at all. "Looks easy," says Jabari, watching the other … |
 | Jamberry | Degen, Bruce | PreK | 0060214171 |  | A little boy walking in the forest meets a big lovable bear that takes him on a delicious berry-picking adventure in the magical world of Berryland |
 | Kitten's first full moon | Henkes, Kevin | 360L | 9780060588281 | School Library Journal Best Books | When Kitten mistakes the full moon for a bowl of milk, she ends up tired, wet, and hungry trying to reach it |
 | Knuffle Bunny : a cautionary tale | Willems, Mo author | Ages 2-5 | 0786818700 | Caldecott Honor | A trip to the laundromat leads to a momentous occasion when Trixie, too young to speak words, realizes that something important is missing and struggles to explain the problem to her father. Trixie, Daddy, and Knuffle… |
 | Knuffle Bunny too : a case of mistaken identity | Willems, Mo author | Ages 3-6 | 9781423102991 | A Junior Library Guild selection | Her daddy in tow, Trixie hurries to school to show off her one-of-a-kind Knuffle Bunny. But an awful surprise awaits her: someone else has the exact same bunny! |
 | L'âne Trotro | Guettier, Bénédicte |  |  |  |  |
-| La chenille qui fait des trous | Carle, Eric |  | 2871421749 |  | Follows the progress of a hungry little caterpillar as he eats his way through a varied and very large quantity of food until, full at last, he forms a cocoon around himself and goes to sleep. Die-cut pages illustrate… |
-| La couleur des émotions | Llenas, Anna |  | 9791026401667 |  | "Le monstre des couleurs se sent tout barbouilľ, aujourd'hui. Ses ̌motions sont sens dessus dessous ! Il ne comprend pas ce qui lui arrive. Řussira-t-il ̉mettre de l'ordre dans son cœur et ̉retrouver son ̌quilibre? … |
+| La chenille qui fait des trous | Carle, Eric |  | 9782871421368 |  | Follows the progress of a hungry little caterpillar as he eats his way through a varied and very large quantity of food until, full at last, he forms a cocoon around himself and goes to sleep. Die-cut pages illustrate… |
+| La couleur des émotions | Llenas, Anna |  | 9791026401667 |  | "Le monstre des couleurs se sent tout barbouillé, aujourd'hui. Ses émotions sont sens dessus dessous! Il ne comprend pas ce qui lui arrive. Réussira-t-il à mettre de l'ordre dans son cœur et à retrouver son équilibre?… |
 | Le cherche-et-trouve de mes 2 ans | Americo, Tiago |  |  |  |  |
 | Le loup qui voulait changer de couleur | Lallemand, Orianne |  | 9782733811832 |  | 4ème de couv. : "Ce matin, le loup est de très méchante humeur. Tout en noir, il ne se trouve pas beau du tout. C'est décidé, il va changer de couleur! Mais ce n'est pas aussi facile qu'il le croit..." |
 | Little blue truck | Schertle, Alice author | AD580L | 9780358211785 |  | A small blue truck finds his way out of a jam, with a little help from his friends |
@@ -101,15 +109,15 @@ Bibliographic detail for the **163** tracked titles (138 with catalog details fe
 | Pete the cat : I love my white shoes | Litwin, Eric | Ages 3-7 | 9780061906220 |  | As he walks down the street, Pete the cat sings about his brand new white shoes as they change from red to blue to brown to wet |
 | Petit Ours Brun aime sa maman | Aubinais, Marie |  | 9791036314674 |  | "Petit Ours Brun aime être avec sa maman!Avec elle, il adore jardiner, se promener,lire des histoires, jouer...et surtout, se faire câliner"-- Page [4] of cover. |
 | Petit Ours Brun dit non | Bour, Danièle |  |  |  |  |
-| Petit ours brun joue dans la neige | Aubinais, Marie |  | 9791036314643 |  | "Il a neigé! Petit Ours Brun est tout excité. Et si on faisait une bataille de boules de neige avec Papa Ours?"-- |
-| Petit Ours Brun joue dans son bain | Aubinais, Marie |  | 9791036314650 |  | The little bear takes a bath |
-| Petit ours brun va chez la docteure | Aubinais, Marie |  | 9791036341380 |  |  |
+| Petit ours brun joue dans la neige | Aubinais, Marie |  |  |  |  |
+| Petit Ours Brun joue dans son bain | Aubinais, Marie |  |  |  |  |
+| Petit ours brun va chez la docteure | Aubinais, Marie |  |  |  |  |
 | Petit-Bleu et Petit-Jaune | Lionni, Leo |  | 2211011713 15.95 |  | A very elementary introduction to the basic colors and their mixtures described in very simple text. |
 | Polar bear, polar bear, what do you hear? | Martin, Bill, 1916-2004 | AD670L | 9780805053883 |  | Zoo animals from polar bear to walrus make their distinctive sounds for each other, while children imitate the sounds for the zookeeper |
 | Pop mange de toutes les couleurs | Bisinski, Pierrick |  |  |  |  |
 | Press here | Tullet, Hervé author | AD480L | 9780811879545 | 2014 Primary California Young Reader Medal | Instructs the reader on how to interact with the illustrations to create imaginative images |
 | Regarde dans la nuit | Hayashi, Emiri |  | 2092566997 |  |  |
-| Roule galette | Caputo, Natha |  | 2081601125 |  |  |
+| Roule galette | Caputo, Natha |  | 2081601125 : $7.50 |  |  |
 | Sheep in a jeep | Shaw, Nancy | 130L | 9780395411056 |  | Records the misadventures of a group of sheep that go riding in a jeep |
 | Shh! We have a plan | Haughton, Chris | Ages 2-5 | 9780763672935 |  | "Four friends creep through the woods, and what do they spot? An exquisite bird high in a tree! 'Hello birdie,' waves one. 'Shh! We have a plan,' hush the others. They stealthily make their advance, nets in the air. R… |
 | Steam train, dream train | Rinker, Sherri Duskey author | AD610L | 9781452109206 |  | In this book with rhyming text, the dream train pulls into the station and all the different cars are loaded by the animal workers, each with the appropriate cargo |
@@ -134,9 +142,11 @@ Bibliographic detail for the **163** tracked titles (138 with catalog details fe
 | Un livre | Tullet, Hervé |  | 9782747032308 |  | L'enfant est invité à appuyer sur le rond de la feuille et doit tourner la page pour savoir ce qui se passe. Les ronds jaunes, bleus ou rouges se mettent en rang et glissent sous l'action de l'enfant. Pour développ… |
 | Un peu perdu | Haughton, Chris |  | 9782844208934 |  | Un bébé chouette tombe de son nid et atterrit au coeur de la forêt. Un écureuil et une grenouille l'aident à retrouver sa mère |
 | Va-t'en, Grand Monstre Vert ! | Emberley, Ed |  |  |  |  |
+| We All Play | Flett, Julie |  | 9781778402104 |  | Animals and kids love to play! This wonderful book celebrates playtime and the connection between children and the natural world. Beautiful illustrations show: birds who chase and chirp! bears who wiggle and wobble! w… |
 | We're going on a bear hunt | Rosen, Michael, 1946- |  | 0689504764 |  | Brave bear hunters go through grass, a river, mud, and other obstacles before the inevitable encounter with the bear forces a headlong retreat |
 | Where do diggers sleep at night? | Sayres, Brianna Caplan | AD510L | 9780375868481 |  | Illustrations and rhyming text reveal what trucks, tractors, and construction vehicles do to get ready for bed after a hard day's work |
 | Where the wild things are | Sendak, Maurice | Ages 4-8 | 9780060254926 | Caldecott Medal, 1964 | Max, a naughty little boy, sent to bed without his supper, sails to the land of the wild things where he becomes their king |
+| Where's Baby? | Hunter, Anne |  | 9780735264984 |  | "Papa Fox is looking for Baby Fox, who is just out of his sight ... but not ours! An adorable, interactive read-aloud for fans of Are You My Mother. In this clever introduction to prepositions, a near-sighted Papa is … |
 | Where's Spot? | Hill, Eric, 1927-2014 author illustrator | Ages 2-6 | 9780399240461 |  | A mother dog finds eight other animals hiding around the house before finding her lost puppy. Flaps conceal the animals |
 | You can do it, Pout-Pout Fish! | Diesen, Deborah author | 210L | 9780374309817 |  | "Mr. Fish has a fun idea! He is going to make a painting for his friends at school, and he does not need any help--that is, until his plan doesn't work"--Back cover |
 | 丹丹寶寶版：刷牙 刷～刷～刷 |  |  | 9789577627247 |  |  |

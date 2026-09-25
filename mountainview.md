@@ -8,7 +8,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-11T07:31:06**. Don'
 > ⚠ **Mountain View Public Library** was last checked **2026-09-11**: Mountain View's catalog has refused scripted searches since 2026-09-12, and its robots.txt disallows crawlers. Its shelf status is left out rather than shown stale (marked `?`); its catalog links still work.
 
 
-**103** of **165** titles are in the catalog. Titles link to the record there, which shows the live shelf status.
+**98** of **160** titles are in the catalog. Titles link to the record there, which shows the live shelf status.
 
 
 ## In the catalog
@@ -16,25 +16,15 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-11T07:31:06**. Don'
 | Title | Version |
 |---|---|
 | [Are you my mother?](https://classiccatalog.mountainview.gov/record=b1052293) |  |
-| [Are you my mother?](https://classiccatalog.mountainview.gov/record=b3476138) | Spanish: “¿Eres tú mi mamá?” — translation of “Are you my mother?” |
-| [Are you my mother?](https://classiccatalog.mountainview.gov/record=b3478557) | Spanish board book: “¿Eres mi mamá?” — translation of “Are you my mother?” |
 | [Barnyard dance!](https://classiccatalog.mountainview.gov/record=b3192731) | board book |
-| [Barnyard dance!](https://classiccatalog.mountainview.gov/record=b3417452) | Spanish board book: “¡Danza del corral!” — translation of “Barnyard dance!” |
 | [Bear snores on](https://classiccatalog.mountainview.gov/record=b1248124) |  |
-| [Blueberries for Sal](https://classiccatalog.mountainview.gov/record=b1409259) | Spanish: “Arándanos para Sal” — translation of “Blueberries for Sal” |
 | [Blueberries for Sal](https://classiccatalog.mountainview.gov/record=b3474508) |  |
 | [Bluey : zoo.](https://classiccatalog.mountainview.gov/record=b3480569) |  |
-| [Bonne nuit tout le monde](https://classiccatalog.mountainview.gov/record=b3475974) | board book |
-| [Bonsoir Lune](https://classiccatalog.mountainview.gov/record=b1387888) | translation of “Goodnight moon” |
-| [Brown bear, brown bear, what do you see?](https://classiccatalog.mountainview.gov/record=b1227606) | Spanish: “Oso pardo, oso pardo, qué ves ahí?” — translation of “Brown bear, brown bear, what do you see?” |
 | [Brown bear, brown bear, what do you see?](https://classiccatalog.mountainview.gov/record=b1424060) | board book |
 | [Brown bear, brown bear, what do you see?](https://classiccatalog.mountainview.gov/record=b1577508) |  |
-| [Brown bear, brown bear, what do you see?](https://classiccatalog.mountainview.gov/record=b2392348) | Chinese board book: “Zong se de xiong, zong se de xiong, ni zai kan shen me?” — translation of “Brown bear, brown bear, what do you see?” |
-| [Brown bear, brown bear, what do you see?](https://classiccatalog.mountainview.gov/record=b3476128) | Spanish board book: “Oso pardo, oso pardo, ¿qué ves ahí?” — translation of “Brown bear, brown bear, what do you see?” |
 | [But not the hippopotamus](https://classiccatalog.mountainview.gov/record=b2597286) | board book |
 | [Caps for sale : a tale of a peddler, some monkeys, and their monkey business](https://classiccatalog.mountainview.gov/record=b1394814) | audiobook |
 | [Caps for sale : a tale of a peddler, some monkeys, and their monkey business](https://classiccatalog.mountainview.gov/record=b1396609) |  |
-| [Cars and trucks and things that go](https://classiccatalog.mountainview.gov/record=b3455292) | Spanish: “Todo sobre ruedas” — translation of “Cars and trucks and things that go” |
 | [Cars and trucks and things that go](https://classiccatalog.mountainview.gov/record=b3459660) |  |
 | [Chicka chicka boom boom](https://classiccatalog.mountainview.gov/record=b1115626) |  |
 | [Chicka chicka boom boom](https://classiccatalog.mountainview.gov/record=b1433211) | board book |
@@ -43,9 +33,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-11T07:31:06**. Don'
 | [Dear zoo](https://classiccatalog.mountainview.gov/record=b2712165) | board book |
 | [Dear zoo](https://classiccatalog.mountainview.gov/record=b3417862) | Chinese board book: “Qin ai de dong wu yuan : dong wu fan fan shu” — translation of “Dear zoo” |
 | [Don't let the pigeon drive the bus](https://classiccatalog.mountainview.gov/record=b1270945) |  |
-| [Don't let the pigeon drive the bus](https://classiccatalog.mountainview.gov/record=b2276445) | French: “Ne laissez pas le pigeon conduire le bus!” — translation of “Don't let the pigeon drive the bus!” |
 | [Don't let the pigeon drive the bus](https://classiccatalog.mountainview.gov/record=b3361165) | Chinese: “Bie rang ge zi kai gong che!” — translation of “Don't let the pigeon drive the bus!” |
-| [Don't let the pigeon drive the bus](https://classiccatalog.mountainview.gov/record=b3466038) | Spanish: “¡No dejes que la paloma conduzca el autobus!” — translation of “Don't let the pigeon drive the bus!” |
 | [Don't let the pigeon drive the bus](https://classiccatalog.mountainview.gov/record=b3483231) | board book |
 | [Don't push the button!](https://classiccatalog.mountainview.gov/record=b2275644) | board book |
 | [Don't push the button!](https://classiccatalog.mountainview.gov/record=b3482594) |  |
@@ -54,35 +42,26 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-11T07:31:06**. Don'
 | [Duck & Goose go to the beach](https://classiccatalog.mountainview.gov/record=b1481550) |  |
 | [Duck & Goose, honk! quack! boo!](https://classiccatalog.mountainview.gov/record=b1880833) |  |
 | [Duck on a bike](https://classiccatalog.mountainview.gov/record=b1248676) |  |
-| [Duck on a bike](https://classiccatalog.mountainview.gov/record=b1278640) | Spanish: “Pato va en bici” — translation of “Duck on a bike” |
 | [Duck on a bike](https://classiccatalog.mountainview.gov/record=b2380964) | Chinese: “Ya zi qi che ji” — translation of “Duck on a bike” |
 | [Duck stays in the truck](https://classiccatalog.mountainview.gov/record=b2546685) |  |
 | [Each peach pear plum](https://classiccatalog.mountainview.gov/record=b1034817) |  |
 | [Freight train = Tren de carga](https://classiccatalog.mountainview.gov/record=b1035344) |  |
-| [Freight train = Tren de carga](https://classiccatalog.mountainview.gov/record=b1309560) | Spanish: “Freight train = Tren de carga” |
 | [From head to toe](https://classiccatalog.mountainview.gov/record=b1189851) |  |
 | [From head to toe](https://classiccatalog.mountainview.gov/record=b2163238) | board book |
 | [Giraffes can't dance](https://classiccatalog.mountainview.gov/record=b1273464) |  |
 | [Giraffes can't dance](https://classiccatalog.mountainview.gov/record=b1474834) | board book |
 | [Go, dog. Go!](https://classiccatalog.mountainview.gov/record=b1572994) |  |
-| [Go, dog. Go!](https://classiccatalog.mountainview.gov/record=b3455296) | Spanish board book: “Ve, perro. ¡Ve! : libro de cosas que van” |
 | [Goodnight moon](https://classiccatalog.mountainview.gov/record=b1319277) | board book |
-| [Goodnight moon](https://classiccatalog.mountainview.gov/record=b1395531) | Spanish board book: “Buenas noches, Luna” — translation of “Goodnight moon” |
 | [Goodnight moon](https://classiccatalog.mountainview.gov/record=b1430061) |  |
 | [Goodnight moon](https://classiccatalog.mountainview.gov/record=b3418110) | Chinese: “Wan an, yue liang” — translation of “Goodnight moon” |
 | [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b1421852) |  |
-| [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b1480336) | Spanish: “Felices sueños, camiones grandes y pequeños” — translation of “Goodnight, goodnight, construction site” |
 | [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b1600044) | board book |
-| [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b3361558) | Japanese: “Oyasumi, hataraku kurumatachi” — translation of “Goodnight, goodnight, construction site” |
 | [Goodnight, goodnight, construction site](https://classiccatalog.mountainview.gov/record=b3460798) | Chinese: “Wan an, gong di shang de che” — translation of “Goodnight, goodnight, construction site” |
-| [Grumpy monkey : mom for a day](https://classiccatalog.mountainview.gov/record=b2774133) | French: “Gaston grognon” — translation of “Grumpy monkey” |
-| [Grumpy monkey : mom for a day](https://classiccatalog.mountainview.gov/record=b2821345) | Chinese: “Xin fan de hou zi” |
-| [Grumpy monkey : mom for a day](https://classiccatalog.mountainview.gov/record=b3455236) | Spanish: “Grumpy monkey : ¡está gruñón!” |
 | [Grumpy monkey : mom for a day](https://classiccatalog.mountainview.gov/record=b3465648) |  |
 | [Grumpy monkey party time!](https://classiccatalog.mountainview.gov/record=b2448440) |  |
-| [Grumpy monkey party time!](https://classiccatalog.mountainview.gov/record=b2786758) | Spanish: “Gruñón, ¡esto es una fiesta!” — translation of “Grumpy monkey party time!” |
 | [Grumpy monkey yuck!](https://classiccatalog.mountainview.gov/record=b3455767) | board book |
 | [Grumpy monkey](https://classiccatalog.mountainview.gov/record=b2361523) |  |
+| [Grumpy monkey](https://classiccatalog.mountainview.gov/record=b2821345) | Chinese: “Xin fan de hou zi” |
 | [Hooray for fish!](https://classiccatalog.mountainview.gov/record=b1301058) |  |
 | [How do dinosaurs say good night?](https://classiccatalog.mountainview.gov/record=b1227952) |  |
 | [Hug](https://classiccatalog.mountainview.gov/record=b1328185) | board book |
@@ -90,14 +69,11 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-11T07:31:06**. Don'
 | [I love you to the moon and back](https://classiccatalog.mountainview.gov/record=b2822815) | board book |
 | [I stink!](https://classiccatalog.mountainview.gov/record=b1251479) |  |
 | [I want my hat back](https://classiccatalog.mountainview.gov/record=b1425648) |  |
-| [I want my hat back](https://classiccatalog.mountainview.gov/record=b2711384) | Spanish: “Yo quiero mi sombrero” — translation of “I want my hat back” |
 | [If you give a mouse a cookie](https://classiccatalog.mountainview.gov/record=b1078546) |  |
-| [If you give a mouse a cookie](https://classiccatalog.mountainview.gov/record=b1175721) | Spanish: “Si le das una galletita a un ratón” — translation of “If you give a mouse a cookie” |
 | [If you give a mouse a cookie](https://classiccatalog.mountainview.gov/record=b3418118) | Chinese: “Yao shi ni gei lao shu chi bing gan = Yaoshi ni gei laoshu chi binggan” — translation of “If you give a mouse a cookie” |
 | [In my heart : a book of feelings](https://classiccatalog.mountainview.gov/record=b1507025) |  |
 | [Jamberry](https://classiccatalog.mountainview.gov/record=b1062223) |  |
 | [Kitten's first full moon](https://classiccatalog.mountainview.gov/record=b1279884) |  |
-| [Kitten's first full moon](https://classiccatalog.mountainview.gov/record=b1340145) | Spanish: “La primera luna llena de gatita” — translation of “Kitten's first full moon” |
 | [Kitten's first full moon](https://classiccatalog.mountainview.gov/record=b1578866) | board book |
 | [Kitten's first full moon](https://classiccatalog.mountainview.gov/record=b2381005) | Chinese: “Xiao mao mi zhui yue liang” — translation of “Kitten's first full moon” |
 | [Knuffle Bunny : a cautionary tale](https://classiccatalog.mountainview.gov/record=b1286804) |  |
@@ -106,11 +82,9 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-11T07:31:06**. Don'
 | [Little Excavator](https://classiccatalog.mountainview.gov/record=b3471819) | board book |
 | [Little blue truck](https://classiccatalog.mountainview.gov/record=b1348696) |  |
 | [Little blue truck](https://classiccatalog.mountainview.gov/record=b1385148) | board book |
-| [Little blue truck](https://classiccatalog.mountainview.gov/record=b1453449) | Spanish board book: “El camioncito azul” — translation of “Little blue truck” |
 | [Llama Llama misses Mama](https://classiccatalog.mountainview.gov/record=b1420231) |  |
 | [Llama Llama misses Mama](https://classiccatalog.mountainview.gov/record=b2405394) | board book |
 | [Llama Llama red pajama](https://classiccatalog.mountainview.gov/record=b1301067) |  |
-| [Llama Llama red pajama](https://classiccatalog.mountainview.gov/record=b1428595) | Spanish: “La llama llama rojo pijama” — translation of “Llama, llama red pajama” |
 | [Llama Llama red pajama](https://classiccatalog.mountainview.gov/record=b1509494) | board book |
 | [Mighty, mighty construction site](https://classiccatalog.mountainview.gov/record=b1587466) |  |
 | [Mighty, mighty construction site](https://classiccatalog.mountainview.gov/record=b3118126) | board book |
@@ -130,26 +104,17 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-11T07:31:06**. Don'
 | [Old MacDonald had a truck](https://classiccatalog.mountainview.gov/record=b1566301) |  |
 | [Orange pear apple bear](https://classiccatalog.mountainview.gov/record=b1340742) |  |
 | [Owl babies](https://classiccatalog.mountainview.gov/record=b1145705) |  |
-| [Owl babies](https://classiccatalog.mountainview.gov/record=b1167851) | Spanish: “Las lechucitas” — translation of “Owl babies” |
 | [Owl babies](https://classiccatalog.mountainview.gov/record=b2418463) | board book |
 | [Pete the cat : I love my white shoes](https://classiccatalog.mountainview.gov/record=b1425984) |  |
-| [Pete the cat : I love my white shoes](https://classiccatalog.mountainview.gov/record=b2161792) | Spanish: “Pete el gato : I love my white shoes” |
-| [Pete the cat : I love my white shoes](https://classiccatalog.mountainview.gov/record=b3361562) | Japanese: “Neko no Pto daisuki na shiroi kutsu” — translation of “Pete the cat” |
-| [Petit Ours Brun joue dans son bain](https://classiccatalog.mountainview.gov/record=b3469637) | board book |
-| [Petit ours brun joue dans la neige](https://classiccatalog.mountainview.gov/record=b3469638) | board book |
-| [Petit ours brun va chez la docteure](https://classiccatalog.mountainview.gov/record=b3469639) | board book |
 | [Polar bear, polar bear, what do you hear?](https://classiccatalog.mountainview.gov/record=b1133980) |  |
-| [Polar bear, polar bear, what do you hear?](https://classiccatalog.mountainview.gov/record=b1238329) | Spanish: “Oso polar, oso polar, qué es ese ruido?” — translation of “Polar bear, polar bear, what do you hear?” |
 | [Polar bear, polar bear, what do you hear?](https://classiccatalog.mountainview.gov/record=b1324547) | board book |
 | [Polar bear, polar bear, what do you hear?](https://classiccatalog.mountainview.gov/record=b1434494) | audiobook: “Brown bear & friends” (contains: Brown bear, brown bear, what do you see? Polar bear, polar bear, what do you hear? Panda bear, panda bear, what do you see?; Baby bear, baby bear, what do you see?) |
-| [Polar bear, polar bear, what do you hear?](https://classiccatalog.mountainview.gov/record=b3484825) | Spanish board book: “Oso polar, oso polar, ¿qué es ese ruido?” — translation of “Polar bear, polar bear, what do you hear?” |
 | [Press here](https://classiccatalog.mountainview.gov/record=b1419447) |  |
 | [Press here](https://classiccatalog.mountainview.gov/record=b3485909) | board book |
 | [Sheep in a jeep](https://classiccatalog.mountainview.gov/record=b1109692) |  |
 | [Sheep in a jeep](https://classiccatalog.mountainview.gov/record=b2787973) | board book |
 | [Shh! We have a plan](https://classiccatalog.mountainview.gov/record=b1503194) |  |
 | [Steam train, dream train](https://classiccatalog.mountainview.gov/record=b1458131) |  |
-| [Steam train, dream train](https://classiccatalog.mountainview.gov/record=b1480337) | Spanish: “Que duermas bien, pequeño tren” — translation of “Steam train, dream train” |
 | [Steam train, dream train](https://classiccatalog.mountainview.gov/record=b2161777) | board book |
 | [Tap the magic tree](https://classiccatalog.mountainview.gov/record=b1464193) |  |
 | [Tap the magic tree](https://classiccatalog.mountainview.gov/record=b1519182) | Chinese: “Qiao yi qiao, yao yi yao, mo fa shu!” — translation of “Tap the magic tree” |
@@ -162,7 +127,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-11T07:31:06**. Don'
 | [The carrot seed](https://classiccatalog.mountainview.gov/record=b1004474) |  |
 | [The color monster : a story about emotions](https://classiccatalog.mountainview.gov/record=b2242647) |  |
 | [The color monster : a story about emotions](https://classiccatalog.mountainview.gov/record=b2805971) | board book |
-| [The going to bed book](https://classiccatalog.mountainview.gov/record=b1395528) | Spanish board book: “Buenas noches a todos” — translation of “Going to bed book” |
 | [The going to bed book](https://classiccatalog.mountainview.gov/record=b1471534) | board book |
 | [The napping house](https://classiccatalog.mountainview.gov/record=b1072078) |  |
 | [The pigeon needs a bath!](https://classiccatalog.mountainview.gov/record=b1466930) |  |
@@ -170,21 +134,16 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-11T07:31:06**. Don'
 | [The snowy day](https://classiccatalog.mountainview.gov/record=b1466361) | board book |
 | [The snowy day](https://classiccatalog.mountainview.gov/record=b2380982) | Chinese: “Xia xue tian” — translation of “Snowy day” |
 | [The snowy day](https://classiccatalog.mountainview.gov/record=b2693057) |  |
-| [The snowy day](https://classiccatalog.mountainview.gov/record=b3478702) | Spanish board book: “Un día de nieve” — translation of “Snowy day” |
 | [The very busy spider](https://classiccatalog.mountainview.gov/record=b1335967) | board book |
 | [The very busy spider](https://classiccatalog.mountainview.gov/record=b1468189) |  |
 | [The very busy spider](https://classiccatalog.mountainview.gov/record=b3468979) | Chinese board book: “Hao mang de zhi zhu” — translation of “Very busy spider” |
-| [The very busy spider](https://classiccatalog.mountainview.gov/record=b3485187) | Spanish board book: “La araña muy ocupada” — translation of “Very busy spider” |
 | [The very hungry caterpillar](https://classiccatalog.mountainview.gov/record=b1411494) |  |
-| [The very hungry caterpillar](https://classiccatalog.mountainview.gov/record=b1599141) | Spanish board book: “The very hungry caterpillar = La oruga muy hambrienta” — translation of “Very hungry caterpillar” |
 | [The very hungry caterpillar](https://classiccatalog.mountainview.gov/record=b2999194) | board book |
 | [The very quiet cricket](https://classiccatalog.mountainview.gov/record=b1475527) |  |
 | [The watermelon seed](https://classiccatalog.mountainview.gov/record=b1458139) |  |
-| [The watermelon seed](https://classiccatalog.mountainview.gov/record=b3141004) | Japanese: “Suika no tane” — translation of “The watermelon seed” |
 | [The watermelon seed](https://classiccatalog.mountainview.gov/record=b3417881) | Chinese: “Xi gua zi” — translation of “Watermelon Seed” |
 | [The watermelon seed](https://classiccatalog.mountainview.gov/record=b3472238) | board book |
 | [Time for bed](https://classiccatalog.mountainview.gov/record=b1154249) |  |
-| [Time for bed](https://classiccatalog.mountainview.gov/record=b1599140) | Spanish board book: “Es hora de dormir = Time for bed” — translation of “Time for bed” |
 | [Twinkle, twinkle, little sheepy : a sleepy sheepy story](https://classiccatalog.mountainview.gov/record=b3481817) | board book |
 | [We're going on a bear hunt](https://classiccatalog.mountainview.gov/record=b1113068) |  |
 | [We're going on a bear hunt](https://classiccatalog.mountainview.gov/record=b1348021) | audiobook |
@@ -192,7 +151,6 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-11T07:31:06**. Don'
 | [Where do diggers sleep at night?](https://classiccatalog.mountainview.gov/record=b3062776) | board book |
 | [Where the wild things are](https://classiccatalog.mountainview.gov/record=b1008048) |  |
 | [Where the wild things are](https://classiccatalog.mountainview.gov/record=b1394856) | audiobook |
-| [Where the wild things are](https://classiccatalog.mountainview.gov/record=b3361555) | Japanese: “Kaijtachi no iru tokoro = Where the wild things are” — translation of “Where the wild things are” |
 | [Where the wild things are](https://classiccatalog.mountainview.gov/record=b3418115) | Chinese: “Ye shou guo” — translation of “Where the wild things are” |
 | [Where's Spot?](https://classiccatalog.mountainview.gov/record=b1039004) |  |
 | [Where's Spot?](https://classiccatalog.mountainview.gov/record=b1346170) | board book |
@@ -203,6 +161,7 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-11T07:31:06**. Don'
 | [小金魚逃走了](https://classiccatalog.mountainview.gov/record=b3479942) |  |
 | [抱抱！](https://classiccatalog.mountainview.gov/record=b2352043) | translation of “Hug” |
 | [晚安，猩猩](https://classiccatalog.mountainview.gov/record=b3468980) |  |
+| [棕色的熊、棕色的熊，你在看什麼？](https://classiccatalog.mountainview.gov/record=b2392348) | board book: “Zong se de xiong, zong se de xiong, ni zai kan shen me?” — translation of “Brown bear, brown bear, what do you see?” |
 | [棕色的熊、棕色的熊，你在看什麼？](https://classiccatalog.mountainview.gov/record=b3466624) | translation of “Brown bear, brown bear, what do you see?” |
 | [鱷魚怕怕．牙醫怕怕](https://classiccatalog.mountainview.gov/record=b2380989) |  |
 
@@ -210,3 +169,5 @@ _Auto-generated from `shelfwalk.db` — data as of **2026-09-11T07:31:06**. Don'
 
 2 yeux ?, Bao bao biao qing ji: My Face Book (baby faces), Barbapapa, Big red barn, Bluey : the creek., Bon appétit ! Monsieur Lapin, Bonne nuit, Gorille, Bébés chouettes, Caca boudin, Cher zoo, Chicka Chicka I love you, Chut ! On a un plan, De la petite taupe qui voulait savoir qui lui avait fait sur la tête, Et dedans il y a..., Gros pipi, Higher! Higher!, L'âne Trotro, La chenille qui fait des trous, La couleur des émotions, Le cherche-et-trouve de mes 2 ans, Le loup qui voulait changer de couleur, Loup, Maman !, Méli-mélo, Ours brun, dis-moi ce que tu vois ?, Petit Ours Brun aime sa maman, Petit Ours Brun dit non, Petit-Bleu et Petit-Jaune, Pop mange de toutes les couleurs, Regarde dans la nuit, Roule galette, T'choupi va sur le pot, T'choupi veut tout faire tout seul, Un livre, Un peu perdu, Va-t'en, Grand Monstre Vert !, 丹丹寶寶版：刷牙 刷～刷～刷, 什麼唱歌：給0-3歲的傳統兒歌, 企鵝體操, 媽媽買綠豆, 子兒，吐吐, 寶寶喜歡吃, 小藍和小黃, 小雨滴：給0-3歲的律動兒歌, 小黃點, 幼幼小書：我的一天．我喜歡．我愛玩, 從頭動到腳, 我變成一隻噴火龍了！, 擦！擦！擦！, 早安晚安：給0-3歲的自理兒歌, 母雞蘿絲去散步, 爸爸跟我玩, 米米坐馬桶, 親愛的動物園, 說不要的書！, 誰來玩躲貓貓？, 誰吃掉了？, 誰的家到了？, 貝蒂好想好想吃香蕉, 跑跑鎮, 這是我的！, 點點玩聲音
 
+
+See [Mountain View via LINK+](mountainview-linkplus.md) for separately dated holdings from the union catalog.

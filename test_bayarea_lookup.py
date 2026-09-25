@@ -3,12 +3,28 @@ from __future__ import annotations
 
 import os
 import tempfile
+from datetime import datetime
 
 import bayarea_lookup as ba
 import catalog_db as db
 import report
 
 # --- fixtures (trimmed from real responses, 2026-08) ----------------------------
+
+def test_spin_off_cannot_satisfy_original_title():
+    for title in ("Boo! : from The Very Hungry Caterpillar.",
+                  "Boo! from the Very Hungry Caterpillar",
+                  "I love my cat with The Very Hungry Caterpillar"):
+        candidate = dict(title=title, authors=["Carle, Eric"], format_class="book")
+        best, _ = ba.pick_best("The very hungry caterpillar", "Carle, Eric", "picture", [candidate])
+        assert best is None
+        assert ba._references_other_work("The very hungry caterpillar", title)
+        # The spin-off remains findable when explicitly wanted.
+        best, _ = ba.pick_best(title, "Carle, Eric", "picture", [candidate])
+        assert best is candidate
+    original = dict(title="The very hungry caterpillar", authors=["Carle, Eric"], format_class="book")
+    assert ba.pick_best(original["title"], "Carle, Eric", "picture", [original])[0] is original
+
 
 BC_SEARCH = {
     "catalogSearch": {"results": [
@@ -189,21 +205,21 @@ def test_pinyin_uses_catalog_romanization_for_shei():
 
 
 def test_language_pinned_wants():
-    # 'Cher zoo' (lang=fre) must not take the English Dear Zoo…
+    # 'Qin ai de dong wu yuan' (lang=chi) must not take the English Dear Zoo…
     cands = [{"title": "Dear zoo", "authors": ["Campbell, Rod"],
               "format_class": "picture", "language": "eng"}]
-    best, _ = ba.pick_best("Cher zoo", "Campbell, Rod", None, cands, "fre")
+    best, _ = ba.pick_best("Qin ai de dong wu yuan", "Campbell, Rod", None, cands, "chi")
     assert best is None
-    # …but does take the French edition
-    cands.append({"title": "Cher zoo", "authors": ["Campbell, Rod"],
-                  "format_class": "picture", "language": "fre"})
-    best, _ = ba.pick_best("Cher zoo", "Campbell, Rod", None, cands, "fre")
-    assert best is not None and best["language"] == "fre"
+    # …but does take the Chinese edition
+    cands.append({"title": "Qin ai de dong wu yuan", "authors": ["Campbell, Rod"],
+                  "format_class": "picture", "language": "chi"})
+    best, _ = ba.pick_best("Qin ai de dong wu yuan", "Campbell, Rod", None, cands, "chi")
+    assert best is not None and best["language"] == "chi"
     # series sibling in the right language still isn't the same book (0.8 bar)
-    cands = [{"title": "T'choupi visite Paris", "authors": ["Courtin, Thierry"],
-              "format_class": "picture", "language": "fre"}]
-    best, _ = ba.pick_best("T'choupi va sur le pot", "Courtin, Thierry", None,
-                           cands, "fre")
+    cands = [{"title": "Xiao xiong qu gong yuan", "authors": ["Courtin, Thierry"],
+              "format_class": "picture", "language": "chi"}]
+    best, _ = ba.pick_best("Xiao xiong shang ce suo", "Courtin, Thierry", None,
+                           cands, "chi")
     assert best is None
     # MVPL: language derived from 'J FRENCH …' call numbers
     items = [{"call_number": "J FRENCH J P TISON"}]
@@ -461,7 +477,7 @@ def test_remote_store_and_bayarea_markdown():
         assert {r["branch"] for r in rows} == {"Milpitas Library", "Cupertino Library"}
         conn.close()
 
-        written = report.write_bayarea(dbp, d)
+        written = report.write_bayarea(dbp, d, now=datetime.fromisoformat(ts))
         names = {os.path.basename(p) for p in written}
         assert names == {"bayarea.md", "titles.md", "sccl.md"}
         overview = open(os.path.join(d, "bayarea.md"), encoding="utf-8").read()
@@ -531,7 +547,7 @@ def test_report_dedupes_and_discloses_odd_editions():
                                        item, ts)
         conn.commit()
         conn.close()
-        report.write_bayarea(dbp, d)
+        report.write_bayarea(dbp, d, now=datetime.fromisoformat(ts))
         md = open(os.path.join(d, "sccl.md"), encoding="utf-8").read()
         # 2 want rows x 2 identical printings collapse into ONE shelf line...
         cupertino = md.split("## Cupertino")[1].split("##")[0]
@@ -587,7 +603,7 @@ def test_cross_want_claims_collapse_to_the_primary_owner():
                                    "Goodnight moon", item, ts)
         conn.commit()
         conn.close()
-        report.write_bayarea(dbp, d)
+        report.write_bayarea(dbp, d, now=datetime.fromisoformat(ts))
         md = open(os.path.join(d, "mountainview.md"), encoding="utf-8").read()
         wl = md.split("## Children's World Language")[1].split("##")[0]
         b9_lines = [l for l in wl.splitlines() if "record=b9" in l]
@@ -866,7 +882,7 @@ POLAR_WANT = ("Polar bear, polar bear, what do you hear?", "Martin, Bill",
 POLAR_CANDS = [
     _cand("b1", "Polar Bear, Polar Bear, What Do You Hear?", "picture", "eng"),
     _cand("b2", "Polar Bear, Polar Bear, What Do You Hear?", "board", "eng"),
-    _cand("b3", "Oso polar, oso polar, qué es ese ruido?", "picture", "spa"),
+    _cand("b3", "Bai xiong, bai xiong, ni ting dao shen me?", "picture", "chi"),
     _cand("b4", "Brown bear & friends", "audio", "eng"),  # compilation audiobook
     _cand("b5", "Panda Bear, Panda Bear, What Do You See?", "picture", "eng"),
 ]
@@ -876,11 +892,25 @@ def test_pick_all_collects_editions_translations_audio():
     best, score, eds = ba.pick_all(*POLAR_WANT, POLAR_CANDS)
     assert best["bib_id"] == "b1" and score > 0.9
     kinds = {e["bib_id"]: e["kind"] for e in eds}
-    # board edition, Spanish translation, audio compilation — but NOT the
+    # board edition, Chinese translation, audio compilation — but NOT the
     # series sibling: Panda Bear scores 0.773, above MATCH_THRESHOLD yet
     # below EDITION_MIN_RATIO
     assert kinds == {"b1": "primary", "b2": "edition",
                      "b3": "translation", "b4": "audio"}
+
+
+def test_excluded_languages_cannot_be_primary_editions_or_audio():
+    cands = POLAR_CANDS + [
+        _cand(f"{lang}-{fmt}", POLAR_WANT[0], fmt, lang)
+        for lang in ("spa", "jpn", "fre") for fmt in ("picture", "audio", "ebook", "eaudio")
+    ]
+    _, _, editions = ba.pick_all(*POLAR_WANT, cands)
+    assert all(e["language"] not in ("spa", "jpn", "fre") for e in editions)
+    assert any(e["language"] == "chi" for e in editions)
+    for lang in ("spa", "jpn", "fre"):
+        blocked = [_cand("blocked", POLAR_WANT[0], "picture", lang)]
+        assert ba.pick_best(*POLAR_WANT, blocked)[0] is None
+        assert ba.pick_all(*POLAR_WANT, blocked, lang=lang, enforce_lang=False)[2] == []
 
 
 def test_pick_all_loose_rules_need_strict_source():
@@ -948,12 +978,12 @@ def test_pick_all_rejects_suffix_spinoffs():
 
 
 def test_borderline_translation_reenters_via_translation_rule():
-    # 'Pete el gato' scores ~0.91 on the shared subtitle — too low for an
+    # The Chinese title shares a subtitle but is too different for an
     # edition, but the translation rule takes it, labeled as a translation
     cands = [
         _cand("p1", "Pete the cat : I love my white shoes", "picture", "eng",
               authors=("Litwin, Eric",)),
-        _cand("p2", "Pete el gato : I love my white shoes", "picture", "spa",
+        _cand("p2", "Pi te mao : I love my white shoes", "picture", "chi",
               authors=("Litwin, Eric",)),
     ]
     _, _, eds = ba.pick_all("Pete the cat : I love my white shoes",
@@ -967,20 +997,20 @@ def test_pick_all_keeps_closest_translation_per_language():
     # word, so a spinoff translation reaches the strict result set too; the
     # length-closest title per (language, format) wins
     cands = POLAR_CANDS + [
-        _cand("b6", "Oso polar de Pascua, los colores del gran oso polar",
-              "picture", "spa")]
+        _cand("b6", "Bai xiong de jie ri he da bai xiong de yan se",
+              "picture", "chi")]
     _, _, eds = ba.pick_all(*POLAR_WANT, cands)
     assert [e["bib_id"] for e in eds if e["kind"] == "translation"] == ["b3"]
 
 
 def test_pick_all_pinned_lang_stays_narrow():
-    # a French want must not drag the English record along as an 'edition'
+    # a Chinese want must not drag the English record along as an 'edition'
     cands = [
-        _cand("f1", "Cher zoo", "picture", "fre", authors=("Campbell, Rod",)),
+        _cand("f1", "Qin ai de dong wu yuan", "picture", "chi", authors=("Campbell, Rod",)),
         _cand("f2", "Dear zoo", "picture", "eng", authors=("Campbell, Rod",)),
     ]
-    best, _, eds = ba.pick_all("Cher zoo", "Campbell, Rod", "picture", cands,
-                               lang="fre")
+    best, _, eds = ba.pick_all("Qin ai de dong wu yuan", "Campbell, Rod", "picture", cands,
+                               lang="chi")
     assert best["bib_id"] == "f1"
     assert [e["bib_id"] for e in eds] == ["f1"]
 
@@ -1061,7 +1091,7 @@ def test_editions_store_report_labels_links_and_supersede():
         assert {r["bib_id"] for r in rows} == {"b1", "b3"}
         conn.close()
 
-        report.write_bayarea(dbp, d)
+        report.write_bayarea(dbp, d, now=datetime.fromisoformat(ts))
         mv = open(os.path.join(d, "mountainview.md"), encoding="utf-8").read()
         # the Spanish board book is on the shelf: labeled with its real
         # (spine) title, linked
@@ -1138,6 +1168,47 @@ def test_a_system_that_keeps_failing_is_abandoned():
         ba.SYSTEMS.clear()
         ba.SYSTEMS.update(saved)
     assert len(calls) == ba.MAX_CONSECUTIVE_FAILURES
+
+
+def test_title_snapshot_is_atomic_when_later_edition_fails(tmp_path, monkeypatch):
+    path = str(tmp_path / "test.db")
+    conn = db.open_db(path)
+    old = "2026-09-01T10:00:00"
+    db.upsert_title(conn, "want", "Dear zoo", old)
+    db.upsert_remote_bib(conn, "sccl", "want", old, {"bib_id": "old"})
+    db.replace_remote_editions(conn, "sccl", "want", [{"bib_id": "old"}], old)
+    sid = db.record_scrape(conn, "remote", old)
+    db.add_remote_availability(conn, sid, "sccl", "want", "old", "Dear zoo",
+                               [{"branch": "Cupertino", "state": "available"}], old)
+    conn.commit()
+    conn.close()
+    editions = [dict(bib_id=bid, title="Dear zoo", authors=[], format="BK",
+                     format_class="book", kind="primary") for bid in ("new1", "new2")]
+
+    class Client:
+        def search(self, query):
+            return editions
+
+        def availability(self, bib):
+            if bib == "new2":
+                raise RuntimeError("second edition failed")
+            return [{"branch": "Cupertino", "state": "out"}]
+
+    monkeypatch.setitem(ba.SYSTEMS, "sccl", ("SCCL", Client))
+    monkeypatch.setattr(ba, "pick_all", lambda *args: (editions[0], 1.0, editions))
+    rows = [dict(record_id="want", title="Dear zoo", author=None, format=None, isbns=None)]
+    ba._lookup_system(path, "sccl", rows, {}, 0, False, False)
+    conn = db.open_db(path)
+    assert conn.execute("SELECT bib_id FROM remote_bibs").fetchone()[0] == "old"
+    assert [r["bib_id"] for r in db.remote_editions(conn)] == ["old"]
+    assert [(r["bib_id"], r["state"]) for r in db.latest_remote_availability(conn)] == [("old", "available")]
+    conn.close()
+    monkeypatch.setattr(Client, "availability", lambda self, bib: [])
+    ba._lookup_system(path, "sccl", rows, {}, 0, False, False)
+    conn = db.open_db(path)
+    assert conn.execute("SELECT bib_id FROM remote_bibs").fetchone()[0] == "new1"
+    assert db.latest_remote_availability(conn) == []
+    conn.close()
 
 
 def test_a_missing_page_is_not_retried(monkeypatch):

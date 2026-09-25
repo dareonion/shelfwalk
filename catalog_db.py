@@ -143,6 +143,7 @@ CREATE TABLE IF NOT EXISTS remote_bibs (
     year        TEXT,
     match_score REAL,
     checked_at  TEXT NOT NULL,
+    query_key   TEXT,                     -- discovery inputs; status polls don't change it
     PRIMARY KEY (system, record_id)
 );
 
@@ -152,6 +153,12 @@ CREATE TABLE IF NOT EXISTS raw_pages (
     body_gz    BLOB NOT NULL,          -- zlib-compressed response body
     nbytes     INTEGER,                -- uncompressed size
     fetched_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS children_award_archive (
+    id INTEGER PRIMARY KEY CHECK (id = 1),
+    entries_json TEXT NOT NULL,
+    manifest_json TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS remote_editions (
@@ -190,6 +197,16 @@ CREATE TABLE IF NOT EXISTS remote_availability (
 
 CREATE INDEX IF NOT EXISTS ix_ravail_sys_rec ON remote_availability(system, record_id);
 CREATE INDEX IF NOT EXISTS ix_ravail_checked ON remote_availability(checked_at);
+
+-- A completed title lookup, including a successful response with zero items.
+-- Item rows alone cannot represent an empty snapshot.
+CREATE TABLE IF NOT EXISTS remote_availability_snapshots (
+    system      TEXT NOT NULL,
+    record_id   TEXT NOT NULL REFERENCES titles(record_id),
+    scrape_id   INTEGER NOT NULL REFERENCES scrapes(id),
+    checked_at  TEXT NOT NULL,
+    PRIMARY KEY (system, record_id)
+);
 
 -- Hot list (hotlist.py): a handful of watched new releases, polled far more
 -- often than the want-list. Deliberately separate from titles/remote_bibs —
@@ -388,7 +405,27 @@ def open_db(path: str) -> sqlite3.Connection:
     # concurrent writers queue instead of throwing 'database is locked'
     conn.execute("PRAGMA busy_timeout = 30000")
     conn.execute("PRAGMA journal_mode = WAL")
+    had_snapshots = conn.execute(
+        "SELECT 1 FROM sqlite_master WHERE name='remote_availability_snapshots'"
+    ).fetchone()
     conn.executescript(SCHEMA)
+    bcols = {r[1] for r in conn.execute("PRAGMA table_info(remote_bibs)")}
+    if "query_key" not in bcols:
+        conn.execute("ALTER TABLE remote_bibs ADD COLUMN query_key TEXT")
+    if not had_snapshots:
+        # Preserve the latest legacy snapshot exactly once. Re-running this
+        # backfill would resurrect old item rows after an empty refresh.
+        conn.execute("""
+            INSERT INTO remote_availability_snapshots
+                (system, record_id, scrape_id, checked_at)
+            SELECT system, record_id, scrape_id, checked_at FROM (
+                SELECT system, record_id, scrape_id, checked_at,
+                    ROW_NUMBER() OVER (
+                        PARTITION BY system, record_id
+                        ORDER BY checked_at DESC, id DESC) AS rn
+                FROM remote_availability WHERE scrape_id IS NOT NULL
+            ) WHERE rn = 1
+        """)
     # light migration: columns added after the table first shipped
     cols = {r[1] for r in conn.execute("PRAGMA table_info(remote_editions)")}
     for col in ("contents", "orig_title", "details"):
@@ -463,14 +500,15 @@ def add_availability(conn, scrape_id: int, record_id: str, title: str,
 
 
 def upsert_remote_bib(conn, system: str, record_id: str, checked_at: str,
-                      bib: dict = None, match_score: float = None):
+                      bib: dict = None, match_score: float = None,
+                      query_key: str = None):
     """Record which remote bib a title matched (bib=None → searched, nothing found)."""
     bib = bib or {}
     conn.execute(
         "INSERT OR REPLACE INTO remote_bibs (system, record_id, bib_id, title, "
-        "author, format, year, match_score, checked_at) VALUES (?,?,?,?,?,?,?,?,?)",
+        "author, format, year, match_score, checked_at, query_key) VALUES (?,?,?,?,?,?,?,?,?,?)",
         (system, record_id, bib.get("bib_id"), bib.get("title"), bib.get("author"),
-         bib.get("format"), bib.get("year"), match_score, checked_at),
+         bib.get("format"), bib.get("year"), match_score, checked_at, query_key),
     )
 
 
@@ -549,9 +587,22 @@ def remote_editions(conn):
     return conn.execute("SELECT * FROM remote_editions").fetchall()
 
 
+def record_remote_snapshot(conn, scrape_id: int, system: str, record_id: str,
+                           checked_at: str):
+    """Publish a completed lookup in the same transaction as all its items."""
+    conn.execute("""
+        INSERT INTO remote_availability_snapshots
+            (system, record_id, scrape_id, checked_at) VALUES (?, ?, ?, ?)
+        ON CONFLICT(system, record_id) DO UPDATE SET
+            scrape_id=excluded.scrape_id, checked_at=excluded.checked_at
+        WHERE excluded.checked_at >= remote_availability_snapshots.checked_at
+    """, (system, record_id, scrape_id, checked_at))
+
+
 def add_remote_availability(conn, scrape_id: int, system: str, record_id: str,
                             bib_id: str, title: str, items, checked_at: str):
     """items: iterable of dicts with branch/collection/call_number/status/state."""
+    record_remote_snapshot(conn, scrape_id, system, record_id, checked_at)
     for it in items:
         conn.execute(
             "INSERT INTO remote_availability (scrape_id, system, record_id, bib_id, "
@@ -594,30 +645,26 @@ def latest_availability(conn, is_peoria_only: bool = True):
 def latest_remote_availability(conn, system: str = None):
     """The current footprint of each title at each system.
 
-    Rows come only from the newest scrape per (system, record_id) — an older
+    Rows come only from the completed snapshot per (system, record_id) — an older
     scrape's branches must not linger once a re-scrape has replaced them — and
     only when they belong to a currently-matched bib (the primary in remote_bibs
     or any current remote_editions row), so availability recorded for a
     since-corrected mismatch disappears with the correction.
     """
-    where = "WHERE system = ?" if system else ""
+    where = "AND a.system = ?" if system else ""
     args = (system,) if system else ()
     return conn.execute(
         f"""
         SELECT a.* FROM remote_availability a
-        JOIN (
-            SELECT system, record_id, MAX(checked_at) AS mx
-            FROM remote_availability {where}
-            GROUP BY system, record_id
-        ) last
+        JOIN remote_availability_snapshots last
         ON a.system = last.system AND a.record_id = last.record_id
-           AND a.checked_at = last.mx
-        WHERE EXISTS (SELECT 1 FROM remote_bibs rb
+           AND a.scrape_id = last.scrape_id AND a.checked_at = last.checked_at
+        WHERE (EXISTS (SELECT 1 FROM remote_bibs rb
                       WHERE rb.system = a.system AND rb.record_id = a.record_id
                         AND rb.bib_id = a.bib_id)
            OR EXISTS (SELECT 1 FROM remote_editions re
                       WHERE re.system = a.system AND re.record_id = a.record_id
-                        AND re.bib_id = a.bib_id)
+                        AND re.bib_id = a.bib_id)) {where}
         """,
         args,
     ).fetchall()

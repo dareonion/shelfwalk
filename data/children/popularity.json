@@ -1,0 +1,77 @@
+[
+  {
+    "title": "A Ball for Daisy",
+    "author": "Raschka, Chris",
+    "evidence": [
+      {
+        "kind": "bestseller",
+        "list": "New York Times",
+        "source": "Penguin Random House",
+        "source_url": "https://penguinrandomhouseelementaryeducation.com/book/?isbn=9780375858611",
+        "retrieval": "publisher page",
+        "scope": "historical designation; chart date and rank not supplied",
+        "checked_at": "2026-09-18"
+      }
+    ]
+  },
+  {
+    "title": "Hot Dog",
+    "author": "Salati, Doug",
+    "evidence": [
+      {
+        "kind": "bestseller",
+        "list": "New York Times",
+        "source": "Penguin Random House",
+        "source_url": "https://www.penguinrandomhouse.com/books/659445/hot-dog-by-doug-salati/",
+        "retrieval": "publisher page",
+        "scope": "historical designation; chart date and rank not supplied",
+        "checked_at": "2026-09-18"
+      }
+    ]
+  },
+  {
+    "title": "A Sick Day for Amos McGee",
+    "author": "Stead, Philip C.",
+    "evidence": [
+      {
+        "kind": "reader-rating",
+        "source": "Goodreads",
+        "rating": 4.26,
+        "rating_count": 22012,
+        "source_url": "https://www.goodreads.com/book/show/7268995-a-sick-day-for-amos-mcgee",
+        "retrieval": "web search index of Goodreads page; direct page blocked",
+        "checked_at": "2026-09-18"
+      }
+    ]
+  },
+  {
+    "title": "Jabari Jumps",
+    "author": "Cornwall, Gaia",
+    "evidence": [
+      {
+        "kind": "reader-rating",
+        "source": "Goodreads",
+        "rating": 4.37,
+        "rating_count": 5657,
+        "source_url": "https://www.goodreads.com/book/show/248067691-jabari-jumps",
+        "retrieval": "web search index of Goodreads page; direct page blocked",
+        "checked_at": "2026-09-18"
+      }
+    ]
+  },
+  {
+    "title": "We All Play",
+    "author": "Flett, Julie",
+    "evidence": [
+      {
+        "kind": "reader-rating",
+        "source": "Goodreads",
+        "rating": 4.16,
+        "rating_count": 1291,
+        "source_url": "https://www.goodreads.com/book/show/58241870-we-all-play",
+        "retrieval": "web search index of Goodreads page; direct page blocked",
+        "checked_at": "2026-09-18"
+      }
+    ]
+  }
+]

@@ -21,6 +21,92 @@ from sources import audies as AU
 DB = os.environ.get("SHELFWALK_DB", "shelfwalk.db")
 
 
+# Children's archive snapshots are checked in, so these parser regressions
+# also run on a fresh clone without the personal SQLite database.
+def _children_page(url):
+    from children import DATA
+    manifest = json.loads((DATA / "manifest.json").read_text())
+    page = next(p for p in manifest["pages"] if p["url"] == url)
+    return (DATA / page["file"]).read_bytes()
+
+
+@pytest.mark.parametrize("source,first,winners", [
+    ("caldecott", 1938, 89), ("newbery", 1922, 105),
+    ("geisel", 2006, 21), ("sibert", 2001, 26),
+])
+def test_children_ala_full_history_winners(source, first, winners):
+    from children import DATA
+    from sources.children_awards import parse_ala_pdf
+    manifest = json.loads((DATA / "manifest.json").read_text())
+    url = next(c["url"] for c in manifest["coverage"] if c["source"] == source)
+    rows = parse_ala_pdf(_children_page(url), source)
+    assert min(r["year"] for r in rows) == first
+    assert len([r for r in rows if r["status"] == "winner"]) == winners
+    assert all(not r["title"].startswith(("(", ":")) for r in rows)
+
+
+def test_children_geisel_towed_title_and_current_winner():
+    from sources.children_awards import parse_ala_pdf
+    url = "https://www.ala.org/sites/default/files/2025-09/geisel-medal-honor-books-to-present.pdf"
+    rows = parse_ala_pdf(_children_page(url), "geisel")
+    towed = next(r for r in rows if r["title"] == "Towed by Toad")
+    assert (towed["year"], towed["status"], towed["author"]) == (2025, "honor", "Jashar Awan")
+    assert [(r["title"], r["author"]) for r in rows if r["year"] == 2026 and r["status"] == "winner"] == [("Stop That Mop!", "Jonathan Fenske")]
+    baby = next(r for r in rows if r["title"] == "Where’s Baby?")
+    assert baby["year"] == 2021  # ALA, not the publisher's erroneous 2020 metadata
+
+
+def test_children_caldecott_author_and_artist_are_distinct():
+    from sources.children_awards import parse_ala_pdf
+    url = "https://www.ala.org/sites/default/files/2025-09/caldecott-medal-honors-to-present.pdf"
+    rows = parse_ala_pdf(_children_page(url), "caldecott")
+    amos = next(r for r in rows if r["title"] == "A Sick Day for Amos McGee")
+    assert amos["author"] == "Philip C. Stead"
+    assert amos["illustrator"] == "Erin E. Stead"
+    assert sum(r["year"] == 2026 for r in rows) == 5
+
+
+def test_children_carnegie_shortlists_and_longlists_not_conflated():
+    from children import CARNEGIE
+    from sources.children_awards import parse_carnegie_shortlists
+    rows = parse_carnegie_shortlists(_children_page(CARNEGIE + "2026-shortlist-resources/"))
+    for category in ("Writing", "Illustration"):
+        assert sum(r["category"] == category and r["status"] == "shortlist" for r in rows) == 8
+        assert sum(r["category"] == category and r["status"] == "longlist" for r in rows) == 19
+    old = parse_carnegie_shortlists(_children_page(CARNEGIE + "2010-2015-shortlist-resources/"))
+    assert sum(r["year"] == 2012 and r["category"] == "Illustration" for r in old) == 8
+
+
+def test_children_zolotow_age_and_combined_cycle():
+    from children import ZOLOTOW
+    from sources.children_awards import parse_zolotow
+    rows = parse_zolotow(_children_page(ZOLOTOW))
+    mabel = next(r for r in rows if r["title"] == "Every Monday Mabel")
+    assert mabel["status"] == "commended" and mabel["source_min_age"] == 2
+    lake = next(r for r in rows if r["title"] == "Our Lake")
+    assert lake["status"] == "winner" and lake["source_min_age"] == 5
+    evelyn = next(r for r in rows if r["title"] == "Evelyn Del Rey Is Moving Away")
+    assert evelyn["year"] == 2022 and evelyn["year_label"] == "2021-2022"
+
+
+def test_children_csk_retains_all_honors_and_excludes_career_awards():
+    from sources.children_awards import parse_csk_year
+    rows = parse_csk_year(_children_page("https://www.ala.org/cskbart/2022-winners-and-honors"), 2022)
+    assert len(rows) == 10
+    assert not any("Nikki Grimes" in r["title"] for r in rows)
+    assert sum(r["category"] == "Author" and r["status"] == "honor" for r in rows) == 3
+
+
+def test_children_hornbook_photographic_titles_and_multiple_honors():
+    from children import HORNBOOK
+    from sources.children_awards import parse_hornbook
+    rows = parse_hornbook(_children_page(HORNBOOK))
+    assert min(r["year"] for r in rows) == 1967
+    frogs = next(r for r in rows if r["title"] == "Nic Bishop Frogs")
+    assert frogs["author"] == "Nic Bishop"
+    assert sum(r["year"] == 2025 and r["status"] == "honor" for r in rows) == 6
+
+
 @pytest.fixture(scope="module")
 def conn():
     if not os.path.exists(DB):

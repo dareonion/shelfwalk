@@ -1,0 +1,19 @@
+{
+  "updated_at": "2026-09-18",
+  "source": "User-reported favorites; thematic connections below are tentative editorial inferences.",
+  "favorites": [
+    "The Watermelon Seed",
+    "Knuffle Bunny",
+    "Knuffle Bunny Too",
+    "The Very Quiet Cricket",
+    "The Very Busy Spider",
+    "In My Heart"
+  ],
+  "theme_connections": {
+    "feelings": ["The Watermelon Seed", "Knuffle Bunny", "In My Heart"],
+    "family": ["Knuffle Bunny", "Knuffle Bunny Too"],
+    "participation": ["The Very Quiet Cricket", "The Very Busy Spider"],
+    "sound play": ["The Very Quiet Cricket", "The Very Busy Spider"],
+    "new experiences": ["The Watermelon Seed", "Knuffle Bunny"]
+  }
+}

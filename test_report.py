@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import os
 import tempfile
+from datetime import datetime, timedelta
 
 import catalog_db as db
 import report
@@ -122,8 +123,8 @@ def test_a_system_left_out_of_the_refresh_shows_no_shelf_state():
         conn.commit()
         conn.close()
 
-        assert set(report.stale_systems(dbp)) == {"mvpl"}
-        report.write_bayarea(dbp, d)
+        assert set(report.stale_systems(dbp, datetime.fromisoformat(new))) == {"mvpl"}
+        report.write_bayarea(dbp, d, now=datetime.fromisoformat(new))
         overview = open(os.path.join(d, "bayarea.md"), encoding="utf-8").read()
         assert "⚠ **Mountain View Public Library** was last checked **2026-09-11**" \
             in overview
@@ -141,3 +142,87 @@ def test_a_system_left_out_of_the_refresh_shows_no_shelf_state():
         assert "[Dear zoo](https://classiccatalog.mountainview.gov/record=b1)" in mv
         sccl = open(os.path.join(d, "sccl.md"), encoding="utf-8").read()
         assert "Milpitas Library — 1 on the shelf" in sccl
+
+
+def _remote(conn, system, rid, ts, branch, bib="b1"):
+    db.upsert_title(conn, rid, rid, ts, {"format": "picture"})
+    sid = db.record_scrape(conn, "remote", ts, profile=system)
+    db.upsert_remote_bib(conn, system, rid, ts, {"bib_id": bib, "title": rid})
+    db.replace_remote_editions(conn, system, rid,
+                               [{"bib_id": bib, "title": rid,
+                                 "format_class": "picture", "kind": "primary"}], ts)
+    db.add_remote_availability(conn, sid, system, rid, bib, rid,
+                               [{"branch": branch, "collection": "Children's Picture Books",
+                                 "call_number": "J P TEST", "status": "AVAILABLE",
+                                 "state": "available"}], ts)
+
+
+def test_all_systems_expire_against_wall_clock(tmp_path):
+    path = str(tmp_path / "test.db")
+    conn = db.open_db(path)
+    old = "2026-09-01T10:00:00"
+    for system in ("sccl", "sjpl", "linkplus"):
+        _remote(conn, system, "Old book", old, "Cupertino Library")
+    conn.commit()
+    conn.close()
+    now = datetime(2026, 9, 18, 10)
+    assert set(report.stale_systems(path, now)) == {"sccl", "sjpl", "linkplus"}
+    report.write_bayarea(path, tmp_path, now=now)
+    for filename in ("bayarea.md", "sccl.md", "sjpl.md", "linkplus.md"):
+        md = (tmp_path / filename).read_text()
+        assert "[✓" not in md
+        assert "| ✓" not in md
+    assert "no current available copy confirmed" in (tmp_path / "linkplus.md").read_text()
+
+
+def test_old_title_expires_even_when_another_title_is_fresh(tmp_path):
+    path = str(tmp_path / "test.db")
+    conn = db.open_db(path)
+    _remote(conn, "sccl", "Old book", "2026-09-01T10:00:00", "Cupertino Library", "old")
+    _remote(conn, "sccl", "Fresh book", "2026-09-18T10:00:00", "Cupertino Library", "fresh")
+    conn.commit()
+    conn.close()
+    now = datetime(2026, 9, 18, 11)
+    assert report.stale_systems(path, now) == {}
+    report.write_bayarea(path, tmp_path, now=now)
+    overview = (tmp_path / "bayarea.md").read_text()
+    assert "[?](https://sccl.bibliocommons.com/v2/record/old)" in overview
+    assert "[✓](https://sccl.bibliocommons.com/v2/record/fresh)" in overview
+    assert "shelf status unknown or not current" in overview
+    shelf = (tmp_path / "sccl.md").read_text().split("## In the catalog,")[0]
+    assert "[Old book]" not in shelf
+    assert "[Fresh book]" in shelf
+
+
+def test_mountain_view_linkplus_has_provenance_partial_coverage_and_expiry(tmp_path):
+    path = str(tmp_path / "test.db")
+    conn = db.open_db(path)
+    ts = "2026-09-18T10:00:00"
+    _remote(conn, "linkplus", "Dear zoo", ts, "Mountain View Public", "union1")
+    _remote(conn, "linkplus", "Other library only", ts, "Palo Alto Public", "union2")
+    _remote(conn, "mvpl", "Dear zoo", "2026-09-01T10:00:00", "Children's", "local1")
+    conn.commit()
+    conn.close()
+    now = datetime(2026, 9, 18, 11)
+    report.write_bayarea(path, tmp_path, now=now)
+    md = (tmp_path / "mountainview-linkplus.md").read_text()
+    assert "Partial coverage" in md
+    assert "Missing titles" in md
+    assert "https://csul.iii.com/record=union1" in md
+    assert "union2" not in md and "local1" not in md
+    assert ts in md and "Children's Picture Books" in md and "J P TEST" in md
+    overview = (tmp_path / "bayarea.md").read_text()
+    assert "[✓](https://csul.iii.com/record=union1)" in overview
+    # A fresh Mountain View-owned copy satisfies the local shelf ladder.
+    todo = overview.split("## To do")[1].split("## Your branches")[0]
+    assert "Dear zoo" not in todo
+    assert "mountainview-linkplus.md" in (tmp_path / "mountainview.md").read_text()
+    conn = db.open_db(path)
+    assert conn.execute("SELECT count(*) FROM remote_bibs WHERE system='mvpl_linkplus'").fetchone()[0] == 0
+    conn.close()
+    report.write_bayarea(path, tmp_path, now=now + timedelta(days=1))
+    md = (tmp_path / "mountainview-linkplus.md").read_text()
+    assert "Historical: AVAILABLE" in md
+    assert "— 1 on the shelf" not in md
+    overview = (tmp_path / "bayarea.md").read_text()
+    assert "[?](https://csul.iii.com/record=union1)" in overview

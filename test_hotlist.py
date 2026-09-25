@@ -14,6 +14,13 @@ import hotlist as H
 
 # --- matching -------------------------------------------------------------------
 
+def test_excluded_language_cannot_match_even_by_isbn():
+    entry = {"title": "Example", "author": None, "isbns": ["123"]}
+    for lang in ("spa", "jpn", "fre"):
+        assert not H._entry_matches(entry, {"title": "Example", "isbns": ["123"],
+                                           "language": lang})
+
+
 def test_isbn_beats_a_mangled_title():
     """SJPL catalogues Taipei Story as 'Taipei Story (Deluxe Limited Edition)';
     the ISBN still matches it."""

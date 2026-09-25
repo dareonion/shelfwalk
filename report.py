@@ -37,8 +37,8 @@ import catalog_db as db
 BRANCH_ORDER = ["North", "Lakeview", "Main St", "Lincoln", "McClure", "Outreach"]
 # Per-branch shelf-walk files we generate (the branches the user actually visits).
 SHELF_FILES = {"North": "north.md", "Lakeview": "lakeview.md", "Main St": "main.md"}
-CELL = {"available": "✓", "reference": "·", "out": "✗"}
-_RANK = {"available": 3, "reference": 2, "out": 1}
+CELL = {"available": "✓", "reference": "·", "out": "✗", "unknown": "?"}
+_RANK = {"available": 3, "unknown": 2, "reference": 1, "out": 0}
 
 BANNER = ("<!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. "
           "Regenerate: `uv run report.py --write` -->")
@@ -51,6 +51,7 @@ RECORD_URL = {
     "sjpl": "https://sjpl.bibliocommons.com/v2/record/{}",
     "mvpl": "https://classiccatalog.mountainview.gov/record={}",
     "linkplus": "https://csul.iii.com/record={}",
+    "mvpl_linkplus": "https://csul.iii.com/record={}",
 }
 
 
@@ -203,8 +204,9 @@ REMOTE_SYSTEMS = {  # key -> (display name, per-system output file)
     "sjpl": ("San José Public Library", "sjpl.md"),
     "mvpl": ("Mountain View Public Library", "mountainview.md"),
     "linkplus": ("LINK+ (union catalog — request for pickup)", "linkplus.md"),
+    "mvpl_linkplus": ("Mountain View via LINK+", "mountainview-linkplus.md"),
 }
-REMOTE_ORDER = ["sccl", "sjpl", "mvpl", "linkplus"]
+REMOTE_ORDER = ["sccl", "sjpl", "mvpl", "mvpl_linkplus", "linkplus"]
 
 # The branches the user actually visits — these lead every rendering.
 # (system, branch as stored in remote_availability, column label);
@@ -213,6 +215,7 @@ FAVORITES = [
     ("sccl", "Cupertino Library", "Cupertino"),
     ("sccl", "Los Altos Library", "Los Altos"),
     ("mvpl", None, "Mountain View"),
+    ("mvpl_linkplus", None, "Mountain View via LINK+"),
     ("sjpl", "Calabazas", "Calabazas"),
     ("sjpl", "West Valley", "West Valley"),
 ]
@@ -230,34 +233,89 @@ def _load_remote(db_path):
     titles = {r["record_id"]: r for r in conn.execute("SELECT * FROM titles")}
     editions = {(e["system"], e["record_id"], e["bib_id"]): e
                 for e in db.remote_editions(conn)}
-    as_of = conn.execute("SELECT MAX(checked_at) FROM remote_availability").fetchone()[0]
+    as_of = conn.execute(
+        "SELECT MAX(checked_at) FROM remote_availability_snapshots").fetchone()[0]
     conn.close()
     return rows, bibs, titles, editions, as_of
 
 
-# One refresh checks every system within an hour or two of the others, so a
-# system this far behind the newest one was not in the latest refresh at all.
+# Shelf observations expire even when every system stops refreshing.
 STALE_AFTER = timedelta(hours=20)
 
 
-def stale_systems(db_path) -> dict:
+def _now():
+    return datetime.now().astimezone()
+
+
+def _expired(checked_at, now):
+    # Legacy timestamps have no offset: interpret them in the local timezone
+    # in which they were written. Also accept offset-aware timestamps.
+    return now.astimezone() - datetime.fromisoformat(checked_at).astimezone() > STALE_AFTER
+
+
+def stale_systems(db_path, now=None) -> dict:
     """{system: (last checked, why)} for systems the latest refresh left out.
 
     Such a system shows no shelf state until it is checked again, instead of
     old shelf marks printed under the report's newer date.
     """
     import bayarea_lookup
+    now = now or _now()
     conn = db.open_db(db_path)
-    last = dict(conn.execute("SELECT system, MAX(checked_at) FROM remote_availability "
+    last = dict(conn.execute("SELECT system, MAX(checked_at) FROM remote_availability_snapshots "
                              "GROUP BY system").fetchall())
     conn.close()
     if not last:
         return {}
-    newest = max(datetime.fromisoformat(t) for t in last.values())
     why = getattr(bayarea_lookup, "SKIPPED_SYSTEMS", {})
-    return {s: (t, why.get(s, "it was not checked in the latest refresh"))
+    return {s: (t, why.get(s, "its last successful check is over 20 hours old"))
             for s, t in last.items()
-            if newest - datetime.fromisoformat(t) > STALE_AFTER}
+            if _expired(t, now)}
+
+
+def _mountain_view_via_linkplus(rows, bibs, editions):
+    """A report-only view; union bib IDs and provenance stay in LINK+."""
+    selected = [r for r in rows if r["system"] == "linkplus"
+                and r["branch"] == "Mountain View Public"]
+    pairs = {(r["record_id"], r["bib_id"]) for r in selected}
+    derived = [dict(r, system="mvpl_linkplus",
+                    branch=r["collection"] or "Mountain View Public")
+               for r in selected]
+    added = set()
+    for rid, bid in sorted(pairs):
+        original = next((b for b in bibs if b["system"] == "linkplus"
+                         and b["record_id"] == rid), None)
+        if original and rid not in added:
+            bibs.append(dict(original, system="mvpl_linkplus", bib_id=bid))
+            added.add(rid)
+        ed = editions.get(("linkplus", rid, bid))
+        if ed:
+            editions[("mvpl_linkplus", rid, bid)] = dict(ed, system="mvpl_linkplus")
+    return derived
+
+
+def _mountain_view_observations(rows):
+    lines = ["\n## LINK+ source observations\n",
+             "Partial coverage of Mountain View-owned holdings in LINK+. "
+             "Missing titles mean **unknown**, not absent from Mountain View. "
+             "Links and record IDs belong to LINK+; its status may lag the local catalog. "
+             "Observations older than 20 hours are historical and do not count "
+             "as current availability.\n",
+             "| Title | Shelf location | Call # | Reported status | Checked at |",
+             "|---|---|---|---|---|"]
+    seen = set()
+    for r in sorted(rows, key=lambda r: (r["title"] or "", r["bib_id"], r["branch"])):
+        key = (r["bib_id"], r["branch"], r["call_number"], r["status_raw"], r["checked_at"])
+        if key in seen:
+            continue
+        seen.add(key)
+        status = ("Historical: " if r["state"] == "unknown" else "") + (r["status_raw"] or "unknown")
+        lines.append(f"| {_link(r['title'], record_url('linkplus', r['bib_id']))} "
+                     f"| {r['branch']} | {r['call_number'] or ''} | {status} "
+                     f"| {r['checked_at']} |")
+    if not rows:
+        lines.append("\nNo Mountain View holdings were observed in the current LINK+ snapshots.\n")
+    return "\n".join(lines) + "\n"
 
 
 def _stale_note(stale, only=None) -> list:
@@ -428,7 +486,7 @@ def _ages(det) -> str:
     return best[min(best)] if best else ""
 
 
-_LOCAL_SYSTEMS = ("sccl", "sjpl", "mvpl")   # you can walk in; LINK+ you request
+_LOCAL_SYSTEMS = ("sccl", "sjpl", "mvpl", "mvpl_linkplus")
 
 
 def _todo_md(meta, matched, bib_of, bstate, branches, titles, editions,
@@ -477,14 +535,19 @@ def _todo_md(meta, matched, bib_of, bstate, branches, titles, editions,
             speed = (f"on the shelf at {', '.join(elsewhere[:2])}"
                      f"{f' +{len(elsewhere) - 2}' if len(elsewhere) > 2 else ''}"
                      if elsewhere else
-                     "shelf status not current" if all(s in stale for s in owns)
+                     "shelf status unknown or not current" if (
+                         all(s in stale for s in owns) or
+                         any(st == "unknown" for (tk, sy, _), st in bstate.items()
+                             if tk == tkey and sy in owns) or
+                         any(not any(tk == tkey and sy == s
+                                     for tk, sy, _ in bstate) for s in owns))
                      else "every copy out — hold and wait")
             # the title stays plain — "Owned by" carries a link per system
             hold.append(f"| {title} | {where} | {speed} |")
         elif (tkey, "linkplus") in matched:
             n = len(branches.get((tkey, "linkplus"), ()))
             viaplus.append(f"| {_link(title, record_url('linkplus', bib_of.get((tkey, 'linkplus'))))} "
-                           f"| {'✓ ' + str(n) if n else 'all out'} |")
+                           f"| {'✓ ' + str(n) if n else 'no current availability confirmed'} |")
         else:
             isbns = ""
             for rid, t in titles.items():
@@ -561,14 +624,14 @@ def _bayarea_md(rows, bibs, titles, editions, as_of, stale=None) -> str:
             return _link("✓" if system == "mvpl" else f"✓ {n}", url)
         # (linkplus: n counts member library systems with a copy on shelf)
         if k in matched:
-            return _link("·" if state.get(k) == "reference" else "✗", url)
+            return _link(CELL.get(state.get(k), "?"), url)
         if k in searched:
             return "—"
-        return ""
+        return "?" if system == "mvpl_linkplus" else ""
 
     def fav_cell(tkey, system, branch):
         if (tkey, system) not in searched:
-            return ""
+            return "?" if system == "mvpl_linkplus" else ""
         if (tkey, system) not in matched:
             return "—"
         if system in stale:
@@ -580,7 +643,8 @@ def _bayarea_md(rows, bibs, titles, editions, as_of, stale=None) -> str:
             states = [bstate.get((tkey, system, branch))]
         states = [s for s in states if s]
         if not states:
-            return ""
+            return "?" if not any(tk == tkey and sy == system
+                                  for tk, sy, _ in bstate) else ""
         return _link(CELL[max(states, key=lambda s: _RANK[s])],
                      record_url(system, bib_of.get((tkey, system))))
 
@@ -588,6 +652,7 @@ def _bayarea_md(rows, bibs, titles, editions, as_of, stale=None) -> str:
     out = ["# Bay Area libraries — overview\n", _gen_header(as_of)]
     out += _stale_note(stale)
     out += ["\nThe want-list, looked up at four Bay Area systems "
+            "plus a Mountain View view of the LINK+ holdings "
             "(`uv run bayarea_lookup.py`):\n",
             "| Key | System | In catalog | On a shelf now |", "|---|---|---|---|"]
     for s in REMOTE_ORDER:
@@ -610,8 +675,7 @@ def _bayarea_md(rows, bibs, titles, editions, as_of, stale=None) -> str:
     out += ["\nLegend: ✓ on that shelf now · in-library use only "
             "✗ that branch's copies are all out (blank = that branch doesn't "
             "hold it) — not in that system's catalog"
-            + (" ? in that catalog, shelf status not current (see the note "
-               "at the top)" if stale else "")
+            + " ? shelf status unknown or over 20 hours old"
             + ". Marks link to the "
             "record in that catalog and cover every tracked version "
             "(board/audio/translations — breakdown in the per-system files).\n",
@@ -625,13 +689,13 @@ def _bayarea_md(rows, bibs, titles, editions, as_of, stale=None) -> str:
     out.append("\nLegend: ✓ on the shelf now (SCCLD/SJPL: at that many branches) "
                "· in-library use only ✗ in the catalog but no copy on the shelf "
                "— not found in that catalog (blank = not looked up there yet)"
-               + (" ? in the catalog, shelf status not current" if stale else "")
+               + " ? shelf status unknown or over 20 hours old"
                + ". Marks link to the record in that catalog and cover every "
                "tracked version of the title.")
     return "\n".join(out) + "\n"
 
 
-def _linkplus_md(rows, bibs, titles, editions, as_of) -> str:
+def _linkplus_md(rows, bibs, titles, editions, as_of, stale=None) -> str:
     """LINK+ spans ~70 member systems, so this is title-centric, not per-branch."""
     srows = [r for r in rows if r["system"] == "linkplus"]
     sbibs = [b for b in bibs if b["system"] == "linkplus"]
@@ -646,6 +710,7 @@ def _linkplus_md(rows, bibs, titles, editions, as_of) -> str:
              "with a copy on the shelf right now, across every edition we "
              "track; titles link to the LINK+ record.\n",
              f"\n**{len(matched)}** of **{len(sbibs)}** titles are in LINK+.\n"]
+    lines += _stale_note(stale, only="linkplus")
     have, nowhere = [], []
     for rid in sorted(matched, key=lambda r: (titles[r]["title"].lower()
                                               if r in titles else r)):
@@ -663,7 +728,7 @@ def _linkplus_md(rows, bibs, titles, editions, as_of) -> str:
         lines += ["| Title | On a shelf | Member systems |", "|---|---|---|"]
         lines += have
     if nowhere:
-        lines.append("\n## In LINK+, but no copy on any member shelf right now\n")
+        lines.append("\n## In LINK+, but no current available copy confirmed\n")
         lines.append(", ".join(sorted(nowhere)) + "\n")
     not_in = sorted({(titles[b["record_id"]]["title"]
                       if b["record_id"] in titles else b["record_id"])
@@ -677,7 +742,7 @@ def _linkplus_md(rows, bibs, titles, editions, as_of) -> str:
 def _system_md(system, rows, bibs, titles, editions, as_of, stale=None) -> str:
     stale = stale or {}
     if system == "linkplus":
-        return _linkplus_md(rows, bibs, titles, editions, as_of)
+        return _linkplus_md(rows, bibs, titles, editions, as_of, stale)
     name, _ = REMOTE_SYSTEMS[system]
     srows = [r for r in rows if r["system"] == system]
     sbibs = [b for b in bibs if b["system"] == system]
@@ -847,7 +912,7 @@ def _system_md(system, rows, bibs, titles, editions, as_of, stale=None) -> str:
         lines += ["| Title | Version |", "|---|---|"]
         lines += [f"| {link} | {lab} |" for link, lab in dedupe_versions(digital)]
     if nowhere:
-        lines.append("\n## In the catalog, but no copy on any shelf right now\n")
+        lines.append("\n## In the catalog, but no current available copy confirmed\n")
         lines += ["| Title | Version |", "|---|---|"]
         lines += [f"| {link} | {lab} |" for link, lab in nowhere]
     if not_in_cat:
@@ -890,12 +955,21 @@ def _titles_md(bibs, titles, editions, as_of) -> str:
          "|---|---|---|---|---|---|"] + rows) + "\n"
 
 
-def write_bayarea(db_path: str, outdir: str = ".") -> list[str]:
+def write_bayarea(db_path: str, outdir: str = ".", now=None) -> list[str]:
     """(Re)generate the Bay Area markdown. No-op (returns []) before any lookup."""
     rows, bibs, titles, editions, as_of = _load_remote(db_path)
     if not bibs:
         return []
-    stale = stale_systems(db_path)
+    now = now or _now()
+    stale = stale_systems(db_path, now)
+    rows = [dict(r, state="unknown") if _expired(r["checked_at"], now)
+            else dict(r) for r in rows]
+    derived = _mountain_view_via_linkplus(rows, bibs, editions)
+    if derived:
+        last = max(r["checked_at"] for r in derived)
+        if _expired(last, now):
+            stale["mvpl_linkplus"] = (last, "its LINK+ observations are over 20 hours old")
+    rows += derived
     outdir = Path(outdir)
     written = []
     (outdir / "bayarea.md").write_text(
@@ -905,12 +979,104 @@ def write_bayarea(db_path: str, outdir: str = ".") -> list[str]:
         _titles_md(bibs, titles, editions, as_of), encoding="utf-8")
     written.append(str(outdir / "titles.md"))
     for system, (_, fname) in REMOTE_SYSTEMS.items():
-        if any(b["system"] == system for b in bibs):
-            (outdir / fname).write_text(
-                _system_md(system, rows, bibs, titles, editions, as_of, stale),
-                encoding="utf-8")
+        if any(b["system"] == system for b in bibs) or (
+                system == "mvpl_linkplus" and any(b["system"] == "linkplus" for b in bibs)):
+            content = _system_md(system, rows, bibs, titles, editions, as_of, stale)
+            if system == "mvpl":
+                content += "\nSee [Mountain View via LINK+](mountainview-linkplus.md) "
+                content += "for separately dated holdings from the union catalog.\n"
+            if system == "mvpl_linkplus":
+                heading, body = content.split("\n", 1)
+                content = heading + "\n\nPartial coverage from Mountain View-owned "
+                content += "LINK+ holdings. Missing titles are unknown. "
+                content += "See the dated source observations below.\n" + body
+                content += _mountain_view_observations(derived)
+            (outdir / fname).write_text(content, encoding="utf-8")
             written.append(str(outdir / fname))
     return written
+
+
+def write_children(db_path: str, data_dir=None, outdir: str = ".") -> str:
+    """Render the reviewed toddler shortlist and the award archive's coverage."""
+    import children
+    from collections import Counter
+    data_dir = Path(data_dir or children.DATA)
+    manifest = json.loads((data_dir / "manifest.json").read_text())
+    conn = db.open_db(db_path)
+    try:
+        picks = children.find(data_dir, age=3, conn=conn)
+        tracked = children.tracked_titles(conn)
+    finally:
+        conn.close()
+    awards = json.loads((data_dir / "awards.json").read_text())
+    lines = ["<!-- AUTO-GENERATED by report.py; edit data/children/{recommendations,popularity,preferences}.json instead. -->",
+             "# More books for ages 2½–3", "",
+             "Reviewed 2026-09-18. These are shared read-aloud suggestions, not independent-reading expectations. "
+             "Age fit is an editorial judgment; source age guidance is identified separately. "
+             "Awards alone do not imply toddler suitability.", "",
+             "Start with **First the Egg**, **We All Play**, **Where’s Baby?**, and **Every Monday Mabel**. "
+             "For a truck-loving three-year-old, add **Towed by Toad**. "
+             "Try a few at a time and keep the ones the child asks for again.", "",
+             "Within each age-fit group, ranking combines saved popular acclaim with a small boost for possible connections to the reader's favorites. "
+             "Popularity combines historical bestseller claims, substantial positive reader ratings, and Goodreads Choice recognition. "
+             "Ratings are adult opinions and dated snapshots, not a measure of toddler enjoyment. "
+             "Missing evidence means unassessed, not unpopular. "
+             "Notes identify books already on the Shelfwalk want-list.", ""]
+    preferences_path = data_dir / "preferences.json"
+    if preferences_path.exists():
+        preferences = json.loads(preferences_path.read_text())
+        lines += ["Reported favorites: " + ", ".join(preferences["favorites"]) + ". "
+                  "Connections below are tentative theme matches, not a guarantee of enjoyment.", ""]
+    for label, predicate in (("Start at 2½–3", lambda r: r["min_age"] < 3),
+                              ("Around three, with more story patience", lambda r: r["priority"] == "around-three"),
+                              ("Try with adult support", lambda r: r["priority"] == "try-with-support")):
+        lines += ["## " + label, "", "| Book | Why try it | Award evidence | Popular acclaim | Notes |",
+                  "|---|---|---|---|---|"]
+        for r in filter(predicate, picks):
+            accolades = [a for a in r["accolades"] if a["source"] != "goodreads"]
+            evidence = "; ".join(dict.fromkeys(f"[{a['award']} {a.get('year_label') or a['year']} {a['status']}]({a['source_url']})" for a in accolades)) or "Additional recommendation; no award claim"
+            notes = " ".join(x for x in (r.get("source_age"), r.get("notes")) if x)
+            if r["affinity"]["score"]:
+                notes += f" Personal fit: {r['affinity']['reason']}."
+            if children.norm(r["title"]) in tracked:
+                notes += " Already tracked."
+            title = f"[{r['title']}]({r['source_urls'][0]}) — {r['author']}"
+            popularity = "; ".join(dict.fromkeys(f"[{e['summary']}]({e['source_url']})" for e in r["popularity"]["evidence"])) or "Not assessed; no saved evidence"
+            lines.append("| " + " | ".join(s.replace("|", "\\|") for s in (title, r["reason"], evidence, popularity, notes)) + " |")
+        lines.append("")
+    lines += ["## Saved award archive", "", manifest["scope"], "",
+              f"**{len(awards):,} award records** from **{len({a['source'] for a in awards})} sources**. "
+              "A record is one award/category/status observation; a book may have several. "
+              "Honors, nominees, finalists, shortlists, longlists, and highly commended titles remain distinct.", "",
+              "Download [CSV](data/children/awards.csv) or [JSON](data/children/awards.json). "
+              "The [manifest](data/children/manifest.json) records exact pages, dates, checksums, year coverage, and gaps. "
+              "Original PDFs and HTML are saved in `data/children/raw/`.", "",
+              "| Award/source | Records | Years represented |", "|---|---:|---|"]
+    counts = Counter(a["source"] for a in awards)
+    for source, count in sorted(counts.items()):
+        years = {a["year"] for a in awards if a["source"] == source}
+        lines.append(f"| {children.LABELS.get(source, source)} | {count} | {min(years)}–{max(years)}; {len(years)} distinct years |")
+    lines += ["", "The range above does not promise every category or nominee in every year. "
+              "The manifest gives the source-specific limits; pre-2007 Carnegie winner years follow publication years. "
+              "The Zolotow 2021–2022 cycle is stored under 2022 with its original year label. "
+              "Goodreads is a popular vote, not a juried award.", ""]
+    lines += ["- " + gap for gap in manifest["gaps"]]
+    lines += ["", "## Reuse", "", "```sh", "uv run children.py find --age 2.5 --new-only",
+              "uv run children.py find --age 3 --new-only",
+              "uv run children.py find --age 3 --popular",
+              "uv run children.py find --age 3 --candidates --new-only",
+              "uv run children.py find --award geisel",
+              'uv run children.py find "truck"', "uv run children.py pull --refresh",
+              "uv run children.py report", "```", "",
+              "Find/report read the local archive and make no network requests. "
+              "`--popular` requires saved popularity evidence meeting the documented ranking rules; "
+              "see [the lookup guide](docs/children-awards.md#popular-acclaim) for scoring, coverage, and updating snapshots. "
+              "`--candidates` explores source-supplied age guidance, including books not yet individually reviewed. "
+              "`pull` reuses saved sources; `--refresh` downloads current archive pages. "
+              "The shortlist is saved separately from the availability want-list, so importing thousands of awards creates no library polling load.", ""]
+    path = Path(outdir) / "children-books.md"
+    path.write_text("\n".join(lines), encoding="utf-8")
+    return str(path)
 
 
 def write_all(db_path: str, outdir: str = ".") -> list[str]:
@@ -924,6 +1090,13 @@ def write_all(db_path: str, outdir: str = ".") -> list[str]:
         (outdir / fname).write_text(_branch_md(branch, rows, as_of), encoding="utf-8")
         written.append(str(outdir / fname))
     written += write_bayarea(db_path, outdir)
+    conn = db.open_db(db_path)
+    try:
+        has_children = conn.execute("SELECT 1 FROM children_award_archive LIMIT 1").fetchone() is not None
+    finally:
+        conn.close()
+    if has_children and (Path(__file__).parent / "data/children/recommendations.json").exists():
+        written.append(write_children(db_path, outdir=outdir))
     return written
 
 

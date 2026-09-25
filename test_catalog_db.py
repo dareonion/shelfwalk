@@ -4,6 +4,9 @@ Run:  uv run pytest -q      (or: uv run python test_catalog_db.py)
 """
 from __future__ import annotations
 
+import tempfile
+from pathlib import Path
+
 import catalog_db as db
 
 
@@ -92,6 +95,35 @@ def test_latest_availability_returns_newest_per_branch():
     assert latest[0]["state"] == "out"
     assert latest[0]["checked_at"] == "2026-07-26T00:00:00"
 
+
+def test_empty_snapshot_supersedes_legacy_rows_after_reopening():
+    with tempfile.TemporaryDirectory() as directory:
+        tmp_path = Path(directory)
+        path = str(tmp_path / "catalog.db")
+        conn = db.open_db(path)
+        old, new = "2026-09-01T10:00:00", "2026-09-18T10:00:00"
+        db.upsert_title(conn, "want", "Example", old)
+        db.upsert_remote_bib(conn, "sccl", "want", old, {"bib_id": "b1"})
+        sid = db.record_scrape(conn, "remote", old)
+        db.add_remote_availability(conn, sid, "sccl", "want", "b1", "Example",
+                                   [{"branch": "Cupertino", "state": "available"}], old)
+        # Simulate an existing database from before the migration.
+        conn.execute("DROP TABLE remote_availability_snapshots")
+        conn.commit()
+        conn.close()
+        conn = db.open_db(path)
+        assert len(db.latest_remote_availability(conn, "sccl")) == 1
+        assert db.latest_remote_availability(conn, "sjpl") == []
+        sid = db.record_scrape(conn, "remote", new)
+        db.add_remote_availability(conn, sid, "sccl", "want", "b1", "Example", [], new)
+        conn.commit()
+        conn.close()
+        conn = db.open_db(path)
+        assert db.latest_remote_availability(conn) == []
+        assert conn.execute("SELECT checked_at FROM remote_availability_snapshots").fetchone()[0] == new
+        # The observation history is retained, but no longer active.
+        assert conn.execute("SELECT count(*) FROM remote_availability").fetchone()[0] == 1
+        conn.close()
 
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]

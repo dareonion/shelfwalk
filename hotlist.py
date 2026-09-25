@@ -233,6 +233,8 @@ def mvpl_bibs(entry: dict) -> list[dict]:
             rec = B._webpac_record_page(page)
             cands = [rec] if rec else []
         for c in cands:
+            if c.get("language") in B.EXCLUDED_LANGS:
+                continue
             bid = c.get("bib_id")
             if not bid or bid in seen:
                 continue
@@ -313,6 +315,8 @@ def _entry_matches(entry: dict, cand: dict) -> bool:
     named titles by named authors, and the cost of a miss (no hold placed) is
     far worse than the cost of a stray extra edition in the report.
     """
+    if cand.get("language") in B.EXCLUDED_LANGS:
+        return False
     want_isbns = set(entry["isbns"])
     if want_isbns and want_isbns & set(cand.get("isbns") or []):
         return True

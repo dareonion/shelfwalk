@@ -17,8 +17,13 @@ Plain HTTP, no browser. Results land in `remote_bibs`, `remote_editions` and
     uv run bayarea_lookup.py                          # every title, default systems in parallel
     uv run bayarea_lookup.py --system sccl --limit 5  # quick spot check
     uv run bayarea_lookup.py --resume                 # only titles not yet looked up
+    uv run bayarea_lookup.py --rediscover             # force new edition searches
     uv run bayarea_lookup.py --title "dear zoo"       # ad-hoc probe, prints only
     uv run bayarea_lookup.py --enrich                 # just the record-detail pass
+
+Routine SCCL/SJPL/LINK+ runs reuse discovery for seven days and poll each
+distinct physical bib once per run. New or changed wants search immediately.
+--rediscover bypasses the discovery cache; availability is never reused across runs.
 
 Matching is fuzzy: search title + author surname, then score candidates by
 normalized title similarity (pinyin titles meet the catalogs' romanized
@@ -27,8 +32,8 @@ hold it.
 
 The best match anchors the title, and every other version of the same work in
 the results rides along in `remote_editions`: other physical formats and
-printings, audiobooks (physical and digital), eBooks, and Chinese / French /
-Spanish / Japanese editions. Movies and music are never candidates; digital
+printings, audiobooks (physical and digital), eBooks, and Chinese
+editions. Movies and music are never candidates; digital
 editions are linked but carry no shelf state (a license queue isn't a shelf).
 """
 from __future__ import annotations
@@ -46,7 +51,7 @@ import time
 import unicodedata
 import urllib.parse
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import catalog_db as db
 import report
@@ -82,7 +87,8 @@ DIGITAL_CLASSES = ("ebook", "eaudio")
 
 # Language editions we surface alongside the main match (in addition to
 # other physical formats of the same work).
-EXTRA_LANGS = ("chi", "fre", "spa", "jpn")
+EXTRA_LANGS = ("chi",)
+EXCLUDED_LANGS = ("spa", "jpn", "fre")
 # Versions tracked per (title, system) — bounds the per-title availability
 # fetches when a classic is printed in a dozen editions.
 MAX_EDITIONS = 8
@@ -346,6 +352,13 @@ def _display_title(cand) -> str:
     return f"{t} : {sub}" if sub else t
 
 
+def _references_other_work(want_title: str, candidate_title: str) -> bool:
+    """A new title 'from/with <wanted book>' names a spin-off, not an edition."""
+    match = re.search(r"\S.+?\s+(?:from|with)\s+(.+)$", candidate_title or "", re.I)
+    return bool(match and title_score(want_title, [match.group(1)]) >= EDITION_MIN_RATIO
+                and _norm(want_title) != _norm(candidate_title))
+
+
 def _cand_score(want_title: str, surname: str, cand) -> float:
     """Title similarity for one candidate, with the author-mismatch damp.
 
@@ -355,6 +368,8 @@ def _cand_score(want_title: str, surname: str, cand) -> float:
     the stem rule still recognizes the same work; a volume-naming one is
     fused in, leaving only the full title to match.
     """
+    if _references_other_work(want_title, _display_title(cand)):
+        return 0.0
     sub = (cand.get("subtitle") or "").strip()
     if sub:
         joiner = " : " if (_DESCRIPTIVE_SUB.search(sub)
@@ -376,12 +391,15 @@ def pick_best(row_title: str, row_author: str, row_format: str, candidates,
               lang: str = None, enforce_lang: bool = True):
     """candidates: dicts with title/subtitle/authors/format_class. → (cand, score).
 
-    A want with `lang` set ('fre', 'chi') only accepts candidates in that
+    A want with `lang` set (e.g. 'chi') only accepts candidates in that
     language, and at a stricter threshold — otherwise 'Cher zoo' happily takes
     the English Dear Zoo, and 'T'choupi va sur le pot' any other T'choupi.
     enforce_lang=False keeps just the stricter threshold, for catalogs whose
     search results don't say what language a record is in (LINK+).
     """
+    if lang in EXCLUDED_LANGS:
+        return None, 0.0
+    candidates = [c for c in candidates if c.get("language") not in EXCLUDED_LANGS]
     if lang and enforce_lang:
         candidates = [c for c in candidates if c.get("language") == lang]
     threshold = 0.8 if lang else MATCH_THRESHOLD
@@ -427,6 +445,7 @@ def pick_all(row_title: str, row_author: str, row_format: str, candidates,
     length sits closest to the want's, and spinoff titles run long.
     Editions include the primary (kind='primary').
     """
+    candidates = [c for c in candidates if c.get("language") not in EXCLUDED_LANGS]
     primary, score = pick_best(row_title, row_author, row_format, candidates,
                                lang, enforce_lang)
     if primary is None:
@@ -1192,6 +1211,9 @@ MAX_CONSECUTIVE_FAILURES = 3
 # Politeness per host, applied within each system's own (serial) thread —
 # LINK+ 429s below a full second; the others tolerate a brisker pace.
 SYSTEM_DELAYS = {"sccl": 0.4, "sjpl": 0.4, "mvpl": 0.4, "linkplus": 1.0}
+DISCOVERY_MAX_AGE = timedelta(days=7)
+# These adapters can poll a saved bib ID without re-running a search.
+DISCOVERY_CACHE_SYSTEMS = {"sccl", "sjpl", "linkplus"}
 
 
 # --- runner ---------------------------------------------------------------------
@@ -1243,15 +1265,80 @@ def wantlist_langs() -> dict:
     return langs
 
 
+def excluded_edition(edition):
+    if edition.get("language") in EXCLUDED_LANGS:
+        return True
+    details = edition.get("details") or {}
+    if isinstance(details, str):
+        try:
+            details = json.loads(details)
+        except ValueError:
+            details = {}
+    notes = details.get("notes") or []
+    if isinstance(notes, str):
+        notes = [notes]
+    # Some LINK+ records omit a language field but state the text languages.
+    # Anchor at the start: "Translated from Spanish" is not Spanish text.
+    return any(re.match(
+        r"^(?:(?:parallel\s+)?texts?\s+(?:in\s+)?|parallel\s+)?"
+        r"(?:(?:English|Chinese)\s+(?:and|&)\s+)?"
+        r"(?:Spanish|Japanese|French)\b", part.strip(), re.I)
+        for note in notes for part in note.split("="))
+
+
+def _drop_excluded_edition(conn, system, record_id, bib_id):
+    conn.execute("DELETE FROM remote_bibs WHERE system=? AND record_id=? AND bib_id=?",
+                 (system, record_id, bib_id))
+    db.delete_remote_edition(conn, system, record_id, bib_id)
+
+
+def prune_excluded_editions(conn):
+    """Stop polling excluded languages without discarding observation history.
+
+    A removed primary is left unresolved so discovery can find a replacement;
+    it must not become a cached miss. Other cached editions keep their age.
+    """
+    excluded = [e for e in db.remote_editions(conn) if excluded_edition(dict(e))]
+    for e in excluded:
+        _drop_excluded_edition(conn, e["system"], e["record_id"], e["bib_id"])
+    return len(excluded)
+
+
+def _discovery_key(row, lang):
+    # Bump the version when matching rules change enough to require re-search.
+    return json.dumps([1, row["title"], row["author"], row["format"],
+                       row["isbns"], lang], ensure_ascii=False)
+
+
+def _seed_discovery_keys(conn, langs):
+    """Adopt existing matches using stored inputs, before syncing want-list edits.
+
+    Keep their original search date: adoption must not extend the cache TTL.
+    """
+    rows = conn.execute("""
+        SELECT rb.system, t.record_id, t.title, t.author, t.format, t.isbns
+        FROM remote_bibs rb JOIN titles t USING(record_id)
+        WHERE rb.query_key IS NULL
+    """).fetchall()
+    for row in rows:
+        conn.execute("UPDATE remote_bibs SET query_key=? WHERE system=? AND record_id=?",
+                     (_discovery_key(row, langs.get(row["record_id"])),
+                      row["system"], row["record_id"]))
+
+
 def lookup_all(db_path: str, systems: list[str], limit: int = None,
                delay: float = None, resume: bool = False,
-               retry_misses: bool = False) -> None:
+               retry_misses: bool = False, rediscover: bool = False) -> None:
     """Look the want-list up at every requested system — systems in parallel
     (one thread + one DB connection each; each host still gets serial,
     delay-spaced requests), then the detail-enrichment pass, then the reports.
     """
     set_archive(db_path)
     conn = db.open_db(db_path)
+    langs = wantlist_langs()
+    with conn:
+        prune_excluded_editions(conn)
+        _seed_discovery_keys(conn, langs)
     for wl in sorted(glob.glob(WANTLIST_GLOB)):
         if wl == EXCLUDE_FILE:
             continue
@@ -1271,14 +1358,13 @@ def lookup_all(db_path: str, systems: list[str], limit: int = None,
     if limit:
         rows = rows[:limit]
     conn.close()
-    langs = wantlist_langs()
 
     threads = []
     for system in systems:
         d = delay if delay is not None else SYSTEM_DELAYS.get(system, 0.4)
         t = threading.Thread(target=_lookup_system, name=system,
                              args=(db_path, system, rows, langs, d,
-                                   resume, retry_misses))
+                                   resume, retry_misses, rediscover))
         t.start()
         threads.append(t)
     for t in threads:
@@ -1291,13 +1377,78 @@ def lookup_all(db_path: str, systems: list[str], limit: int = None,
         print(f"wrote {path}")
 
 
+def _discover(client, system, row, lang, delay, conn=None):
+    """Search and match editions; status-only refreshes skip this step."""
+    t, surname = query_terms(row["title"], row["author"])
+    query = t if _CJK.search(t) else f"{t} {surname}".strip()
+    cands = client.search(query)
+    time.sleep(delay)
+    if not cands and query != t:
+        # author surname can over-constrain an AND search; retry bare
+        cands = client.search(t)
+        time.sleep(delay)
+    if not cands and _CJK.search(t):
+        # some records are only findable through their romanization
+        cands = client.search(_pinyin(t))
+        time.sleep(delay)
+    if not cands and row["isbns"]:
+        # last resort: the known edition's ISBN (candidates still
+        # have to pass title scoring, so a stale ISBN is harmless)
+        for isbn in re.findall(r"[0-9Xx]{10,13}", row["isbns"]):
+            cands = client.search(isbn)
+            time.sleep(delay)
+            if cands:
+                break
+    enforce = system != "linkplus"
+    if hasattr(client, "search_fielded"):
+        # always pool in the boolean field search: it rescues weak
+        # smart-search picks AND is the only strict source for
+        # translations/audiobooks (pick_all trusts nothing else)
+        fcands = client.search_fielded(t, surname)
+        time.sleep(delay)
+        known = {c.get("bib_id") for c in cands}
+        fids = {c.get("bib_id") for c in fcands}
+        for c in cands:      # a bib in both sets is strict
+            if c.get("bib_id") in fids:
+                c["strict"] = True
+        cands = cands + [c for c in fcands
+                         if c.get("bib_id") not in known]
+    # LINK+ holdings cost a page fetch per edition; keep it tight
+    if system == "linkplus" and conn is not None:
+        # LINK+ search omits language. Reuse already mirrored detail notes to
+        # avoid selecting (and polling) a known excluded bilingual record.
+        eligible = []
+        for cand in cands:
+            raw = db.get_raw_page(conn, _detail_url(system, cand.get("bib_id")))
+            if raw is not None and excluded_edition({"details":
+                    mvpl_details_from_page(raw.decode("utf-8", "replace")).get("details")}):
+                continue
+            eligible.append(cand)
+        cands = eligible
+    max_ed = 4 if system == "linkplus" else MAX_EDITIONS
+    best, score, editions = pick_all(row["title"], row["author"],
+                                     row["format"], cands, lang,
+                                     enforce, max_ed)
+    return best, score, editions
+
+
 def _lookup_system(db_path: str, system: str, rows, langs: dict, delay: float,
-                   resume: bool, retry_misses: bool) -> None:
+                   resume: bool, retry_misses: bool, rediscover: bool = False) -> None:
     conn = db.open_db(db_path)
     try:
         label, make_client = SYSTEMS[system]
         client = make_client()
-        todo = rows
+        with conn:
+            prune_excluded_editions(conn)
+            _seed_discovery_keys(conn, langs)
+        matches = {r["record_id"]: dict(r) for r in conn.execute(
+            "SELECT * FROM remote_bibs WHERE system=?", (system,))}
+        saved_editions = {}
+        for ed in conn.execute("SELECT * FROM remote_editions WHERE system=?", (system,)):
+            saved_editions.setdefault(ed["record_id"], []).append(dict(ed))
+        availability_cache = {}  # successful responses only; discarded after this run
+        searched = reused = cached_misses = availability_requests = 0
+        todo = [r for r in rows if langs.get(r["record_id"]) not in EXCLUDED_LANGS]
         if resume or retry_misses:
             # resume: skip anything already looked up (crash recovery).
             # retry_misses: also redo titles that were searched but never matched.
@@ -1305,7 +1456,7 @@ def _lookup_system(db_path: str, system: str, rows, langs: dict, delay: float,
             if retry_misses:
                 q += " AND bib_id IS NOT NULL"
             done = {r["record_id"] for r in conn.execute(q, (system,))}
-            todo = [r for r in rows if r["record_id"] not in done]
+            todo = [r for r in todo if r["record_id"] not in done]
         if not todo:
             print(f"[{system}] nothing to do")
             return
@@ -1323,82 +1474,82 @@ def _lookup_system(db_path: str, system: str, rows, langs: dict, delay: float,
                       f"— skipping the remaining {len(todo) - i + 1} this run")
                 break
             lang = langs.get(row["record_id"])
-            t, surname = query_terms(row["title"], row["author"])
-            # CJK titles are specific enough alone; a Latin surname ANDed onto a
-            # CJK query only knocks out legitimate hits
-            query = t if _CJK.search(t) else f"{t} {surname}".strip()
+            key = _discovery_key(row, lang)
+            previous = matches.get(row["record_id"])
+            cached_editions = saved_editions.get(row["record_id"], [])
+            reuse = (system in DISCOVERY_CACHE_SYSTEMS and not rediscover
+                     and not retry_misses and previous is not None
+                     and not _references_other_work(query_terms(row["title"])[0], previous["title"])
+                     and previous["query_key"] == key
+                     and datetime.now() - datetime.fromisoformat(previous["checked_at"])
+                         < DISCOVERY_MAX_AGE
+                     and (previous["bib_id"] is None or bool(cached_editions)))
             try:
-                cands = client.search(query)
-                time.sleep(delay)
-                if not cands and query != t:
-                    # author surname can over-constrain an AND search; retry bare
-                    cands = client.search(t)
-                    time.sleep(delay)
-                if not cands and _CJK.search(t):
-                    # some records are only findable through their romanization
-                    cands = client.search(_pinyin(t))
-                    time.sleep(delay)
-                if not cands and row["isbns"]:
-                    # last resort: the known edition's ISBN (candidates still
-                    # have to pass title scoring, so a stale ISBN is harmless)
-                    for isbn in re.findall(r"[0-9Xx]{10,13}", row["isbns"]):
-                        cands = client.search(isbn)
-                        time.sleep(delay)
-                        if cands:
-                            break
-                enforce = system != "linkplus"
-                if hasattr(client, "search_fielded"):
-                    # always pool in the boolean field search: it rescues weak
-                    # smart-search picks AND is the only strict source for
-                    # translations/audiobooks (pick_all trusts nothing else)
-                    fcands = client.search_fielded(t, surname)
-                    time.sleep(delay)
-                    known = {c.get("bib_id") for c in cands}
-                    fids = {c.get("bib_id") for c in fcands}
-                    for c in cands:      # a bib in both sets is strict
-                        if c.get("bib_id") in fids:
-                            c["strict"] = True
-                    cands = cands + [c for c in fcands
-                                     if c.get("bib_id") not in known]
-                # LINK+ holdings cost a page fetch per edition; keep it tight
-                max_ed = 4 if system == "linkplus" else MAX_EDITIONS
-                best, score, editions = pick_all(row["title"], row["author"],
-                                                 row["format"], cands, lang,
-                                                 enforce, max_ed)
+                if reuse:
+                    if previous["bib_id"] is None:
+                        cached_misses += 1
+                        print(f"[{system}] {i:3}/{len(todo)} · {row['title'][:50]!r} "
+                              "cached miss (weekly discovery)")
+                        continue
+                    reused += 1
+                    best, score, editions = dict(previous), previous["match_score"], cached_editions
+                else:
+                    searched += 1
+                    best, score, editions = _discover(client, system, row, lang, delay, conn)
                 if best is None:
+                    checked_at = datetime.now().isoformat(timespec="seconds")
                     with conn:
                         db.upsert_remote_bib(conn, system, row["record_id"],
-                                             checked_at, None, score)
+                                             checked_at, None, score, query_key=key)
                         db.replace_remote_editions(conn, system,
                                                    row["record_id"], [],
                                                    checked_at)
+                        db.record_remote_snapshot(conn, scrape_id, system,
+                                                  row["record_id"], checked_at)
                     print(f"[{system}] {i:3}/{len(todo)} ✗ {row['title'][:50]!r} "
                           f"no match (best {score})")
                     failures = 0
                     continue
                 editions = [dict(e, title=_display_title(e)) for e in editions]
+                # Fetch every edition before publishing anything. A failure
+                # must leave the previous complete title snapshot intact.
+                fetched = []
+                n_avail = n_items = 0
+                for ed in editions:
+                    if (ed.get("format_class") or "") in DIGITAL_CLASSES:
+                        continue
+                    bid = ed["bib_id"]
+                    if bid not in availability_cache:
+                        availability_requests += 1
+                        items = client.availability(ed if system in ("mvpl", "linkplus")
+                                                    else bid)
+                        observed_at = datetime.now().isoformat(timespec="seconds")
+                        availability_cache[bid] = (items, observed_at)
+                        if system != "mvpl":
+                            time.sleep(delay)
+                    items, observed_at = availability_cache[bid]
+                    fetched.append((bid, items, observed_at))
+                    n_avail += sum(1 for it in items if it["state"] == "available")
+                    n_items += len(items)
+                # Use the oldest observation in this complete title snapshot;
+                # a shared bib must not acquire a newer date when reused.
+                checked_at = min((ts for _, _, ts in fetched),
+                                 default=datetime.now().isoformat(timespec="seconds"))
                 with conn:
-                    db.upsert_remote_bib(conn, system, row["record_id"], checked_at,
+                    if not reuse:
+                        db.upsert_remote_bib(conn, system, row["record_id"], checked_at,
                                          {"bib_id": best["bib_id"],
                                           "title": _display_title(best),
                                           "author": ", ".join(best["authors"]) or None,
                                           "format": best["format"],
-                                          "year": best.get("year")}, score)
-                    db.replace_remote_editions(conn, system, row["record_id"],
-                                               editions, checked_at)
-                n_avail = n_items = 0
-                for ed in editions:
-                    if (ed.get("format_class") or "") in DIGITAL_CLASSES:
-                        continue  # linked, but a license queue isn't a shelf
-                    items = client.availability(ed if system in ("mvpl", "linkplus")
-                                                else ed["bib_id"])
-                    if system != "mvpl":
-                        time.sleep(delay)
-                    n_avail += sum(1 for it in items if it["state"] == "available")
-                    n_items += len(items)
-                    with conn:
+                                          "year": best.get("year")}, score, query_key=key)
+                        db.replace_remote_editions(conn, system, row["record_id"],
+                                                   editions, checked_at)
+                    db.record_remote_snapshot(conn, scrape_id, system,
+                                              row["record_id"], checked_at)
+                    for bib_id, items, _ in fetched:
                         db.add_remote_availability(conn, scrape_id, system,
-                                                   row["record_id"], ed["bib_id"],
+                                                   row["record_id"], bib_id,
                                                    row["title"], items, checked_at)
                 extras = ", ".join(
                     "+" + ((e.get("language") or "?") if e["kind"] == "translation"
@@ -1410,10 +1561,20 @@ def _lookup_system(db_path: str, system: str, rows, langs: dict, delay: float,
                       + (f" [{extras}]" if extras else ""))
                 failures = 0
             except Exception as e:
+                if reuse:
+                    # A saved ID may have been removed or merged. Keep the
+                    # previous snapshot, but repair its mapping on the next run.
+                    with conn:
+                        conn.execute("UPDATE remote_bibs SET query_key='' "
+                                     "WHERE system=? AND record_id=?",
+                                     (system, row["record_id"]))
                 failures += 1
                 print(f"[{system}] {i:3}/{len(todo)} ! {row['title'][:50]!r} "
                       f"ERROR: {e}")
         conn.commit()
+        print(f"[{system}] {searched} titles searched, {reused} matches reused, "
+              f"{cached_misses} cached misses; {availability_requests} availability "
+              "lookups (successful repeats reused)")
     finally:
         conn.close()
 
@@ -1428,7 +1589,11 @@ def enrich_editions(db_path: str, systems, delay: float = 0.5) -> int:
     """
     set_archive(db_path)
     conn = db.open_db(db_path)
-    todo = [r for r in db.unenriched_editions(conn) if r["system"] in systems]
+    with conn:
+        prune_excluded_editions(conn)
+    langs = wantlist_langs()
+    todo = [r for r in db.unenriched_editions(conn) if r["system"] in systems
+            and langs.get(r["record_id"]) not in EXCLUDED_LANGS]
     wants = {r["record_id"]: (r["title"], r["author"])
              for r in conn.execute("SELECT record_id, title, author FROM titles")}
     conn.close()
@@ -1448,6 +1613,10 @@ def enrich_editions(db_path: str, systems, delay: float = 0.5) -> int:
                     print(f"  enrich ! {system}/{r['bib_id']}: {e}")
                     continue
                 want_t, want_a = wants.get(r["record_id"], ("", ""))
+                if excluded_edition({"details": d.get("details")}):
+                    with c:
+                        _drop_excluded_edition(c, system, r["record_id"], r["bib_id"])
+                    continue
                 if r["kind"] == "translation" and not translation_matches_want(
                         want_t, want_a, d.get("orig_title")):
                     # the record itself says it translates a different work
@@ -1521,6 +1690,8 @@ def main(argv=None):
                     help="skip titles already looked up in that system")
     ap.add_argument("--retry-misses", action="store_true",
                     help="like --resume, but also redo titles that never matched")
+    ap.add_argument("--rediscover", action="store_true",
+                    help="force catalog searches instead of reusing seven-day matches")
     ap.add_argument("--title", help="ad-hoc query: print availability, touch nothing")
     ap.add_argument("--enrich", action="store_true",
                     help="only fetch missing compilation/translation details, "
@@ -1543,7 +1714,8 @@ def main(argv=None):
             print(f"wrote {path}")
     else:
         lookup_all(args.db, systems, limit=args.limit, delay=args.delay,
-                   resume=args.resume, retry_misses=args.retry_misses)
+                   resume=args.resume, retry_misses=args.retry_misses,
+                   rediscover=args.rediscover)
 
 
 if __name__ == "__main__":
