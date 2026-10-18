@@ -2,7 +2,7 @@
 
 <!-- AUTO-GENERATED from shelfwalk.db by report.py — do not edit by hand. Regenerate: `uv run report.py --write` -->
 
-_Auto-generated from `shelfwalk.db` — data as of **2026-09-18T11:29:10**. Don't hand-edit; run `uv run report.py --write`._
+_Auto-generated from `shelfwalk.db` — data as of **2026-10-17T22:46:13**. Don't hand-edit; run `uv run report.py --write`._
 
 
 Bibliographic detail for the **173** tracked titles (145 with catalog details fetched), merged across systems by the `--enrich` pass. Ages come from the catalogs' audience notes, so a Lexile (`AD420L`) or grade band appears where no age range was recorded, and blanks mean the record says nothing.
@@ -34,7 +34,7 @@ Bibliographic detail for the **173** tracked titles (145 with catalog details fe
 | Cars and trucks and things that go | Scarry, Richard | AD490L | 9780307157850 |  | On their way to the beach the Pig family encounters almost every kind of transportation vehicle imaginable-- and imaginary |
 | Cher zoo | Campbell, Rod |  | 1844441733 : $11.50 |  | Each animal arriving from the zoo as a possible pet fails to suit its prospective owner, until just the right one is found. Movable flaps reveal the contents of each package. |
 | Chicka chicka boom boom | Martin, Bill, 1916-2004 | PreK | 1442450703 |  | When all the letters of the alphabet race on another up the coconut tree, will there be enough room? |
-| Chicka Chicka I love you | Martin, Bill, 1916-2004 |  | 9781665980876 |  | "I love you, and you love me. The way we it is...L,O,V,E! Because Chicka Chicka is the best way to say I love you |
+| Chicka Chicka I love you | Martin, Bill, 1916-2004 |  | 9781665966832 |  | "Celebrate moms with the rhythmic chant in this engaging take on the perennial classic perfect for Mother's Day or any time of the year!"--Provided by publisher |
 | Chugga-chugga choo-choo | Lewis, Kevin | AD130L | 0786804297 |  | A rhyming story about a toy freight train's day, from loading freight in the morning to retiring to the roundhouse after the day's work is done |
 | Chut ! On a un plan | Haughton, Chris |  |  |  |  |
 | De la petite taupe qui voulait savoir qui lui avait fait sur la tête | Holzwarth, Werner |  |  |  |  |
@@ -135,7 +135,7 @@ Bibliographic detail for the **173** tracked titles (145 with catalog details fe
 | The snowy day | Keats, Ezra Jack illustrator author | AD500L | 0606049231 | Caldecott Medal, 1963 | The adventures of a little boy in the city on a very snowy day |
 | The very busy spider | Carle, Eric author illustrator |  | 9780399211669 |  | The farm animals try to divert a busy little spider from spinning her web, but she persists and produces a thing of both beauty and usefulness. The pictures may be felt as well as seen |
 | The very hungry caterpillar | Carle, Eric author | Ages 2-5 | 0399208534 |  | Follows the progress of a hungry little caterpillar as he eats his way through a varied and very large quantity of food until, full at last, he forms a cocoon around himself and goes to sleep. Die-cut pages illustrate… |
-| The very quiet cricket | Carle, Eric |  | 9780399218859 |  | A very quiet cricket who wants to rub his wings together and make a sound as do so many other animals finally achieves his wish. The cricket's sound is reproduced at the end of the book |
+| The very quiet cricket | Carle, Eric |  | 9780448481395 |  | "One day a tiny cricket is born. He meets a big cricket who chirps his welcome. The tiny cricket tries to respond, but he cannot make a sound. And so the cricket makes his way in the world, meeting one insect after an… |
 | The watermelon seed | Pizzoli, Greg author | 350L | 9781423171010 | Theodor Seuss Geisel Award | After swallowing a watermelon seed, a crocodile imagines a scary outcome |
 | Time for bed | Fox, Mem, 1946- |  | 0152010149 |  | As darkness falls parents everywhere try to get their children ready for sleep |
 | Twinkle, twinkle, little sheepy : a sleepy sheepy story | Cummins, Lucy Ruth author |  | 9798217041008 |  | Twinkle, twinkle, little sheep, now it's time to go to sleep . . . Crafted from the original bedtime song "Twinkle, Twinkle, Little Star," and with sturdy board book pages, this is the perfect bedtime read for little … |
@@ -144,7 +144,7 @@ Bibliographic detail for the **173** tracked titles (145 with catalog details fe
 | Va-t'en, Grand Monstre Vert ! | Emberley, Ed |  |  |  |  |
 | We All Play | Flett, Julie |  | 9781778402104 |  | Animals and kids love to play! This wonderful book celebrates playtime and the connection between children and the natural world. Beautiful illustrations show: birds who chase and chirp! bears who wiggle and wobble! w… |
 | We're going on a bear hunt | Rosen, Michael, 1946- |  | 0689504764 |  | Brave bear hunters go through grass, a river, mud, and other obstacles before the inevitable encounter with the bear forces a headlong retreat |
-| Where do diggers sleep at night? | Sayres, Brianna Caplan | AD510L | 9780375868481 |  | Illustrations and rhyming text reveal what trucks, tractors, and construction vehicles do to get ready for bed after a hard day's work |
+| Where do diggers sleep at night? | Sayres, Brianna Caplan | AD510L | 9798897793624 |  | Illustrations and rhyming text reveal what trucks, tractors, and construction vehicles do to get ready for bed after a hard day's work |
 | Where the wild things are | Sendak, Maurice | Ages 4-8 | 9780060254926 | Caldecott Medal, 1964 | Max, a naughty little boy, sent to bed without his supper, sails to the land of the wild things where he becomes their king |
 | Where's Baby? | Hunter, Anne |  | 9780735264984 |  | "Papa Fox is looking for Baby Fox, who is just out of his sight ... but not ours! An adorable, interactive read-aloud for fans of Are You My Mother. In this clever introduction to prepositions, a near-sighted Papa is … |
 | Where's Spot? | Hill, Eric, 1927-2014 author illustrator | Ages 2-6 | 9780399240461 |  | A mother dog finds eight other animals hiding around the house before finding her lost puppy. Flaps conceal the animals |
@@ -153,7 +153,7 @@ Bibliographic detail for the **173** tracked titles (145 with catalog details fe
 | 什麼唱歌：給0-3歲的傳統兒歌 |  |  |  |  |  |
 | 企鵝體操 | 齋藤槙 |  | 9789866215704 |  | Two penguins carry out a fun exercise routine |
 | 好大的紅蘋果 | 垂石眞子 |  | 9787572808081 |  |  |
-| 好餓的毛毛蟲 | Carle, Eric |  | 9789577620989 |  | Follows the progress of a hungry little caterpillar as he eats his way through a varied and very large quantity of food until, full at last, he forms a cocoon around himselfand goes to sleep. Die-cut pages illustrate … |
+| 好餓的毛毛蟲 | Carle, Eric |  | 9789577626547 |  | Follows the progress of a hungry little caterpillar as he eats his way through a varied and very large quantity of food until, full at last, he forms a cocoon around himselfand goes to sleep. Die-cut pages illustrate … |
 | 媽媽買綠豆 | 曾陽晴 |  | 9789861612607 |  | Abao goes to buy mung bean with mom. After they get home, mom makes mung bean soup. Abao likes it very much |
 | 子兒，吐吐 | 李瑾倫 |  | 9787533274221 |  | Buried in soil, a seed will sprout and gradually grow into a tree. What would happen if you swallowed a seed? Chubby Cheeks, the little pig who loves to eat, swallowed some seeds by accident. Will a tree grow out of h… |
 | 寶寶喜歡吃 |  |  | 9789861616063 |  |  |
